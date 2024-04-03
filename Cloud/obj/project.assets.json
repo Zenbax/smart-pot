@@ -469,24 +469,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\karee\\.nuget\\packages\\": {}
+    "/Users/bak/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Cloud.csproj",
+      "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud.csproj",
       "projectName": "Cloud",
-      "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Cloud.csproj",
-      "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\obj\\",
+      "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud.csproj",
+      "packagesPath": "/Users/bak/.nuget/packages/",
+      "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/bak/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -499,6 +500,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -525,6 +531,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.16, 7.0.16]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-arm64",
+            "version": "[7.0.16, 7.0.16]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.16, 7.0.16]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -533,7 +553,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
       }
     }
   }
