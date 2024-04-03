@@ -469,19 +469,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\karee\\.nuget\\packages\\": {}
+    "C:\\Users\\artes\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Cloud.csproj",
+      "projectUniqueName": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Cloud.csproj",
       "projectName": "Cloud",
-      "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Cloud.csproj",
-      "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\obj\\",
+      "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Cloud.csproj",
+      "packagesPath": "C:\\Users\\artes\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\artes\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -533,7 +533,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.117\\RuntimeIdentifierGraph.json"
       }
     }
   }
