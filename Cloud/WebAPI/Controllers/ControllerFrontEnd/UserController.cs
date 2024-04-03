@@ -7,12 +7,13 @@ namespace Cloud.Controllers;
 public class UserController : ControllerBase
 {
     [HttpPost]
-    public IActionResult PostUser([FromBody] User user)
+    public IActionResult PostUser([FromBody] String text)
     {
-        if (user == null)
+        if (text == null)
         {
             return BadRequest("User is null.");
         }
-        return CreatedAtAction(nameof(PostUser), new { id = user.Id }, user);
+
+        return Ok();
     }
 }
