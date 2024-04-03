@@ -1,4 +1,20 @@
+using MongoDB.Driver;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// MongoDB configuration
+var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
+builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
+{
+    return new MongoClient(mongoDbSettings["ConnectionString"]);
+});
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetRequiredService<IMongoClient>();
+    return client.GetDatabase(mongoDbSettings["DatabaseName"]);
+});
+
+
 
 // Add services to the container.
 
