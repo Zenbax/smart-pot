@@ -5,10 +5,14 @@
     <projectFile profileName="http">Cloud/Cloud.csproj</projectFile>
     <projectFile profileName="https">Cloud/Cloud.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Cloud/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/DOCKERFILE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WeatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/obj/Debug/net7.0/Cloud.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/obj/Debug/net7.0/Cloud.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/obj/Debug/net7.0/Cloud.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/obj/Debug/net7.0/Cloud.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Cloud",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -116,7 +120,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -129,7 +136,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712134485325</updated>
       <workItem from="1712134490712" duration="277000" />
-      <workItem from="1712134805804" duration="443000" />
+      <workItem from="1712134805804" duration="812000" />
     </task>
     <servers />
   </component>

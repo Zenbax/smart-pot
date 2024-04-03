@@ -18,4 +18,10 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\ControllerIOT\" />
+      <Folder Include="Services\ServiceFrontEnd\" />
+      <Folder Include="Services\ServiceIOT\" />
+    </ItemGroup>
+
 </Project>

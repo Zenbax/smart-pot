@@ -4,7 +4,8 @@ namespace Cloud.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class UserController : ControllerBase
 {
  
+    
 }
