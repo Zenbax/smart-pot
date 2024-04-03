@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\ClassLibrary\\ClassLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\ClassLibrary\\ClassLibrary.csproj",
       "projectName": "ClassLibrary",
-      "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\ClassLibrary\\ClassLibrary.csproj",
+      "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\ClassLibrary\\ClassLibrary.csproj",
       "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\ClassLibrary\\obj\\",
+      "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\ClassLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"

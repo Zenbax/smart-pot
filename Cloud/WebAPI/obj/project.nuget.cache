@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EsrUhmvQL8F8uewPpOeqJyL/fs+1cHoNk1RV0S5p0UDAH4J8ToVG/gfJ65VbtuypjwUzUY8xqBRgTVzEAxXdDg==",
+  "dgSpecHash": "CIMygAg1Ir+Gd7bd7h6EGH528pqcm2Er2gXG5YSTEcoNlqYJttIvhiaJN9+cEt1f529gd0XcjTL7Z/1+9ztp5w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Cloud.csproj",
+  "projectFilePath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karee\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\karee\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
