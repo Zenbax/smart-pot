@@ -1,14 +1,19 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 6969
+EXPOSE 44362
+
+ENV ASPNETCORE_URLS=http://+:6969
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="123"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cloud/Cloud.csproj", "Cloud/"]
-RUN dotnet restore "Cloud/Cloud.csproj"
+COPY ["Cloud.csproj", "./"]
+RUN dotnet restore "Cloud.csproj"
 COPY . .
-WORKDIR "/src/Cloud"
+WORKDIR "./"
 RUN dotnet build "Cloud.csproj" -c Release -o /app/build
 
 FROM build AS publish
