@@ -10,25 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/ClassLibrary/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/ClassLibrary/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/ClassLibrary/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/ClassLibrary/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Cloud.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Cloud.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.deps.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Cloud.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Cloud.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/ref/Cloud.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/ref/Cloud.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/refint/Cloud.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/refint/Cloud.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/ClassLibrary/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/ClassLibrary/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/Cloud.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
