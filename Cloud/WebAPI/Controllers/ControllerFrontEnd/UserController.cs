@@ -16,6 +16,12 @@ public class UserController : ControllerBase
     }
 
 
+    
+    
+    
+
+
+    /*Testing
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -24,16 +30,35 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+    
+    [HttpGet("{name}")]
+    public async Task<IActionResult> GetUserByName(string name)
+    {
+        var usersCollection = _database.GetCollection<User>("users"); 
+        var filter = Builders<User>.Filter.Eq("name", name);
+        var user = await usersCollection.Find(filter).FirstOrDefaultAsync();
+
+        if (user == null)
+        {
+            return NotFound($"User with name: {name} not found.");
+        }
+
+        return Ok(user);
+    }
+
+
 
     [HttpPost]
-    public IActionResult PostUser([FromBody] string text)
+    public async Task<IActionResult> PostUser([FromBody] User newUser)
     {
-        if (text == null)
+        if (newUser == null)
         {
             return BadRequest("User is null.");
         }
-
-        // Here you would typically parse the text to a User object and insert it into the database
-        return Ok();
+        
+        var usersCollection = _database.GetCollection<User>("users"); // Make sure to use the correct collection name
+        await usersCollection.InsertOneAsync(newUser);
+        return CreatedAtAction(nameof(GetUserByName), new { name = newUser.Name }, new { newUser.Id, newUser.Name, newUser.Email });
     }
+	*/
 }
