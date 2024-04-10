@@ -25,4 +25,8 @@
       <Folder Include="Services\ServiceIOT\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\ClassLibrary.csproj" />
+    </ItemGroup>
+
 </Project>

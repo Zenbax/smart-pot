@@ -39,7 +39,5 @@ namespace YourApiNamespace.Controllers
             }
             return Ok(user);
         }
-
-        // Additional methods for updating and deleting users
     }
 }
