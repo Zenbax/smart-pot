@@ -20,10 +20,10 @@ jobs:
           dotnet-version: '7.0'  # Specify your .NET Core version here
 
       - name: Build with dotnet
-        run: dotnet build Cloud/ --configuration Release
+        run: dotnet build Cloud/Cloud.csproj --configuration Release  # Specify the project file explicitly
 
       - name: Dotnet Test
-        run: dotnet test Cloud/ --no-restore --verbosity normal
+        run: dotnet test Cloud/Cloud.csproj --no-restore --verbosity normal  # Specify the project file explicitly
 
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v2.1.0
