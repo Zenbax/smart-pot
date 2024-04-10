@@ -29,6 +29,7 @@ namespace YourApiNamespace.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
 
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {

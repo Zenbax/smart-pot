@@ -16,12 +16,9 @@ public class DatabaseHandler
     {
         _collection.InsertOne(data);
     }
-
-    // Add additional methods to handle data retrieval, updates, and deletes as needed
 }
 
 public class MyDataType
 {
     public ObjectId Id { get; set; }
-    // Other properties to match the structure of your documents
 }
