@@ -16,12 +16,7 @@ var userCollection = database.GetCollection<User>("users"); // The "Users" is th
 builder.Services.AddSingleton(userCollection);
 
 
-
-
-
-
 // Add services to the container.
-
 
 
 builder.Services.AddControllers();
