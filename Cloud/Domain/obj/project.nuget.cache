@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ILpHay4rBD4fs45N1lU8ls+B1BdmcAjAm83Fr6zQnfiM9rhgFw1wGE0Zy3jCmdv8ipIjEM8oADxlhykQipzZUw==",
+  "dgSpecHash": "oD+pGaP04q+HNaWLkQbsfX9JN2JyxQ+oHODVq2fb/CQ0j09O6Ncba4TMIFHARfpvPp+n9+0Y3OrZRHO4Z+js2A==",
   "success": true,
   "projectFilePath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\karee\\.nuget\\packages\\mongodb.bson\\2.24.0\\mongodb.bson.2.24.0.nupkg.sha512",
+    "C:\\Users\\karee\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\karee\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
