@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GhB+4GVzdw2ln/GOB5AG3kcpzvAby1T0dPij5r703MZG6P8NbR+mtWclSV1UYUlO/R+Yt4EV4lgjG9TGKyoJHQ==",
+  "dgSpecHash": "ppzw3eM7VKEOToU3xoAAZsjJC7wsfLSuB3lzHcp4wwrxafoAprIhgzI8fR3/sI69QjknSWWtquQJYXylrvsWDQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Socket\\Socket.csproj",
+  "projectFilePath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\Socket.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
