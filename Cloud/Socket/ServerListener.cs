@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-// Socket Listener acts as a server and listens to the incoming
-// messages on the specified port and protocol.
 public class ServerListener
 {
-    public static int Main(String[] args)
+    private const int Port = 11000; // Define the port at a class level
+
+    public static int Main(string[] args)
     {
         StartServer();
         return 0;
@@ -15,54 +15,49 @@ public class ServerListener
 
     public static void StartServer()
     {
-        // Get Host IP Address that is used to establish a connection
-        // In this case, we get one IP address of localhost that is IP : 127.0.0.1
-        // If a host has multiple addresses, you will get a list of addresses
-        IPHostEntry host = Dns.GetHostEntry("localhost");
-        IPAddress ipAddress = host.AddressList[0];
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+        IPAddress ipAddress = IPAddress.Any; // Listen on all network interfaces
+        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Port);
 
-        try {
-
+        try
+        {
             // Create a Socket that will use Tcp protocol
-            Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            // A Socket must be associated with an endpoint using the Bind method
+            Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             listener.Bind(localEndPoint);
-            // Specify how many requests a Socket can listen before it gives Server busy response.
-            // We will listen 10 requests at a time
-            listener.Listen(10);
+            listener.Listen(10); // Backlog set to 10 connections
 
             Console.WriteLine("Waiting for a connection...");
-            Socket handler = listener.Accept();
 
-             // Incoming data from the client.
-             string data = null;
-             byte[] bytes = null;
-
-            while (true)
+            while (true) // Continuously accept clients
             {
-                bytes = new byte[1024];
-                int bytesRec = handler.Receive(bytes);
-                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                if (data.IndexOf("<EOF>") > -1)
+                Socket handler = listener.Accept(); // Accept a connection. This is a blocking call.
+                
+                // Incoming data from the client.
+                string data = null;
+                byte[] bytes;
+
+                while (true)
                 {
-                    break;
+                    bytes = new byte[1024];
+                    int bytesRec = handler.Receive(bytes);
+                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    if (data.IndexOf("<EOF>") > -1) // Checks if the end-of-file tag is in the string
+                    {
+                        break;
+                    }
                 }
+
+                data = data.Replace("<EOF>", ""); // Removes the termination sequence before processing
+                Console.WriteLine("Text received: {0}", data);
+
+                byte[] msg = Encoding.ASCII.GetBytes(data);
+                handler.Send(msg);
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
             }
-
-            Console.WriteLine("Text received : {0}", data);
-
-            byte[] msg = Encoding.ASCII.GetBytes(data);
-            handler.Send(msg);
-            handler.Shutdown(SocketShutdown.Both);
-            handler.Close();
         }
         catch (Exception e)
         {
             Console.WriteLine(e.ToString());
         }
-
-        Console.WriteLine("\n Press any key to continue...");
-        Console.ReadKey();
     }
 }
