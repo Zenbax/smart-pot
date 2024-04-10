@@ -12,6 +12,10 @@ builder.Services.AddSingleton(serviceProvider =>
 {
     var client = serviceProvider.GetRequiredService<IMongoClient>();
     return client.GetDatabase(mongoDbSettings["DatabaseName"]);
+
+	//Collections
+	var userCollection = database.GetCollection<User>("users"); // The "Users" is the name of the collection in MongoDB
+	builder.Services.AddSingleton(userCollection);
 });
 
 
