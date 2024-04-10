@@ -2,6 +2,8 @@ name: Cloud CI/CD Pipeline
 
 on:
   push:
+    paths:
+      - 'Cloud/**'
     branches:
       - Cloud  # This triggers on a push to the 'Cloud' branch
 
