@@ -19,21 +19,16 @@ jobs:
         with:
           dotnet-version: '7.0'  # Specify your .NET Core version here
 
-      - name: Build with dotnet
-        run: dotnet build Cloud/Cloud.csproj --configuration Release  # Specify the project file explicitly
-
-      - name: Dotnet Test
-        run: dotnet test Cloud/Cloud.csproj --no-restore --verbosity normal  # Specify the project file explicitly
+      - name: Build and Test Docker Image
+        run: |
+          docker build --pull --rm -f "Cloud/Dockerfile" -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} "Cloud"
+          docker run --rm gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} dotnet test --no-restore --verbosity normal
 
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v2.1.0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Build Docker Image
-        run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} Cloud/
 
       - name: Push Docker Image to GCR
         run: |
