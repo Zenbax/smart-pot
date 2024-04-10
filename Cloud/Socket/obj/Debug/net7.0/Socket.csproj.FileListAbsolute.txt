@@ -1,0 +1,14 @@
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\bin\Debug\net7.0\Socket.exe
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\bin\Debug\net7.0\Socket.deps.json
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\bin\Debug\net7.0\Socket.runtimeconfig.json
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\bin\Debug\net7.0\Socket.dll
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\bin\Debug\net7.0\Socket.pdb
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.AssemblyInfoInputs.cache
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.AssemblyInfo.cs
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.csproj.CoreCompileInputs.cache
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.dll
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\refint\Socket.dll
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.pdb
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\Socket.genruntimeconfig.cache
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\obj\Debug\net7.0\ref\Socket.dll
