@@ -14,12 +14,12 @@ RUN dotnet restore "Socket/Socket.csproj"
 COPY . .
 
 # Build the projects
-RUN dotnet build "WebAPI/WebAPI.csproj" -c Release -o /app/build --no-restore
-RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build --no-restore
+RUN dotnet build "WebAPI/WebAPI.csproj" -c Release -o /app/build
+RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build
 
 # Publish the WebAPI project
 FROM build AS publish
-RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish
 
 # Define the runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
