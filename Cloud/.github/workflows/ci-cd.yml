@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - Cloud  # This triggers on a push to the 'Cloud' branch
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0'  # Updated to .NET 7.0
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: Dotnet Test
+        run: dotnet test --no-restore --verbosity normal
+
+      - name: Login to Google Cloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }} .
+
+      - name: Push Docker Image to GCR
+        run: |
+          gcloud auth configure-docker
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }}
+
+      - name: Deploy to Google Cloud Compute Engine
+        run: |
+          gcloud compute instances create-with-container my-instance \
+            --container-image gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }} \
+            --zone us-central1-a \
+            --machine-type e2-medium
