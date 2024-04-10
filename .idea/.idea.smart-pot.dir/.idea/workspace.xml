@@ -11,8 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cloud/.github/workflows/dotnet.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,5 +193,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs</url>
+          <line>22</line>
+          <properties documentPath="C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Socket\ServerListener.cs" initialLine="22" containingFunctionPresentation="Method 'StartServer'">
+            <startOffsets>
+              <option value="707" />
+            </startOffsets>
+            <endOffsets>
+              <option value="767" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
