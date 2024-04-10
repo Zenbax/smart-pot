@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,5 +29,6 @@
     <ItemGroup>
       <ProjectReference Include="Domain/ClassLibrary.csproj" />
     </ItemGroup>
+    
 
 </Project>
