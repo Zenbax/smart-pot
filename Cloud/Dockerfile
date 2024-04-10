@@ -10,15 +10,19 @@ COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Socket/Socket.csproj", "Socket/"]
 
 # Restore the NuGet packages for each project.
-RUN dotnet restore "WebAPI/WebAPI.csproj" \
- && dotnet restore "Domain/Domain.csproj" \
- && dotnet restore "Socket/Socket.csproj"
+RUN dotnet restore "WebAPI/WebAPI.csproj"
+RUN dotnet restore "Domain/Domain.csproj"
+RUN dotnet restore "Socket/Socket.csproj"
 
 # Copy the source files for each project into the container.
 COPY . .
 
+# Build projects individually
+RUN dotnet build "WebAPI/WebAPI.csproj" -c Release --no-restore
+RUN dotnet build "Socket/Socket.csproj" -c Release --no-restore
+
 # Publish the WebAPI project - this assumes WebAPI is the startup project
-RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish
 
 # Use the official .NET runtime image to create a runtime container.
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
@@ -30,14 +34,10 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Set environment variables for the runtime.
-ENV ASPNETCORE_URLS=http://+:6969;http://+:44362 \
-    ASPNETCORE_ENVIRONMENT=Development \
-    ASPNETCORE_Kestrel__Certificates__Default__Password="123" \
-    ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+ENV ASPNETCORE_URLS=http://+:80
 
-# Expose the ports that the applications listen on.
-EXPOSE 6969
-EXPOSE 44362
+# Expose the port the app runs on
+EXPOSE 80
 
-# Start the application using the "dotnet" command.
+# Start the application
 ENTRYPOINT ["dotnet", "WebAPI.dll"]
