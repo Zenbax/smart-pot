@@ -44,8 +44,8 @@ jobs:
             --zone europe-north1-a \
             --machine-type e2-medium \
             --tags=http-server,https-server \
-            --metadata=google-logging-enabled=true \
-            --logging=google-monitoring-enabled=true,google-logging-enabled=true
+            --metadata=google-logging-enabled=true
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      
       
