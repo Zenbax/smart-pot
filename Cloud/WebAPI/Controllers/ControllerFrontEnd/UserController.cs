@@ -20,33 +20,49 @@ namespace YourApiNamespace.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            _logger.LogInformation("1 This is a TEST!! GET USERS!");
-            _logger.LogWarning("2 This is a TEST!! GET USERS! warn!");
-            _logger.LogError("3 This is a TEST!! GET USERS! err!");
-            var users = await _usersCollection.Find(_ => true).ToListAsync();
-            return Ok(users);
+            try
+            {
+                var users = await _usersCollection.Find(_ => true).ToListAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(User newUser)
         {
             
-            await _usersCollection.InsertOneAsync(newUser);
-            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+            try
+            {
+                await _usersCollection.InsertOneAsync(newUser);
+                return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
-            throw new Exception("This is a TEST! Get user by id");
-            
-            var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    return NotFound($"User with ID {id} not found.");
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
