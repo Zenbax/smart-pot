@@ -1,12 +1,13 @@
 using Domain;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
-// MongoDB configuration
+// Add services to the container.
+// Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
@@ -15,33 +16,32 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);
 var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-var userCollection = database.GetCollection<User>("users"); // The "Users" is the name of the collection in MongoDB
+var userCollection = database.GetCollection<User>("Users");  // Ensure the collection name matches exactly what's in the database
 builder.Services.AddSingleton(userCollection);
 
-
-// Add services to the container.
-
-
-builder.UseStartup<Startup>().UseUrls("https://+:443");
-
+// Set up MVC and Swagger
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure CORS if needed
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || true)
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+app.UseCors("Open");  // Apply CORS policy
 
 app.MapControllers();
 
