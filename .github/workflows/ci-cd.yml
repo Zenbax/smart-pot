@@ -19,9 +19,9 @@ jobs:
 
       - name: Log Project ID and Image Tag (Masked)
         run: |
-          # Using bash parameter expansion to mask middle part of the project ID
-          echo "Project ID (masked): ${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}"
-          echo "Image (masked): europe-north1-docker.pkg.dev/${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}/cloud-app-repo:${{ github.sha }}"
+          PROJECT_ID_MASKED="${{ secrets.GCP_PROJECT_ID:0:4 }}****${{ secrets.GCP_PROJECT_ID: -4 }}"
+          echo "Project ID (masked): $PROJECT_ID_MASKED"
+          echo "Image (masked): europe-north1-docker.pkg.dev/$PROJECT_ID_MASKED/cloud-app-repo:${{ github.sha }}"
       
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
