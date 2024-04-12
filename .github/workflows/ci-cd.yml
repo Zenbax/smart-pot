@@ -38,18 +38,6 @@ jobs:
           tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
           load: true  # Load the built image into Docker daemon to test it afterwards
 
-      - name: Check if Image Exists in Artifact Registry
-        id: check_image
-        run: |
-          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --filter="tags:${{ github.sha }}" --format="get(tags)")
-          if [[ "$EXISTS" == *"${{ github.sha }}"* ]]; then
-            echo "Image exists."
-            echo "::set-output name=image_exists::true"
-          else
-            echo "Image does not exist."
-            echo "::set-output name=image_exists::false"
-          fi
-
       - name: Test Application
         if: steps.check_image.outputs.image_exists == 'true'
         run: |
@@ -71,6 +59,18 @@ jobs:
 
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
+
+      - name: Check if Image Exists in Artifact Registry
+        id: check_image
+        run: |
+          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --filter="tags:${{ github.sha }}" --format="get(tags)")
+          if [[ "$EXISTS" == *"${{ github.sha }}"* ]]; then
+            echo "Image exists."
+            echo "::set-output name=image_exists::true"
+          else
+            echo "Image does not exist."
+            echo "::set-output name=image_exists::false"
+          fi
 
       - name: Push Docker Image to GCR
         if: steps.check_image.outputs.image_exists == 'false'
