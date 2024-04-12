@@ -27,12 +27,12 @@ jobs:
           context: ./Cloud
           file: ./Cloud/Dockerfile
           push: false
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }}
+          tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
           load: true  # Load the built image into Docker daemon to test it afterwards
 
       - name: Test Application
         run: |
-          docker run --name test-app gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} &
+          docker run --name test-app europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} &
           sleep 10  # Wait for the application to start
           docker logs test-app
           docker stop test-app
@@ -49,24 +49,24 @@ jobs:
           install_components: "gcloud"
 
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
-        run: gcloud auth configure-docker --quiet
+        run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
 
       - name: Push Docker Image to GCR
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }}
+          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
 
       - name: Deploy to Google Cloud Compute Engine
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
-            --container-image gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} \
-            --zone us-central1-a \
+            --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
+            --zone europe-north1-a \
             --machine-type e2-medium
 
       - name: Health Check
         run: |
           echo "Checking if the application is healthy..."
           sleep 30  # Wait a bit for the application to settle
-          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://34.88.7.34/)
+          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://EXTERNAL_IP/)
           if [ "$status_code" -ne 200 ]; then
             echo "Health check failed!"
             exit 1
