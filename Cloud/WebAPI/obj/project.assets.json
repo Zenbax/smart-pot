@@ -399,17 +399,17 @@
           "lib/net7.0/ZstdSharp.dll": {}
         }
       },
-      "ClassLibrary/1.0.0": {
+      "Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "MongoDB.Bson": "2.24.0"
         },
         "compile": {
-          "bin/placeholder/ClassLibrary.dll": {}
+          "bin/placeholder/Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ClassLibrary.dll": {}
+          "bin/placeholder/Domain.dll": {}
         }
       }
     }
@@ -1243,15 +1243,15 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "ClassLibrary/1.0.0": {
+    "Domain/1.0.0": {
       "type": "project",
-      "path": "../Domain/ClassLibrary.csproj",
-      "msbuildProject": "../Domain/ClassLibrary.csproj"
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "ClassLibrary >= 1.0.0",
+      "Domain >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.11",
       "MongoDB.Driver >= 2.24.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
@@ -1282,8 +1282,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
-              "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj"
+            "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj"
             }
           }
         }

@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "ClassLibrary/1.0.0": {
+      "Domain/1.0.0": {
         "dependencies": {
           "MongoDB.Bson": "2.24.0"
         },
         "runtime": {
-          "ClassLibrary.dll": {}
+          "Domain.dll": {}
         }
       },
       "MongoDB.Bson/2.24.0": {
@@ -31,7 +31,7 @@
     }
   },
   "libraries": {
-    "ClassLibrary/1.0.0": {
+    "Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "Cloud/1.0.0": {
         "dependencies": {
-          "ClassLibrary": "1.0.0",
+          "Domain": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.11",
           "MongoDB.Driver": "2.24.0",
           "Swashbuckle.AspNetCore": "6.5.0"
@@ -217,12 +217,12 @@
           }
         }
       },
-      "ClassLibrary/1.0.0": {
+      "Domain/1.0.0": {
         "dependencies": {
           "MongoDB.Bson": "2.24.0"
         },
         "runtime": {
-          "ClassLibrary.dll": {}
+          "Domain.dll": {}
         }
       }
     }
@@ -408,7 +408,7 @@
       "path": "zstdsharp.port/0.7.3",
       "hashPath": "zstdsharp.port.0.7.3.nupkg.sha512"
     },
-    "ClassLibrary/1.0.0": {
+    "Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -90,5 +90,5 @@ C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\obj\Debug\net7
 C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\obj\Debug\net7.0\Cloud.pdb
 C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\obj\Debug\net7.0\Cloud.genruntimeconfig.cache
 C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\obj\Debug\net7.0\ref\Cloud.dll
-C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\bin\Debug\net7.0\ClassLibrary.dll
-C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\bin\Debug\net7.0\ClassLibrary.pdb
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\bin\Debug\net7.0\Domain.dll
+C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\bin\Debug\net7.0\Domain.pdb
