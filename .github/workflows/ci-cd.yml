@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20  # Set a timeout for the job to avoid infinite hangs
 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,7 +23,7 @@ jobs:
           PROJECT_ID_MASKED="${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}"
           echo "Project ID (masked): $PROJECT_ID_MASKED"
           echo "Image (masked): europe-north1-docker.pkg.dev/$PROJECT_ID_MASKED/cloud-app-repo:${{ github.sha }}"
-      
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -39,7 +38,20 @@ jobs:
           tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
           load: true  # Load the built image into Docker daemon to test it afterwards
 
+      - name: Check if Image Exists in Artifact Registry
+        id: check_image
+        run: |
+          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --filter="tags:${{ github.sha }}" --format="get(tags)")
+          if [[ "$EXISTS" == *"${{ github.sha }}"* ]]; then
+            echo "Image exists."
+            echo "::set-output name=image_exists::true"
+          else
+            echo "Image does not exist."
+            echo "::set-output name=image_exists::false"
+          fi
+
       - name: Test Application
+        if: steps.check_image.outputs.image_exists == 'true'
         run: |
           docker run --name test-app europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} &
           sleep 10  # Wait for the application to start
@@ -61,10 +73,12 @@ jobs:
         run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
 
       - name: Push Docker Image to GCR
+        if: steps.check_image.outputs.image_exists == 'false'
         run: |
           docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
 
       - name: Deploy to Google Cloud Compute Engine
+        if: steps.check_image.outputs.image_exists == 'false'
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
             --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
@@ -75,7 +89,7 @@ jobs:
         run: |
           echo "Checking if the application is healthy..."
           sleep 30  # Wait a bit for the application to settle
-          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://EXTERNAL_IP/)
+          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" https://34.88.7.34/)
           if [ "$status_code" -ne 200 ]; then
             echo "Health check failed!"
             exit 1
