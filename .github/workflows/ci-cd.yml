@@ -10,69 +10,41 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 20  # Set a timeout for the job to avoid infinite hangs
+    timeout-minutes: 20
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log Project ID and Image Tag (Masked)
+      - name: Log Project ID and Image Tag
         env:
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
-          PROJECT_ID_MASKED="${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}"
-          echo "Project ID (masked): $PROJECT_ID_MASKED"
-          echo "Image (masked): europe-north1-docker.pkg.dev/$PROJECT_ID_MASKED/cloud-app-repo:${{ github.sha }}"
+          echo "Project ID: $GCP_PROJECT_ID"
+          echo "Image: europe-north1-docker.pkg.dev/$GCP_PROJECT_ID/cloud-app-repo:${{ github.sha }}"
 
-      - name: Set up .NET
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0'  # Specify your .NET Core version here
-
-      - name: Build and Test Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Cloud
-          file: ./Cloud/Dockerfile
-          push: true
-          tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
-          load: true  # Load the built image into Docker daemon to test it afterwards
+          dotnet-version: '7.0'
 
       - name: Authenticate gcloud CLI
         uses: google-github-actions/auth@v0.4.0
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          version: 'latest'  # Explicitly state to use the latest version of gcloud
-          export_default_credentials: true  # Ensure credentials are set for all subsequent steps
-
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Push Docker Image to GAR
-        run: |
-          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Check if Image Exists in Artifact Registry
-        id: check_image
-        run: |
-          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --include-tags --format="value(tags)" --filter="tags:${{ github.sha }}")
-          echo "Tags Found: $EXISTS"
-          if [[ "$EXISTS" =~ "${{ github.sha }}" ]]; then
-            echo "Image exists."
-            echo "image_exists=true" >> $GITHUB_ENV
-          else
-            echo "Image does not exist."
-            echo "image_exists=false" >> $GITHUB_ENV
-          fi
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Cloud
+          file: ./Cloud/Dockerfile
+          tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
+          push: true
 
       - name: Deploy to Google Cloud Compute Engine
         run: |
@@ -80,6 +52,4 @@ jobs:
             --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
             --zone europe-north1-a \
             --machine-type e2-medium \
-            --verbosity=debug
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+            --tags=https-server  # Make sure this tag matches the firewall rule allowing HTTPS traffic

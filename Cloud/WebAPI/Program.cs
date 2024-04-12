@@ -22,6 +22,7 @@ builder.Services.AddSingleton(userCollection);
 // Add services to the container.
 
 
+builder.UseStartup<Startup>().UseUrls("https://+:443");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
