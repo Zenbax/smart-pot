@@ -52,6 +52,11 @@ jobs:
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
 
+      - name: Push Docker Image to GAR
+        if: env.image_exists == 'false'
+        run: |
+          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
+          
       - name: Check if Image Exists in Artifact Registry
         id: check_image
         run: |
@@ -64,11 +69,6 @@ jobs:
             echo "Image does not exist."
             echo "image_exists=false" >> $GITHUB_ENV
           fi
-
-      - name: Push Docker Image to GAR
-        if: env.image_exists == 'false'
-        run: |
-          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
 
       - name: Deploy to Google Cloud Compute Engine
         if: env.image_exists == 'false'
