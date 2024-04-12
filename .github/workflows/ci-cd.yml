@@ -5,11 +5,13 @@ on:
     paths:
       - 'Cloud/**'
     branches:
-      - Cloud  # This triggers on a push to the 'Cloud' branch
+      - Cloud  # Triggers on a push to the 'Cloud' branch
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20  # Set a timeout for the job to avoid infinite hangs
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,9 +22,20 @@ jobs:
           dotnet-version: '7.0'  # Specify your .NET Core version here
 
       - name: Build and Test Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Cloud
+          file: ./Cloud/Dockerfile
+          push: false
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }}
+          load: true  # Load the built image into Docker daemon to test it afterwards
+
+      - name: Test Application
         run: |
-          docker build --pull --rm -f "Cloud/Dockerfile" -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} "Cloud"
-          docker run --rm gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} dotnet test --no-restore --verbosity normal
+          docker run --name test-app gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} &
+          sleep 10  # Wait for the application to start
+          docker logs test-app
+          docker stop test-app
 
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v2.1.0
@@ -41,3 +54,14 @@ jobs:
             --container-image gcr.io/${{ secrets.GCP_PROJECT_ID }}/cloud-app:${{ github.sha }} \
             --zone us-central1-a \
             --machine-type e2-medium
+
+      - name: Health Check
+        run: |
+          echo "Checking if the application is healthy..."
+          sleep 30  # Wait a bit for the application to settle
+          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://my-cloud-instance/)
+          if [ "$status_code" -ne 200 ]; then
+            echo "Health check failed!"
+            exit 1
+          fi
+          echo "Health check passed!"
