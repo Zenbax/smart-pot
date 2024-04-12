@@ -18,8 +18,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log Project ID and Image Tag (Masked)
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
-          PROJECT_ID_MASKED="${{ secrets.GCP_PROJECT_ID:0:4 }}****${{ secrets.GCP_PROJECT_ID: -4 }}"
+          PROJECT_ID_MASKED="${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}"
           echo "Project ID (masked): $PROJECT_ID_MASKED"
           echo "Image (masked): europe-north1-docker.pkg.dev/$PROJECT_ID_MASKED/cloud-app-repo:${{ github.sha }}"
       
