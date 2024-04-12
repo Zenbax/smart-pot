@@ -1,89 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj": {}
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\Application.csproj": {
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\Application.csproj",
-        "projectName": "Application",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\obj\\",
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj",
+        "projectName": "Cloud",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "dependencies": {
-            "MongoDB.Driver": {
-              "target": "Package",
-              "version": "[2.24.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
-        "projectName": "ClassLibrary",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -107,87 +38,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authorization": {
-              "target": "Package",
-              "version": "[8.0.4, )"
-            },
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
-              "target": "Package",
-              "version": "[8.0.1, )"
-            },
-            "MongoDB.Bson": {
-              "target": "Package",
-              "version": "[2.24.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj",
-        "projectName": "Cloud",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\Cloud.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application\\Application.csproj"
-              },
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.11, )"
@@ -199,10 +49,6 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[7.5.1, )"
             }
           },
           "imports": [
@@ -224,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

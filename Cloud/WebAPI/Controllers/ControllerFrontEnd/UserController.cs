@@ -1,47 +1,19 @@
-using Application.LogicInterfaces;
-using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using Domain.Model;
 
-namespace WebAPI.ControllerFrontEnd
+namespace Cloud.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class UserController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UserController : ControllerBase
+    [HttpPost]
+    public IActionResult PostUser([FromBody] String text)
     {
-        private readonly IUserLogic _userLogic;
-
-        public UserController(IUserLogic userLogic)
+        if (text == null)
         {
-            _userLogic = userLogic;
-        }
-        
-
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _userLogic.GetUsers();
-            return Ok(users);
+            return BadRequest("User is null.");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser(UserCreationDto newUser)
-        {
-            await _userLogic.Register(newUser);
-            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);  
-        }
-
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
-        {
-            var user = await _userLogic.GetUserById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
+        return Ok();
     }
 }
