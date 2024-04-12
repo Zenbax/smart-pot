@@ -16,13 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log Project ID and Image Tag
-        env:
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-        run: |
-          echo "Project ID: $GCP_PROJECT_ID"
-          echo "Image: europe-north1-docker.pkg.dev/$GCP_PROJECT_ID/cloud-app-repo:${{ github.sha }}"
-
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -33,23 +26,20 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Configure Docker to use the gcloud command-line tool as a credential helper
-        run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
           context: ./Cloud
           file: ./Cloud/Dockerfile
-          tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
+          tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo/my-image:${{ github.sha }}
           push: true
 
       - name: Deploy to Google Cloud Compute Engine
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
-            --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
+            --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo/my-image:${{ github.sha }} \
             --zone europe-north1-a \
             --machine-type e2-medium \
-            --tags=https-server  # Make sure this tag matches the firewall rule allowing HTTPS traffic
+            --tags=https-server
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
