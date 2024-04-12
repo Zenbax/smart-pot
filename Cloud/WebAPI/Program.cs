@@ -2,17 +2,23 @@ using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Add services to the container.
 // Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
+    var logger = serviceProvider.GetService<ILogger<Program>>();
+    logger.LogInformation("Creating MongoDB client with connection string: {ConnectionString}", mongoDbSettings["ConnectionString"]);
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
