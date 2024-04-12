@@ -1,6 +1,4 @@
 
-D
-Cloud/Domain/User.cs,b\6\b615331a8121e3ab7d2043afa1bb8e5e15f8b52f
 m
 =Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs,0\8\08de1f6141e03b6eda3cad18cb22497bf471d7f5
 G

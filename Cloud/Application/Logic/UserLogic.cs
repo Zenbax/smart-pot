@@ -3,8 +3,6 @@ using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
 using MongoDB.Driver;
-using System;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 
 
@@ -58,4 +56,3 @@ namespace Application.Logic
     }
     
 }
-

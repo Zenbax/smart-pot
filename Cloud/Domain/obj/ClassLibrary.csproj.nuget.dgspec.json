@@ -41,18 +41,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authorization": {
-              "target": "Package",
-              "version": "[8.0.4, )"
-            },
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[8.0.0, )"
-            },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
-              "target": "Package",
-              "version": "[8.0.1, )"
-            },
             "MongoDB.Bson": {
               "target": "Package",
               "version": "[2.24.0, )"
