@@ -34,9 +34,9 @@ jobs:
         with:
           context: ./Cloud
           file: ./Cloud/Dockerfile
-          push: false
+          push: true
           tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
-          load: true  # Load the built image into Docker daemon to test it afterwards
+          load: false  # Set load to false, as it's not necessary to load to Docker daemon when pushing
 
       - name: Authenticate gcloud CLI
         uses: google-github-actions/auth@v0.4.0
@@ -47,7 +47,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: "gcloud"
+          version: 'latest'  # Explicitly state to use the latest version of gcloud
+          export_default_credentials: true  # Ensure credentials are set for all subsequent steps
 
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
@@ -55,12 +56,11 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 
       - name: Push Docker Image to GAR
-        #if: env.image_exists == 'false'
         run: |
           docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-          
+
       - name: Check if Image Exists in Artifact Registry
         id: check_image
         run: |
@@ -75,7 +75,6 @@ jobs:
           fi
 
       - name: Deploy to Google Cloud Compute Engine
-        #if: env.image_exists == 'false'
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
             --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
@@ -84,4 +83,3 @@ jobs:
             --verbosity=debug
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-      

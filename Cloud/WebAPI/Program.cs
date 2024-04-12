@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
+
 // MongoDB configuration
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
