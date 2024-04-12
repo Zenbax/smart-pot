@@ -39,10 +39,13 @@ jobs:
 
       - name: Deploy to Google Cloud Compute Engine
         run: |
-          gcloud compute instances create-with-container my-cloud-instance \
+          gcloud compute instances create-with-container my-cloud-instance -p 80:80 \
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
             --zone europe-north1-a \
             --machine-type e2-medium \
-            --tags=http-server,https-server
+            --tags=http-server,https-server \
+            --log-driver=gcplogs \
+            --metadata-from-file google-logging-enabled=true \
+            --name=smart-pot-cloud-container
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
