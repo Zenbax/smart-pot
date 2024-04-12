@@ -1,4 +1,6 @@
-using ClassLibrary;
+using Application.Logic;
+using Application.LogicInterfaces;
+using Domain.Model;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,10 @@ var userCollection = database.GetCollection<User>("users"); // The "Users" is th
 builder.Services.AddSingleton(userCollection);
 
 
+builder.Services.AddSingleton<IUserLogic>(serviceProvider =>
+{
+    return new UserLogic(userCollection);
+});
 
 
 

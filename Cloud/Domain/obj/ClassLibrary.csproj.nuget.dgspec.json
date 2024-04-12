@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {}
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
         "projectName": "ClassLibrary",
-        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
-        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\ClassLibrary.csproj",
+        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -38,6 +41,18 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "MongoDB.Bson": {
               "target": "Package",
               "version": "[2.24.0, )"
@@ -59,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

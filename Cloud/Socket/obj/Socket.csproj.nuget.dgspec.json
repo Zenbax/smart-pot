@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\Socket.csproj": {}
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\Socket.csproj": {
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\Socket.csproj",
+        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
         "projectName": "Socket",
-        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\Socket.csproj",
-        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Socket\\obj\\",
+        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
+        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -59,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

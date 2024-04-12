@@ -1,39 +1,42 @@
+using Application.LogicInterfaces;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using ClassLibrary;
+using Domain.Model;
 
-namespace YourApiNamespace.Controllers
+namespace WebAPI.ControllerFrontEnd
 {
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IMongoCollection<User> _usersCollection;
+        private readonly IUserLogic _userLogic;
 
-        public UserController(IMongoCollection<User> usersCollection)
+        public UserController(IUserLogic userLogic)
         {
-            _usersCollection = usersCollection;
+            _userLogic = userLogic;
         }
+        
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _usersCollection.Find(_ => true).ToListAsync();
+            var users = await _userLogic.GetUsers();
             return Ok(users);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(User newUser)
+        public async Task<IActionResult> CreateUser(UserCreationDto newUser)
         {
-            await _usersCollection.InsertOneAsync(newUser);
-            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+            await _userLogic.Register(newUser);
+            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);  
         }
 
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
-            var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
+            var user = await _userLogic.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
