@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {}
+    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {
+    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
+        "projectUniqueName": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
         "projectName": "Socket",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\obj\\",
+        "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
+        "packagesPath": "C:\\Users\\artes\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\artes\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -56,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.118\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,6 +1,3 @@
-using Application.Logic;
-using Application.LogicInterfaces;
-using Domain.Model;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,18 +8,11 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
-
-var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-var userCollection = database.GetCollection<User>("users"); // The "Users" is the name of the collection in MongoDB
-builder.Services.AddSingleton(userCollection);
-
-
-builder.Services.AddSingleton<IUserLogic>(serviceProvider =>
+builder.Services.AddSingleton(serviceProvider =>
 {
-    return new UserLogic(userCollection);
+    var client = serviceProvider.GetRequiredService<IMongoClient>();
+    return client.GetDatabase(mongoDbSettings["DatabaseName"]);
 });
-
 
 
 
