@@ -6,8 +6,6 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 // Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");

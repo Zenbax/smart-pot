@@ -40,10 +40,23 @@ jobs:
       - name: Deploy to Google Cloud Compute Engine
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
-            --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
-            --zone europe-north1-a \
-            --machine-type e2-medium \
+            --container-image=europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
+            --zone=europe-north1-a \
+            --machine-type=e2-medium \
             --tags=http-server,https-server \
-            --metadata-from-file google-logging-enabled=true
+            --container-restart-policy=always \
+            --container-stdin \
+            --container-tty \
+            --metadata=google-logging-enabled=true, gce-container-declaration='spec:
+              containers:
+                - name: smart-pot-cloud-container
+                  image: europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest
+                  stdin: true
+                  tty: true
+                  ports:
+                    - containerPort: 80
+                      hostPort: 80
+              restartPolicy: Always'
+            --tags=http-server,https-server
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
