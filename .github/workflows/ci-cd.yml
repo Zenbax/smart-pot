@@ -17,11 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log Project ID and Image Tag
+      - name: Log Project ID and Image Tag (Masked)
         run: |
-          echo "Project ID: ${{ secrets.GCP_PROJECT_ID }}"
-          echo "Image: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}"
-
+          # Using bash parameter expansion to mask middle part of the project ID
+          echo "Project ID (masked): ${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}"
+          echo "Image (masked): europe-north1-docker.pkg.dev/${GCP_PROJECT_ID:0:4}****${GCP_PROJECT_ID: -4}/cloud-app-repo:${{ github.sha }}"
+      
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
