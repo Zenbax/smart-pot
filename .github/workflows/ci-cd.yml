@@ -38,14 +38,6 @@ jobs:
           tags: europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
           load: true  # Load the built image into Docker daemon to test it afterwards
 
-      - name: Test Application
-        if: steps.check_image.outputs.image_exists == 'true'
-        run: |
-          docker run --name test-app europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} &
-          sleep 10  # Wait for the application to start
-          docker logs test-app
-          docker stop test-app
-
       - name: Authenticate gcloud CLI
         uses: google-github-actions/auth@v0.4.0
         with:
@@ -63,22 +55,23 @@ jobs:
       - name: Check if Image Exists in Artifact Registry
         id: check_image
         run: |
-          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --filter="tags:${{ github.sha }}" --format="get(tags)")
-          if [[ "$EXISTS" == *"${{ github.sha }}"* ]]; then
+          EXISTS=$(gcloud artifacts docker images list europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo --include-tags --format="value(tags)" --filter="tags:${{ github.sha }}")
+          echo "Tags Found: $EXISTS"
+          if [[ "$EXISTS" =~ "${{ github.sha }}" ]]; then
             echo "Image exists."
-            echo "::set-output name=image_exists::true"
+            echo "image_exists=true" >> $GITHUB_ENV
           else
             echo "Image does not exist."
-            echo "::set-output name=image_exists::false"
+            echo "image_exists=false" >> $GITHUB_ENV
           fi
 
-      - name: Push Docker Image to GCR
-        if: steps.check_image.outputs.image_exists == 'false'
+      - name: Push Docker Image to GAR
+        if: env.image_exists == 'false'
         run: |
           docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }}
 
       - name: Deploy to Google Cloud Compute Engine
-        if: steps.check_image.outputs.image_exists == 'false'
+        if: env.image_exists == 'false'
         run: |
           gcloud compute instances create-with-container my-cloud-instance \
             --container-image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-app-repo:${{ github.sha }} \
