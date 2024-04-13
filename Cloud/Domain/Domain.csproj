@@ -7,8 +7,4 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MongoDB.Bson" Version="2.24.0" />
-    </ItemGroup>
-
 </Project>
