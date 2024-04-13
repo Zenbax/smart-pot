@@ -6,13 +6,6 @@ using System.Text;
 public class ServerListener
 {
     private const int Port = 11000;
-
-    public static int Main(string[] args)
-    {
-        StartServer();
-        return 0;
-    }
-
     public static void StartServer()
     {
         IPAddress ipAddress = IPAddress.Any;
@@ -48,6 +41,9 @@ public class ServerListener
 
                 // Process the received data
                 ProcessData(data);
+                
+                // Send data to MongoDB 
+                
 
                 byte[] msg = Encoding.ASCII.GetBytes("Data processed");
                 handler.Send(msg);
