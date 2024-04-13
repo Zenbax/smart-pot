@@ -1,19 +1,30 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using CustomSocket = System.Net.Sockets.Socket;
 using System.Text;
+using MongoDB.Driver;
+using Socket.Models;
+using System.Text.Json;
 
 public class ServerListener
 {
-    private const int Port = 11000;
+    private static IMongoCollection<SensorData> dataCollection;
+
     public static void StartServer()
     {
+        // Initialize MongoDB collection
+        int port = int.Parse(Environment.GetEnvironmentVariable("SOCKET_PORT") ?? "11000"); 
+        var client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING"));
+        var database = client.GetDatabase(Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME"));
+        dataCollection = database.GetCollection<SensorData>("SensorData");
+
         IPAddress ipAddress = IPAddress.Any;
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Port);
+        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
 
         try
         {
-            Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            CustomSocket listener = new CustomSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             listener.Bind(localEndPoint);
             listener.Listen(10);
 
@@ -21,7 +32,7 @@ public class ServerListener
 
             while (true)
             {
-                Socket handler = listener.Accept();
+                CustomSocket handler = listener.Accept();
                 string data = null;
                 byte[] bytes;
 
@@ -41,9 +52,6 @@ public class ServerListener
 
                 // Process the received data
                 ProcessData(data);
-                
-                // Send data to MongoDB 
-                
 
                 byte[] msg = Encoding.ASCII.GetBytes("Data processed");
                 handler.Send(msg);
@@ -59,67 +67,76 @@ public class ServerListener
 
     private static void ProcessData(string data)
     {
-        // Simulate JSON parsing (this is very basic and for demonstration only)
+        // Simulate parsing received data
         if (data.Contains("TEMP"))
         {
             var value = ExtractValue(data);
-            HandleTemperature(value);
+            SaveData(new SensorData { SensorType = "Temperature", Value = value });
         }
-        else if (data.Contains("VAND"))
+        else if (data.Contains("HUM"))
         {
             var value = ExtractValue(data);
-            HandleWaterLevel(value);
+            SaveData(new SensorData { SensorType = "Humidity", Value = value });
         }
-        else if (data.Contains("FUGT"))
+        else if (data.Contains("WAT"))
         {
             var value = ExtractValue(data);
-            HandleHumidity(value);
+            SaveData(new SensorData { SensorType = "WaterLevel", Value = value });
         }
     }
-
-   
     
-    private static int ExtractValue(string data)
+    private static double ExtractValue(string data)
     {
+        Console.WriteLine("Extracting value from data: " + data);
         try
         {
-            string valueKeyword = "\"value\":";
-            int startIndex = data.IndexOf(valueKeyword) + valueKeyword.Length;
-            if (startIndex != -1)
+            using (JsonDocument doc = JsonDocument.Parse(data))
             {
-                int endIndex = data.IndexOf("}", startIndex);
-                if (endIndex != -1)
+                if (doc.RootElement.TryGetProperty("value", out JsonElement valueElement))
                 {
-                    // Trim starter for at fjerne eventuelle førende og afsluttende mellemrum samt anførselstegn
-                    string valueStr = data.Substring(startIndex, endIndex - startIndex).Trim().Trim('"');
-                    return int.Parse(valueStr);
+                    // Check if the value is a string and convert it to double
+                    if (valueElement.ValueKind == JsonValueKind.String)
+                    {
+                        string valueStr = valueElement.GetString();
+                        if (double.TryParse(valueStr, out double result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            throw new FormatException("The value string is not in a correct format to convert to Double.");
+                        }
+                    }
+                    else
+                    {
+                        // Directly get the value as double if it's stored as a number
+                        return valueElement.GetDouble();
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Value key not found in JSON.");
                 }
             }
         }
+        catch (JsonException ex)
+        {
+            Console.WriteLine($"Failed to parse JSON data: {ex.Message}");
+            throw;
+        }
+    }
+
+    
+    private static void SaveData(SensorData sensorData)
+    {
+        try
+        {
+            dataCollection.InsertOne(sensorData);
+            Console.WriteLine($"Saved {sensorData.SensorType} data to MongoDB.");
+        }
         catch (Exception ex)
         {
-            Console.WriteLine("Error parsing value: " + ex.Message);
+            Console.WriteLine("Failed to save data: " + ex.Message);
         }
-        throw new FormatException("Could not parse the value from data.");
-    }
-
-
-
-    private static void HandleTemperature(int value)
-    {
-        Console.WriteLine($"Temperature: {value} degrees");
-        // Implement your logic here
-    }
-
-    private static void HandleWaterLevel(int value)
-    {
-        Console.WriteLine($"Water level: {value}%");
-        // Implement your logic here
-    }
-
-    private static void HandleHumidity(int value)
-    {
-        Console.WriteLine($"Humidity: {value}%");
-        // Implement your logic here
     }
 }

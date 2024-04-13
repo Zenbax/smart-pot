@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "lG9FH6O3p5WprT3S3J7sVCNv62W3/cgMrd8crckaOG3DSucsNUYmuoKhIJ2ubkfRL2SLTLBYucS6MJVBfJBtGA==",
+  "dgSpecHash": "HFG8Oic8MRfJCQMT2Doz2sQAJa0cOshDrrIoMpvyi4k8T+OLzwtaP6p7SDVNfZiUylTPntgTCXDaQMzdHBCdEw==",
   "success": true,
   "projectFilePath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Socket\\Socket.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\artes\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\artes\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "C:\\Users\\artes\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\artes\\.nuget\\packages\\dotenv.net\\3.1.3\\dotenv.net.3.1.3.nupkg.sha512",
     "C:\\Users\\artes\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\artes\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\artes\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
