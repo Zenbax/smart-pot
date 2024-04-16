@@ -15,28 +15,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Cloud/Socket/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cloud/Socket/Models/SensorData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/Socket.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/Socket.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/.github/workflows/dotnet.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/ref/Socket.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/ref/Socket.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/refint/Socket.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/refint/Socket.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/apphost.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.assets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,11 +47,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/69ced031c35719782e852f09f21b2dd6492bb0a8a7b728fdcded848d74b84a/Environment.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Application/Logic/UserLogic.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/AuthController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -70,7 +73,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Cloud",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -101,6 +104,22 @@
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="DotNetCore" />
       <option name="PROJECT_TFM" value="net7.0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="ServerListener.StartServer" type="DotNetStaticMethod" factoryName=".NET Static Method" temporary="true">
+      <option name="EXE_PATH" value="C:\JetRider\JetBrains Rider 2023.2.1\lib\ReSharperHost\JetLauncherILc.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/Cloud/Socket/Socket.csproj" />
+      <option name="PROJECT_TFM" value="net7.0" />
+      <option name="CLASS_NAME" value="ServerListener" />
+      <option name="METHOD_NAME" value="StartServer" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -194,9 +213,15 @@
       <item itemvalue=".NET Launch Settings Profile.Cloud: https" />
       <item itemvalue=".NET Launch Settings Profile.Cloud: IIS Express" />
       <item itemvalue=".NET Project.Socket" />
+      <item itemvalue=".NET Static Method.ServerListener.StartServer" />
       <item itemvalue="Docker.Cloud/Dockerfile" />
       <item itemvalue="Docker.Socket/Dockerfile" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue=".NET Static Method.ServerListener.StartServer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
