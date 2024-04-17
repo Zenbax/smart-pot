@@ -3,6 +3,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 
+RUN apt-get update && apt-get install -y net-tools  # Install net-tools for netstat
+RUN apt-get update && apt-get install -y iproute2  # Install iproute2 for ss, if not already installed
+
 # Define the base image for the SDK (to build and publish the app)
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src

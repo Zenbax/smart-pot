@@ -49,7 +49,7 @@ jobs:
       - name: Update Instance Tags and Metadata
         if: env.INSTANCE_EXISTS == 'true'
         run: |
-          gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server,https-server
+          gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server
           gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
@@ -70,7 +70,7 @@ jobs:
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
             --zone europe-north1-a \
             --machine-type e2-medium \
-            --tags=http-server,https-server \
+            --tags=http-server \
             --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
