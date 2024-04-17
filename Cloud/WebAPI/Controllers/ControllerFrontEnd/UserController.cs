@@ -23,6 +23,7 @@ namespace YourApiNamespace.Controllers
         {
             try
             {
+                _logger.LogInformation("Called: Getting all users endpoint");
                 var users = await _usersCollection.Find(_ => true).ToListAsync();
                 return Ok(users);
             }
@@ -38,6 +39,7 @@ namespace YourApiNamespace.Controllers
             
             try
             {
+                _logger.LogInformation("Called: Create user endpoint");
                 await _usersCollection.InsertOneAsync(newUser);
                 return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
             }
@@ -53,6 +55,7 @@ namespace YourApiNamespace.Controllers
         {
             try
             {
+                _logger.LogInformation("Called: Get user by ID endpoint");
                 var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
                 if (user == null)
                 {
