@@ -11,7 +11,7 @@ tcp_command_t tcp_extract_command() {
   tcp_command_t command;
   command.is_valid = 0;
 
-  uint8_t *comma_position = strchr(messageBuffer, ',');
+  char *comma_position = strchr(messageBuffer, ',');
   if (comma_position == NULL) {
     comma_position = 0;
   }

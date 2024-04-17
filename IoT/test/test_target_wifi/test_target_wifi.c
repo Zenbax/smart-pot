@@ -4,7 +4,7 @@
 #define TCP_SERVER "192.168.43.80" // should be running and in echo mode for the test to pass. 
 #define TCP_PORT 23
 
-#include "../unity.h"
+#include "unity.h"
 #include "wifi.h"
 #include <util/delay.h>
 #include <avr/io.h>
