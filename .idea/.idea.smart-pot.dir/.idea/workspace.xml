@@ -16,9 +16,68 @@
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/.idea/.idea.Cloud.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/.idea/.idea.Cloud.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/bin/Debug/net7.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/bin/Debug/net7.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/bin/Debug/net7.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/bin/Debug/net7.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Debug/net7.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Domain.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Domain.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/Domain.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/Domain.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Debug/net7.0/Socket.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/Socket.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Domain.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Domain.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/WebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/WebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/WebAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/ZstdSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/ZstdSharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/linux/native/libmongocrypt.so" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/linux/native/libmongocrypt.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/ref/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/ref/WebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/refint/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/refint/WebAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.WebAPI.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.WebAPI.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.WebAPI.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.WebAPI.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/WebAPI.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,14 +85,34 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Cloud_Staging" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Cloud/Application/Logic/UserLogic.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/Pot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/User.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/AuthController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.deps.json" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -68,7 +147,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.Socket">
+  <component name="RunManager" selected=".NET Project.WebAPI">
     <configuration name="Socket" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -81,8 +160,26 @@
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_KIND" value="Unloaded" />
       <option name="PROJECT_TFM" value="net7.0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="WebAPI" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -176,6 +273,7 @@
       <item itemvalue=".NET Launch Settings Profile.Cloud: https" />
       <item itemvalue=".NET Launch Settings Profile.Cloud: IIS Express" />
       <item itemvalue=".NET Project.Socket" />
+      <item itemvalue=".NET Project.WebAPI" />
       <item itemvalue="Docker.Cloud/Dockerfile" />
       <item itemvalue="Docker.Socket/Dockerfile" />
     </list>
@@ -195,6 +293,71 @@
       <workItem from="1713268846314" duration="171000" />
       <workItem from="1713335812675" duration="3276000" />
     </task>
+    <task id="LOCAL-00001" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713348426117</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713348426117</updated>
+    </task>
+    <task id="LOCAL-00002" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713348810340</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713348810340</updated>
+    </task>
+    <task id="LOCAL-00003" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713351124575</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713351124575</updated>
+    </task>
+    <task id="LOCAL-00004" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713352493274</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713352493274</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Outcommented Pot">
+      <option name="closed" value="true" />
+      <created>1713352863868</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713352863868</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Outcommented pot controller">
+      <option name="closed" value="true" />
+      <created>1713353007169</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713353007169</updated>
+    </task>
+    <task id="LOCAL-00007" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713353290398</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713353290398</updated>
+    </task>
+    <task id="LOCAL-00008" summary="REBUILD GC">
+      <option name="closed" value="true" />
+      <created>1713353412634</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713353412634</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,5 +377,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Rebuild GC" />
+    <MESSAGE value="Changed GC Compute Engine" />
+    <MESSAGE value="Logging of User Controller" />
+    <MESSAGE value="Outcommented Pot" />
+    <MESSAGE value="Outcommented pot controller" />
+    <MESSAGE value="REBUILD GC" />
+    <option name="LAST_COMMIT_MESSAGE" value="REBUILD GC" />
   </component>
 </project>

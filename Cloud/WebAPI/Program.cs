@@ -1,3 +1,4 @@
+using System.Net;
 using Domain;
 using Domain.Model;
 using Microsoft.AspNetCore.Builder;
@@ -7,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Configure logging
 builder.Logging.ClearProviders();
@@ -34,17 +34,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure CORS if needed
+// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
-
-builder.WebHost.UseKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(80); // Listen for HTTP on port 80
-    serverOptions.ListenAnyIP(443);
-    serverOptions.ListenAnyIP(11000);
 });
 
 var app = builder.Build();
@@ -52,15 +45,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();  // Optionally add this line to help with debugging in development
+    app.UseDeveloperExceptionPage();  // Show detailed exceptions in development mode
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();  // Make sure to call UseRouting() when you use endpoint routing
+app.UseRouting();
 app.UseAuthorization();
-app.UseCors("Open");  // Apply CORS policy
+app.UseCors("Open");
 app.MapControllers();
 
 app.Run();

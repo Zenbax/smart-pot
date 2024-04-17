@@ -2,7 +2,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 EXPOSE 11000
 
 RUN apt-get update && apt-get install -y net-tools  # Install net-tools for netstat

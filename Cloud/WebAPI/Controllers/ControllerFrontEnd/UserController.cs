@@ -68,11 +68,5 @@ namespace WebAPI.Controllers.ControllerFrontEnd
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        
-        [HttpGet]
-        public IActionResult GetUser()
-        {
-            return Ok();
-        }
     }
 }
