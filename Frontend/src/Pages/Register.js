@@ -13,8 +13,6 @@ const Register =()=> {
 
     const handleClick = async(event)=> {
         event.preventDefault();
-        console.log("button pressed")
-        
         createUser(username, password);
     }
 
