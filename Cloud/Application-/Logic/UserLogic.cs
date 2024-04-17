@@ -1,14 +1,12 @@
-﻿// UserLogic.cs
-using Application.LogicInterfaces;
+﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
+namespace Application_.Logic;
 
-namespace Application.Logic
-{
-    public class UserLogic : IUserLogic
+public class UserLogic : IUserLogic
     {
         private readonly IMongoCollection<User> _usersCollection;
 
@@ -53,6 +51,4 @@ namespace Application.Logic
         {
             return await _usersCollection.Find(user => true).ToListAsync();
         }
-    }
-    
 }
