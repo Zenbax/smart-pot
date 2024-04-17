@@ -1,6 +1,5 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from "../Components/NavBar";
 import {Link, Route  } from 'react-router-dom';
 //import HelpContent from '../Components/HelpPopUpContent.js';
 
@@ -18,12 +17,15 @@ const Home = () =>
             <div class="row">
                 <div class="col-4 text-center">
                     <div>Profile</div>
+                    
                     <Link to="/connect">
-                        <button type="button" className="btn btn-outline-dark">Forbind plante</button>
+                        <button type="button" class="btn btn-outline-dark">Forbind plante</button>
                     </Link>
-                    <div><button type="button" class="btn btn-outline-dark">Oversigt</button></div>
                     
                     
+                    <Link to="/overview">
+                    <button type="button" class="btn btn-outline-dark">Oversigt</button>
+                    </Link>
                     
 
                 </div>

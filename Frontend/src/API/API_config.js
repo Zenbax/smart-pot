@@ -30,6 +30,8 @@ export async function createUser (username, password){ //TODO: eventuelt parse t
     
 }
 
+
+
 export async function loginUser(username, password) {
     const userInfoDTO ={
         Username: username,

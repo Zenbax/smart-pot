@@ -4,7 +4,9 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Connect from './Pages/Connect';
-import Navbar from "./Components/NavBar";
+import Overview from './Pages/Overview';
+import Navbar from './Components/NavBar';
+import './Styling/Navbar.css';
 
 
 
@@ -16,8 +18,9 @@ function App (){
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/connect" element={<connect/>}/>
+            <Route path="/register" element={<Register />} />
+            <Route path="/connect" component={<Connect />} />
+            <Route path="/overview" component={<Overview />} />
         </Routes>
       </BrowserRouter>
     )
