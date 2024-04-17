@@ -1,3 +1,4 @@
+using System.Net;
 using Domain;
 using Domain.Model;
 using Microsoft.AspNetCore.Builder;
@@ -33,17 +34,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure CORS if needed
+// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
-
-// Add this line to specify the URLs to listen on
-builder.WebHost.UseUrls("http://0.0.0.0:80");  // Listen on port 80 for all network interface
-builder.WebHost.UseKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(80); // Listen for HTTP on port 80
 });
 
 var app = builder.Build();
@@ -51,15 +45,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();  // Optionally add this line to help with debugging in development
+    app.UseDeveloperExceptionPage();  // Show detailed exceptions in development mode
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();  // Make sure to call UseRouting() when you use endpoint routing
+app.UseRouting();
 app.UseAuthorization();
-app.UseCors("Open");  // Apply CORS policy
+app.UseCors("Open");
 app.MapControllers();
 
 app.Run();

@@ -2,6 +2,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 11000
 
 RUN apt-get update && apt-get install -y net-tools  # Install net-tools for netstat
 RUN apt-get update && apt-get install -y iproute2  # Install iproute2 for ss, if not already installed

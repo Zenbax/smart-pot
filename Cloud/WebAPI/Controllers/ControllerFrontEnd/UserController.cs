@@ -3,10 +3,10 @@ using MongoDB.Driver;
 using Domain;
 using Domain.Model;
 
-namespace YourApiNamespace.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IMongoCollection<User> _usersCollection;
@@ -18,7 +18,7 @@ namespace YourApiNamespace.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("get/all")]
         public async Task<IActionResult> GetUsers()
         {
             try
@@ -33,7 +33,7 @@ namespace YourApiNamespace.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser(User newUser)
         {
             
@@ -50,7 +50,7 @@ namespace YourApiNamespace.Controllers
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
             try
@@ -68,11 +68,5 @@ namespace YourApiNamespace.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-    }
-    
-    [HttpGet]
-    public IActionResult GetUser()
-    {
-        return Ok();
     }
 }
