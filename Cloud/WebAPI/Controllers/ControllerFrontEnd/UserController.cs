@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using Domain;
 using Domain.Model;
 
-namespace YourApiNamespace.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
     [Route("[controller]")]
@@ -68,11 +68,11 @@ namespace YourApiNamespace.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-    }
-    
-    [HttpGet]
-    public IActionResult GetUser()
-    {
-        return Ok();
+        
+        [HttpGet]
+        public IActionResult GetUser()
+        {
+            return Ok();
+        }
     }
 }
