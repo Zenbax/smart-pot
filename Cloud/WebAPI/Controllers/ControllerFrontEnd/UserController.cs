@@ -6,7 +6,7 @@ using Domain.Model;
 namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IMongoCollection<User> _usersCollection;
@@ -18,7 +18,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("get/all")]
         public async Task<IActionResult> GetUsers()
         {
             try
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
             }
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser(User newUser)
         {
             
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
             try
