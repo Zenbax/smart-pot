@@ -11,19 +11,24 @@ const instance = axios.create({ //TODO: Man skal muligvis download axios: npm in
   });
 
 export async function createUser (username, password){ //TODO: eventuelt parse til JSON et andet sted
-        const userInfoDTO ={
-            Username: username,
-            Password: password
-        }
+    const userInfoDTO ={
+        Username: username,
+        Password: password,
+        Email: 'dummy@email.com',
+        Number: 83473984
+    }
+    
+    console.log(userInfoDTO)
         var jsonUserInfoDTO
         JSON.stringify(userInfoDTO, jsonUserInfoDTO)
-    try{
+    /*try{
         const response = await instance.post("/users", jsonUserInfoDTO)
         return response
     }
     catch{
         //TODO: ErrorHandling 
-    }
+    }*/
+    console.log(jsonUserInfoDTO);
 }
 
 export async function loginUser(username, password) {
