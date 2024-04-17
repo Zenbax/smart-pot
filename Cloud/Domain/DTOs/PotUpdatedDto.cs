@@ -2,7 +2,7 @@
 
 namespace Domain.DTOs;
 
-public class UpdatedPotDto
+public class PotUpdatedDto
 {
     [Required(ErrorMessage = "Pot name is required")]
     public string Name { get; set; }

@@ -37,3 +37,15 @@ g
 7WebAPI/Controllers/ControllerFrontEnd/UserController.cs,6\a\6acab8b630c3c9c46c8a6dd791f20a5669b16ff2
 A
 WebAPI/Program.cs,f\a\faf253c58a39a374edeb1be4d2051b0cbd62f276
+P
+ Application-/Logic/PlantLogic.cs,4\d\4d9e4674313443a784312f358e13a824fba65d2b
+[
++Application-/LogicInterfaces/IPlantLogic.cs,0\5\057dbb4f5f70fabab6eba8166a56b721b0fa2423
+O
+Domain/DTOs/PlantCreationDto.cs,0\8\080928750a94e50bddf6b9343c2bedde049a5975
+M
+Domain/DTOs/PlantUpdateDto.cs,c\4\c4b9f10625bedf820af09ffad33c4d9a5d461c75
+L
+Domain/DTOs/PotUpdatedDto.cs,8\3\830c648de93c64d8daa8a6547cfa37180db50737
+h
+8WebAPI/Controllers/ControllerFrontEnd/PlantController.cs,4\2\4247c3c66450d66046e17f68f4009767a140d060

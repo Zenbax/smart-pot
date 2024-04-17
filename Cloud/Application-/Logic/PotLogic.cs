@@ -74,7 +74,7 @@ namespace Application_.Logic;
         }
     }
 
-    public async Task<string> UpdatePot(string id, UpdatedPotDto updatedPotDto)
+    public async Task<string> UpdatePot(string id, PotUpdatedDto potUpdatedDto)
     {
         try
         {
@@ -85,11 +85,11 @@ namespace Application_.Logic;
                 return "Pot not found";
             }
 
-            existingPot.NameOfPot = updatedPotDto.Name;
-            existingPot.Plant.NameOfPlant = updatedPotDto.NameOfPlant;
-            existingPot.Plant.SoilMinimumMoisture = updatedPotDto.SoilMinimumMoisture;
-            existingPot.Plant.ImageUrl = updatedPotDto.ImageUrl;
-            existingPot.SoilMoisturePercent = updatedPotDto.HumidityPercent;
+            existingPot.NameOfPot = potUpdatedDto.Name;
+            existingPot.Plant.NameOfPlant = potUpdatedDto.NameOfPlant;
+            existingPot.Plant.SoilMinimumMoisture = potUpdatedDto.SoilMinimumMoisture;
+            existingPot.Plant.ImageUrl = potUpdatedDto.ImageUrl;
+            existingPot.SoilMoisturePercent = potUpdatedDto.HumidityPercent;
 
             await _pots.ReplaceOneAsync(p => p.Id == id, existingPot);
 

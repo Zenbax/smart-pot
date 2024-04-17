@@ -50,6 +50,7 @@ builder.Services.AddSingleton(serviceProvider =>
 
 builder.Services.AddSingleton<IPotLogic, PotLogic>();
 builder.Services.AddSingleton<IUserLogic, UserLogic>();
+builder.Services.AddSingleton<IPlantLogic, PlantLogic>();
 
 
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);

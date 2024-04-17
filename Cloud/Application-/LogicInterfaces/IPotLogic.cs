@@ -8,6 +8,6 @@ public interface IPotLogic
     Task<IEnumerable<Pot>> GetAllPots();
     Task<Pot> GetPotById(string id);
     Task<string> CreatePot(PotCreationDto potDto);
-    Task<string> UpdatePot(string id, UpdatedPotDto updatedPotDto);
+    Task<string> UpdatePot(string id, PotUpdatedDto potUpdatedDto);
     Task<string> DeletePot(string id);
 }
