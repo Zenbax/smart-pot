@@ -8,7 +8,7 @@ const Navbar=()=> {
    return (
       <nav className="nav-container">
         <Link to="/"><div className="logo">Smart-Pot</div></Link>
-        <Link to="/login"><button type="button" class="login-button"> Login</button></Link>
+        <Link to="/login"><button type="button" className="login-button"> Login</button></Link>
       </nav>
     );
 

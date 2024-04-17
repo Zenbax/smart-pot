@@ -33,7 +33,7 @@ export async function createUser (username, password){ //TODO: eventuelt parse t
 
 
 export async function getAllPots(){
-    return potArray=[
+    var potArray=[
         {
             NameOfpot: "Soveværelses vindue",
             Plante: {
@@ -214,6 +214,8 @@ export async function getAllPots(){
             ],
         }
     ]
+
+    return potArray
 }
 
 
