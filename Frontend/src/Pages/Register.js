@@ -11,18 +11,16 @@ const Register =()=> {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // Function to handle form submission
-    const handleSubmit = (event) => {
+    const handleClick = async(event)=> {
         event.preventDefault();
-        // Here you can perform login logic using username and password
-        // For example, sending a request to your server
-    };
+        createUser(username, password);
+    }
 
     return (
         <div className="login-container">
             <h2> Register </h2>
             <div className="box">
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleClick}>
                     <div className="input-container">
                         <input
                             type="text"
@@ -39,7 +37,7 @@ const Register =()=> {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit">Register</button>
+                    <button type='submit' >Register</button>
                   
                 </form>
             </div>
