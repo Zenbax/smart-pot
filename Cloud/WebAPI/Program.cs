@@ -39,11 +39,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
-// Add this line to specify the URLs to listen on
-builder.WebHost.UseUrls("http://0.0.0.0:80");  // Listen on port 80 for all network interface
 builder.WebHost.UseKestrel(serverOptions =>
 {
     serverOptions.ListenAnyIP(80); // Listen for HTTP on port 80
+    serverOptions.ListenAnyIP(443);
+    serverOptions.ListenAnyIP(11000);
 });
 
 var app = builder.Build();
