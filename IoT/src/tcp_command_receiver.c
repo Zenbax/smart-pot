@@ -4,14 +4,56 @@
 #include <string.h>
 #include <stdint.h>
 
+#include <stdarg.h>
+#include <stdlib.h>
+
 char messageBuffer[256];
+
+typedef enum {
+  TCP_INT_PARAM,
+  TCP_STRING_PARAM
+} tcp_param_t;
+
+typedef enum {
+  TCP_PARSE_OK,
+  TCP_PARSE_MISSING_PARAMS
+} tcp_parse_error_t;
+
+tcp_parse_error_t tcp_parse_tokens(char *params, ...) {
+  va_list args;
+  va_start(args, params);
+  
+  char *token = strtok(params, ",");
+  while (token != NULL) {
+    tcp_param_t type = va_arg(args, tcp_param_t);
+    
+    if (type == TCP_INT_PARAM) {
+      int *var = va_arg(args, int *);
+      *var = atoi(token);
+    } else if (type == TCP_STRING_PARAM) {
+      char **var = va_arg(args, char **);
+      *var = token;
+    }
+    
+    token = strtok(NULL, ",");
+
+    if (token == NULL) {
+      va_end(args);
+      
+      return TCP_PARSE_MISSING_PARAMS;
+    }
+  }
+  
+  va_end(args);
+  return TCP_PARSE_OK;
+}
 
 tcp_command_t tcp_extract_command() {
   
   tcp_command_t command;
   command.is_valid = 0;
 
-  uint8_t *comma_position = strchr(messageBuffer, ',');
+  char *comma_position = strchr(messageBuffer, ',');
   if (comma_position == NULL) {
     comma_position = 0;
   }
@@ -33,12 +75,16 @@ tcp_command_t tcp_extract_command() {
   return command;
 }
 void tcp_play_command(int song, int repeat, char *album) {
+
   if (song == 1 && strcmp(album, "Star Wars") == 0) {
-    wifi_command_TCP_transmit("PLAYING: Star Wars Theme\n", 25);
-    tone_play_starwars();
+    char *message = "PLAYING: Star Wars Theme\n";
+    wifi_command_TCP_transmit(message, strlen(message));
+    tone_play(800, 300);
+    // tone_play_starwars();
   } else if (song == 1) {
     wifi_command_TCP_transmit("PLAYING: Super Mario Theme\n", 27);
-    tone_play_mario();
+    tone_play(600, 300);
+    // tone_play_mario();
   } else {
     tone_play(200, 1000);
   }
@@ -52,8 +98,7 @@ void tcp_callback() {
   }
 
   if (strcmp(command.name, "play") == 0) {
-    wifi_command_TCP_transmit("EXECUTING: play\n", 16);
-
+    /*
     char *songToken = strtok(command.params, ",");
     char *repeatToken = strtok(NULL, ",");
     char *album = strtok(NULL, ",");
@@ -64,10 +109,23 @@ void tcp_callback() {
     int song = atoi(songToken);
     int repeat = atoi(repeatToken);
     wifi_command_TCP_transmit("PARAMETERS: Ok\n", 16);
+    */
+    int song, repeat;
+    char *album;
+    tcp_parse_tokens(command.params, 
+      TCP_INT_PARAM, &song,
+      TCP_INT_PARAM, &repeat,
+      TCP_STRING_PARAM, &album
+    );
+
+    char buffer[80];
+    sprintf(buffer, "song: %d, repeat: %d, album: %s\n", song, repeat, album);
+
+    wifi_command_TCP_transmit(buffer, strlen(buffer));
 
     tcp_play_command(song, repeat, album);
   } else if (strcmp(command.name, "moisture") == 0) {
-    uint16_t *value = moisture_read();
+    uint8_t *value = moisture_read();
     char buffer[10];
     sprintf(buffer, "%d", value);
 
