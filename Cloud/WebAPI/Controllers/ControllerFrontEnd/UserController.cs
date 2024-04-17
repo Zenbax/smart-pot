@@ -69,4 +69,10 @@ namespace YourApiNamespace.Controllers
             }
         }
     }
+    
+    [HttpGet]
+    public IActionResult GetUser()
+    {
+        return Ok();
+    }
 }
