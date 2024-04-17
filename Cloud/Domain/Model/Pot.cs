@@ -1,3 +1,4 @@
+using Domain.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -8,18 +9,24 @@ public class Pot
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
-    public string Name { get; set; }
-    public string PlantType { get; set; }
-    public int HumidityPercent { get; set; }
+
+    public string NameOfPot { get; set; }
+    public Plant Plant { get; set; }
+    public int SoilMoisturePercent { get; set; }
+    public int WaterReservoirPercent { get; set; }
+    public List<HumidityLog> WateringLog { get; set; }
+    public List<HumidityLog> MoistureLog { get; set; }
     
     public Pot()
     {
     }
-    public Pot(string id, string name, string plantType, int humidityPercent)
+    public Pot(string nameOfPot, Plant plant, int soilMoisturePercent, int waterReservoirPercent, List<HumidityLog> wateringLog, List<HumidityLog> moistureLog)
     {
-        Id = id;
-        Name = name;
-        PlantType = plantType;
-        HumidityPercent = humidityPercent;
+        NameOfPot = nameOfPot;
+        Plant = plant;
+        SoilMoisturePercent = soilMoisturePercent;
+        WaterReservoirPercent = waterReservoirPercent;
+        WateringLog = wateringLog;
+        MoistureLog = moistureLog;
     }
 }

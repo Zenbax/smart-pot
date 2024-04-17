@@ -8,7 +8,7 @@ using Domain;
 using Domain.Model;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
     [Route("[controller]")]

@@ -3,40 +3,83 @@ using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using YourApiNamespace.Controllers;
 
-namespace DefaultNamespace;
-[ApiController]
-[Route("[controller]")]
-public class PotController : ControllerBase
-{
-    private readonly IPotLogic _potLogic;
-    public PotController(IPotLogic potLogic)
+namespace WebAPI.Controllers.ControllerFrontEnd;
+
+    [ApiController]
+    [Route("[controller]")]
+    public class PotController : ControllerBase
     {
-        _potLogic = potLogic;
-    }
-    [HttpGet]
-    public async Task<IEnumerable<Pot>> Get()
-    {
-        return await _potLogic.GetAllPots();
-    }
-    [HttpGet("{id}")]
-    public async Task<Pot> Get(string id)
-    {
-        return await _potLogic.GetPotById(id);
-    }
-    [HttpPost]
-    public async Task<string> Post(PotCreationDto potCreationDto)
-    {
-        return await _potLogic.CreatePot(potCreationDto);
-    }
-    [HttpPut("{id}")]
-    public async Task<string> Put(string id, PotCreationDto potCreationDto)
-    {
-        return await _potLogic.UpdatePot(id, potCreationDto);
-    }
-    [HttpDelete("{id}")]
-    public async Task<string> Delete(string id)
-    {
-        return await _potLogic.DeletePot(id);
-    }
-    
+        private readonly IPotLogic _potLogic;
+
+        public PotController(IPotLogic potLogic)
+        {
+            _potLogic = potLogic;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<Pot>> Get()
+        {
+            try
+            {
+                return await _potLogic.GetAllPots();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return null;
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Pot>> Get(string id)
+        {
+            try
+            {
+                var pot = await _potLogic.GetPotById(id);
+                if (pot == null)
+                {
+                    return NotFound();
+                }
+                return pot;
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return null;
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> Post(PotCreationDto potCreationDto)
+        {
+            try
+            {
+                var result = await _potLogic.CreatePot(potCreationDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return ex.Message;
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<string>> Delete(string id)
+        {
+            try
+            {
+                var result = await _potLogic.DeletePot(id);
+                if (result == "Pot not found")
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return ex.Message;
+            }
+        }
 }
