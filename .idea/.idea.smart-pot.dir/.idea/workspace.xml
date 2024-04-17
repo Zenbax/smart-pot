@@ -15,7 +15,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="Updated YML file">
-      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/AWSSDK.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/AWSSDK.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/DnsClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/DnsClient.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.OpenApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.OpenApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Bson.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Bson.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.Core.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/MongoDB.Driver.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/SharpCompress.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/SharpCompress.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/ZstdSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/ZstdSharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/osx/native/libmongocrypt.dylib" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/osx/native/libmongocrypt.dylib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
