@@ -6,15 +6,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
-builder.UseStartup<Startup>().UseUrls("http://*:80");
-
 
 // Add services to the container.
 // Configure MongoDB
@@ -44,18 +41,18 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();  // Optionally add this line to help with debugging in development
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();  // Make sure to call UseRouting() when you use endpoint routing
 app.UseAuthorization();
 app.UseCors("Open");  // Apply CORS policy
-
 app.MapControllers();
 
 app.Run();
