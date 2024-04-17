@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
-import '../Styling_Pages/Login.css';
+import '../Styling/Login.css';
 import { createUser } from "../API/API_config";
 
 

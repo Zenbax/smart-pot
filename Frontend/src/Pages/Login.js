@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Link, Outlet, Route  } from 'react-router-dom';
 
-import '../Styling_Pages/Login.css';
+import '../Styling/Login.css';
 import { loginUser } from "../API/API_config";
 import Register from './Register';
 
