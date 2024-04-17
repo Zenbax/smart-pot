@@ -14,41 +14,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="gg" />
+    <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="Cloud_Staging" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Cloud/Application/Logic/UserLogic.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/Pot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/User.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/AuthController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/bin/Debug/net7.0/Cloud.deps.json" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -67,7 +52,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Cloud__Staging&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Cloud&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -83,7 +68,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.WebAPI">
+  <component name="RunManager" selected=".NET Project.Socket">
     <configuration name="Socket" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/Cloud/Socket/bin/Debug/net7.0/Socket.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -96,26 +81,8 @@
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="Unloaded" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
       <option name="PROJECT_TFM" value="net7.0" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="WebAPI" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="PROJECT_PATH" value="" />
-      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
-      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
-      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="None" />
-      <option name="PROJECT_TFM" value="" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -209,7 +176,6 @@
       <item itemvalue=".NET Launch Settings Profile.Cloud: https" />
       <item itemvalue=".NET Launch Settings Profile.Cloud: IIS Express" />
       <item itemvalue=".NET Project.Socket" />
-      <item itemvalue=".NET Project.WebAPI" />
       <item itemvalue="Docker.Cloud/Dockerfile" />
       <item itemvalue="Docker.Socket/Dockerfile" />
     </list>
@@ -229,79 +195,6 @@
       <workItem from="1713268846314" duration="171000" />
       <workItem from="1713335812675" duration="3276000" />
     </task>
-    <task id="LOCAL-00001" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713348426117</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1713348426117</updated>
-    </task>
-    <task id="LOCAL-00002" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713348810340</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1713348810340</updated>
-    </task>
-    <task id="LOCAL-00003" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713351124575</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1713351124575</updated>
-    </task>
-    <task id="LOCAL-00004" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713352493274</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1713352493274</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Outcommented Pot">
-      <option name="closed" value="true" />
-      <created>1713352863868</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1713352863868</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Outcommented pot controller">
-      <option name="closed" value="true" />
-      <created>1713353007169</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1713353007169</updated>
-    </task>
-    <task id="LOCAL-00007" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713353290398</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1713353290398</updated>
-    </task>
-    <task id="LOCAL-00008" summary="REBUILD GC">
-      <option name="closed" value="true" />
-      <created>1713353412634</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1713353412634</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Updated YML file">
-      <option name="closed" value="true" />
-      <created>1713356115669</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1713356115669</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,13 +214,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Rebuild GC" />
-    <MESSAGE value="Changed GC Compute Engine" />
-    <MESSAGE value="Logging of User Controller" />
-    <MESSAGE value="Outcommented Pot" />
-    <MESSAGE value="Outcommented pot controller" />
-    <MESSAGE value="REBUILD GC" />
-    <MESSAGE value="Updated YML file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated YML file" />
   </component>
 </project>

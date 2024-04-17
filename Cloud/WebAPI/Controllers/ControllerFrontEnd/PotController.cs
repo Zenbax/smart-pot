@@ -1,3 +1,8 @@
+using Application_.LogicInterfaces;
+using Domain.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using YourApiNamespace.Controllers;
+
 namespace DefaultNamespace;
 [ApiController]
 [Route("[controller]")]
@@ -11,7 +16,7 @@ public class PotController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<Pot>> Get()
     {
-        return await _potLogic.GetPots();
+        return await _potLogic.GetAllPots();
     }
     [HttpGet("{id}")]
     public async Task<Pot> Get(string id)

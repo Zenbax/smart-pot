@@ -5,9 +5,9 @@ namespace Application_.LogicInterfaces;
 
 public interface IPotLogic
 {
-    IEnumerable<Pot> GetAllPots();
-    Pot GetPotById(string id);
-    void CreatePot(PotCreationDto potDto);
-    void UpdatePot(string id, PotCreationDto updatedPotDto);
-    void DeletePot(string id);
+    Task<IEnumerable<Pot>> GetAllPots();
+    Task<Pot> GetPotById(string id);
+    Task<string> CreatePot(PotCreationDto potDto);
+    Task<string> UpdatePot(string id, PotCreationDto updatedPotDto);
+    Task<string> DeletePot(string id);
 }

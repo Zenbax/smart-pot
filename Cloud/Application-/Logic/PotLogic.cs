@@ -15,17 +15,17 @@ public class PotLogic : IPotLogic
         _pots = potsCollection;
     }
 
-    public IEnumerable<Pot> GetAllPots()
+    public async Task<IEnumerable<Pot>> GetAllPots()
     {
-        return _pots.Find(p => true).ToList();
+        return await _pots.Find(p => true).ToListAsync();
     }
 
-    public Pot GetPotById(string id)
+    public async Task<Pot> GetPotById(string id)
     {
-        return _pots.Find(p => p.Id == id).FirstOrDefault();
+        return await _pots.Find(p => p.Id == id).FirstOrDefaultAsync();
     }
 
-    public void CreatePot(PotCreationDto potDto)
+    public async Task<string> CreatePot(PotCreationDto potDto)
     {
         var newPot = new Pot
         {
@@ -34,21 +34,26 @@ public class PotLogic : IPotLogic
             PlantType = potDto.PlantType,
             HumidityPercent = potDto.HumidityPercent
         };
-        _pots.InsertOne(newPot);
+        await _pots.InsertOneAsync(newPot);
+        return newPot.Id;
     }
 
-    public void UpdatePot(string id, PotCreationDto updatedPotDto)
+    public async Task<string> UpdatePot(string id, PotCreationDto updatedPotDto)
     {
-        _pots.FindOneAndUpdate(p => p.Id == id, Builders<Pot>.Update
-            .Set(p => p.Name, updatedPotDto.Name)
-            .Set(p => p.PlantType, updatedPotDto.PlantType)
-            .Set(p => p.HumidityPercent, updatedPotDto.HumidityPercent));
+        var result = await _pots.UpdateOneAsync(
+            p => p.Id == id,
+            Builders<Pot>.Update
+                .Set(p => p.Name, updatedPotDto.Name)
+                .Set(p => p.PlantType, updatedPotDto.PlantType)
+                .Set(p => p.HumidityPercent, updatedPotDto.HumidityPercent)
+        );
+
+        return result.IsAcknowledged ? "Success" : "Failure";
     }
 
-
-    public void DeletePot(string id)
+    public async Task<string> DeletePot(string id)
     {
-        _pots.FindOneAndDelete(p => p.Id == id);
+        var result = await _pots.DeleteOneAsync(p => p.Id == id);
+        return result.IsAcknowledged ? "Success" : "Failure";
     }
-    
 }
