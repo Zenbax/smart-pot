@@ -1,9 +1,11 @@
 using Domain;
+using Domain.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

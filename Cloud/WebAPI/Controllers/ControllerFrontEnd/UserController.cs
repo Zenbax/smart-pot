@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Domain;
+using Domain.Model;
 
 namespace YourApiNamespace.Controllers
 {
