@@ -17,7 +17,8 @@
 							"    pm.response.to.have.status(200);",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -25,13 +26,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/users/get-all",
+					"raw": "{{base_url}}/user/get/all",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
-						"users",
-						"get-all"
+						"user",
+						"get",
+						"all"
 					]
 				},
 				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -54,17 +56,30 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{base_url}}/user/1",
+					"raw": "{{base_url}}/user/get/55bead3976abff49b8f555ca",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"user",
-						"1"
+						"get",
+						"55bead3976abff49b8f555ca"
 					]
 				},
 				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -89,10 +104,16 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"Id\": \"1\",\n    \"Name\": \"Jane\",\n    \"LastName\": \"Doe\",\n    \"Password\": \"123\",\n    \"PhoneNumber\": \"23153424\",\n    \"Email\": \"jane.doe@example.com\"\n}\n",
+					"raw": "{\n    \"Id\": \"35bead3976abff39b82555ca\",\n    \"Name\": \"Gacob\",\n    \"LastName\": \"Hansen\",\n    \"Password\": \"321\",\n    \"PhoneNumber\": \"73144742\",\n    \"Email\": \"jacob.hansen@example.com\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,12 +121,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/user",
+					"raw": "{{base_url}}/user/create",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
-						"user"
+						"user",
+						"create"
 					]
 				},
 				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
