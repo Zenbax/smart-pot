@@ -32,6 +32,191 @@ export async function createUser (username, password){ //TODO: eventuelt parse t
 
 
 
+export async function getAllPots(){
+    return potArray=[
+        {
+            NameOfpot: "Soveværelses vindue",
+            Plante: {
+                NavnPåPlante: "Monstera",
+                JordMinimumsFugtighed: 35,
+                BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+            }, 
+            JordFugtighedProcent: 55,
+            VandBeholderProcent: 50,
+            VandingsLog: [
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                }
+            ],
+            Fugtighedslog: [
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 45
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 33
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 70
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 50
+                },
+            ],
+        },
+        {
+            NameOfpot: "Stue vindue #1",
+            Plante: {
+                NavnPåPlante: "Philodendron",
+                JordMinimumsFugtighed: 35,
+                BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+            }, 
+            JordFugtighedProcent: 55,
+            VandBeholderProcent: 50,
+            VandingsLog: [
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                }
+            ],
+            Fugtighedslog: [
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 45
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 33
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 70
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 50
+                },
+            ],
+            VandingsInstillinger: {
+                JordMinimumsFugtighed: 35,
+                vandingsMængdeML: 100
+            }
+        },
+        {
+            NameOfpot: "Stue vindue #2",
+            Plante: {
+                NavnPåPlante: "Lilje",
+                JordMinimumsFugtighed: 35,
+                BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+
+            }, 
+            JordFugtighedProcent: 55,
+            VandBeholderProcent: 50,
+            VandingsLog: [
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                },
+                {
+                    VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
+                    mændeML: 100,
+                }
+            ],
+            Fugtighedslog: [
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 45
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 33
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 70
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 55
+                },
+                {
+                    TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                    fugtighedProcent: 50
+                },
+            ],
+        }
+    ]
+}
+
+
 export async function loginUser(username, password) {
     const userInfoDTO ={
         Username: username,
