@@ -12,8 +12,7 @@ const Register =()=> {
     const [password, setPassword] = useState('');
 
     const handleClick = async(event)=> {
-        event.preventDefault
-        
+        event.preventDefault();
         console.log("button pressed")
         
         createUser(username, password);
