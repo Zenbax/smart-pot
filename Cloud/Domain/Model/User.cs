@@ -1,7 +1,7 @@
-﻿namespace Domain;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
+namespace Domain.Model;
 
 public class User
 {

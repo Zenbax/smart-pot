@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {}
+    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\artes\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\artes\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -38,7 +38,7 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "MongoDB.Bson": {
+            "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.24.0, )"
             }
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.118\\RuntimeIdentifierGraph.json"
         }
       }
     }
