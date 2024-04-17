@@ -1,6 +1,6 @@
-namespace DefaultNamespace;
-
-public class PotController : ControllerBase
-{
-    
-}
+// namespace DefaultNamespace;
+//
+// public class PotController : ControllerBase
+// {
+//     
+// }
