@@ -69,7 +69,7 @@ jobs:
           gcloud compute instances create-with-container my-cloud-instance \
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
             --zone europe-north1-a \
-            --machine-type e2-micro \
+            --machine-type e2-medium \
             --tags=http-server,https-server \
             --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
         env:

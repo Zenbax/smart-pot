@@ -9,11 +9,12 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+builder.UseStartup<Startup>().UseUrls("http://*:80");
+
 
 // Add services to the container.
 // Configure MongoDB
