@@ -8,6 +8,7 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
