@@ -44,7 +44,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
             
             try
             {
-                var userId = await _userLogic.Register(newUser); // Assuming _userLogic is an instance of UserLogic
+                var userId = await _userLogic.Register(newUser);
                 return CreatedAtAction(nameof(GetUserById), new { id = userId }, newUser);
             }
             catch (ArgumentException ex)

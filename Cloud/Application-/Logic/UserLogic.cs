@@ -17,22 +17,39 @@ public class UserLogic : IUserLogic
         }
         
         
-        private bool ValidateUser(UserCreationDto user)
+        private (bool IsValid, string ErrorMessage) ValidateUser(UserCreationDto user)
         {
-            // Validate Name and LastName: not empty and no digits
-            bool isValidName = !string.IsNullOrWhiteSpace(user.Name) && !user.Name.Any(char.IsDigit);
-            bool isValidLastName = !string.IsNullOrWhiteSpace(user.LastName) && !user.LastName.Any(char.IsDigit);
+            // Validate Name: not empty and no digits
+            if (string.IsNullOrWhiteSpace(user.Name))
+                return (false, "Name must not be empty.");
+            if (user.Name.Any(char.IsDigit))
+                return (false, "Name must not contain numbers.");
+
+            // Validate LastName: not empty and no digits
+            if (string.IsNullOrWhiteSpace(user.LastName))
+                return (false, "Last name must not be empty.");
+            if (user.LastName.Any(char.IsDigit))
+                return (false, "Last name must not contain numbers.");
 
             // Validate Email: contains "@" and ".", and not empty
-            bool isValidEmail = !string.IsNullOrWhiteSpace(user.Email) && user.Email.Contains("@") && user.Email.Contains(".");
+            if (string.IsNullOrWhiteSpace(user.Email))
+                return (false, "Email must not be empty.");
+            if (!user.Email.Contains("@") || !user.Email.Contains("."))
+                return (false, "Email must contain '@' and '.'.");
 
             // Validate Password: not empty, and length between 8 and 12
-            bool isValidPassword = !string.IsNullOrWhiteSpace(user.Password) && user.Password.Length >= 8 && user.Password.Length <= 12;
+            if (string.IsNullOrWhiteSpace(user.Password))
+                return (false, "Password must not be empty.");
+            if (user.Password.Length < 8 || user.Password.Length > 12)
+                return (false, "Password must be between 8 and 12 characters long.");
 
             // Validate PhoneNumber: exactly 8 digits, not empty, and only digits
-            bool isValidPhone = !string.IsNullOrWhiteSpace(user.PhoneNumber) && user.PhoneNumber.All(char.IsDigit) && user.PhoneNumber.Length == 8;
+            if (string.IsNullOrWhiteSpace(user.PhoneNumber))
+                return (false, "Phone number must not be empty.");
+            if (!user.PhoneNumber.All(char.IsDigit) || user.PhoneNumber.Length != 8)
+                return (false, "Phone number must be exactly 8 digits and contain only numbers.");
 
-            return isValidName && isValidLastName && isValidEmail && isValidPassword && isValidPhone;
+            return (true, "Validation successful.");
         }
 
         public async Task<string> Login(LoginDto userLoginDto)
@@ -49,10 +66,9 @@ public class UserLogic : IUserLogic
 
         public async Task<string> Register(UserCreationDto userCreationDto)
         {
-            if (!ValidateUser(userCreationDto))
-            {
-                throw new ArgumentException("User data is invalid.");
-            }
+            var validationResult = ValidateUser(userCreationDto);
+            if (!validationResult.IsValid)
+                throw new ArgumentException(validationResult.ErrorMessage);
 
             var newUser = new User
             {
