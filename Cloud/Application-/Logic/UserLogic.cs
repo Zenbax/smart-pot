@@ -17,39 +17,46 @@ public class UserLogic : IUserLogic
         }
         
         
-        private (bool IsValid, string ErrorMessage) ValidateUser(UserCreationDto user)
+        private async Task<string> ValidateUser(UserCreationDto user)
         {
+            List<string> errors = new List<string>();
+
             // Validate Name: not empty and no digits
             if (string.IsNullOrWhiteSpace(user.Name))
-                return (false, "Name must not be empty.");
+                errors.Add("Name must not be empty.");
             if (user.Name.Any(char.IsDigit))
-                return (false, "Name must not contain numbers.");
+                errors.Add("Name must not contain numbers.");
 
             // Validate LastName: not empty and no digits
             if (string.IsNullOrWhiteSpace(user.LastName))
-                return (false, "Last name must not be empty.");
+                errors.Add("Last name must not be empty.");
             if (user.LastName.Any(char.IsDigit))
-                return (false, "Last name must not contain numbers.");
+                errors.Add("Last name must not contain numbers.");
 
             // Validate Email: contains "@" and ".", and not empty
             if (string.IsNullOrWhiteSpace(user.Email))
-                return (false, "Email must not be empty.");
+                errors.Add("Email must not be empty.");
             if (!user.Email.Contains("@") || !user.Email.Contains("."))
-                return (false, "Email must contain '@' and '.'.");
+                errors.Add("Email must contain '@' and '.'.");
+
+            // Check if email already exists in the database
+            if (await _usersCollection.Find(u => u.Email == user.Email).AnyAsync())
+                errors.Add("Email already exists.");
 
             // Validate Password: not empty, and length between 8 and 12
             if (string.IsNullOrWhiteSpace(user.Password))
-                return (false, "Password must not be empty.");
+                errors.Add("Password must not be empty.");
             if (user.Password.Length < 8 || user.Password.Length > 12)
-                return (false, "Password must be between 8 and 12 characters long.");
+                errors.Add("Password must be between 8 and 12 characters long.");
 
             // Validate PhoneNumber: exactly 8 digits, not empty, and only digits
             if (string.IsNullOrWhiteSpace(user.PhoneNumber))
-                return (false, "Phone number must not be empty.");
+                errors.Add("Phone number must not be empty.");
             if (!user.PhoneNumber.All(char.IsDigit) || user.PhoneNumber.Length != 8)
-                return (false, "Phone number must be exactly 8 digits and contain only numbers.");
+                errors.Add("Phone number must be exactly 8 digits and contain only numbers.");
 
-            return (true, "Validation successful.");
+            // Return all error messages concatenated into a single string, separated by semicolons
+            return errors.Any() ? string.Join("; ", errors) : "Validation successful.";
         }
 
         public async Task<string> Login(LoginDto userLoginDto)
@@ -66,9 +73,9 @@ public class UserLogic : IUserLogic
 
         public async Task<string> Register(UserCreationDto userCreationDto)
         {
-            var validationResult = ValidateUser(userCreationDto);
-            if (!validationResult.IsValid)
-                throw new ArgumentException(validationResult.ErrorMessage);
+            string validationResult = await ValidateUser(userCreationDto);
+            if (validationResult != "Validation successful.")
+                throw new ArgumentException(validationResult);
 
             var newUser = new User
             {
