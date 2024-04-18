@@ -1,6 +1,8 @@
+using Application_.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Domain;
+using Domain.DTOs;
 using Domain.Model;
 
 namespace WebAPI.Controllers.ControllerFrontEnd
@@ -11,11 +13,14 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     {
         private readonly IMongoCollection<User> _usersCollection;
         private readonly ILogger _logger;
+        private readonly IUserLogic _userLogic;  // Dependency on the IUserLogic interface
 
-        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger)
+
+        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger , IUserLogic userLogic)
         {
             _usersCollection = usersCollection;
             _logger = logger;
+            _userLogic = userLogic;
         }
 
         [HttpGet("get/all")]
@@ -34,17 +39,21 @@ namespace WebAPI.Controllers.ControllerFrontEnd
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser(User newUser)
+        public async Task<IActionResult> CreateUser(UserCreationDto newUser)
         {
             
             try
             {
-                _logger.LogInformation("Called: Create user endpoint");
-                await _usersCollection.InsertOneAsync(newUser);
-                return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+                var userId = await _userLogic.Register(newUser); // Assuming _userLogic is an instance of UserLogic
+                return CreatedAtAction(nameof(GetUserById), new { id = userId }, newUser);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Internal server error: {ex}");
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }

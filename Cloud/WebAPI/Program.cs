@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using YourApiNamespace.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 // Add services to the container.
 // Configure MongoDB
@@ -27,36 +27,11 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Pot>("Pots");  // Ensure the collection name matches exactly what's in the database
-});
-
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<User>("Users");  // Ensure the collection name matches exactly what's in the database
-});
-
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Plant>("Plants");  // Ensure the collection name matches exactly what's in the database
-});
-
-builder.Services.AddSingleton<IPotLogic, PotLogic>();
-builder.Services.AddSingleton<IUserLogic, UserLogic>();
-builder.Services.AddSingleton<IPlantLogic, PlantLogic>();
-
-
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);
 var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-var userCollection = database.GetCollection<User>("Users");  // Ensure the collection name matches exactly what's in the database
+var userCollection = database.GetCollection<User>("Users");  
 builder.Services.AddSingleton(userCollection);
+builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
 
 // Set up MVC and Swagger
 builder.Services.AddControllers();
