@@ -33,16 +33,11 @@ int main() {
       tone_play_mario();
     }
     if (buttons_3_pressed()) {
-      uint16_t value = hc_sr04_takeMeasurement();
-      char buffer[18];
-      sprintf(buffer, "%d\n", value);
-      wifi_command_TCP_transmit(buffer, strlen(buffer) + 1);
-      // uint8_t value = moisture_read();
-      // display_int(value);
-      // char buffer[18];
-      // sprintf(buffer, "%d\n", value);
-
-      // wifi_command_TCP_transmit(buffer, strlen(buffer) + 1);
+      uint16_t distance_value = hc_sr04_takeMeasurement();
+      uint8_t moisture_value = moisture_read();
+      char buffer[30];
+      sprintf(buffer, "moisture: %d, distance: %d\n", moisture_value, distance_value);
+      wifi_command_TCP_transmit(buffer, strlen(buffer));
     }
   }
   return 0;
