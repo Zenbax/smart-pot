@@ -1,22 +1,21 @@
-﻿// UserLogic.cs
-using Application.LogicInterfaces;
+﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
+namespace Application_.Logic;
 
-namespace Application.Logic
-{
-    public class UserLogic : IUserLogic
+public class UserLogic : IUserLogic
     {
         private readonly IMongoCollection<User> _usersCollection;
+        
 
         public UserLogic(IMongoCollection<User> usersCollection)
         {
             _usersCollection = usersCollection;
         }
-
+        
         public async Task<string> Login(LoginDto userLoginDto)
         {
             var user = await _usersCollection.Find(u => u.Email == userLoginDto.Username && u.Password == userLoginDto.Password).FirstOrDefaultAsync();
@@ -31,15 +30,22 @@ namespace Application.Logic
 
         public async Task<string> Register(UserCreationDto userCreationDto)
         {
-            var newUser = new User
+            var emailExists = await _usersCollection.Find(u => u.Email == userCreationDto.Email).AnyAsync();
+            if (emailExists)
             {
-                Id = ObjectId.GenerateNewId().ToString(), // Genererer en ny ObjectId som id
+                throw new ArgumentException("Email already exists.");
+            }
+            
+           var newUser = new User
+            {
+                Id = ObjectId.GenerateNewId().ToString(),
                 Name = userCreationDto.Name,
                 LastName = userCreationDto.LastName,
                 Email = userCreationDto.Email,
                 Password = userCreationDto.Password,
                 PhoneNumber = userCreationDto.PhoneNumber
             };
+
             await _usersCollection.InsertOneAsync(newUser);
             return newUser.Id;
         }
@@ -53,6 +59,4 @@ namespace Application.Logic
         {
             return await _usersCollection.Find(user => true).ToListAsync();
         }
-    }
-    
 }
