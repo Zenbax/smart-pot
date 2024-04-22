@@ -8,6 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System;
+using Domain.Model;
+using Application_.Logic;
+using Application_.LogicInterfaces;
+using YourApiNamespace.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,37 +33,66 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<User>("Users");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Plant>("Plants");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Pot>("Pots");
+});
+
+builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
+builder.Services.AddScoped<IPlantLogic, PlantLogic>(); // Dependency injection for PlantLogic
+builder.Services.AddScoped<IPotLogic, PotLogic>(); // Dependency injection for PotLogic
+
+
+
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);
 var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-var userCollection = database.GetCollection<User>("Users");  
+var userCollection = database.GetCollection<User>("Users");
 builder.Services.AddSingleton(userCollection);
 builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
 
-// Set up MVC and Swagger
+// Set up MVC, Swagger and CORS
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();  // Show detailed exceptions in development mode
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
+app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
+
+
 app.UseRouting();
-app.UseAuthorization();
 app.UseCors("Open");
+app.UseAuthorization();
 app.MapControllers();
+
+// Set application to listen on port 80 for HTTP traffic
+app.Urls.Add("http://*:80");
 
 app.Run();
