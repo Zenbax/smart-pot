@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using YourApiNamespace.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,33 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     logger.LogInformation("Creating MongoDB client with connection string: {ConnectionString}", mongoDbSettings["ConnectionString"]);
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<User>("Users");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Plant>("Plants");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Pot>("Pots");
+});
+
+builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
+builder.Services.AddScoped<IPlantLogic, PlantLogic>(); // Dependency injection for PlantLogic
+builder.Services.AddScoped<IPotLogic, PotLogic>(); // Dependency injection for PotLogic
+
+
 
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);
 var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
