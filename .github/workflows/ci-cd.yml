@@ -49,19 +49,17 @@ jobs:
       - name: Update Instance Tags and Metadata
         if: env.INSTANCE_EXISTS == 'true'
         run: |
-          gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server,https-server
-          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server
+          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
 
       - name: Update Instance Container Image
         if: env.INSTANCE_EXISTS == 'true'
         run: |
           gcloud beta compute instances update-container my-cloud-instance \
             --zone europe-north1-a \
-            --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+            --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
+            --container-port=80 \
+            --container-port=11000
 
       - name: Create Compute Engine Instance
         if: env.INSTANCE_EXISTS == 'false'
@@ -69,8 +67,8 @@ jobs:
           gcloud compute instances create-with-container my-cloud-instance \
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
             --zone europe-north1-a \
-            --machine-type e2-small \
-            --tags=http-server,https-server \
-            --metadata=google-logging-enabled=true,google-monitoring-enabled=true
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+            --machine-type e2-micro \
+            --tags=http-server \
+            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development \
+            --container-port=80 \
+            --container-port=11000
