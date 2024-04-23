@@ -1,6 +1,7 @@
 name: Cloud CI/CD Pipeline
 
-on:
+on: 
+  workflow_dispatch: 
   push:
     paths:
       - 'Cloud/**'
