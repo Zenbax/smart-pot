@@ -17,7 +17,6 @@ using YourApiNamespace.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
