@@ -35,5 +35,7 @@ public class Program
             Console.WriteLine("Failed to connect to MongoDB: " + ex.Message);
         }
     }
-
+    
+    //Add connection to socket
+    app.Urls.Add("http://*:11000");
 }

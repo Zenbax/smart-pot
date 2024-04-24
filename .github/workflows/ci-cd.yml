@@ -1,7 +1,7 @@
 name: Cloud CI/CD Pipeline
 
-on: 
-  workflow_dispatch: 
+on:
+  workflow_dispatch:
   push:
     paths:
       - 'Cloud/**'
@@ -51,7 +51,7 @@ jobs:
         if: env.INSTANCE_EXISTS == 'true'
         run: |
           gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server
-          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development,ASPNETCORE_URLS="http://+:80/"
+          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
 
       - name: Update Instance Container Image
         if: env.INSTANCE_EXISTS == 'true'
@@ -59,10 +59,8 @@ jobs:
           gcloud beta compute instances update-container my-cloud-instance \
             --zone europe-north1-a \
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
-            --container-arg="--publish=80:80" \
-            --container-arg="--publish=11000:11000"
-      
-      
+            --container-env=ASPNETCORE_URLS=http://*:80
+
       - name: Create Compute Engine Instance
         if: env.INSTANCE_EXISTS == 'false'
         run: |
@@ -71,6 +69,5 @@ jobs:
             --zone europe-north1-a \
             --machine-type e2-micro \
             --tags=http-server \
-            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development,ASPNETCORE_URLS="http://+:80/" \
-            --container-arg="--publish=80:80" \
-            --container-arg="--publish=11000:11000"
+            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development \
+            --container-env=ASPNETCORE_URLS=http://*:80
