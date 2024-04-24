@@ -1,11 +1,7 @@
 ﻿# Use the official image as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80/tcp
-EXPOSE 11000/tcp
-
-# Install net-tools (for netstat) and iproute2 (for ss)
-RUN apt-get update && apt-get install -y net-tools iproute2
+EXPOSE 80
 
 # Define the base image for the SDK (to build and publish the app)
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -24,11 +20,9 @@ COPY . .
 RUN dotnet build "WebAPI/WebAPI.csproj" -c Release -o /app/build
 RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build
 
-# Publish the application
 FROM build AS publish
 RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish
 
-# Final stage/image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

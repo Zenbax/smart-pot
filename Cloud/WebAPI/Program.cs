@@ -17,7 +17,6 @@ using YourApiNamespace.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -71,10 +70,10 @@ builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 
 
 var app = builder.Build();
@@ -82,21 +81,13 @@ var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-});
+app.UseSwaggerUI();
 
 
 app.UseRouting();
-// app.UseCors("Open");
+app.UseCors("Open");
 app.UseAuthorization();
 app.MapControllers();
-
-
-// Set application to listen on port 80 for HTTP traffic
-app.Urls.Add("http://*:80");
-
 
 
 app.Run();
