@@ -1,7 +1,8 @@
 ﻿# Use the official image as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80 11000
+EXPOSE 80/tcp
+EXPOSE 11000/tcp
 
 # Install net-tools (for netstat) and iproute2 (for ss)
 RUN apt-get update && apt-get install -y net-tools iproute2
