@@ -72,5 +72,5 @@ jobs:
             --machine-type e2-micro \
             --tags=http-server \
             --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development \
-            --container-port=80 \
-            --container-port=11000
+            --container-arg="--publish=80:80" \
+            --container-arg="--publish=11000:11000"
