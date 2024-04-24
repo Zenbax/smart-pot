@@ -51,7 +51,7 @@ jobs:
         if: env.INSTANCE_EXISTS == 'true'
         run: |
           gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server
-          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
+          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development,ASPNETCORE_URLS="http://+:80/"
 
       - name: Update Instance Container Image
         if: env.INSTANCE_EXISTS == 'true'
@@ -71,6 +71,6 @@ jobs:
             --zone europe-north1-a \
             --machine-type e2-micro \
             --tags=http-server \
-            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development \
+            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development,ASPNETCORE_URLS="http://+:80/" \
             --container-arg="--publish=80:80" \
             --container-arg="--publish=11000:11000"
