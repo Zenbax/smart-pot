@@ -59,9 +59,10 @@ jobs:
           gcloud beta compute instances update-container my-cloud-instance \
             --zone europe-north1-a \
             --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
-            --container-port=80 \
-            --container-port=11000
-
+            --container-arg="--publish=80:80" \
+            --container-arg="--publish=11000:11000"
+      
+      
       - name: Create Compute Engine Instance
         if: env.INSTANCE_EXISTS == 'false'
         run: |

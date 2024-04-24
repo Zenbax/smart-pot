@@ -93,6 +93,7 @@ app.UseCors("Open");
 app.UseAuthorization();
 app.MapControllers();
 
+
 // Set application to listen on port 80 for HTTP traffic
 app.Urls.Add("http://*:80");
 
