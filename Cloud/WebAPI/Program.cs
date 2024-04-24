@@ -71,10 +71,10 @@ builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 
 
 var app = builder.Build();
@@ -89,7 +89,7 @@ app.UseSwaggerUI(c =>
 
 
 app.UseRouting();
-// app.UseCors("Open");
+app.UseCors("Open");
 app.UseAuthorization();
 app.MapControllers();
 

@@ -1,8 +1,8 @@
 ﻿# Use the official image as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80/tcp
-EXPOSE 11000/tcp
+EXPOSE 80
+#EXPOSE 11000/tcp
 
 # Install net-tools (for netstat) and iproute2 (for ss)
 RUN apt-get update && apt-get install -y net-tools iproute2
@@ -14,15 +14,15 @@ WORKDIR /src
 # Copy csproj and restore as distinct layers
 COPY ["WebAPI/WebAPI.csproj", "WebAPI/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["Socket/Socket.csproj", "Socket/"]
+#COPY ["Socket/Socket.csproj", "Socket/"]
 RUN dotnet restore "WebAPI/WebAPI.csproj"
 RUN dotnet restore "Domain/Domain.csproj"
-RUN dotnet restore "Socket/Socket.csproj"
+#RUN dotnet restore "Socket/Socket.csproj"
 
 # Copy everything else and build
 COPY . .
 RUN dotnet build "WebAPI/WebAPI.csproj" -c Release -o /app/build
-RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build
+#RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build
 
 # Publish the application
 FROM build AS publish
