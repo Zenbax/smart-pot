@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://localhost:7216"; //TODO: Nok en anden ip
+const API_BASE_URL = "http://13.53.174.85/";
 
 var potArray=[
     {
@@ -160,27 +160,27 @@ var potArray=[
         ],
         Fugtighedslog: [
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
                 fugtighedProcent: 45
             },
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
                 fugtighedProcent: 55
             },
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
                 fugtighedProcent: 33
             },
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
                 fugtighedProcent: 70
             },
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
                 fugtighedProcent: 55
             },
             {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
+                TimeStamp: new Date(2006, 3, 2, 15, 4, 5),
                 fugtighedProcent: 50
             },
         ],
