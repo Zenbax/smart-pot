@@ -1,4 +1,4 @@
-name: Cloud CI/CD Pipeline
+name: AWS CI/CD Pipeline
 
 on:
   push:
@@ -21,13 +21,15 @@ jobs:
         with:
           dotnet-version: '7.0'
 
-      - name: Authenticate gcloud CLI
-        uses: google-github-actions/auth@v0.4.0
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
 
-      - name: Configure Docker to use the gcloud command-line tool as a credential helper
-        run: gcloud auth configure-docker europe-north1-docker.pkg.dev --quiet
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -35,42 +37,6 @@ jobs:
           context: ./Cloud
           file: ./Cloud/Dockerfile
           push: true
-          tags: europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest
+          tags: 211125663204.dkr.ecr.eu-north-1.amazonaws.com/sep4:latest
 
-      - name: Check if instance exists
-        id: check_instance
-        run: |
-          if gcloud compute instances describe my-cloud-instance --zone=europe-north1-a --format="value(name)"; then
-            echo "INSTANCE_EXISTS=true" >> $GITHUB_ENV
-          else
-            echo "INSTANCE_EXISTS=false" >> $GITHUB_ENV
-          fi
-
-      - name: Update Instance Tags and Metadata
-        if: env.INSTANCE_EXISTS == 'true'
-        run: |
-          gcloud compute instances add-tags my-cloud-instance --zone=europe-north1-a --tags=http-server,https-server
-          gcloud compute instances add-metadata my-cloud-instance --zone=europe-north1-a --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Update Instance Container Image
-        if: env.INSTANCE_EXISTS == 'true'
-        run: |
-          gcloud beta compute instances update-container my-cloud-instance \
-            --zone europe-north1-a \
-            --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Create Compute Engine Instance
-        if: env.INSTANCE_EXISTS == 'false'
-        run: |
-          gcloud compute instances create-with-container my-cloud-instance \
-            --container-image europe-north1-docker.pkg.dev/graphical-tape-419210/cloud-app-repo/smart-pot-cloud-container:latest \
-            --zone europe-north1-a \
-            --machine-type e2-medium \
-            --tags=http-server,https-server \
-            --metadata=google-logging-enabled=true,google-monitoring-enabled=true,ASPNETCORE_ENVIRONMENT=Development
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      
