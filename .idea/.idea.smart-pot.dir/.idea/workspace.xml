@@ -16,6 +16,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +30,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/Pot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PlantController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PlantController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -195,6 +198,10 @@
       <workItem from="1713335812675" duration="3276000" />
       <workItem from="1713878637787" duration="839000" />
       <workItem from="1713944346702" duration="7878000" />
+      <workItem from="1714037635591" duration="5706000" />
+      <workItem from="1714381532626" duration="337000" />
+      <workItem from="1714466719919" duration="404000" />
+      <workItem from="1714469786134" duration="824000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,7 @@
 ﻿# Use the official image as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 80 11000
 
 # Define the base image for the SDK (to build and publish the app)
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
