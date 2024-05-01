@@ -1,31 +1,60 @@
-name: PlatformIO CI
+name: PlatformIO Test and Release
 
-on: [push]
+on:
+  push:
+    branches:
+      - IoT
 
 jobs:
-  build:
+  test:
+    name: Run PlatformIO tests
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          path: |
-            ~/.cache/pip
-            ~/.platformio/.cache
-          key: ${{ runner.os }}-pio
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - name: Install PlatformIO Core
-        run: pip install --upgrade platformio
-
-      - name: Run wifiTest
-        run: pio test -e win_test_wifi -f "test_win_wifi"  
+          python-version: '3.x'
         
-      - name: run pc_comm test
-        run: pio test -e win_test_pc_comm -f "test_win_pc_comm"  
+      - name: Install PlatformIO
+        run: |
+          pip install platformio
+      
+      - name: Build and test with PlatformIO
+        run: |
+          platformio test --environment native
+  create_firmware_image:
+    name: Create firmware image
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+        
+      - name: Install PlatformIO
+        run: |
+          pip install platformio
+      
+      - name: Create firmware image
+        run: |
+          platformio run --environment target_run
 
-      - name: run Light test
-        run: pio test -e win_test_light -f "test_win_light"  
-
+      - name: Upload firmware image
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: .pio/build/target_run/firmware.hex
+          
+      - name: Upload test env
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-env
