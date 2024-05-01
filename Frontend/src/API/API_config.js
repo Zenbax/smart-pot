@@ -220,8 +220,6 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 export async function getPotFromId(id){
     //return potArray.find(x => x.PotId == id);
     const response = await instance.get("/pot/get/"+id)
-    console.log(response);
-    console.log(response.data);
     return response.data
 
     
@@ -230,8 +228,6 @@ export async function getPotFromId(id){
 export async function getAllPots(){
     //return potArray
     const response = await instance.get("/pot/get/all")
-    console.log(response);
-    console.log(response.data);
     return response.data
 }
 
