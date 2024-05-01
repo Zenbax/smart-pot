@@ -222,7 +222,11 @@ export async function getPotFromId(id){
 }
 
 export async function getAllPots(){
-    return potArray
+    //return potArray
+    const response = await instance.get("/pot/get/all")
+    console.log(response);
+    console.log(response.data);
+    return response.data
 }
 
 

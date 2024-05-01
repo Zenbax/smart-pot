@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const SmartPot = ({pot}) => {
     return(
-        <Link to={"/"+pot.PotId}>
+        <Link to={"/"+pot.id}>
         <div>
-            <h2>{pot.NameOfpot}</h2>
+            <h2>{pot.nameOfPot}</h2>
         </div>
         </Link>
         
