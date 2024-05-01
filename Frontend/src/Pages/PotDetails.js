@@ -18,6 +18,6 @@ export default function PotDetails(){
 
     return(
         
-        <h1>{pot?.NameOfpot}</h1>
+        <h1>{pot?.nameOfPot}</h1>
     );
 }
