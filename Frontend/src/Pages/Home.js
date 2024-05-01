@@ -34,7 +34,7 @@ const Home = () =>
                     </Link>
                     
                     
-                    <Link to="/overview">
+                    <Link to="/plant_overview">
                     <button type="button" class="btn btn-outline-dark">Oversigt</button>
                     </Link>
                     
