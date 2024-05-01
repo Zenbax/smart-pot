@@ -8,12 +8,16 @@ import { createUser } from "../API/API_config";
 
 const Register =()=> {
     // State variables for username and password
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    
 
     const handleClick = async(event)=> {
         event.preventDefault();
-        createUser(username, password);
+        createUser(name, lastName, password, email, phoneNumber);
     }
 
     return (
@@ -24,9 +28,17 @@ const Register =()=> {
                     <div className="input-container">
                         <input
                             type="text"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Last Name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
                     <div className="input-container">
@@ -35,6 +47,22 @@ const Register =()=> {
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Phone Number"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
                     <button type='submit' >Register</button>
