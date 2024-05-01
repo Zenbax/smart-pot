@@ -9,6 +9,9 @@ jobs:
   test:
     name: Run PlatformIO tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/IoT
     
     steps:
       - name: Checkout repository
@@ -26,10 +29,14 @@ jobs:
       - name: Build and test with PlatformIO
         run: |
           platformio test --environment native
+          
   create_firmware_image:
     name: Create firmware image
     runs-on: ubuntu-latest
     needs: test
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/IoT 
     
     steps:
       - name: Checkout repository
@@ -52,9 +59,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: .pio/build/target_run/firmware.hex
+          path: IoT/.pio/build/target_run/firmware.hex
           
       - name: Upload test env
         uses: actions/upload-artifact@v2
         with:
           name: test-env
+          path: |
+            IoT/lib/
+            IoT/test/
+            IoT/platformio.ini
