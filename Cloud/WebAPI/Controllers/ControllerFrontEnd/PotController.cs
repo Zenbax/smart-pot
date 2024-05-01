@@ -17,7 +17,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         }
 
         [HttpGet("get/all")]
-        public async Task<IEnumerable<Pot>> Get()
+        public async Task<IEnumerable<Pot>> GetPot()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         }
 
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<Pot>> Get(string id)
+        public async Task<ActionResult<Pot>> GetPotById(string id)
         {
             try
             {
