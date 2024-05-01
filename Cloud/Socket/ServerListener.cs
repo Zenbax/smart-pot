@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using MongoDB.Driver;
 using System.Text.Json;
 using Socket.Models;
@@ -27,60 +29,96 @@ public class ServerListener
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(10);
-
-                Console.WriteLine("Waiting for a connection...");
+                Console.WriteLine("Server is waiting for a connection...");
 
                 while (true)
                 {
-                    using (var handler = listener.Accept())
-                    {
-                        StringBuilder data = new StringBuilder();
-                        byte[] bytes = new byte[1024];
-                        int bytesRec = 0;
-
-                        // Continuously read data from the client
-                        while (handler.Connected)
-                        {
-                            if (handler.Available > 0)
-                            {
-                                bytesRec = handler.Receive(bytes);
-                                string part = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                                data.Append(part);
-
-                                if (part.Contains("\n"))  // Check if the end marker (newline) is in the string
-                                {
-                                    var fullData = data.ToString();
-                                    var messages = fullData.Split('\n');
-                                    foreach (var message in messages)
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(message))
-                                        {
-                                            Console.WriteLine("Text received: {0}", message);
-                                            ProcessData(message.Trim());
-                                        }
-                                    }
-                                    data.Clear();  // Clear the data for the next message
-                                }
-                            }
-                        }
-
-                        byte[] msg = Encoding.ASCII.GetBytes("Data processed");
-                        handler.Send(msg);
-                        handler.Shutdown(SocketShutdown.Both);
-                        handler.Close();
-                    }
+                    // Accept a new connection
+                    var handler = listener.Accept();
+                    // Create a new thread for handling the client
+                    Thread clientThread = new Thread(() => HandleClient(handler));
+                    clientThread.Start();
                 }
             }
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Console.WriteLine($"Server start error: {e.Message}");
+        }
+    }
+
+    private static void HandleClient(System.Net.Sockets.Socket handler)
+    {
+        Console.WriteLine("Client connected.");
+        try
+        {
+            // Set the receive timeout to 30000 milliseconds (30 seconds)
+            handler.ReceiveTimeout = 30000;
+
+            StringBuilder data = new StringBuilder();
+            while (true)
+            {
+                byte[] bytes = new byte[1024];
+                int bytesRec = handler.Receive(bytes); // This will throw a SocketException if the timeout is exceeded
+                if (bytesRec == 0) break;  // Client has closed the connection
+
+                string part = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                data.Append(part);
+
+                if (part.Contains("\n"))
+                {
+                    var fullData = data.ToString();
+                    var messages = fullData.Split('\n');
+                    foreach (var message in messages)
+                    {
+                        if (!string.IsNullOrWhiteSpace(message))
+                        {
+                            if (message.Trim().Equals("quit", StringComparison.OrdinalIgnoreCase))
+                            {
+                                Console.WriteLine("Quit command received, closing connection.");
+                                break;
+                            }
+                            Console.WriteLine("Text received: {0}", message);
+                            ProcessData(message.Trim());
+                        }
+                    }
+                    data.Clear();  // Clear the data for the next message
+                    if (part.Trim().Equals("quit", StringComparison.OrdinalIgnoreCase)) break;
+                }
+            }
+            byte[] msg = Encoding.ASCII.GetBytes("Data processed\n");
+            handler.Send(msg);
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+            Console.WriteLine("Connection closed.");
+        }
+        catch (SocketException se)
+        {
+            if (se.SocketErrorCode == SocketError.TimedOut)
+            {
+                Console.WriteLine("No data received within 30 seconds, connection closed.");
+            }
+            else
+            {
+                Console.WriteLine($"Socket exception: {se.Message}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An exception occurred while handling client: {e.Message}");
+        }
+        finally
+        {
+            if (handler.Connected)
+            {
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
+            }
         }
     }
 
     private static void ProcessData(string data)
     {
-        // Filter out non-printable characters except for typical whitespace used in JSON
         string filteredData = new string(data.Where(c => !char.IsControl(c) || char.IsWhiteSpace(c)).ToArray());
 
         if (string.IsNullOrWhiteSpace(filteredData))
@@ -112,8 +150,6 @@ public class ServerListener
         }
     }
 
-
-    
     private static void SaveData(SensorData sensorData)
     {
         try
