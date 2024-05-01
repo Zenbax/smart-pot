@@ -1,28 +1,34 @@
+using Application_.LogicInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Domain;
+using Domain.DTOs;
 using Domain.Model;
 
-namespace YourApiNamespace.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IMongoCollection<User> _usersCollection;
         private readonly ILogger _logger;
+        private readonly IUserLogic _userLogic;  // Dependency on the IUserLogic interface
 
-        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger)
+
+        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger , IUserLogic userLogic)
         {
             _usersCollection = usersCollection;
             _logger = logger;
+            _userLogic = userLogic;
         }
 
-        [HttpGet]
+        [HttpGet("get/all")]
         public async Task<IActionResult> GetUsers()
         {
             try
             {
+                _logger.LogInformation("Called: Getting all users endpoint");
                 var users = await _usersCollection.Find(_ => true).ToListAsync();
                 return Ok(users);
             }
@@ -32,27 +38,33 @@ namespace YourApiNamespace.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser(User newUser)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUser(UserCreationDto newUser)
         {
             
             try
             {
-                await _usersCollection.InsertOneAsync(newUser);
-                return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
+                var userId = await _userLogic.Register(newUser);
+                return CreatedAtAction(nameof(GetUserById), new { id = userId }, newUser);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Internal server error: {ex}");
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
             try
             {
+                _logger.LogInformation("Called: Get user by ID endpoint");
                 var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
                 if (user == null)
                 {

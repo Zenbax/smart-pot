@@ -8,7 +8,7 @@ using Domain;
 using Domain.Model;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
     [Route("[controller]")]
@@ -55,6 +55,7 @@ namespace WebAPI.Controllers
                 Expires = DateTime.UtcNow.AddHours(Convert.ToDouble(_configuration["Jwt:ExpireHours"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }

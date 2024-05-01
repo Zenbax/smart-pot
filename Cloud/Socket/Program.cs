@@ -35,5 +35,4 @@ public class Program
             Console.WriteLine("Failed to connect to MongoDB: " + ex.Message);
         }
     }
-
 }
