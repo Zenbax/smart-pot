@@ -1,20 +1,89 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
-        "projectName": "Domain",
-        "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\artes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "projectName": "Application-",
+        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\artes\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.24.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -59,21 +128,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.118\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\artes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\artes\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -85,8 +157,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj"
+              },
+              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj"
               }
             }
           }
@@ -137,7 +212,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.118\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

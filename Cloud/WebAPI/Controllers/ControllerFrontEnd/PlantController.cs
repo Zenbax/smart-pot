@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[plant]")]
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;
@@ -16,8 +16,8 @@ public class PlantController : ControllerBase
         _plantLogic = plantLogic;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<Plant>> Get()
+    [HttpGet("get/all")]
+    public async Task<IEnumerable<Plant>> GetAllPlant()
     {
         try
         {
@@ -30,8 +30,8 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpGet("{name}")]
-    public async Task<ActionResult<Plant>> Get(string name)
+    [HttpGet("get/{name}")]
+    public async Task<ActionResult<Plant>> GetPlantByName(string name)
     {
         try
         {
@@ -49,7 +49,7 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
     {
         try
