@@ -21,7 +21,7 @@ public class PlantLogic : IPlantLogic
             return await _plants.Find(p => true).ToListAsync();
         }
         catch (Exception ex)
-        {
+        { 
             return null;
         }
     }
@@ -46,7 +46,11 @@ public class PlantLogic : IPlantLogic
             {
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
-                ImageUrl = plantDto.ImageURL
+                ImageUrl = plantDto.ImageURL,
+                // todo: add more properties if needed
+                // Size = plantDto.Size,
+                // PlantType = plantDto.PlantType,
+                // HumidityLogs = humidityLog
             };
 
             await _plants.InsertOneAsync(plant);
@@ -90,6 +94,18 @@ public class PlantLogic : IPlantLogic
         catch (Exception ex)
         {
             return $"Error: {ex.Message}";
+        }
+    }
+
+    public Task<Plant> GetPlantById(string id)
+    {
+        try
+        {
+            return _plants.Find(p => p.Id == id).FirstOrDefaultAsync();
+        }
+        catch (Exception ex)
+        {
+            return null;
         }
     }
 }

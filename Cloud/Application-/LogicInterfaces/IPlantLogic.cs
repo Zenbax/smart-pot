@@ -10,5 +10,6 @@ public interface IPlantLogic
     Task<string> CreatePlant(PlantCreationDto plantDto);
     Task<string> UpdatePlant(string name, PlantUpdateDto updatedPlantDto);
     Task<string> DeletePlant(string name);
-    
+    Task<Plant> GetPlantById(string id);
+
 }
