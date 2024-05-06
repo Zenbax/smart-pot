@@ -6,7 +6,7 @@ using YourApiNamespace.Controllers;
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("pot")]
     public class PotController : ControllerBase
     {
         private readonly IPotLogic _potLogic;
@@ -16,8 +16,8 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             _potLogic = potLogic;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Pot>> Get()
+        [HttpGet("get/all")]
+        public async Task<IEnumerable<Pot>> GetPot()
         {
             try
             {
@@ -30,8 +30,8 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Pot>> Get(string id)
+        [HttpGet("get/{id}")]
+        public async Task<ActionResult<Pot>> GetPotById(string id)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             }
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<string>> Post(PotCreationDto potCreationDto)
         {
             try
