@@ -17,11 +17,28 @@ using YourApiNamespace.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSignalR();
+    services.AddScoped<IHumidityLogService, HumidityLogService>();
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseSignalR(routes =>
+    {
+        routes.MapHub<HumidityHub>("/humidityHub");
+    });
+}
+
+
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
+services.AddScoped<IHumidityLogService, HumidityLogService>();
+
 
 // Add services to the container.
 // Configure MongoDB

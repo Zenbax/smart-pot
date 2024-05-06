@@ -16,6 +16,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bb7c71b9-f506-44da-9f9a-74ad1636ca09" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/Domain/Model/HumidityLog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Domain/Model/HumidityLog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cloud/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/WebAPI/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +29,19 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/HumidityLog.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Domain/Model/Pot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Domain/bin/Debug/net7.0/Domain.deps.json" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/Socket/HumidityHub.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PlantController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/PotController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Controllers/ControllerFrontEnd/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Services/AuthService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Services/HumidityLogService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/Services/IHumidityLogService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Cloud/WebAPI/appsettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -61,9 +71,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\karee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\karee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\karee\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\artes\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\artes\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\artes\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -199,6 +209,7 @@
       <workItem from="1714381532626" duration="337000" />
       <workItem from="1714466719919" duration="404000" />
       <workItem from="1714469786134" duration="824000" />
+      <workItem from="1714936102693" duration="3127000" />
     </task>
     <servers />
   </component>

@@ -1,14 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-
-namespace Domain.Model;
-
-public class HumidityLog
+namespace Domain.Model
 {
-    [BsonRepresentation(BsonType.ObjectId)]// This is needed for MongoDB to generate an ID
-    public string Id { get; set; }
-
-    public DateTime TimeStamp { get; set; }
-    public int MoisturePercent { get; set; }
-    public int WateringAmountML { get; set; }
+    public class HumidityLog
+    {
+        public int Id { get; set; }
+        public int PotId { get; set; }
+        public double HumidityPercentage { get; set; }
+        public DateTime Timestamp { get; set; }
+    }
 }
