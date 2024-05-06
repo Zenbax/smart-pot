@@ -10,7 +10,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2"/>
-        <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
         <PackageReference Include="Moq" Version="4.20.70" />
         <PackageReference Include="NUnit" Version="3.13.3"/>
         <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
@@ -23,10 +22,6 @@
       <ProjectReference Include="..\Domain\Domain.csproj" />
       <ProjectReference Include="..\Socket\Socket.csproj" />
       <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="smartPotte.csproj" />
     </ItemGroup>
 
 </Project>
