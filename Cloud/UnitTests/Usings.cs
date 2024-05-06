@@ -1,1 +1,13 @@
 global using NUnit.Framework;
+global using System;
+global using System.Collections.Generic;
+global using System.Threading.Tasks;
+global using Moq;
+global using Application_.Logic;
+global using Domain.Model;
+global using Domain.DTOs;
+global using MongoDB.Driver;
+global using YourApiNamespace.Controllers;
+global using Application_.LogicInterfaces;
+global using Application_.Logic;
+global using UnitTests;
