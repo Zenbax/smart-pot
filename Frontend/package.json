@@ -32,6 +32,19 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.5",
-    "jest": "^27.5.1"
+    "@babel/preset-react": "^7.24.1",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.6",
+    "jest": "^27.5.1",
+    "jest-transform-stub": "^2.0.0",
+    "jsdom": "^24.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "<rootDir>/Test/styleMock.js",
+      "^API/(.*)$": "<rootDir>/src/API/$1"
+    }
   }
 }
+
