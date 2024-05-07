@@ -20,7 +20,6 @@ public class UserCreationDto
     public string Email { get; set; }
 
     [Required(ErrorMessage = "Password is required.")]
-    [StringLength(12, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 12 characters long.")]
     public string Password { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
