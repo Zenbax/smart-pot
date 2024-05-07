@@ -5,8 +5,6 @@ import { MemoryRouter, BrowserRouter as Router } from 'react-router-dom';
 import Navbar from '../src/Components/NavBar'
 
 
-
-// Render
 test("Navbar is rendered on page", () =>{
     render(
         <MemoryRouter>
@@ -15,11 +13,11 @@ test("Navbar is rendered on page", () =>{
     );
     expect(screen.getByText('Smart-Pot')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
-}) 
+});
 
 
 
-//Buttons
+
 
 test("Click on button on the Navbar and navigate to Login-page",() => {
     const {getByText}  =render(
@@ -31,10 +29,8 @@ test("Click on button on the Navbar and navigate to Login-page",() => {
     fireEvent.click(getByText('Login'));
 
     expect(window.location.pathname).toBe('/login');
-})
+});
 
-
-// Navigation
 
 test("Navigate to Homepage from Navbar", () =>{
     const {getByText}  =render(
@@ -47,7 +43,7 @@ test("Navigate to Homepage from Navbar", () =>{
 
     expect(window.location.pathname).toBe('/');
 
-})
+});
 
 
 

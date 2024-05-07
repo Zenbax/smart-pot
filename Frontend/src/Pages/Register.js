@@ -31,7 +31,7 @@ const Register =()=> {
                     <div className="input-container">
                         <input
                             type="text"
-                            placeholder="name"
+                            placeholder="First Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -68,7 +68,7 @@ const Register =()=> {
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
-                    <button type='submit' >Register</button>
+                    <button type='submit'> Submit</button>
                   
                 </form>
             </div>

@@ -42,8 +42,9 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
-      "\\.(css|less|scss|sass)$": "<rootDir>/Test/styleMock.js",
-      "^API/(.*)$": "<rootDir>/src/API/$1"
+      "\\.(css|less|scss|sass)$": "<rootDir>/Test/Mocks/styleMock.js",
+      "^API/(.*)$": "<rootDir>/src/API/$1",
+      "^bcryptjs$": "<rootDir>/Test/Mocks/bcryptjs.js"
     }
   }
 }
