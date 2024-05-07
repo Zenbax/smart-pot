@@ -18,14 +18,13 @@ public class UserLogic : IUserLogic
         
         public async Task<string> Login(LoginDto userLoginDto)
         {
-            var user = await _usersCollection.Find(u => u.Email == userLoginDto.Username && u.Password == userLoginDto.Password).FirstOrDefaultAsync();
-            if (user != null)
+            var user = await _usersCollection.Find(u => u.Email == userLoginDto.Email && u.Password == userLoginDto.Password).FirstOrDefaultAsync();
+            if (user == null)
             {
-                // Implement your token generation logic here
-                // For now, we are just returning a simple GUID as token
-                return Guid.NewGuid().ToString();
+                throw new ArgumentException("Invalid email or password.");
             }
-            return null;
+
+            return user.Id; 
         }
 
         public async Task<string> Register(UserCreationDto userCreationDto)

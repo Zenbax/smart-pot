@@ -12,6 +12,7 @@ using System;
 using Domain.Model;
 using Application_.Logic;
 using Application_.LogicInterfaces;
+using Cloud.Services;
 using YourApiNamespace.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,7 +58,7 @@ builder.Services.AddSingleton(serviceProvider =>
 builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
 builder.Services.AddScoped<IPlantLogic, PlantLogic>(); // Dependency injection for PlantLogic
 builder.Services.AddScoped<IPotLogic, PotLogic>(); // Dependency injection for PotLogic
-
+builder.Services.AddScoped<IAuthService, AuthService>(); // Dependency injection for AuthService
 
 
 var client = new MongoClient(mongoDbSettings["ConnectionString"]);

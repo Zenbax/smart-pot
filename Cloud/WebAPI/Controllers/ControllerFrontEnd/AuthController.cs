@@ -26,19 +26,31 @@ namespace WebAPI.Controllers.ControllerFrontEnd
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            var user = await _authService.ValidateUser(loginDto.Username, loginDto.Password);
+            var user = await _authService.LoginUser(loginDto.Email, loginDto.Password);
             if (user == null)
                 return Unauthorized();
 
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            return Ok(new { token });
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserCreationDto userDto)
         {
-            // Implement user registration logic here
-            return CreatedAtAction(nameof(Login), new { username = userDto.Email }, null);
+            var user = new User
+            {
+                Email = userDto.Email,
+                Password = userDto.Password,
+                Name = userDto.Name,
+                LastName = userDto.LastName,
+                PhoneNumber = userDto.PhoneNumber
+            };
+
+            var createdUser = await _authService.RegisterUser(user);
+            if (createdUser == null)
+                return BadRequest();
+
+            return Ok();
         }
 
         private string GenerateJwtToken(User user)
