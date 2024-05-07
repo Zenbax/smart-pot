@@ -206,6 +206,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
                 phoneNumber: paramPhoneNumber
             }
         )
+        console.log(jsonUserInfoDTO)
     try{
         instance.post("/user/create", jsonUserInfoDTO)
         
