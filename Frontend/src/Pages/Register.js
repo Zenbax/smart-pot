@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import bcrypt from "bcryptjs";
+
 
 import '../Styling/Login.css';
 import { createUser } from "../API/API_config";
@@ -17,7 +19,8 @@ const Register =()=> {
 
     const handleClick = async(event)=> {
         event.preventDefault();
-        createUser(name, lastName, password, email, phoneNumber);
+        const hashedPassword = await bcrypt.hash(password,10)
+        createUser(name, lastName, hashedPassword, email, phoneNumber);
     }
 
     return (

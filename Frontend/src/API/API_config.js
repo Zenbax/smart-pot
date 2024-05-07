@@ -206,7 +206,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
                 phoneNumber: paramPhoneNumber
             }
         )
-        console.log(jsonUserInfoDTO);
+        console.log(jsonUserInfoDTO)
     try{
         instance.post("/user/create", jsonUserInfoDTO)
         
@@ -218,17 +218,27 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 }
 
 export async function getPotFromId(id){
-    //return potArray.find(x => x.PotId == id);
-    const response = await instance.get("/pot/get/"+id)
-    return response.data
+    try{
+        const response = await instance.get("/pot/get/"+id)
+        return response.data
+    }
+    catch{
+        //TODO: ErrorHandling 
+    }
+    
 
     
 }
 
 export async function getAllPots(){
-    //return potArray
-    const response = await instance.get("/pot/get/all")
-    return response.data
+    try{
+        const response = await instance.get("/pot/get/all")
+        return response.data
+    }
+    catch{
+        //TODO: ErrorHandling 
+    }
+    
 }
 
 
