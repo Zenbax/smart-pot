@@ -17,6 +17,7 @@ const Home = () =>
         };
         fetchData();
     }, [])
+  
     //const [showPopup, setShowPopup] = useState(false);
 
     //const togglePopup = () => {
@@ -43,13 +44,14 @@ const Home = () =>
                 <div class="col-8">
                     <div>
                         <h1>Potter</h1>
-                        {pots.map((e) =>{
+                        {pots.length ?
+                        pots.map((e) =>{
                         return(
                             <Smartpot pot={e}/>
                         );
                     }
 
-                    )}
+                    ):<h1>No pots yet</h1>}
                     </div>
                 </div>
             </div>
