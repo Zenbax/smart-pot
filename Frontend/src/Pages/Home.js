@@ -42,7 +42,7 @@ const Home = () =>
                 </div>
                 <div class="col-8">
                     <div>
-                        <h1>planter</h1>
+                        <h1>Potter</h1>
                         {pots.map((e) =>{
                         return(
                             <Smartpot pot={e}/>
