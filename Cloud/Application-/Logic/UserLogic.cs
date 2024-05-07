@@ -1,19 +1,22 @@
 ﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using LoggerExtensions = DnsClient.Internal.LoggerExtensions;
 
 namespace Application_.Logic;
 
 public class UserLogic : IUserLogic
     {
         private readonly IMongoCollection<User> _usersCollection;
-        
+        private readonly ILogger<UserLogic> _logger;
 
-        public UserLogic(IMongoCollection<User> usersCollection)
+        public UserLogic(IMongoCollection<User> usersCollection, ILogger<UserLogic> logger)
         {
             _usersCollection = usersCollection;
+            _logger = logger;
         }
         
         public async Task<string> Login(LoginDto userLoginDto)
@@ -29,6 +32,8 @@ public class UserLogic : IUserLogic
 
         public async Task<string> Register(UserCreationDto userCreationDto)
         {
+            _logger.LogInformation("Called register in application logic.");
+            Console.WriteLine("Called register in application logic.");
             var emailExists = await _usersCollection.Find(u => u.Email == userCreationDto.Email).AnyAsync();
             if (emailExists)
             {
@@ -46,6 +51,7 @@ public class UserLogic : IUserLogic
             };
 
             await _usersCollection.InsertOneAsync(newUser);
+            Console.WriteLine("User registered successfully with id: " + newUser.Id);
             return newUser.Id;
         }
 

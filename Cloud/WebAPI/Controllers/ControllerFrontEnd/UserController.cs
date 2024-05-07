@@ -16,7 +16,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
         private readonly IUserLogic _userLogic;  // Dependency on the IUserLogic interface
 
 
-        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger , IUserLogic userLogic)
+        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger, IUserLogic userLogic)
         {
             _usersCollection = usersCollection;
             _logger = logger;

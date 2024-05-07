@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Folder Include="Controllers\ControllerIOT\" />
+      <Folder Include="obj\Debug\net7.0\" />
       <Folder Include="Services\ServiceFrontEnd\" />
       <Folder Include="Services\ServiceIOT\" />
     </ItemGroup>

@@ -11,17 +11,19 @@ using Microsoft.IdentityModel.Tokens;
 namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("auth")]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IAuthService _authService;
+    private readonly IAuthService _authService;
+    private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IConfiguration configuration, IAuthService authService)
-        {
-            _configuration = configuration;
-            _authService = authService;
-        }
+    public AuthController(IConfiguration configuration, IAuthService authService, ILogger<AuthController> logger)
+    {
+        _configuration = configuration;
+        _authService = authService;
+        _logger = logger;
+    }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -37,6 +39,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserCreationDto userDto)
         {
+            _logger.LogInformation("Called: Register user endpoint");
             var user = new User
             {
                 Email = userDto.Email,
@@ -47,10 +50,15 @@ namespace WebAPI.Controllers.ControllerFrontEnd
             };
 
             var createdUser = await _authService.RegisterUser(user);
+            _logger.LogInformation("User registered successfully");
+            _logger.LogInformation("Response: " + createdUser?.Name);
             if (createdUser == null)
+            {
+                _logger.LogError("Failed to register user");
                 return BadRequest();
+            }
 
-            return Ok();
+            return Ok(createdUser);
         }
 
         private string GenerateJwtToken(User user)

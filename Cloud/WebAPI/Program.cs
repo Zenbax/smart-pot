@@ -69,6 +69,7 @@ builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for
 
 // Set up MVC, Swagger and CORS
 builder.Services.AddControllers();
+builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
