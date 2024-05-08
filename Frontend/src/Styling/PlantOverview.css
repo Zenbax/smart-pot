@@ -1,0 +1,88 @@
+.col-lg-7{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.plant-temp-container {
+    text-align: center;
+    border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 2px;
+    margin-top: 55px;
+    border-radius: 7px;
+}
+
+.plant-temp-container h2 {
+    margin-bottom: 15px;
+}
+
+.plant-temp-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plant-input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 3fr); /* Two columns */
+    grid-gap: 10px;
+}
+
+.plant-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.file-upload-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    margin: 10px;
+}
+
+.file-upload-button input {
+    display: none;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    border: none;
+}
+
+/* Add this to your PlantOverview.css or any other CSS file */
+.custom-pop-up-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+  
+  .custom-pop-up {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  

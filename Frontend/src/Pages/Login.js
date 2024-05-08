@@ -20,9 +20,9 @@ const Login =()=> {
 
     return (
         <div className="login-container">
-            <h2> Login </h2>
+            <h2 className="login-h2"> Login </h2>
             <form className="login-form" onSubmit={handleSubmit}>
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         type="text"
                         placeholder="Username"
@@ -30,7 +30,7 @@ const Login =()=> {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className="input-container">
+                <div className="login-input-container">
                     <input
                         type="password"
                         placeholder="Password"
