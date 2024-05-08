@@ -9,13 +9,15 @@ import PlantOverview from './Pages/PlantOverview.js';
 import Navbar from './Components/NavBar';
 import './Styling/Navbar.css';
 import PotDetails from './Pages/PotDetails';
+import'./Styling/App.css'
 
 
 
 function App (){
     return (
-        
-        <BrowserRouter>
+        <div id='screen'>
+
+            <BrowserRouter>
         <Navbar/>
         <Routes>
             <Route exact path="/" element={<Home />} />
@@ -26,7 +28,10 @@ function App (){
             <Route path="/:potID" element={<PotDetails/>} />
         </Routes>
       </BrowserRouter>
-    )
+   
+        </div>
+      )   
+        
 }
 
 export default App;

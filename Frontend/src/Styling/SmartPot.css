@@ -15,3 +15,10 @@ a:link {
 #bottomCol img, h1{
     display: inline-block;
 }
+#smartPodContainer{
+    border-color: rgb(75, 75, 75);
+    border-style: solid;
+    border-radius: 20px;
+    margin: 15px;
+    padding: 10px;
+}

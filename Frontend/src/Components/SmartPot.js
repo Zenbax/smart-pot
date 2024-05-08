@@ -9,11 +9,11 @@ import waterdropImage from '../images/waterdrop.jpg'
 const SmartPot = ({pot}) => {
     return(
         <Link to={"/"+pot.id}>
-        <Container>
+        <Container id='smartPodContainer'>
             <Row>
                 <Col md="8">
                     <h1>{pot.nameOfPot}</h1>
-                    <h2>{pot.plant.nameOfPlant}</h2>
+                    <h2>{"Plant: "+pot.plant.nameOfPlant}</h2>
                 </Col>
                 <Col md="4">
                     <img id='smartPotPlant' src={pot.plant.imageUrl} onError={event => {
