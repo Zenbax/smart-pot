@@ -46,12 +46,8 @@ public class PlantLogic : IPlantLogic
             {
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
-<<<<<<< HEAD:Cloud/Application/Logic/PlantLogic.cs
-                ImageUrl = plantDto.ImageURL
-=======
                 WaterML = plantDto.WaterML,
                 ImageUrl = plantDto.ImageUrl,
->>>>>>> Kim_Branch:Cloud/Application-/Logic/PlantLogic.cs
             };
 
             await _plants.InsertOneAsync(plant);
