@@ -14,6 +14,7 @@ public class UserCreationDto
     [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Last name must contain only letters.")]
     public string LastName { get; set; }
 
+    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format.")]
     [Required(ErrorMessage = "Email is required.")]
     [StringLength(40, MinimumLength = 8, ErrorMessage = "Email must be between 8 and 40 characters long.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
