@@ -1,36 +1,56 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {}
+<<<<<<< HEAD
+    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj",
-        "projectName": "Application-",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\obj\\",
+        "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj",
+        "projectName": "Application",
+        "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj",
+        "packagesPath": "/Users/bak/.nuget/packages/",
+        "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "projectName": "Application-",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+<<<<<<< HEAD
+              "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
+                "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj"
+=======
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+>>>>>>> Kim_Branch
               }
             }
           }
@@ -39,6 +59,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -48,6 +73,10 @@
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.24.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.5.1, )"
             }
           },
           "imports": [
@@ -61,34 +90,60 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+<<<<<<< HEAD
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj",
+        "packagesPath": "/Users/bak/.nuget/packages/",
+        "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -101,6 +156,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -123,45 +183,79 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+<<<<<<< HEAD
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {
+    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\Oumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\WebAPI\\obj\\",
+        "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj",
+        "packagesPath": "/Users/bak/.nuget/packages/",
+        "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Oumar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "projectName": "WebAPI",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Application-\\Application-.csproj"
+<<<<<<< HEAD
+              "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj": {
+                "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj"
               },
-              "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Oumar\\OneDrive\\Documents\\GitHub\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+              "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
+                "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj"
+=======
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj"
+              },
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+>>>>>>> Kim_Branch
               }
             }
           }
@@ -170,12 +264,21 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.11, )"
@@ -204,6 +307,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[7.0.16, 7.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.16, 7.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -212,7 +329,11 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+<<<<<<< HEAD
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+>>>>>>> Kim_Branch
         }
       }
     }

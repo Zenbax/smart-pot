@@ -1,18 +1,13 @@
-﻿# Use the base image with .NET runtime
+﻿# Use the official image as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80 11000
+EXPOSE 80
 
-# Install Supervisord
-RUN apt-get update && apt-get install -y supervisor
-# Setup Supervisord log and configuration directories
-RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
-
-# Use the SDK image to build the application
+# Define the base image for the SDK (to build and publish the app)
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
-# Copy and restore all projects
+# Copy csproj and restore as distinct layers
 COPY ["WebAPI/WebAPI.csproj", "WebAPI/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Socket/Socket.csproj", "Socket/"]
@@ -25,14 +20,10 @@ COPY . .
 RUN dotnet build "WebAPI/WebAPI.csproj" -c Release -o /app/build
 RUN dotnet build "Socket/Socket.csproj" -c Release -o /app/build
 
-# Publish the applications
 FROM build AS publish
 RUN dotnet publish "WebAPI/WebAPI.csproj" -c Release -o /app/publish
-RUN dotnet publish "Socket/Socket.csproj" -c Release -o /app/publish
 
-# Final stage/image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["dotnet", "WebAPI.dll"]

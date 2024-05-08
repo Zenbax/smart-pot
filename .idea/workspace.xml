@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48b49d61-e566-488b-8f35-4f03c5d06caa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.smart-pot.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cloud/Socket/ServerListener.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +31,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Cloud",
-    "last_opened_file_path": "C:/Users/karee/OneDrive/Desktop/Feedback/ADS Assignment 3/ADS Assignment 3",
+    "git-widget-placeholder": "Cloud__Staging",
+    "last_opened_file_path": "C:/Users/karee/OneDrive/Desktop/Repository/smart-pot",
     "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
@@ -48,7 +46,6 @@
       <option name="presentableId" value="Default" />
       <updated>1712134300122</updated>
       <workItem from="1712134301236" duration="104000" />
-      <workItem from="1714467120984" duration="99000" />
     </task>
     <servers />
   </component>

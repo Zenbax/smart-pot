@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socket", "Socket\Socket.csproj", "{81A883A2-B452-4365-98E7-568B1D1C2F45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application-", "Application-\Application-.csproj", "{FCA6E5DD-2824-4112-9941-1121E46E75AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{FCA6E5DD-2824-4112-9941-1121E46E75AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{4FC9C924-BFA5-4AAD-9B9F-974C31B9AD58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +38,9 @@ Global
 		{FCA6E5DD-2824-4112-9941-1121E46E75AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCA6E5DD-2824-4112-9941-1121E46E75AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCA6E5DD-2824-4112-9941-1121E46E75AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC9C924-BFA5-4AAD-9B9F-974C31B9AD58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC9C924-BFA5-4AAD-9B9F-974C31B9AD58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC9C924-BFA5-4AAD-9B9F-974C31B9AD58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC9C924-BFA5-4AAD-9B9F-974C31B9AD58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
