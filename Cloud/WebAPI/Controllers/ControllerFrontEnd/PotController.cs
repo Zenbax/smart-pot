@@ -17,16 +17,16 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         }
 
         [HttpGet("get/all")]
-        public async Task<IEnumerable<Pot>> GetPot()
+        public async Task<ActionResult<IEnumerable<Pot>>> GetPot()
         {
             try
             {
-                return await _potLogic.GetAllPots();
+                var pots = await _potLogic.GetAllPots();
+                return Ok(pots);
             }
             catch (Exception ex)
             {
-                Response.StatusCode = 500;
-                return null;
+                return StatusCode(500, "An error occurred while retrieving pots.");
             }
         }
 

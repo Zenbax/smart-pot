@@ -23,8 +23,7 @@ namespace Application_.Logic;
         }
         catch (Exception ex)
         {
-            // Håndter eventuelle fejl
-            return null;
+            throw new Exception(ex.Message);
         }
     }
 
