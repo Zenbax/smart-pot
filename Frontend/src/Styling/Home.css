@@ -1,0 +1,8 @@
+.bitchContainer{
+    height: calc(100% - 60px);
+}
+
+/*burde være i % så det variere af skærmstørrelse*/
+.problemRow{
+    height: 579px;
+}
