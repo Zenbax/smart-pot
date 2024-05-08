@@ -104,4 +104,26 @@ namespace Application_.Logic;
 
         }
     }
+    
+    
+    
+    
+
+
+    public async Task<Pot> GetPotByMachineId(string machineId)
+    {
+        try
+        {
+            return await _pots.Find(p => p.MachineID == machineId).FirstOrDefaultAsync();
+        }
+        catch (Exception ex)
+        {
+            // Log the exception or handle it as necessary
+            throw new Exception("Failed to fetch pot by MachineID: " + ex.Message);
+        }
+    }
+    
+    
+    
+    
 }

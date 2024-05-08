@@ -3,6 +3,8 @@ namespace Socket.Models;
 public class SensorData
 {
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-    public string SensorType { get; set; }
-    public double Value { get; set; }
+    public string MachineID { get; set; }
+    public double WaterTankLevel { get; set; }
+    public double MeasuredSoilMoisture { get; set; }
+    public double AmountOfWatering { get; set; }
 }

@@ -1,86 +1,73 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using MongoDB.Driver;
 using System.Text.Json;
 using Socket.Models;
+using YourApiNamespace.Controllers;
 
 public class ServerListener
 {
-    private static IMongoCollection<SensorData> dataCollection;
+    private static IMongoCollection<Pot> potCollection;
+    private static IMongoCollection<SensorData> sensorDataCollection;  // Declare the collection for SensorData
 
     public static void StartServer()
     {
-        // Initialize MongoDB collection
-        int port = int.Parse(Environment.GetEnvironmentVariable("SOCKET_PORT") ?? "11000");
         var client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING"));
         var database = client.GetDatabase(Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME"));
-        dataCollection = database.GetCollection<SensorData>("SensorData");
+        potCollection = database.GetCollection<Pot>("Pots");
+        sensorDataCollection = database.GetCollection<SensorData>("SensorData");  // Initialize the collection
 
+        int port = int.Parse(Environment.GetEnvironmentVariable("SOCKET_PORT") ?? "11000");
         IPAddress ipAddress = IPAddress.Any;
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
 
-        try
+        using (var listener = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
         {
-            using (var listener = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            listener.Bind(localEndPoint);
+            listener.Listen(10);
+            Console.WriteLine("Server is waiting for a connection...");
+
+            while (true)
             {
-                listener.Bind(localEndPoint);
-                listener.Listen(10);
-
-                Console.WriteLine("Waiting for a connection...");
-
-                while (true)
-                {
-                    using (var handler = listener.Accept())
-                    {
-                        StringBuilder data = new StringBuilder();
-                        byte[] bytes = new byte[1024];
-                        int bytesRec = 0;
-
-                        // Continuously read data from the client
-                        while (handler.Connected)
-                        {
-                            if (handler.Available > 0)
-                            {
-                                bytesRec = handler.Receive(bytes);
-                                string part = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                                data.Append(part);
-
-                                if (part.Contains("\n"))  // Check if the end marker (newline) is in the string
-                                {
-                                    var fullData = data.ToString();
-                                    var messages = fullData.Split('\n');
-                                    foreach (var message in messages)
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(message))
-                                        {
-                                            Console.WriteLine("Text received: {0}", message);
-                                            ProcessData(message.Trim());
-                                        }
-                                    }
-                                    data.Clear();  // Clear the data for the next message
-                                }
-                            }
-                        }
-
-                        byte[] msg = Encoding.ASCII.GetBytes("Data processed");
-                        handler.Send(msg);
-                        handler.Shutdown(SocketShutdown.Both);
-                        handler.Close();
-                    }
-                }
+                var handler = listener.Accept();
+                Thread clientThread = new Thread(() => HandleClient(handler));
+                clientThread.Start();
             }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
         }
     }
 
-    private static void ProcessData(string data)
+    private static void HandleClient(System.Net.Sockets.Socket handler)
     {
-        // Filter out non-printable characters except for typical whitespace used in JSON
+        StringBuilder data = new StringBuilder();
+        byte[] bytes = new byte[1024];
+        int bytesRec;
+
+        try {
+            while ((bytesRec = handler.Receive(bytes)) > 0) {
+                string part = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                data.Append(part);
+                // Break the loop if JSON ends (you assume it ends with a newline or close brace)
+                if (part.EndsWith("\n") || part.EndsWith("}"))
+                    break;
+            }
+
+            string fullData = data.ToString();
+            Console.WriteLine("Text received: {0}", fullData);
+            ProcessData(fullData, handler);  // Pass handler as a second argument to ProcessData
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+        } catch (Exception e) {
+            Console.WriteLine($"An exception occurred while handling client: {e.Message}");
+        }
+    }
+
+
+
+    private static void ProcessData(string data, System.Net.Sockets.Socket handler)
+    {
         string filteredData = new string(data.Where(c => !char.IsControl(c) || char.IsWhiteSpace(c)).ToArray());
 
         if (string.IsNullOrWhiteSpace(filteredData))
@@ -91,19 +78,24 @@ public class ServerListener
 
         try
         {
-            using (JsonDocument doc = JsonDocument.Parse(filteredData))
+            var sensorData = JsonSerializer.Deserialize<SensorData>(filteredData); // Deserialize the JSON into a SensorData object
+            sensorDataCollection.InsertOne(sensorData); // Save the sensor data to MongoDB
+            Console.WriteLine("Sensor data saved to MongoDB.");
+
+            // After saving, find the corresponding pot and send it back to the client
+            var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
+            if (pot != null)
             {
-                var sensorType = doc.RootElement.GetProperty("type").GetString();
-                var value = doc.RootElement.GetProperty("value").GetString();
-                if (double.TryParse(value, out double parsedValue))
-                {
-                    SaveData(new SensorData { SensorType = sensorType, Value = parsedValue });
-                    Console.WriteLine($"Processed and saved data: Type = {sensorType}, Value = {parsedValue}");
-                }
-                else
-                {
-                    Console.WriteLine($"Unable to parse the value '{value}' as double.");
-                }
+                var potJson = JsonSerializer.Serialize(pot);
+                byte[] msg = Encoding.ASCII.GetBytes(potJson);
+                handler.Send(msg);
+                Console.WriteLine("Sent pot data back to client.");
+            }
+            else
+            {
+                Console.WriteLine("Pot not found.");
+                byte[] msg = Encoding.ASCII.GetBytes("Pot not found\n");
+                handler.Send(msg);
             }
         }
         catch (JsonException ex)
@@ -111,22 +103,4 @@ public class ServerListener
             Console.WriteLine($"Failed to parse JSON data: {ex.Message}");
         }
     }
-
-
-    
-    private static void SaveData(SensorData sensorData)
-    {
-        try
-        {
-            dataCollection.InsertOne(sensorData);
-            Console.WriteLine($"Saved {sensorData.SensorType} data to MongoDB.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Failed to save data: " + ex.Message);
-        }
-    }
-    
-    
-    
 }

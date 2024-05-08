@@ -6,7 +6,7 @@ public class PlantUpdateDto
     
     public int SoilMinimumMoisture { get; set; }
     
-    public int WaterML { get; set; }
+    public int WaterTankLevel { get; set; }
 
     public string ImageURL { get; set; }
 }
