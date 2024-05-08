@@ -9,6 +9,7 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebAPI
 build_property.RootNamespace = WebAPI
+<<<<<<< HEAD
 build_property.ProjectDir = /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
@@ -16,4 +17,11 @@ build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI
+=======
+build_property.ProjectDir = C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\WebAPI
+>>>>>>> Kim_Branch
 build_property._RazorSourceGeneratorDebug = 

@@ -46,7 +46,12 @@ public class PlantLogic : IPlantLogic
             {
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
+<<<<<<< HEAD:Cloud/Application/Logic/PlantLogic.cs
                 ImageUrl = plantDto.ImageURL
+=======
+                WaterML = plantDto.WaterML,
+                ImageUrl = plantDto.ImageUrl,
+>>>>>>> Kim_Branch:Cloud/Application-/Logic/PlantLogic.cs
             };
 
             await _plants.InsertOneAsync(plant);
@@ -68,8 +73,10 @@ public class PlantLogic : IPlantLogic
                 return "Plant not found";
             }
 
+            plant.NameOfPlant = updatedPlantDto.NameOfPlant;
             plant.SoilMinimumMoisture = updatedPlantDto.SoilMinimumMoisture;
-            plant.ImageUrl = updatedPlantDto.ImageUrl;
+            plant.WaterML = updatedPlantDto.WaterML;
+            plant.ImageUrl = updatedPlantDto.ImageURL;
 
             await _plants.ReplaceOneAsync(p => p.NameOfPlant == name, plant);
             return "Success";

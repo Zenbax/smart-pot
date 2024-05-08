@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "projectName": "Application-",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -27,8 +44,13 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+<<<<<<< HEAD
               "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
                 "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj"
+=======
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+>>>>>>> Kim_Branch
               }
             }
           }
@@ -83,6 +105,7 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
         }
       }
@@ -98,6 +121,23 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -158,6 +198,7 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
         }
       }
@@ -173,6 +214,23 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bak/.nuget/NuGet/NuGet.Config"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "projectName": "WebAPI",
+        "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\karee\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\WebAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\karee\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Kim_Branch
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -185,11 +243,19 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+<<<<<<< HEAD
               "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj": {
                 "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj"
               },
               "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
                 "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj"
+=======
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Application-\\Application-.csproj"
+              },
+              "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\karee\\OneDrive\\Desktop\\Repository\\smart-pot\\Cloud\\Domain\\Domain.csproj"
+>>>>>>> Kim_Branch
               }
             }
           }
@@ -263,7 +329,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+>>>>>>> Kim_Branch
         }
       }
     }
