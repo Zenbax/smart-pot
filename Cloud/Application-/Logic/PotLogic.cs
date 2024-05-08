@@ -44,21 +44,14 @@ namespace Application_.Logic;
     {
         try
         {
-            var plant = new Plant
-            {
-                NameOfPlant = potDto.NameOfPlant,
-                SoilMinimumMoisture = potDto.SoilMinimumMoisture,
-                ImageUrl = potDto.ImageUrl
-            };
-
             var newPot = new Pot
             {
-                NameOfPot = potDto.Name,
-                Plant = plant,
-                SoilMoisturePercent = potDto.HumidityPercent,
-                WaterReservoirPercent = 0, // Initialiser vandbeholderprocenten til 0
-                WateringLog = new List<HumidityLog>(), // Opret tomme logfiler
-                MoistureLog = new List<HumidityLog>()
+                NameOfPot = potDto.PotName,
+                Email = potDto.Email,
+                Enable = potDto.Enable,
+                MachineID = potDto.MachineID,
+                Plant = potDto.Plant
+                
             };
 
             // Indsæt den nye Pot i databasen
@@ -84,12 +77,10 @@ namespace Application_.Logic;
                 return "Pot not found";
             }
 
-            existingPot.NameOfPot = potUpdatedDto.Name;
-            existingPot.Plant.NameOfPlant = potUpdatedDto.NameOfPlant;
-            existingPot.Plant.SoilMinimumMoisture = potUpdatedDto.SoilMinimumMoisture;
-            existingPot.Plant.ImageUrl = potUpdatedDto.ImageUrl;
-            existingPot.SoilMoisturePercent = potUpdatedDto.HumidityPercent;
-
+            existingPot.NameOfPot = potUpdatedDto.PotName;
+            existingPot.Email = potUpdatedDto.Email;
+            existingPot.Enable = potUpdatedDto.Enable;
+            existingPot.Plant = potUpdatedDto.Plant;
             await _pots.ReplaceOneAsync(p => p.Id == id, existingPot);
 
             return "Success";
