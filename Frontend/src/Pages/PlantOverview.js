@@ -11,21 +11,24 @@ const PlantOverview = () => {
   const [plantName, setPlantName] = useState('');
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
-  const [plantImage, setPlantImage] = useState(defaultImageURL);
-  const [imagePreview, setImagePreview] = useState(defaultImageURL);
+  const [plantImage, setPlantImage] = useState(''); // holds a file object
+  const [imagePreview, setImagePreview] = useState(defaultImageURL); // holds a url to be shown
   const [showPopUp, setShowPopUp] = useState(false);
-  const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite'
+  const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite' or 'cancel'
 
-  // Function to handle form submission
+  // Function to set PopUp to true
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowPopUp(true);
+    if(plantName !='' && minSoilMoisture !='' && wateringAmount > 0){
+      setShowPopUp(true);
+    }
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setPlantImage(file);
     setImagePreview(URL.createObjectURL(file)); // Create a preview URL for the image
+    // der sker en fejl ved createObjectURL, hvis man allrade har uploadet en fil og så prøver igen men annullere
   };
 
   const handlePopUpAction = (action) => {
@@ -57,17 +60,19 @@ const PlantOverview = () => {
             <div className="col-lg-4">
               <PlantTemp />
             </div>
-            <div className="col-lg-4">
-              <PlantTemp />
-            </div>
           </div>
         </div>
 
-        <div className="col-lg-5 d-flex align-items-center justify-content-center">
+        <div className="col-lg-1 d-flex align-items-center justify-content-center">
+          <div className="vertical-line"></div>
+        </div>
+
+
+        <div className="col-lg-4 d-flex align-items-center justify-content-center">
           <div className="plant-temp-container">
             <h2> Edit Plant </h2>
             <form className="plant-temp-form" onSubmit={handleSubmit}>
-              
+
               <div className="plant-input-grid">
                 <label>Plant Name:</label>
                 <div className="plant-input-container">
@@ -124,8 +129,15 @@ const PlantOverview = () => {
         </div>
       </div>
 
-      {/* Custom Pop-up */}
-      {showPopUp && <PlantPopUp handlePopUpAction={handlePopUpAction} />}
+      {showPopUp && (
+        <PlantPopUp
+          handlePopUpAction={handlePopUpAction}
+          plantName={plantName}
+          minSoilMoisture={minSoilMoisture}
+          wateringAmount={wateringAmount}
+          imagePreview={imagePreview}
+        />
+      )}
 
     </div>
   );
