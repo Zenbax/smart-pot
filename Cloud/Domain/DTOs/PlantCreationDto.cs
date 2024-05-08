@@ -12,10 +12,7 @@ public class PlantCreationDto
 
 
     [Required(ErrorMessage = "Image URL is required")]
-    public string ImageURL { get; set; }
+    public string? ImageUrl { get; set; }
     [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
     public int WaterML { get; set; }
-    
-    public string? ImageUrl { get; set; }
-
 }

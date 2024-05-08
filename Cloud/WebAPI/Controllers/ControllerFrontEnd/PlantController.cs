@@ -18,7 +18,7 @@ public class PlantController : ControllerBase
         _plantLogic = plantLogic;
     }
 
-    [HttpGet]
+    [HttpGet("get/all")]
     public async Task<IEnumerable<Plant>> Get()
     {
         try
@@ -32,7 +32,7 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpGet("{name}")]
+    [HttpGet("get/{name}")]
     public async Task<ActionResult<Plant>> Get(string name)
     {
         try
@@ -51,7 +51,7 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
     {
         try
@@ -66,7 +66,7 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpDelete("{name}")]
+    [HttpDelete("delete/{name}")]
     public async Task<ActionResult<string>> Delete(string name)
     {
         try
