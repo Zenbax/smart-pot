@@ -46,7 +46,7 @@ public class PlantLogic : IPlantLogic
             {
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
-                WaterML = plantDto.WaterML,
+                WaterTankLevel = plantDto.WaterTankLevel,
                 ImageUrl = plantDto.ImageUrl,
             };
 
@@ -71,7 +71,7 @@ public class PlantLogic : IPlantLogic
 
             plant.NameOfPlant = updatedPlantDto.NameOfPlant;
             plant.SoilMinimumMoisture = updatedPlantDto.SoilMinimumMoisture;
-            plant.WaterML = updatedPlantDto.WaterML;
+            plant.WaterTankLevel = updatedPlantDto.WaterTankLevel;
             plant.ImageUrl = updatedPlantDto.ImageURL;
 
             await _plants.ReplaceOneAsync(p => p.NameOfPlant == name, plant);
