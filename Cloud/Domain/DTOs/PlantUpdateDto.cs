@@ -2,11 +2,7 @@
 
 public class PlantUpdateDto
 {
-    public string NameOfPlant  { get; set; }
-    
+    public string NameOfPlant { get; set; }
     public int SoilMinimumMoisture { get; set; }
-    
-    public int WaterML { get; set; }
-
-    public string ImageURL { get; set; }
+    public string ImageUrl { get; set; }
 }

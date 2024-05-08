@@ -10,20 +10,20 @@ public class Plant
     public string Id { get; set; }
     public string NameOfPlant { get; set; }
     public int SoilMinimumMoisture { get; set; }
-    public int WaterML { get; set; }
     public string ImageUrl { get; set; }
-
+    public string Size { get; set; }
     
     
     public Plant()
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl, string size)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
         ImageUrl = imageUrl;
+        Size = size;
     }
 }
