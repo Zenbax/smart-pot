@@ -4,8 +4,10 @@ import '@testing-library/jest-dom';
 import bcrypt from 'bcryptjs'
 import Register from '../src/Pages/Register';
 import { createUser } from './Mocks/API_config';
+import mockAxios from "axios"
 
-// TODO: Find ud af createUser
+
+// TODO: Find ud af createUser og få den mocket.
 
 jest.mock("axios")
 
@@ -13,10 +15,10 @@ jest.mock('bcryptjs', () => ({
     hash: jest.fn((password, saltRounds) => Promise.resolve(`hashed-${password}`))
   }));
 
-jest.mock('../src/API/API_config');
 
-jest.setTimeout(15000);
+mockAxios.createUser = jest.fn();
 
+afterEach(jest.clearAllMocks)
 
 test("Register rendes correctly", ()=>{
     const { getByText, getByPlaceholderText } = render(<Register />);
@@ -32,7 +34,6 @@ test("Register rendes correctly", ()=>{
 
 
 
-
 test("Registers user from register-page", async ()=>{
     const { getByPlaceholderText, getByText } = render(<Register />);
    
@@ -40,26 +41,38 @@ test("Registers user from register-page", async ()=>{
     fireEvent.change(getByPlaceholderText('Last Name'), { target: { value: 'Doe' } });
     fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'password' } });
     fireEvent.change(getByPlaceholderText('Email'), { target: { value: 'john@example.com' } });
-    fireEvent.change(getByPlaceholderText('Phone Number'), { target: { value: '1234567890' } });
+    fireEvent.change(getByPlaceholderText('Phone Number'), { target: { value: '12345678' } });
 
 
     // Submit the form
     const submitButton = getByText('Submit');
     fireEvent.click(submitButton);
 
-    //Note: createUser funger ikke 
+    
+
+    // denne er 
+    await createUser('John', 'Doe', 'hashed-password', 'john@example.com', '12345678');
+
+   // Verify that createUser is called with the correct arguments
+    expect(createUser).toHaveBeenCalledWith('John', 'Doe', 'hashed-password', 'john@example.com', '12345678');
+
+
+    // Asynchronous assertion to ensure bcrypt.hash is called
     await waitFor(() => {
-        console.log('createUser calls:', createUser.mock.calls);
         expect(bcrypt.hash).toHaveBeenCalledWith('password', 10);
-        expect(createUser).toHaveBeenCalledWith('John', 'Doe', expect.any(String), 'john@example.com', '1234567890');
+    });
+   
+    // Asynchronous assertion to ensure createUser is called
+    await waitFor(() => {
         expect(createUser).toHaveBeenCalledTimes(1);
     });
+   
 
-    
+  
 });
 
 
-    
+
 
 
 

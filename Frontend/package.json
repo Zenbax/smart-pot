@@ -37,15 +37,17 @@
     "@testing-library/react": "^15.0.6",
     "jest": "^27.5.1",
     "jest-transform-stub": "^2.0.0",
-    "jsdom": "^24.0.0"
+    "jsdom": "^24.0.0",
+    "supertest": "^7.0.0"
   },
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "<rootDir>/Test/Mocks/styleMock.js",
       "^API/(.*)$": "<rootDir>/src/API/$1",
-      "^bcryptjs$": "<rootDir>/Test/Mocks/bcryptjs.js"
-    }
+      "^bcryptjs$": "<rootDir>/Test/Mocks/bcryptjs.js",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "type": "module"
   }
 }
-
