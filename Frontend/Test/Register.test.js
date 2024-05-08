@@ -11,12 +11,8 @@ import mockAxios from "axios"
 
 jest.mock("axios")
 
-jest.mock('bcryptjs', () => ({
-    hash: jest.fn((password, saltRounds) => Promise.resolve(`hashed-${password}`))
-  }));
-
-
 mockAxios.createUser = jest.fn();
+
 
 afterEach(jest.clearAllMocks)
 
@@ -48,9 +44,6 @@ test("Registers user from register-page", async ()=>{
     const submitButton = getByText('Submit');
     fireEvent.click(submitButton);
 
-    
-
-    // denne er 
     await createUser('John', 'Doe', 'hashed-password', 'john@example.com', '12345678');
 
    // Verify that createUser is called with the correct arguments
@@ -67,12 +60,7 @@ test("Registers user from register-page", async ()=>{
         expect(createUser).toHaveBeenCalledTimes(1);
     });
    
-
-  
 });
-
-
-
 
 
 
