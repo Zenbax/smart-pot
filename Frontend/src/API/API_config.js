@@ -4,12 +4,12 @@ const API_BASE_URL = "http://13.53.174.85/";
 
 var potArray=[
     {
-        NameOfpot: "Soveværelses vindue",
-        PotId: 21938,
-        Plante: {
-            NavnPåPlante: "Monstera",
+        nameOfPot: "Soveværelses vindue",
+        id: 21938,
+        plant: {
+            nameOfPlant: "Monstera",
             JordMinimumsFugtighed: 35,
-            BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
         }, 
         JordFugtighedProcent: 55,
         VandBeholderProcent: 50,
@@ -63,12 +63,12 @@ var potArray=[
         ],
     },
     {
-        NameOfpot: "Stue vindue #1",
-        PotId: 87362,
-        Plante: {
-            NavnPåPlante: "Philodendron",
+        nameOfPot: "Stue vindue #1",
+        id: 87362,
+        plant: {
+            nameOfPlant: "Philodendron",
             JordMinimumsFugtighed: 35,
-            BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
         }, 
         JordFugtighedProcent: 55,
         VandBeholderProcent: 50,
@@ -126,12 +126,12 @@ var potArray=[
         }
     },
     {
-        NameOfpot: "Stue vindue #2",
-        PotId: 73837,
-        Plante: {
-            NavnPåPlante: "Lilje",
+        nameOfPot: "Stue vindue #2",
+        id: 73837,
+        plant: {
+            nameOfPlant: "Lilje",
             JordMinimumsFugtighed: 35,
-            BilledeURL: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
+            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
 
         }, 
         JordFugtighedProcent: 55,
@@ -208,7 +208,8 @@ export async function createUser (paramName, paramLastName, paramPassword, param
         )
         console.log(jsonUserInfoDTO)
     try{
-        instance.post("/user/create", jsonUserInfoDTO)
+        const response = await instance.post("/user/create", jsonUserInfoDTO);
+        console.log(response);
         
     }
     catch{
@@ -231,13 +232,15 @@ export async function getPotFromId(id){
 }
 
 export async function getAllPots(){
+    return potArray;
+    /*
     try{
         const response = await instance.get("/pot/get/all")
         return response.data
     }
     catch{
         //TODO: ErrorHandling 
-    }
+    }*/
     
 }
 
