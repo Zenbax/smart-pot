@@ -4,9 +4,11 @@ using MongoDB.Driver;
 using Domain;
 using Domain.DTOs;
 using Domain.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.ControllerFrontEnd
 {
+    [Authorize]
     [ApiController]
     [Route("user")]
     public class UserController : ControllerBase
@@ -37,27 +39,6 @@ namespace WebAPI.Controllers.ControllerFrontEnd
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateUser(UserCreationDto newUser)
-        {
-            
-            try
-            {
-                var userId = await _userLogic.Register(newUser);
-                return CreatedAtAction(nameof(GetUserById), new { id = userId }, newUser);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Internal server error: {ex}");
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
         
         [HttpGet("get/{id}")]
         public async Task<IActionResult> GetUserById(string id)

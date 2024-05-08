@@ -1,10 +1,12 @@
 using Application_.LogicInterfaces;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourApiNamespace.Controllers;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PotController : ControllerBase

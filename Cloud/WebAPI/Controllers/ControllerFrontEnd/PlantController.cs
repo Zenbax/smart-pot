@@ -1,12 +1,14 @@
 ﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
+[Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("plant")]
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;

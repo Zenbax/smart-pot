@@ -4,14 +4,14 @@
     "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/WebAPI.csproj": {}
   },
   "projects": {
-    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/Application-.csproj": {
+    "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/Application-.csproj",
-        "projectName": "Application-",
-        "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/Application-.csproj",
+        "projectUniqueName": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj",
+        "projectName": "Application",
+        "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj",
         "packagesPath": "/Users/bak/.nuget/packages/",
-        "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/obj/",
+        "outputPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bak/.nuget/NuGet/NuGet.Config"
@@ -51,6 +51,10 @@
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.24.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.5.1, )"
             }
           },
           "imports": [
@@ -181,8 +185,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/Application-.csproj": {
-                "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application-/Application-.csproj"
+              "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj": {
+                "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Application/Application.csproj"
               },
               "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj": {
                 "projectPath": "/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/Domain/Domain.csproj"
@@ -205,6 +209,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.11, )"

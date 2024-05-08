@@ -28,9 +28,7 @@
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/runtimes/linux/native/libmongocrypt.so
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/runtimes/osx/native/libmongocrypt.dylib
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/runtimes/win/native/mongocrypt.dll
-/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Application-.dll
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Domain.dll
-/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Application-.pdb
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Domain.pdb
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig
@@ -54,3 +52,8 @@
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.pdb
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/Debug/net7.0/WebAPI.genruntimeconfig.cache
 /Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/obj/Debug/net7.0/ref/WebAPI.dll
+/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Application.dll
+/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Application.pdb
+/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/bak/MEGA/School/VIA/Semester4/SEP4/smart-pot/Cloud/Cloud/WebAPI/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
