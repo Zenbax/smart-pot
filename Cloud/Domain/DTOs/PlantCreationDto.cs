@@ -12,10 +12,4 @@ public class PlantCreationDto
 
     [Required(ErrorMessage = "Image URL is required")]
     public string ImageURL { get; set; }
-    
-    // public string Size { get; set; }
-    //     
-    // public string PlantType { get; set; }
-    //
-    // public HumidityLogDto  HumidityLogs { get; set; }
 }

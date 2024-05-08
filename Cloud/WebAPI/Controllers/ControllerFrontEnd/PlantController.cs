@@ -1,10 +1,12 @@
 ﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
+[Authorize]
 [ApiController]
 [Route("plant")]
 public class PlantController : ControllerBase
@@ -16,8 +18,8 @@ public class PlantController : ControllerBase
         _plantLogic = plantLogic;
     }
 
-    [HttpGet("get/all")]
-    public async Task<IEnumerable<Plant>> GetAllPlant()
+    [HttpGet]
+    public async Task<IEnumerable<Plant>> Get()
     {
         try
         {
@@ -30,8 +32,8 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpGet("getByName/{name}")]
-    public async Task<ActionResult<Plant>> GetPlantByName(string name)
+    [HttpGet("{name}")]
+    public async Task<ActionResult<Plant>> Get(string name)
     {
         try
         {
@@ -48,29 +50,8 @@ public class PlantController : ControllerBase
             return null;
         }
     }
-    
-    
-    [HttpGet("getById/{id}")]
-    public async Task<ActionResult<Plant>> GetPlantById(string id)
-    {
-        try
-        {
-            var plant = await _plantLogic.GetPlantById(id);
-            if (plant == null)
-            {
-                return NotFound();
-            }
-            return plant;
-        }
-        catch (Exception ex)
-        {
-            Response.StatusCode = 500;
-            return null;
-        }
-    }
-    
 
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
     {
         try
@@ -85,7 +66,7 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpDelete("delete/{name}")]
+    [HttpDelete("{name}")]
     public async Task<ActionResult<string>> Delete(string name)
     {
         try
