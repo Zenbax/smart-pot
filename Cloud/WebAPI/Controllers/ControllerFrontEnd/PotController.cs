@@ -1,10 +1,12 @@
 using Application_.LogicInterfaces;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourApiNamespace.Controllers;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
+    [Authorize]
     [ApiController]
     [Route("pot")]
     public class PotController : ControllerBase
@@ -63,8 +65,29 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 return ex.Message;
             }
         }
+        
+        
+        [HttpPut("update/{id}")] 
+        public async Task<IActionResult> UpdatePot(string id, [FromBody] PotUpdatedDto potUpdatedDto)
+        {
+            try
+            {
+                var result = await _potLogic.UpdatePot(id, potUpdatedDto);
+                if (result == "Pot not found")
+                {
+                    return NotFound("Pot not found");
+                }
+                return Ok("Pot updated successfully");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Problem(ex.Message);
+            }
+        }
+        
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult<string>> Delete(string id)
         {
             try
