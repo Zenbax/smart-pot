@@ -1,14 +1,23 @@
 #smartPotPlant{
-    height: 110px;
+    max-height: 250px;
 }
 a:link {
     text-decoration: none;
     color: black;
   }
 #waterdrop{
-    height: 40px;
-    margin-bottom: 20px;
+    height: 60px;
+    margin-bottom: 35px;
     
+}
+
+p {
+    color: black;
+    margin: 0;
+}
+
+#percent{
+    font-size: 3.5em;
 }
 
 
@@ -18,7 +27,8 @@ a:link {
 #smartPodContainer{
     border-color: rgb(75, 75, 75);
     border-style: solid;
-    border-radius: 20px;
-    margin: 15px;
+    border-radius: 25px;
+    margin: 20px;
     padding: 10px;
+    width: 100%;
 }

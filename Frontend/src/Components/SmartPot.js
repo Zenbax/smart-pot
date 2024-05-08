@@ -11,21 +11,18 @@ const SmartPot = ({pot}) => {
         <Link to={"/"+pot.id}>
         <Container id='smartPodContainer'>
             <Row>
-                <Col md="8">
+                <Col id='bottomCol' md="8">
                     <h1>{pot.nameOfPot}</h1>
                     <h2>{"Plant: "+pot.plant.nameOfPlant}</h2>
+                    <p>Soil Hydration:</p>
+                    <h1 id='percent'>{55/*hent fra nyeste humidity log*/ +"%"}</h1>
+                    <img id='waterdrop' src={waterdropImage}/>
                 </Col>
                 <Col md="4">
                     <img id='smartPotPlant' src={pot.plant.imageUrl} onError={event => {
                         event.target.src = "https://img.freepik.com/premium-vector/home-plant-potted-plant-isolated-white-flat-vector-illustration_186332-890.jpg"
                         event.onerror = null
                         }}/>
-                </Col>
-            </Row>
-            <Row>
-                <Col id='bottomCol'>
-                <h1>{55/*hent fra nyeste humidity log*/ +"%"}</h1>
-                <img id='waterdrop' src={waterdropImage}/>
                 </Col>
             </Row>
         </Container>
