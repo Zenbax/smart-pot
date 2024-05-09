@@ -11,7 +11,7 @@ public class UpdatePlantRequestDto
     public string? Id { get; set; }
     public string? NameOfPlant { get; set; }
     public int? SoilMinimumMoisture { get; set; }
-    public int? WaterML { get; set; }
+    public int? WaterTankLevel { get; set; }
     public string? ImageUrl { get; set; }
 
     

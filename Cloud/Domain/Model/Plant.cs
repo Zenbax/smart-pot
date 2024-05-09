@@ -29,6 +29,6 @@ public class Plant
     
     public string ToString()
     {
-        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterML: {WaterML}, ImageUrl: {ImageUrl}";
+        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterTankLevel: {WaterTankLevel}, ImageUrl: {ImageUrl}";
     }
 }
