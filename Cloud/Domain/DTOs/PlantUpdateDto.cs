@@ -1,12 +1,22 @@
-﻿namespace Domain.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+using Domain.Model;
+
+namespace Domain.DTOs;
 
 public class PlantUpdateDto
 {
-    public string NameOfPlant  { get; set; }
+    public PlantUpdateDto(string name, Plant plant)
+    {
+        NameToUpdate = name;
+        Plant = plant;
+    }
+    [Required] public Plant Plant { get; set; }
+    [Required] public string NameToUpdate { get; set; }
+    public string Message { get; set; }
+    public bool Success { get; set; }
     
-    public int SoilMinimumMoisture { get; set; }
-    
-    public int WaterTankLevel { get; set; }
-
-    public string ImageURL { get; set; }
+    public string ToString()
+    {
+        return $"NameToUpdate: {NameToUpdate}, Plant: {Plant}, Message: {Message}, Success: {Success}";
+    }
 }

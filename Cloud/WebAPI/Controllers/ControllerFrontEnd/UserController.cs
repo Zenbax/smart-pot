@@ -58,5 +58,33 @@ namespace WebAPI.Controllers.ControllerFrontEnd
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+		[HttpPut("update/{id}")]
+public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
+{
+    User user = new User()
+    {
+        Id = updateUserRequestDto?.Id,
+        Name = updateUserRequestDto?.Name,
+        LastName = updateUserRequestDto?.LastName,
+        Email = updateUserRequestDto?.Email,
+        Password = updateUserRequestDto?.Password,
+        PhoneNumber = updateUserRequestDto?.PhoneNumber
+    };
+    var userUpdateDto = new UserUpdateDto(id, user);
+    try
+    {
+        var result = await _userLogic.UpdateUser(userUpdateDto);
+        if (result.Success == false)
+        {
+            return NotFound("User not found: " + result.Message);
+        }
+        return Ok("User updated successfully");
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
     }
 }

@@ -19,41 +19,56 @@ public class PlantController : ControllerBase
     }
 
     [HttpGet("get/all")]
-    public async Task<IEnumerable<Plant>> Get()
+    public async Task<ActionResult<PlantGetAllDto>> Get()
     {
         try
         {
-            return await _plantLogic.GetAllPlants();
+            var result = await _plantLogic.GetAllPlants();
+            if (result.Success == false)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
         catch (Exception ex)
         {
             Response.StatusCode = 500;
-            return null;
+            return BadRequest("500 error: " + ex.Message + " in GetAllPlants.");
         }
     }
 
     [HttpGet("get/{name}")]
-    public async Task<ActionResult<Plant>> Get(string name)
+    public async Task<ActionResult<PlantGetByNameDto>> Get(string name)
     {
+        PlantGetByNameDto plantGetByNameDto = new PlantGetByNameDto(name);
         try
         {
-            var plant = await _plantLogic.GetPlantByName(name);
-            if (plant == null)
+            var result = await _plantLogic.GetPlantByName(plantGetByNameDto);
+            if (result.Success == false)
             {
-                return NotFound();
+                return BadRequest(result);
             }
-            return plant;
+            return Ok(result);
         }
         catch (Exception ex)
         {
-            Response.StatusCode = 500;
-            return null;
+            plantGetByNameDto.Message = $"Error: {ex.Message}";
+            plantGetByNameDto.Success = false;
+            return BadRequest(plantGetByNameDto);
         }
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
+    public async Task<ActionResult<PlantCreationDto>> Post(CreatePlantRequestDto createPlantRequestDto)
     {
+        Plant plant = new Plant()
+        {
+            NameOfPlant = createPlantRequestDto?.NameOfPlant,
+            SoilMinimumMoisture = createPlantRequestDto?.SoilMinimumMoisture,
+            WaterML = createPlantRequestDto?.WaterML,
+            ImageUrl = createPlantRequestDto?.ImageUrl
+        };
+        PlantCreationDto plantCreationDto = new PlantCreationDto(plant);
         try
         {
             var result = await _plantLogic.CreatePlant(plantCreationDto);
@@ -65,19 +80,48 @@ public class PlantController : ControllerBase
             return null;
         }
     }
-
-    [HttpDelete("delete/{name}")]
-    public async Task<ActionResult<string>> Delete(string name)
+    
+    // Create a new endpoint for updating a plant
+    [HttpPut("update/{name}")]
+    public async Task<ActionResult<PlantUpdateDto>> Put(string name, UpdatePlantRequestDto updatePlantRequestDto)
     {
+        Plant plant = new Plant()
+        {
+            Id = updatePlantRequestDto?.Id,
+            NameOfPlant = updatePlantRequestDto?.NameOfPlant,
+            SoilMinimumMoisture = updatePlantRequestDto?.SoilMinimumMoisture,
+            WaterML = updatePlantRequestDto?.WaterML,
+            ImageUrl = updatePlantRequestDto?.ImageUrl
+        };
+        PlantUpdateDto plantUpdateDto = new PlantUpdateDto(name, plant);
+        plantUpdateDto.NameToUpdate = name;
         try
         {
-            var result = await _plantLogic.DeletePlant(name);
+            var result = await _plantLogic.UpdatePlant(plantUpdateDto);
             return Ok(result);
         }
         catch (Exception ex)
         {
-            Response.StatusCode = 500;
-            return null;
+            plantUpdateDto.Message = $"Error: {ex.Message}";
+            plantUpdateDto.Success = false;
+            return BadRequest(plantUpdateDto);
+        }
+    }
+    
+    [HttpDelete("delete/{name}")]
+    public async Task<ActionResult<PlantDeleteDto>> Delete(string name)
+    {
+        PlantDeleteDto plantDeleteDto = new PlantDeleteDto(name);
+        try
+        {
+            var result = await _plantLogic.DeletePlant(plantDeleteDto);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            plantDeleteDto.Message = $"Error deleting plant with name "+plantDeleteDto.NameToDelete+": {ex.Message}";
+            plantDeleteDto.Success = false;
+            return BadRequest(plantDeleteDto);
         }
     }
     //Not implemented yet

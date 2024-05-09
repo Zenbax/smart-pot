@@ -15,94 +15,129 @@ namespace Application_.Logic;
         _pots = potsCollection;
     }
 
-    public async Task<IEnumerable<Pot>> GetAllPots()
+    public async Task<PotGetAllDto> GetAllPots()
     {
+        PotGetAllDto potGetAllDto = new PotGetAllDto();
         try
         {
-            return await _pots.Find(p => true).ToListAsync();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
-
-    public async Task<Pot> GetPotById(string id)
-    {
-        try
-        {
-            return await _pots.Find(p => p.Id == id).FirstOrDefaultAsync();
-        }
-        catch (Exception ex)
-        {
-            // Håndter eventuelle fejl
-            return null;
-        }
-    }
-
-    public async Task<string> CreatePot(PotCreationDto potDto)
-    {
-        try
-        {
-            var newPot = new Pot
+            potGetAllDto.Pots = await _pots.Find(p => true).ToListAsync();
+            if (potGetAllDto.Pots.Count == 0)
             {
-                NameOfPot = potDto.PotName,
-                Email = potDto.Email,
-                Enable = potDto.Enable,
-                MachineID = potDto.MachineID,
-                Plant = potDto.Plant
-                
-            };
-
-            // Indsæt den nye Pot i databasen
-            await _pots.InsertOneAsync(newPot);
-        
-            return "Success";
+                potGetAllDto.Message = "No pots in database.";
+            }
+            else
+            {
+                potGetAllDto.Message = "All pots found.";
+            }
+            potGetAllDto.Success = true;
         }
         catch (Exception ex)
         {
-            // Håndter eventuelle fejl
-            return $"Error: {ex.Message}";
+            potGetAllDto.Message = $"Error in PotLogic: {ex.Message}";
+            potGetAllDto.Success = false;
         }
+        return potGetAllDto;
     }
 
-    public async Task<string> UpdatePot(string id, PotUpdatedDto potUpdatedDto)
+    public async Task<PotGetByIdDto> GetPotById(PotGetByIdDto potGetByIdDto)
     {
         try
         {
-            var existingPot = await _pots.Find(p => p.Id == id).FirstOrDefaultAsync();
+            potGetByIdDto.Pot = await _pots.Find(p => p.Id == potGetByIdDto.IdToGet).FirstOrDefaultAsync();
+            if (potGetByIdDto.Pot == null)
+            {
+                potGetByIdDto.Message = "Pot not found";
+                potGetByIdDto.Success = false;
+            }
+            else
+            {
+                potGetByIdDto.Message = "Pot found";
+                potGetByIdDto.Success = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            potGetByIdDto.Message = $"Error: {ex.Message}";
+            potGetByIdDto.Success = false;
+        }
+
+        return potGetByIdDto;
+    }
+
+    public async Task<PotCreationDto> CreatePot(PotCreationDto potCreationDto)
+    {
+        try
+        {
+            // Indsæt den nye Pot i databasen
+            await _pots.InsertOneAsync(potCreationDto.Pot);
+            potCreationDto.Message = "Create pot successfully";
+            potCreationDto.Success = true;
+        }
+        catch (Exception ex)
+        {
+            potCreationDto.Message = $"Error: {ex.Message}";
+            potCreationDto.Success = false;
+        }
+
+        return potCreationDto;
+    }
+
+    public async Task<PotUpdateDto> UpdatePot(PotUpdateDto potUpdateDto)
+    {
+        try
+        {
+            var existingPot = await _pots.Find(p => p.Id == potUpdateDto.IdToUpdate).FirstOrDefaultAsync();
 
             if (existingPot == null)
             {
-                return "Pot not found";
+                potUpdateDto.Message = "Pot not found";
+                potUpdateDto.Success = false;
             }
-
-            existingPot.NameOfPot = potUpdatedDto.PotName;
-            existingPot.Email = potUpdatedDto.Email;
-            existingPot.Enable = potUpdatedDto.Enable;
-            existingPot.Plant = potUpdatedDto.Plant;
-            await _pots.ReplaceOneAsync(p => p.Id == id, existingPot);
-
-            return "Success";
+            else
+            {
+            existingPot.NameOfPot = potUpdateDto.Pot.NameOfPot;
+            existingPot.Email = potUpdateDto.Pot.Email;
+            existingPot.Enable = potUpdateDto.Pot.Enable;
+            existingPot.Plant = potUpdateDto.Pot.Plant;
+            await _pots.ReplaceOneAsync(p => p.Id == potUpdateDto.IdToUpdate, existingPot);
+            potUpdateDto.Pot.MachineID = existingPot.MachineID;
+            potUpdateDto.Pot.Id = existingPot.Id;
+            potUpdateDto.Message = "Pot updated successfully";
+            potUpdateDto.Success = true;
+            }
         }
         catch (Exception ex)
         {
-            return $"Error: {ex.Message}";
+            potUpdateDto.Message = $"Error: {ex.Message}";
+            potUpdateDto.Success = false;
         }
+
+        return potUpdateDto;
     }
 
-    public async Task<string> DeletePot(string id)
+    public async Task<PotDeleteDto> DeletePot(PotDeleteDto potDeleteDto)
     {
         try
         {
-            var result = await _pots.DeleteOneAsync(p => p.Id == id);
-            return result.IsAcknowledged ? "Success" : "Failure";
+            var result = await _pots.DeleteOneAsync(p => p.Id == potDeleteDto.IdToDelete);
+            if (result.DeletedCount == 0)
+            {
+                potDeleteDto.Message = "Pot not found";
+                potDeleteDto.Success = false;
+            }
+            else
+            {
+                potDeleteDto.Message = "Pot deleted successfully";
+                potDeleteDto.Success = true;
+            }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return $"Error: {e.Message}";
-
+            potDeleteDto.Message = $"Error: {ex.Message}";
+            potDeleteDto.Success = false;
         }
+
+        return potDeleteDto;
     }
     
     

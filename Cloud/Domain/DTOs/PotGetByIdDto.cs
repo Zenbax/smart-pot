@@ -1,17 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
 using Domain.Model;
 using YourApiNamespace.Controllers;
 
 namespace Domain.DTOs;
 
-public class PotCreationDto
+public class PotGetByIdDto
 {
-    public PotCreationDto(Pot pot)
+    public PotGetByIdDto(string idToGet)
     {
-        Pot = pot;
+        IdToGet = idToGet;
     }
 
-    [Required] public Pot Pot { get; set; }
+    public Pot Pot { get; set; }
+    public string IdToGet { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
 }

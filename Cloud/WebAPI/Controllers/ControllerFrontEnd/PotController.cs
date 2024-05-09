@@ -1,139 +1,143 @@
 using Application_.LogicInterfaces;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourApiNamespace.Controllers;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
 
-[ApiController]
-[Route("[controller]")]
-public class PotController : ControllerBase
-{
-    private readonly IPotLogic _potLogic;
+    [Authorize]
+    [ApiController]
+    [Route("pot")]
+    public class PotController : ControllerBase
+    {
+        private readonly IPotLogic _potLogic;
 
-    public PotController(IPotLogic potLogic)
-    {
-        _potLogic = potLogic;
-    }
+        public PotController(IPotLogic potLogic)
+        {
+            _potLogic = potLogic;
+        }
 
-    [HttpGet("get/all")]
-    public async Task<IActionResult> GetAllPots()
-    {
-        try
+        [HttpGet("get/all")]
+        public async Task<ActionResult<PotGetAllDto>> GetPot()
         {
-            var pots = await _potLogic.GetAllPots();
-            if (pots != null)
-                return Ok(pots);
-            else
-                return NotFound("No pots found.");
+            PotGetAllDto potGetAllDto = new PotGetAllDto();
+            try
+            {
+                var result = await _potLogic.GetAllPots();
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potGetAllDto.Message = $"Error: {ex.Message}";
+                potGetAllDto.Success = false;
+                return BadRequest(potGetAllDto);
+            }
         }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
-    
-    
-    
-    
-    [HttpGet("get-by-machineid/{machineId}")]
-    public async Task<IActionResult> GetPotByMachineId(string machineId)
-    {
-        try
-        {
-            var pot = await _potLogic.GetPotByMachineId(machineId);
-            if (pot != null)
-                return Ok(pot);
-            else
-                return NotFound($"Pot with Machine ID {machineId} not found.");
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
-    
-    
 
-    [HttpGet("get/{id}")]
-    public async Task<IActionResult> GetPotById(string id)
-    {
-        try
+        [HttpGet("get/{id}")]
+        public async Task<ActionResult<Pot>> GetPotById(string id)
         {
-            var pot = await _potLogic.GetPotById(id);
-            if (pot != null)
-                return Ok(pot);
-            else
-                return NotFound($"Pot with ID {id} not found.");
+            PotGetByIdDto potGetByIdDto = new PotGetByIdDto(id);
+            try
+            {
+                var result = await _potLogic.GetPotById(potGetByIdDto);
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potGetByIdDto.Message = $"Error: {ex.Message}";
+                potGetByIdDto.Success = false;
+                return BadRequest(potGetByIdDto);
+            }
         }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
 
-    [HttpPost("create")]
-    public async Task<IActionResult> CreatePot([FromBody] PotCreationDto potDto)
-    {
-        if (!ModelState.IsValid)
+        [HttpPost("create")]
+        public async Task<ActionResult<PotCreationDto>> Post(CreatePotRequestDto createPotRequestDto)
         {
-            return BadRequest(ModelState);
+            Pot pot = new Pot()
+            {
+                NameOfPot = createPotRequestDto.PotName,
+                Email = createPotRequestDto.Email,
+                Enable = createPotRequestDto.Enable,
+                MachineID = createPotRequestDto.MachineID,
+                Plant = createPotRequestDto.Plant
+            };
+            PotCreationDto potCreationDto = new PotCreationDto(pot);
+            try
+            {
+                var result = await _potLogic.CreatePot(potCreationDto);
+                if (result.Success == false)
+                {
+                    return BadRequest(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potCreationDto.Message = $"Error: {ex.Message}";
+                potCreationDto.Success = false;
+                return BadRequest(potCreationDto);
+            }
+        }
+
+
+        [HttpPut("update/{id}")] 
+        public async Task<IActionResult> UpdatePot(string id, [FromBody] UpdatePotRequestDto updatePotRequestDto)
+        {
+            Console.WriteLine("UpdatePot called.");
+            Pot pot = new Pot()
+            {
+                NameOfPot = updatePotRequestDto.PotName,
+                Email = updatePotRequestDto.Email,
+                Enable = updatePotRequestDto.Enable,
+                Plant = updatePotRequestDto.Plant
+            };
+            PotUpdateDto potUpdatedDto = new PotUpdateDto(id, pot);
+            try
+            {
+                var result = await _potLogic.UpdatePot(potUpdatedDto);
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potUpdatedDto.Message = $"Error: {ex.Message}";
+                potUpdatedDto.Success = false;
+                return BadRequest(potUpdatedDto);
+            }
         }
         
-        try
-        {
-            var result = await _potLogic.CreatePot(potDto);
-            if (result == "Success")
-                return Ok("Pot created successfully.");
-            else
-                return BadRequest(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
 
-    [HttpPut("update/{id}")]
-    public async Task<IActionResult> UpdatePot(string id, [FromBody] PotUpdatedDto potUpdatedDto)
-    {
-        if (!ModelState.IsValid)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult<PotDeleteDto>> Delete(string id)
         {
-            return BadRequest(ModelState);
+            PotDeleteDto potDeleteDto = new PotDeleteDto(id);
+            try
+            {
+                var result = await _potLogic.DeletePot(potDeleteDto);
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potDeleteDto.Message = $"Error: {ex.Message}";
+                potDeleteDto.Success = false;
+                return BadRequest(potDeleteDto);
+            }
         }
-
-        try
-        {
-            var result = await _potLogic.UpdatePot(id, potUpdatedDto);
-            if (result == "Success")
-                return Ok("Pot updated successfully.");
-            else if (result == "Pot not found")
-                return NotFound("Pot not found.");
-            else
-                return BadRequest(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
-
-    [HttpDelete("delete/{id}")]
-    public async Task<IActionResult> DeletePot(string id)
-    {
-        try
-        {
-            var result = await _potLogic.DeletePot(id);
-            if (result == "Success")
-                return Ok("Pot deleted successfully.");
-            else if (result == "Pot not found")
-                return NotFound("Pot not found.");
-            else
-                return BadRequest(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
 }
