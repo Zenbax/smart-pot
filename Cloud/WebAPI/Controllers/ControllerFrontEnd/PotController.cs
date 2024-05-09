@@ -19,92 +19,125 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         }
 
         [HttpGet("get/all")]
-        public async Task<ActionResult<IEnumerable<Pot>>> GetPot()
+        public async Task<ActionResult<PotGetAllDto>> GetPot()
         {
+            PotGetAllDto potGetAllDto = new PotGetAllDto();
             try
             {
-                var pots = await _potLogic.GetAllPots();
-                return Ok(pots);
+                var result = await _potLogic.GetAllPots();
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while retrieving pots.");
+                potGetAllDto.Message = $"Error: {ex.Message}";
+                potGetAllDto.Success = false;
+                return BadRequest(potGetAllDto);
             }
         }
 
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Pot>> GetPotById(string id)
         {
+            PotGetByIdDto potGetByIdDto = new PotGetByIdDto(id);
             try
             {
-                var pot = await _potLogic.GetPotById(id);
-                if (pot == null)
+                var result = await _potLogic.GetPotById(potGetByIdDto);
+                if (result.Success == false)
                 {
-                    return NotFound();
+                    return NotFound(result);
                 }
-                return pot;
-            }
-            catch (Exception ex)
-            {
-                Response.StatusCode = 500;
-                return null;
-            }
-        }
-
-        [HttpPost("create")]
-        public async Task<ActionResult<string>> Post(PotCreationDto potCreationDto)
-        {
-            try
-            {
-                var result = await _potLogic.CreatePot(potCreationDto);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Response.StatusCode = 500;
-                return ex.Message;
+                potGetByIdDto.Message = $"Error: {ex.Message}";
+                potGetByIdDto.Success = false;
+                return BadRequest(potGetByIdDto);
             }
         }
-        
-        
-        [HttpPut("update/{id}")] 
-        public async Task<IActionResult> UpdatePot(string id, [FromBody] PotUpdatedDto potUpdatedDto)
+
+        [HttpPost("create")]
+        public async Task<ActionResult<PotCreationDto>> Post(CreatePotRequestDto createPotRequestDto)
         {
+            Pot pot = new Pot()
+            {
+                NameOfPot = createPotRequestDto.PotName,
+                Email = createPotRequestDto.Email,
+                Enable = createPotRequestDto.Enable,
+                MachineID = createPotRequestDto.MachineID,
+                Plant = createPotRequestDto.Plant
+            };
+            PotCreationDto potCreationDto = new PotCreationDto(pot);
             try
             {
-                var result = await _potLogic.UpdatePot(id, potUpdatedDto);
-                if (result == "Pot not found")
+                var result = await _potLogic.CreatePot(potCreationDto);
+                if (result.Success == false)
                 {
-                    return NotFound("Pot not found");
+                    return BadRequest(result);
                 }
-                return Ok("Pot updated successfully");
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                Response.StatusCode = 500;
-                return Problem(ex.Message);
+                potCreationDto.Message = $"Error: {ex.Message}";
+                potCreationDto.Success = false;
+                return BadRequest(potCreationDto);
+            }
+        }
+
+
+        [HttpPut("update/{id}")] 
+        public async Task<IActionResult> UpdatePot(string id, [FromBody] UpdatePotRequestDto updatePotRequestDto)
+        {
+            Console.WriteLine("UpdatePot called.");
+            Pot pot = new Pot()
+            {
+                NameOfPot = updatePotRequestDto.PotName,
+                Email = updatePotRequestDto.Email,
+                Enable = updatePotRequestDto.Enable,
+                Plant = updatePotRequestDto.Plant
+            };
+            PotUpdateDto potUpdatedDto = new PotUpdateDto(id, pot);
+            try
+            {
+                var result = await _potLogic.UpdatePot(potUpdatedDto);
+                if (result.Success == false)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                potUpdatedDto.Message = $"Error: {ex.Message}";
+                potUpdatedDto.Success = false;
+                return BadRequest(potUpdatedDto);
             }
         }
         
 
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult<string>> Delete(string id)
+        public async Task<ActionResult<PotDeleteDto>> Delete(string id)
         {
+            PotDeleteDto potDeleteDto = new PotDeleteDto(id);
             try
             {
-                var result = await _potLogic.DeletePot(id);
-                if (result == "Pot not found")
+                var result = await _potLogic.DeletePot(potDeleteDto);
+                if (result.Success == false)
                 {
-                    return NotFound();
+                    return NotFound(result);
                 }
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Response.StatusCode = 500;
-                return ex.Message;
+                potDeleteDto.Message = $"Error: {ex.Message}";
+                potDeleteDto.Success = false;
+                return BadRequest(potDeleteDto);
             }
         }
-        
-        //New
 }

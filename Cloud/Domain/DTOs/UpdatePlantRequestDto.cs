@@ -1,9 +1,10 @@
-﻿using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Domain.Model;
+namespace Domain.DTOs;
 
-public class Plant
+public class UpdatePlantRequestDto
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -15,20 +16,15 @@ public class Plant
 
     
     
-    public Plant()
+    public UpdatePlantRequestDto()
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
+    public UpdatePlantRequestDto(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
         ImageUrl = imageUrl;
-    }
-    
-    public string ToString()
-    {
-        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterML: {WaterML}, ImageUrl: {ImageUrl}";
     }
 }

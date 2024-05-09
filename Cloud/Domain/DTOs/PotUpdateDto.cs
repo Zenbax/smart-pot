@@ -4,14 +4,16 @@ using YourApiNamespace.Controllers;
 
 namespace Domain.DTOs;
 
-public class PotCreationDto
+public class PotUpdateDto
 {
-    public PotCreationDto(Pot pot)
+    public PotUpdateDto(string id, Pot pot)
     {
+        IdToUpdate = id;
         Pot = pot;
     }
-
-    [Required] public Pot Pot { get; set; }
+    
+    public string IdToUpdate { get; set; }
+    public Pot Pot { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
 }
