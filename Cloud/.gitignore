@@ -81,3 +81,12 @@ ScaffoldingReadMe.txt
 
 # CodeRush
 .cr/
+
+# Ignorer bin og obj mapper for alle projekter
+**/bin/
+**/obj/
+
+# Ignorer specifikke Rider filer
+**/rider.project.restore.info
+
+# Eventuelt tilføj flere filer eller mapper efter behov
