@@ -17,3 +17,7 @@
 .login-input-container {
     margin-bottom: 10px;
 }
+
+.error-popup p{
+    color: red;
+}
