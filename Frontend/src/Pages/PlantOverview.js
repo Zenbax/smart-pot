@@ -3,16 +3,14 @@ import PlantTemp from '../Components/PlantTemplate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styling/PlantOverview.css';
 import PlantPopUp from '../Components/PlantPopUp';
+import No_Image from '../images/no-image.jpeg'
 
 const PlantOverview = () => {
-
-  const defaultImageURL = 'https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg';
 
   const [plantName, setPlantName] = useState('');
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
-  const [plantImage, setPlantImage] = useState(null); // holds a file object
-  const [imagePreview, setImagePreview] = useState(defaultImageURL); // holds a url to be shown
+  const [plantImage, setPlantImage] = useState(No_Image); // base64 string
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite' or 'cancel'
   const [selectedTemplate, setSelectedTemplate] = useState(null); // Holds the data of selected template
@@ -20,21 +18,28 @@ const PlantOverview = () => {
   // Function to set PopUp to true
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (plantName != '' && minSoilMoisture != '' && wateringAmount > 0) {
+    if (plantName != '' && minSoilMoisture != '' && wateringAmount > 20 && plantImage != No_Image) {
       setShowPopUp(true);
     }
+    else if (wateringAmount <= 20){
+
+    }
+      
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setPlantImage(file);
-    setImagePreview(URL.createObjectURL(file)); // Create a preview URL for the image
-    // der sker en fejl ved createObjectURL, hvis man allrade har uploadet en fil og så prøver igen men annullere
+    // Convert the image to base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPlantImage(reader.result); // Set the base64 string as the plantImage
+    };
   };
 
   const handlePopUpAction = (action) => {
     setPopUpAction(action);
-    // Here you can handle the action (create or overwrite)
+    // Handle the action (create, overwrite, or cancel)
     console.log(`User chose to ${action}`);
     // Close the pop-up
     setShowPopUp(false);
@@ -47,7 +52,7 @@ const PlantOverview = () => {
     setPlantName(templateData.name);
     setMinSoilMoisture(templateData.minSoilMoisture)
     setWateringAmount(templateData.wateringAmount)
-    setImagePreview(templateData.image)
+    setPlantImage(templateData.image) //base64
     // You can fill other fields similarly
   };
 
@@ -127,9 +132,9 @@ const PlantOverview = () => {
                     onChange={handleImageChange}
                   />
                 </label>
-                {imagePreview && (
+                {plantImage && (
                   <div className="image-preview-container">
-                    <img src={imagePreview} alt="Plant" className="image-preview" />
+                    <img src={plantImage} alt="Plant" className="image-preview" />
                   </div>
                 )}
               </div>
@@ -147,7 +152,7 @@ const PlantOverview = () => {
           plantName={plantName}
           minSoilMoisture={minSoilMoisture}
           wateringAmount={wateringAmount}
-          imagePreview={imagePreview}
+          plantImage={plantImage}
         />
       )}
 

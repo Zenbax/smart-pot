@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Styling/PlantPopUp.css';
 
-const PlantPopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, imagePreview }) => {
+const PlantPopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage }) => {
   return (
     <div className="plant-pop-up-container">
       <div className="plant-pop-up">
@@ -13,7 +13,7 @@ const PlantPopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmo
               <p>Watering Amount (ml): {wateringAmount}</p>
             </div>
             <div className="col-lg-4">
-              <img src={imagePreview} alt="Plant Preview" className="image-preview" />
+              <img src={plantImage} alt="Plant Preview" className="image-preview" />
             </div>
           </div>
         </div>
