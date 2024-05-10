@@ -1,4 +1,4 @@
-.plant-pop-up-container {
+.plantCreate-pop-up-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,14 +10,19 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   }
   
-  .plant-pop-up {
+  .plantCreate-pop-up {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
-  .plant-pop-up button {
+  .plantCreate-pop-up p {
+    margin-bottom: 20px;
+  }
+
+
+  .plantCreate-pop-up button {
     margin: 10px;
     display: inline-block;
     cursor: pointer;

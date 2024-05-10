@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PlantTemp from '../Components/PlantTemplate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styling/PlantOverview.css';
-import PlantPopUp from '../Components/PlantPopUp';
+import PlantCreatePopUp from '../Components/PlantCreatePopUp';
 import No_Image from '../images/no-image.jpeg'
 
 const PlantOverview = () => {
@@ -147,7 +147,7 @@ const PlantOverview = () => {
       </div>
 
       {showPopUp && (
-        <PlantPopUp
+        <PlantCreatePopUp
           handlePopUpAction={handlePopUpAction}
           plantName={plantName}
           minSoilMoisture={minSoilMoisture}
