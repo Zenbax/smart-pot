@@ -1,10 +1,10 @@
 import React from 'react';
-import '../Styling/PlantPopUp.css';
+import '../Styling/PlantCreatePopUp.css';
 
-const PlantPopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage }) => {
+const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage }) => {
   return (
-    <div className="plant-pop-up-container">
-      <div className="plant-pop-up">
+    <div className="plantCreate-pop-up-container">
+      <div className="plantCreate-pop-up">
         <div className="container-fluid"> 
           <div className="row">
             <div className="col-lg-8">
@@ -25,4 +25,4 @@ const PlantPopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmo
   );
 };
 
-export default PlantPopUp;
+export default PlantCreatePopUp;
