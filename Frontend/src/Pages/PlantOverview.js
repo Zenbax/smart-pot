@@ -18,10 +18,10 @@ const PlantOverview = () => {
   // Function to set PopUp to true
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (plantName != '' && minSoilMoisture != '' && wateringAmount > 20 && plantImage != No_Image) {
+    if (plantName != '' && minSoilMoisture != '' && plantImage != No_Image && wateringAmount > 19 && wateringAmount < 251) {
       setShowPopUp(true);
     }
-    else if (wateringAmount <= 20){
+    else if (wateringAmount <= 19){
 
     }
       
