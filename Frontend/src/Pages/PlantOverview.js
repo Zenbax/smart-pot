@@ -11,15 +11,16 @@ const PlantOverview = () => {
   const [plantName, setPlantName] = useState('');
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
-  const [plantImage, setPlantImage] = useState(''); // holds a file object
+  const [plantImage, setPlantImage] = useState(null); // holds a file object
   const [imagePreview, setImagePreview] = useState(defaultImageURL); // holds a url to be shown
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite' or 'cancel'
+  const [selectedTemplate, setSelectedTemplate] = useState(null); // Holds the data of selected template
 
   // Function to set PopUp to true
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(plantName !='' && minSoilMoisture !='' && wateringAmount > 0){
+    if (plantName != '' && minSoilMoisture != '' && wateringAmount > 0) {
       setShowPopUp(true);
     }
   };
@@ -39,6 +40,17 @@ const PlantOverview = () => {
     setShowPopUp(false);
   };
 
+  // Function to handle selecting a template
+  const handleTemplateSelect = (templateData) => {
+    setSelectedTemplate(templateData);
+    // Fill the input fields with data from the selected template
+    setPlantName(templateData.name);
+    setMinSoilMoisture(templateData.minSoilMoisture)
+    setWateringAmount(templateData.wateringAmount)
+    setImagePreview(templateData.image)
+    // You can fill other fields similarly
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -46,19 +58,19 @@ const PlantOverview = () => {
           <h1 className="text-center mb-4">Plants</h1>
           <div className="row">
             <div className="col-lg-4">
-              <PlantTemp />
+              <PlantTemp onSelectTemplate={handleTemplateSelect} />
             </div>
             <div className="col-lg-4">
-              <PlantTemp />
+              <PlantTemp onSelectTemplate={handleTemplateSelect} />
             </div>
             <div className="col-lg-4">
-              <PlantTemp />
+              <PlantTemp onSelectTemplate={handleTemplateSelect} />
             </div>
             <div className="col-lg-4">
-              <PlantTemp />
+              <PlantTemp onSelectTemplate={handleTemplateSelect} />
             </div>
             <div className="col-lg-4">
-              <PlantTemp />
+              <PlantTemp onSelectTemplate={handleTemplateSelect} />
             </div>
           </div>
         </div>
