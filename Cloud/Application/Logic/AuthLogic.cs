@@ -26,19 +26,27 @@ public class AuthLogic : IAuthLogic
         
         public async Task<UserLoginDto> Login(UserLoginDto userLoginDto)
         {   
-            var foundUser = await _usersCollection.Find(u => u.Email == userLoginDto.User.Email && u.Password == userLoginDto.User.Password).FirstOrDefaultAsync();
-            if (foundUser == null)
+            try{
+                var user = await _usersCollection.Find(u => u.Email == userLoginDto.User.Email && u.Password == userLoginDto.User.Password).FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    userLoginDto.Message = "Invalid email or password.";
+                    userLoginDto.Success = false;
+                    userLoginDto.User = null;
+                }
+                else
+                {
+                    userLoginDto.Message = "User logged in successfully.";
+                    userLoginDto.Success = true;
+                    userLoginDto.User = user;
+                }
+            }
+            catch (Exception ex)
             {
-                userLoginDto.Message = "Invalid email or password.";
+                userLoginDto.Message = "Error: " + ex.Message;
                 userLoginDto.Success = false;
+                userLoginDto.User = null;
             }
-            else
-            {
-                userLoginDto.Message = "User logged in successfully.";
-                userLoginDto.Success = true;
-                userLoginDto.User = foundUser;
-            }
-
             return userLoginDto;
         }
 

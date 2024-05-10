@@ -27,33 +27,20 @@ public class AuthService : IAuthService
         return users.FirstOrDefault(u => u.Email == username && u.Password == password);
     }
 
-    public async Task<UserRegisterDto> RegisterUser(RegisterRequestDto registerRequestDto)
+    public async Task<UserRegisterDto> RegisterUser(UserRegisterDto userRegisterDto)
     {
-        var user = new User
-        {
-            Name = registerRequestDto.Name,
-            LastName = registerRequestDto.LastName,
-            Email = registerRequestDto.Email,
-            Password = registerRequestDto.Password,
-            PhoneNumber = registerRequestDto.PhoneNumber
-        };
-        var userRegisterDto = new UserRegisterDto(user);
-
         return await _userAuth.Register(userRegisterDto);
     }
 
-    public async Task<UserLoginDto> LoginUser(LoginRequestDto loginRequestDto)
+    public async Task<UserLoginDto> LoginUser(UserLoginDto userLoginDto)
     {
-        User user = new User { Email = loginRequestDto.Email, Password = loginRequestDto.Password };
-        var userLoginDto = new UserLoginDto(user);
-        if (loginRequestDto.Email == null || loginRequestDto.Password == null)
+        if (userLoginDto.User.Email == null || userLoginDto.User.Password == null)
         {
             userLoginDto.Message = "Email or password is missing.";
             userLoginDto.Success = false;
             return userLoginDto;
         }
-        Console.WriteLine(user.ToString());
-        userLoginDto.Token = GenerateJwtToken(user);
+        userLoginDto.Token = GenerateJwtToken(userLoginDto.User);
         userLoginDto.RefreshToken = GenerateRefreshToken();
         var response = await _userAuth.Login(userLoginDto);
 

@@ -32,3 +32,13 @@ C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Domain\obj\Debug\net7
 C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.pdb
 C:\Users\karee\OneDrive\Desktop\Repository\smart-pot\Cloud\Domain\obj\Debug\net7.0\ref\Domain.dll
 >>>>>>> Kim_Branch
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\bin\Debug\net7.0\Domain.deps.json
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\bin\Debug\net7.0\Domain.dll
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\bin\Debug\net7.0\Domain.pdb
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.csproj.AssemblyReference.cache
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.dll
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\refint\Domain.dll
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\Domain.pdb
+C:\Users\artes\Documents\GitHub\smart-pot\Cloud\Domain\obj\Debug\net7.0\ref\Domain.dll

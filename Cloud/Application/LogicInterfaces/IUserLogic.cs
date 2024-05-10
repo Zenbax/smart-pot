@@ -5,6 +5,7 @@ namespace Application_.LogicInterfaces;
 
 public interface IUserLogic
 {
-    Task<User> GetUserById(string id);
-    Task<IEnumerable<User>> GetUsers();
+    Task<UserGetByIdDto> GetUserById(UserGetByIdDto userGetByIdDto);
+    Task<UserGetAllDto> GetUsers();
+    Task<UserUpdateDto> UpdateUser(UserUpdateDto userUpdateDto);
 }

@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Domain.Model;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.DTOs;
 
-public class PotUpdatedDto
+public class CreatePotRequestDto
 {
     [Required(ErrorMessage = "Pot name is required")]
     public string PotName { get; set; }
@@ -11,10 +13,15 @@ public class PotUpdatedDto
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress(ErrorMessage = "Invalid Email Address")]
     public string Email { get; set; }
+    
+    public string MachineID { get; set; }
 
     [Required]
     public bool Enable { get; set; }
-
-    [Required(ErrorMessage = "Plant details are required")]
-    public Plant Plant { get; set; }
+    public Plant? Plant { get; set; }
+    
+    
+    public CreatePotRequestDto()
+    {
+    }
 }
