@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Link, Outlet, Route  } from 'react-router-dom';
+import bcrypt from "bcryptjs";
 
 import '../Styling/Login.css';
 import { loginUser } from "../API/API_config";
@@ -7,15 +8,15 @@ import Register from './Register';
 
 
 const Login =()=> {
-    // State variables for username and password
-    const [username, setUsername] = useState('');
+    // State variables for email and password
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can perform login logic using username and password
-        // For example, sending a request to your server
+        const hashedPassword = bcrypt.hash(password,10)
+        loginUser(email, hashedPassword)
     };
 
     return (
@@ -25,9 +26,9 @@ const Login =()=> {
                 <div className="login-input-container">
                     <input
                         type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="login-input-container">
