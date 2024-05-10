@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const API_BASE_URL = "http://13.53.174.85/";
 
@@ -188,11 +189,13 @@ var potArray=[
 ]
 
 
-const instance = axios.create({ //TODO: Man skal muligvis download axios: npm install axios@0.24.0
+const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      //Bearer: Cookies.get('token')
+      Bearer: localStorage.getItem('token')
     },
   });
 
@@ -201,14 +204,14 @@ export async function createUser (paramName, paramLastName, paramPassword, param
             {
                 name: paramName,
                 lastName: paramLastName,
-                password: paramPassword,
                 email: paramEmail,
+                password: paramPassword,
                 phoneNumber: paramPhoneNumber
             }
         )
         console.log(jsonUserInfoDTO)
     try{
-        const response = await instance.post("/user/create", jsonUserInfoDTO);
+        const response = await instance.post("/auth/register", jsonUserInfoDTO,);
         console.log(response);
         
     }
@@ -221,6 +224,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 export async function getPotFromId(id){
     try{
         const response = await instance.get("/pot/get/"+id)
+        console.log(response)
         return response.data
     }
     catch{
@@ -232,29 +236,30 @@ export async function getPotFromId(id){
 }
 
 export async function getAllPots(){
-    return potArray;
-    /*
     try{
         const response = await instance.get("/pot/get/all")
+        console.log(response)
         return response.data
     }
     catch{
         //TODO: ErrorHandling 
-    }*/
+    }
     
 }
 
 
-export async function loginUser(username, password) {
-    const userInfoDTO ={
-        Username: username,
+export async function loginUser(email, password) {
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+        email: email,
         Password: password
-    }
-    var jsonUserInfoDTO
-    JSON.stringify(userInfoDTO, jsonUserInfoDTO)
+        }
+    )
     try{
-       response = instance.post("/Auth/login", jsonUserInfoDTO)
-       return response
+       response = instance.post("/auth/login", jsonUserInfoDTO)
+       console.log(response)
+       //Cookies.set('token', response.token, { expires: 7, secure: true });
+       localStorage.setItem('token', response.token);
     }
     catch{
         //TODO: ErrorHandling 
