@@ -13,58 +13,64 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     [Route("user")]
     public class UserController : ControllerBase
     {
-        private readonly IMongoCollection<User> _usersCollection;
         private readonly ILogger _logger;
         private readonly IUserLogic _userLogic;  // Dependency on the IUserLogic interface
 
 
-        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger, IUserLogic userLogic)
+        public UserController(ILogger<UserController> logger, IUserLogic userLogic)
         {
-            _usersCollection = usersCollection;
             _logger = logger;
             _userLogic = userLogic;
         }
 
         [HttpGet("get/all")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<ActionResult<UserGetAllDto>> GetUsers()
         {
             try
             {
-                _logger.LogInformation("Called: Getting all users endpoint");
-                var users = await _usersCollection.Find(_ => true).ToListAsync();
-                return Ok(users);
+                var result = await _userLogic.GetUsers();
+                if (result.Success == false)
+                {
+                    return BadRequest(result);
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                UserGetAllDto userGetAllDto = new UserGetAllDto();
+                userGetAllDto.Message = $"Error: {ex.Message}";
+                userGetAllDto.Success = false;
+                return StatusCode(500, userGetAllDto);
             }
         }
         
         [HttpGet("get/{id}")]
-        public async Task<IActionResult> GetUserById(string id)
+        public async Task<ActionResult<UserGetByIdDto>> GetUserById(string id)
         {
+            UserGetByIdDto userGetByIdDto = new UserGetByIdDto(id);
             try
             {
-                _logger.LogInformation("Called: Get user by ID endpoint");
-                var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
-                if (user == null)
+                var result = await _userLogic.GetUserById(userGetByIdDto);
+                if (result.Success == false)
                 {
-                    return NotFound($"User with ID {id} not found.");
+                    return BadRequest(result);
                 }
-                return Ok(user);
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                userGetByIdDto.Message = $"Error: {ex.Message}";
+                userGetByIdDto.Success = false;
+                return StatusCode(500, userGetByIdDto);
             }
         }
 
 		[HttpPut("update/{id}")]
-public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
+public async Task<ActionResult<UserUpdateDto>> UpdateUser(string id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
 {
     User user = new User()
     {
-        Id = updateUserRequestDto?.Id,
+        Id = id,
         Name = updateUserRequestDto?.Name,
         LastName = updateUserRequestDto?.LastName,
         Email = updateUserRequestDto?.Email,
@@ -77,13 +83,15 @@ public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserRequ
         var result = await _userLogic.UpdateUser(userUpdateDto);
         if (result.Success == false)
         {
-            return NotFound("User not found: " + result.Message);
+            return BadRequest(result);
         }
-        return Ok("User updated successfully");
+        return Ok(result);
     }
     catch (Exception ex)
     {
-        return StatusCode(500, $"Internal server error: {ex.Message}");
+        userUpdateDto.Message = $"Error: {ex.Message}";
+        userUpdateDto.Success = false;
+        return StatusCode(500, userUpdateDto);
     }
 }
     }

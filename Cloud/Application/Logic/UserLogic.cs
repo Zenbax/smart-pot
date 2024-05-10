@@ -19,14 +19,63 @@ public class UserLogic : IUserLogic
             _logger = logger;
         }
 
-        public async Task<User> GetUserById(string id)
+        public async Task<UserGetByIdDto> GetUserById(UserGetByIdDto userGetByIdDto)
         {
-            return await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
+            try
+            {
+                var user = await _usersCollection.Find(user => user.Id == userGetByIdDto.IdToGet).FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    userGetByIdDto.Message = "User with id " + userGetByIdDto.IdToGet + " not found.";
+                    userGetByIdDto.Success = false;
+                    userGetByIdDto.User = null;
+                }
+                else
+                {
+                    userGetByIdDto.Message = "User retrieved successfully.";
+                    userGetByIdDto.Success = true;
+                    userGetByIdDto.User = user;
+                }
+            }
+            catch (Exception ex)
+            {
+                userGetByIdDto.Message = "Error: " + ex.Message;
+                userGetByIdDto.Success = false;
+                userGetByIdDto.User = null;
+            }
+            return userGetByIdDto;
         }
         
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<UserGetAllDto> GetUsers()
         {
-            return await _usersCollection.Find(user => true).ToListAsync();
+            try 
+            {
+                var users = await _usersCollection.Find(user => true).ToListAsync();
+                if (users.Count == 0)
+                {
+                    return new UserGetAllDto
+                    {
+                        Users = null,
+                        Message = "No users in database.",
+                        Success = true
+                    };
+                }
+                return new UserGetAllDto
+                {
+                    Users = users,
+                    Message = "Users retrieved successfully.",
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new UserGetAllDto
+                {
+                    Users = null,
+                    Message = "Error: " + ex.Message,
+                    Success = false
+                };
+            }
         }
 
         public async Task<UserUpdateDto> UpdateUser(UserUpdateDto userUpdateDto)

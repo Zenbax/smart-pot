@@ -27,7 +27,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 var result = await _potLogic.GetAllPots();
                 if (result.Success == false)
                 {
-                    return NotFound(result);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }
@@ -35,12 +35,12 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             {
                 potGetAllDto.Message = $"Error: {ex.Message}";
                 potGetAllDto.Success = false;
-                return BadRequest(potGetAllDto);
+                return StatusCode(500, potGetAllDto);
             }
         }
 
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<Pot>> GetPotById(string id)
+        public async Task<ActionResult<PotGetByIdDto>> GetPotById(string id)
         {
             PotGetByIdDto potGetByIdDto = new PotGetByIdDto(id);
             try
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 var result = await _potLogic.GetPotById(potGetByIdDto);
                 if (result.Success == false)
                 {
-                    return NotFound(result);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             {
                 potGetByIdDto.Message = $"Error: {ex.Message}";
                 potGetByIdDto.Success = false;
-                return BadRequest(potGetByIdDto);
+                return StatusCode(500, potGetByIdDto);
             }
         }
 
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             {
                 potCreationDto.Message = $"Error: {ex.Message}";
                 potCreationDto.Success = false;
-                return BadRequest(potCreationDto);
+                return StatusCode(500, potCreationDto);
             }
         }
 
@@ -107,7 +107,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 var result = await _potLogic.UpdatePot(potUpdatedDto);
                 if (result.Success == false)
                 {
-                    return NotFound(result);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }
@@ -115,7 +115,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             {
                 potUpdatedDto.Message = $"Error: {ex.Message}";
                 potUpdatedDto.Success = false;
-                return BadRequest(potUpdatedDto);
+                return StatusCode(500, potUpdatedDto);
             }
         }
         
@@ -129,7 +129,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 var result = await _potLogic.DeletePot(potDeleteDto);
                 if (result.Success == false)
                 {
-                    return NotFound(result);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }
@@ -137,7 +137,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             {
                 potDeleteDto.Message = $"Error: {ex.Message}";
                 potDeleteDto.Success = false;
-                return BadRequest(potDeleteDto);
+                return StatusCode(500, potDeleteDto);
             }
         }
 }

@@ -7,8 +7,8 @@ namespace Cloud.Services;
 public interface IAuthService
 {
     Task<User> ValidateUser(string username, string password);
-    Task<UserRegisterDto> RegisterUser(RegisterRequestDto registerRequestDto);
-    Task<UserLoginDto> LoginUser(LoginRequestDto loginRequestDto);
+    Task<UserRegisterDto> RegisterUser(UserRegisterDto userRegisterDto);
+    Task<UserLoginDto> LoginUser(UserLoginDto userLoginDto);
     string GenerateJwtToken(User user);
     string GenerateRefreshToken();
 }
