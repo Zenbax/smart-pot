@@ -113,6 +113,164 @@
 			]
 		},
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/get/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"get",
+								"all"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/get/663b4497a950fc901f8823f0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"get",
+								"663b4497a950fc901f8823f0"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Booawdzyy123\",\n  \"lastName\": \"WLCwPuaaHRDUXpLaHSMX\",\n  \"email\": \"user@eaawawwdawdxample.com\",\n  \"password\": \"stringst\",\n  \"phoneNumber\": \"53082673\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/update/663b4497a950fc901f8823f0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"update",
+								"663b4497a950fc901f8823f0"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Pot",
 			"item": [
 				{
@@ -205,14 +363,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/user/get/663b4497a950fc901f8823f0",
+							"raw": "{{base_url}}/pot/get/663cbed37e7ea48a8b956760",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"user",
+								"pot",
 								"get",
-								"663b4497a950fc901f8823f0"
+								"663cbed37e7ea48a8b956760"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -294,7 +452,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"potName\": \"pot_1\",\n    \"email\": \"kalle@da.ag\",\n    \"machineId\": \"123\",\n    \"enable\": true,\n    \"plant\": null\n}",
+							"raw": "{\n    \"potName\": \"pot_1\",\n    \"email\": \"kalle@da.ag\",\n    \"enable\": false,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,14 +460,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pot/update/<pot_id>",
+							"raw": "{{base_url}}/pot/update/663cbed37e7ea48a8b956760",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pot",
 								"update",
-								"<pot_id>"
+								"663cbed37e7ea48a8b956760"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -501,7 +659,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOfPlant\": \"plant_1\",\n    \"soilMinimumMoisture\": \"kalle@da.ag\",\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
+							"raw": "{\n    \"nameOfPlant\": \"plant_1\",\n    \"soilMinimumMoisture\": 5,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -523,7 +681,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Plant",
+					"name": "Update Plant",
 					"event": [
 						{
 							"listen": "test",
@@ -549,7 +707,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOfPlant\": \"plant_1\",\n    \"soilMinimumMoisture\": \"kalle@da.ag\",\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
+							"raw": "{\n    \"nameOfPlant\": \"plant_3\",\n    \"soilMinimumMoisture\": 77,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -557,14 +715,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/plant/update/<plant_id>",
+							"raw": "{{base_url}}/plant/update/plant_1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"plant",
 								"update",
-								"<plant_id>"
+								"plant_1"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -614,115 +772,6 @@
 								"plant",
 								"delete",
 								"<plant_name>"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "Get All Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/user/get/all",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"get",
-								"all"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "Get User By Id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/user/get/663b4497a950fc901f8823f0",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"get",
-								"663b4497a950fc901f8823f0"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."

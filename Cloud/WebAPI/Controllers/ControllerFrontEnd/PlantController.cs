@@ -32,8 +32,10 @@ public class PlantController : ControllerBase
         }
         catch (Exception ex)
         {
-            Response.StatusCode = 500;
-            return BadRequest("500 error: " + ex.Message + " in GetAllPlants.");
+            PlantGetAllDto plantGetAllDto = new PlantGetAllDto();
+            plantGetAllDto.Message = $"Error: {ex.Message}";
+            plantGetAllDto.Success = false;
+            return StatusCode(500, plantGetAllDto);
         }
     }
 
@@ -54,7 +56,7 @@ public class PlantController : ControllerBase
         {
             plantGetByNameDto.Message = $"Error: {ex.Message}";
             plantGetByNameDto.Success = false;
-            return BadRequest(plantGetByNameDto);
+            return StatusCode(500, plantGetByNameDto);
         }
     }
 
@@ -72,12 +74,17 @@ public class PlantController : ControllerBase
         try
         {
             var result = await _plantLogic.CreatePlant(plantCreationDto);
+            if (result.Success == false)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
         catch (Exception ex)
         {
-            Response.StatusCode = 500;
-            return null;
+            plantCreationDto.Message = $"Error: {ex.Message}";
+            plantCreationDto.Success = false;
+            return StatusCode(500, plantCreationDto);
         }
     }
     
@@ -98,13 +105,17 @@ public class PlantController : ControllerBase
         try
         {
             var result = await _plantLogic.UpdatePlant(plantUpdateDto);
+            if (result.Success == false)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
         catch (Exception ex)
         {
             plantUpdateDto.Message = $"Error: {ex.Message}";
             plantUpdateDto.Success = false;
-            return BadRequest(plantUpdateDto);
+            return StatusCode(500, plantUpdateDto);
         }
     }
     
@@ -115,14 +126,17 @@ public class PlantController : ControllerBase
         try
         {
             var result = await _plantLogic.DeletePlant(plantDeleteDto);
+            if (result.Success == false)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
         catch (Exception ex)
         {
             plantDeleteDto.Message = $"Error deleting plant with name "+plantDeleteDto.NameToDelete+": {ex.Message}";
             plantDeleteDto.Success = false;
-            return BadRequest(plantDeleteDto);
+            return StatusCode(500, plantDeleteDto);
         }
     }
-    //Not implemented yet
 }

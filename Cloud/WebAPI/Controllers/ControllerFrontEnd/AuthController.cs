@@ -29,38 +29,54 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginRequestDto loginRequestDto)
+    public async Task<ActionResult<UserLoginDto>> Login(LoginRequestDto loginRequestDto)
     {
+        User user = new User()
+        {
+            Email = loginRequestDto.Email,
+            Password = loginRequestDto.Password
+        };
+        UserLoginDto userLoginDto = new UserLoginDto(user);
         try
         {
-            var response = await _authService.LoginUser(loginRequestDto);
+            var response = await _authService.LoginUser(userLoginDto);
             if (response.Success == false)
-                return BadRequest("Bad request: " + response.Message);
+                return BadRequest(response);
 
             return Ok(response);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred while logging in.");
-            return StatusCode(500, "Internal server error occurred.");
+            userLoginDto.Message = "Error: " + ex.Message;
+            userLoginDto.Success = false;
+            return StatusCode(500, userLoginDto);
         }
     }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterRequestDto registerRequestDto)
+        public async Task<ActionResult<UserRegisterDto>> Register(RegisterRequestDto registerRequestDto)
         {
-            _logger.LogInformation("Called: Register user endpoint");
-            Console.WriteLine("register: here is the user: " + registerRequestDto.Name);
-            var createdUser = await _authService.RegisterUser(registerRequestDto);
-            _logger.LogInformation("User registered successfully");
-            _logger.LogInformation("Response: " + createdUser?.User.Name);
-            if (createdUser == null)
-            {
-                _logger.LogError("Failed to register user");
-                return BadRequest();
-            }
+                UserRegisterDto userRegisterDto = new UserRegisterDto(new User()
+                {
+                    Name = registerRequestDto.Name,
+                    LastName = registerRequestDto.LastName,
+                    Email = registerRequestDto.Email,
+                    Password = registerRequestDto.Password,
+                    PhoneNumber = registerRequestDto.PhoneNumber
+                });
+            try{
+                var response = await _authService.RegisterUser(userRegisterDto);
+                if (response.Success == false)
+                    return BadRequest(response);
 
-            return Ok(createdUser);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                userRegisterDto.Message = "Error: " + ex.Message;
+                userRegisterDto.Success = false;
+                return StatusCode(500, userRegisterDto);
+            }
         }
     }
 }
