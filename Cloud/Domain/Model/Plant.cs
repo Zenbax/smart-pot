@@ -19,11 +19,12 @@ public class Plant
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, int waterTankLevel, string imageUrl)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
+        WaterTankLevel = waterTankLevel;
         ImageUrl = imageUrl;
     }
     

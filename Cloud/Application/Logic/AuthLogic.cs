@@ -59,15 +59,17 @@ public class AuthLogic : IAuthLogic
                 var emailExists = await _usersCollection.Find(u => u.Email == userRegisterDto.User.Email).AnyAsync();
                 if (emailExists)
                 {
-                    throw new ArgumentException("Email already exists.");
+                    userRegisterDto.Message = "Email already exists.";
+                    userRegisterDto.Success = false;
                 }
-
+                else
+                {
                 userRegisterDto.User.Id = ObjectId.GenerateNewId().ToString();
 
                 await _usersCollection.InsertOneAsync(userRegisterDto.User);
-                Console.WriteLine("User registered successfully with id: " + userRegisterDto.User.Id);
                 userRegisterDto.Message = "User registered successfully with id: " + userRegisterDto.User.Id;
-                userRegisterDto.Success = false;
+                userRegisterDto.Success = true;
+                }
 
                 return userRegisterDto;
             }
