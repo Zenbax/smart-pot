@@ -52,28 +52,13 @@ public class PlantLogic : IPlantLogic
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
                 WaterTankLevel = plantDto.WaterTankLevel,
                 ImageURL = plantDto.ImageURL,
-                Active = true,
-                PotId = plantDto.PotId
+                Active = false,
+                PotId = null
             };
-
-            // Find the pot by ID
-            var pot = await _pots.Find(p => p.Id == plantDto.PotId).FirstOrDefaultAsync();
-            if (pot == null)
-            {
-                return "Pot not found";
-            }
-
-            // Deactivate all other plants in this pot
-            var update = Builders<Plant>.Update.Set(p => p.Active, false);
-            await _plants.UpdateManyAsync(p => p.PotId == plantDto.PotId && p.Active, update);
-
+            
             // Insert the new plant into the collection
             await _plants.InsertOneAsync(newPlant);
-
-            // Update the pot with the new PlantId
-            var updatePot = Builders<Pot>.Update.Set(p => p.PlantId, newPlant.Id);
-            await _pots.UpdateOneAsync(p => p.Id == pot.Id, updatePot);
-
+            
             return "Success";
         }
         catch (Exception ex)

@@ -136,4 +136,28 @@ public class PotController : ControllerBase
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
+    
+    [HttpPut("update-plant/{potId}/{plantId}")]
+    public async Task<IActionResult> UpdatePotPlant(string potId, string plantId)
+    {
+        if (string.IsNullOrWhiteSpace(potId) || string.IsNullOrWhiteSpace(plantId))
+        {
+            return BadRequest("Both pot ID and plant ID must be provided.");
+        }
+
+        try
+        {
+            var result = await _potLogic.UpdatePotPlant(potId, plantId);
+            if (result == "Plant updated successfully")
+                return Ok(result);
+            else if (result == "Pot not found" || result == "Plant not found")
+                return NotFound(result);
+            else
+                return BadRequest(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
 }

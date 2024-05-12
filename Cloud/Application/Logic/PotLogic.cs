@@ -9,10 +9,12 @@ namespace Application_.Logic;
     public class PotLogic : IPotLogic
 {
     private readonly IMongoCollection<Pot> _pots;
+    private readonly IMongoCollection<Plant> _plants;
 
-    public PotLogic(IMongoCollection<Pot> potsCollection)
+    public PotLogic(IMongoCollection<Pot> potsCollection, IMongoCollection<Plant> plantsCollection)
     {
         _pots = potsCollection;
+        _plants = plantsCollection;
     }
 
     public async Task<IEnumerable<Pot>> GetAllPots()
@@ -53,7 +55,7 @@ namespace Application_.Logic;
             {
                 NameOfPot = potDto.PotName,
                 Email = potDto.Email,
-                Enable = potDto.Enable,
+                Enable = false,
                 MachineID = potDto.MachineID,
                 PlantId = null
                 
@@ -83,9 +85,7 @@ namespace Application_.Logic;
             }
 
             existingPot.NameOfPot = potUpdatedDto.PotName;
-            existingPot.Email = potUpdatedDto.Email;
             existingPot.Enable = potUpdatedDto.Enable;
-            existingPot.PlantId = potUpdatedDto.PlantId;
             await _pots.ReplaceOneAsync(p => p.Id == id, existingPot);
 
             return "Success";
@@ -128,9 +128,45 @@ namespace Application_.Logic;
         }
     }
     
-    
-    
-    
-    
+    public async Task<string> UpdatePotPlant(string potId, string plantId)
+    {
+        try
+        {
+            // Check if the pot exists
+            var pot = await _pots.Find(p => p.Id == potId).FirstOrDefaultAsync();
+            if (pot == null)
+            {
+                return "Pot not found";
+            }
+
+            // Check if the new plant exists
+            var plantExists = await _plants.Find(p => p.Id == plantId).AnyAsync();
+            if (!plantExists)
+            {
+                return "Plant not found";
+            }
+
+            // Set all other plants in this pot to inactive
+            var deactivateOtherPlants = Builders<Plant>.Update.Set(p => p.Active, false);
+            await _plants.UpdateManyAsync(
+                p => p.PotId == potId && p.Id != plantId,
+                deactivateOtherPlants
+            );
+
+            // Update the pot with the new active plant
+            var updatePot = Builders<Pot>.Update.Set(p => p.PlantId, plantId).Set(p => p.Enable, true);
+            var result = await _pots.UpdateOneAsync(p => p.Id == potId, updatePot);
+
+            // Set the new plant as active
+            var activateNewPlant = Builders<Plant>.Update.Set(p => p.Active, true).Set(p => p.PotId, potId);
+            await _plants.UpdateOneAsync(p => p.Id == plantId, activateNewPlant);
+
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? "Plant updated successfully" : "Update failed";
+        }
+        catch (Exception ex)
+        {
+            return $"Error: {ex.Message}";
+        }
+    }
     
 }

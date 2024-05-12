@@ -12,4 +12,5 @@ public interface IPotLogic
     Task<string> CreatePot(PotCreationDto potDto);
     Task<string> UpdatePot(string id, PotUpdatedDto potUpdatedDto);
     Task<string> DeletePot(string id);
+    Task<string> UpdatePotPlant(string potId, string plantId);
 }

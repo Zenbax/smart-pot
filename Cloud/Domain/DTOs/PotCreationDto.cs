@@ -13,7 +13,4 @@ public class PotCreationDto
     public string Email { get; set; }
     
     public string MachineID { get; set; }
-
-    [Required]
-    public bool Enable { get; set; }
 }

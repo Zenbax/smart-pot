@@ -53,20 +53,11 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpPost("{potId}/create")]
-    public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto, string potId)
+    [HttpPost("create")]
+    public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
     {
         try
         {
-            // checkk if pot exists
-            var pot = await _potLogic.GetPotById(potId);
-            if (pot == null)
-            {
-                return NotFound("Pot not found");
-            }
-            
-            // set plant potid
-            plantCreationDto.PotId = potId;
             var result = await _plantLogic.CreatePlant(plantCreationDto);
             return Ok(result);
         }

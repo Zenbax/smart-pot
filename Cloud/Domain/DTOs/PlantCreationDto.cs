@@ -4,9 +4,6 @@ namespace Domain.DTOs;
 
 public class PlantCreationDto
 {
-
-    public string? PotId { get; set; }
-    
     [Required(ErrorMessage = "Plant name is required")]
     public string NameOfPlant { get; set; }
 

@@ -7,13 +7,15 @@ namespace UnitTests
     public class PotLogicTest
     {
         private Mock<IMongoCollection<Pot>> _mockPotsCollection;
+        private Mock<IMongoCollection<Plant>> _mockPlantsCollection;
         private PotLogic _potLogic;
 
         [SetUp]
         public void SetUp()
         {
             _mockPotsCollection = new Mock<IMongoCollection<Pot>>();
-            _potLogic = new PotLogic(_mockPotsCollection.Object);
+            _mockPlantsCollection = new Mock<IMongoCollection<Plant>>();
+            _potLogic = new PotLogic(_mockPotsCollection.Object, _mockPlantsCollection.Object);
         }
 
 
@@ -57,7 +59,7 @@ namespace UnitTests
 
             mockPotCollectionSetup.Returns(Task.FromResult(mockCursor.Object));
 
-            var potLogic = new PotLogic(mockPotCollection.Object);
+            var potLogic = new PotLogic(mockPotCollection.Object, mockPlantCollection.Object);
 
             // Act
             var result = await potLogic.GetAllPots();
@@ -91,7 +93,7 @@ namespace UnitTests
         public async Task CreatePot_Creates_New_Pot_And_Returns_Success_Message()
         {
             // Arrange
-            var potDto = new PotCreationDto { PotName = "NewPot", Email = "sad@sad.dk", Enable = true, MachineID = "1"};
+            var potDto = new PotCreationDto { PotName = "NewPot", Email = "sad@sad.dk", MachineID = "1"};
 
             // Act
             var result = await _potLogic.CreatePot(potDto);
@@ -108,7 +110,7 @@ namespace UnitTests
         public async Task CreatePot_Returns_Error_Message_When_Exception_Is_Thrown()
         {
             // Arrange
-            var potDto = new PotCreationDto { PotName = "NewPot", Email = "sad@sad.dk", Enable = true, MachineID = "1" };
+            var potDto = new PotCreationDto { PotName = "NewPot", Email = "sad@sad.dk", MachineID = "1" };
             _mockPotsCollection.Setup(m => m.InsertOneAsync(It.IsAny<Pot>(), null, default)).ThrowsAsync(new Exception("An error occurred"));
 
             // Act
