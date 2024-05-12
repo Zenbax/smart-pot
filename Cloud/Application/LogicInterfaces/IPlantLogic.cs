@@ -5,10 +5,10 @@ namespace Application_.LogicInterfaces;
 
 public interface IPlantLogic
 {
-    Task<PlantGetAllDto> GetAllPlants();
-    Task<PlantGetByNameDto> GetPlantByName(PlantGetByNameDto plantGetByNameDto);
-    Task<PlantCreationDto> CreatePlant(PlantCreationDto plantCreationDto);
-    Task<PlantUpdateDto> UpdatePlant(PlantUpdateDto updatedPlantDto);
-    Task<PlantDeleteDto> DeletePlant(PlantDeleteDto plantDeleteDto);
+    Task<IEnumerable<Plant>> GetAllPlants();
+    Task<Plant> GetPlantByName(string name);
+    Task<string> CreatePlant(PlantCreationDto plantDto);
+    Task<string> UpdatePlant(string name, PlantUpdateDto updatedPlantDto);
+    Task<string> DeletePlant(string name);
     
 }

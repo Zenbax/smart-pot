@@ -13,86 +13,50 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     [Route("user")]
     public class UserController : ControllerBase
     {
+        private readonly IMongoCollection<User> _usersCollection;
         private readonly ILogger _logger;
         private readonly IUserLogic _userLogic;  // Dependency on the IUserLogic interface
 
 
-        public UserController(ILogger<UserController> logger, IUserLogic userLogic)
+        public UserController(IMongoCollection<User> usersCollection, ILogger<UserController> logger, IUserLogic userLogic)
         {
+            _usersCollection = usersCollection;
             _logger = logger;
             _userLogic = userLogic;
         }
 
         [HttpGet("get/all")]
-        public async Task<ActionResult<UserGetAllDto>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
             try
             {
-                var result = await _userLogic.GetUsers();
-                if (result.Success == false)
-                {
-                    return BadRequest(result);
-                }
-                return Ok(result);
+                _logger.LogInformation("Called: Getting all users endpoint");
+                var users = await _usersCollection.Find(_ => true).ToListAsync();
+                return Ok(users);
             }
             catch (Exception ex)
             {
-                UserGetAllDto userGetAllDto = new UserGetAllDto();
-                userGetAllDto.Message = $"Error: {ex.Message}";
-                userGetAllDto.Success = false;
-                return StatusCode(500, userGetAllDto);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
         
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<UserGetByIdDto>> GetUserById(string id)
+        public async Task<IActionResult> GetUserById(string id)
         {
-            UserGetByIdDto userGetByIdDto = new UserGetByIdDto(id);
             try
             {
-                var result = await _userLogic.GetUserById(userGetByIdDto);
-                if (result.Success == false)
+                _logger.LogInformation("Called: Get user by ID endpoint");
+                var user = await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
+                if (user == null)
                 {
-                    return BadRequest(result);
+                    return NotFound($"User with ID {id} not found.");
                 }
-                return Ok(result);
+                return Ok(user);
             }
             catch (Exception ex)
             {
-                userGetByIdDto.Message = $"Error: {ex.Message}";
-                userGetByIdDto.Success = false;
-                return StatusCode(500, userGetByIdDto);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-		[HttpPut("update/{id}")]
-public async Task<ActionResult<UserUpdateDto>> UpdateUser(string id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
-{
-    User user = new User()
-    {
-        Id = id,
-        Name = updateUserRequestDto?.Name,
-        LastName = updateUserRequestDto?.LastName,
-        Email = updateUserRequestDto?.Email,
-        Password = updateUserRequestDto?.Password,
-        PhoneNumber = updateUserRequestDto?.PhoneNumber
-    };
-    var userUpdateDto = new UserUpdateDto(id, user);
-    try
-    {
-        var result = await _userLogic.UpdateUser(userUpdateDto);
-        if (result.Success == false)
-        {
-            return BadRequest(result);
-        }
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        userUpdateDto.Message = $"Error: {ex.Message}";
-        userUpdateDto.Success = false;
-        return StatusCode(500, userUpdateDto);
-    }
-}
     }
 }

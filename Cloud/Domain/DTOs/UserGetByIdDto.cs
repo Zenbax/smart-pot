@@ -5,6 +5,7 @@ namespace Domain.DTOs;
 
 public class UserGetByIdDto
 {
+    /*
     public UserGetByIdDto(string idToGet)
     {
         IdToGet = idToGet;
@@ -15,5 +16,5 @@ public class UserGetByIdDto
     public string IdToGet { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
-    
+    */
 }

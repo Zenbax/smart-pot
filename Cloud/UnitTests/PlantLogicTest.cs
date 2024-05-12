@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // namespace UnitTests
 // {
 //     [TestFixture]
@@ -177,6 +176,13 @@
 //         }
 //     }
 // }
+
+
+
+
+/*
+
+
 =======
 using YourApiNamespace.Controllers;
 
@@ -361,3 +367,4 @@ namespace UnitTests
     }
 }
 >>>>>>> Artesh_Branchh
+*/

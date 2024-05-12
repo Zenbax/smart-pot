@@ -4,6 +4,7 @@ namespace Domain.DTOs;
 
 public class PlantGetByNameDto
 {
+    /*
     public PlantGetByNameDto(string nameToGet)
     {
         NameToGet = nameToGet;
@@ -13,4 +14,5 @@ public class PlantGetByNameDto
     public string NameToGet { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
+    */
 }

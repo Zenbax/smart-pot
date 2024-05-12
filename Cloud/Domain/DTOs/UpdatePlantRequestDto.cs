@@ -6,6 +6,7 @@ namespace Domain.DTOs;
 
 public class UpdatePlantRequestDto
 {
+    /*
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
@@ -27,4 +28,5 @@ public class UpdatePlantRequestDto
         SoilMinimumMoisture = soilMinimumMoisture;
         ImageUrl = imageUrl;
     }
+    */
 }

@@ -1,20 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Domain.Model;
 
 namespace Domain.DTOs;
 
 public class PlantCreationDto
 {
-<<<<<<< HEAD
-    public PlantCreationDto(Plant plant)
-    {
-        Plant = plant;
-    }
-
-    [Required] public Plant Plant { get; set; }
-    public string Message { get; set; }
-    public bool Success { get; set; }
-=======
     [Required(ErrorMessage = "Plant name is required")]
     public string NameOfPlant { get; set; }
 
@@ -27,5 +16,4 @@ public class PlantCreationDto
     
     [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
     public int WaterTankLevel { get; set; }
->>>>>>> Artesh_Branchh
 }
