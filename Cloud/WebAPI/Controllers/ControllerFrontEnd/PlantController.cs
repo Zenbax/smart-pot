@@ -12,12 +12,14 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;
+    private readonly IPotLogic _potLogic;
 
-    public PlantController(IPlantLogic plantLogic)
+    public PlantController(IPlantLogic plantLogic, IPotLogic potLogic)
     {
         _plantLogic = plantLogic;
+        _potLogic = potLogic;
     }
-
+  
     [HttpGet("get/all")]
     public async Task<ActionResult<PlantGetAllDto>> Get()
     {

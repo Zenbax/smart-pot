@@ -140,4 +140,67 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 return StatusCode(500, potDeleteDto);
             }
         }
+<<<<<<< HEAD
 }
+=======
+
+        try
+        {
+            var result = await _potLogic.UpdatePot(id, potUpdatedDto);
+            if (result == "Success")
+                return Ok("Pot updated successfully.");
+            else if (result == "Pot not found")
+                return NotFound("Pot not found.");
+            else
+                return BadRequest(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeletePot(string id)
+    {
+        try
+        {
+            var result = await _potLogic.DeletePot(id);
+            if (result == "Success")
+                return Ok("Pot deleted successfully.");
+            else if (result == "Pot not found")
+                return NotFound("Pot not found.");
+            else
+                return BadRequest(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+    
+    [HttpPut("update-plant/{potId}/{plantId}")]
+    public async Task<IActionResult> UpdatePotPlant(string potId, string plantId)
+    {
+        if (string.IsNullOrWhiteSpace(potId) || string.IsNullOrWhiteSpace(plantId))
+        {
+            return BadRequest("Both pot ID and plant ID must be provided.");
+        }
+
+        try
+        {
+            var result = await _potLogic.UpdatePotPlant(potId, plantId);
+            if (result == "Plant updated successfully")
+                return Ok(result);
+            else if (result == "Pot not found" || result == "Plant not found")
+                return NotFound(result);
+            else
+                return BadRequest(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+}
+>>>>>>> Artesh_Branchh
