@@ -51,6 +51,7 @@ public class PlantLogic : IPlantLogic
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
                 WaterTankLevel = plantDto.WaterTankLevel,
+                AmountOfWateringToBeGiven = plantDto.AmountOfWateringToBeGiven,
                 ImageURL = plantDto.ImageURL,
                 Active = false,
                 PotId = null

@@ -10,6 +10,9 @@ public class PlantCreationDto
     [Range(0, 100, ErrorMessage = "Soil minimum moisture must be between 0 and 100")]
     public int SoilMinimumMoisture { get; set; }
 
+    [Range(1, double.MaxValue, ErrorMessage = "Amount of watering to be given is required")]
+
+    public double AmountOfWateringToBeGiven { get; set; }
 
     [Required(ErrorMessage = "Image URL is required")]
     public string? ImageURL { get; set; }

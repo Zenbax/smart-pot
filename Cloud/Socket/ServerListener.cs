@@ -3,15 +3,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using MongoDB.Driver;
-using System.Text.Json;
+using Domain.Model;
 using Socket.Models;
 using YourApiNamespace.Controllers;
 
 public class ServerListener
 {
     private static IMongoCollection<Pot> potCollection;
+    private static IMongoCollection<Plant> plantCollection;
     private static IMongoCollection<SensorData> sensorDataCollection;
 
     public static void StartServer()
@@ -19,6 +21,7 @@ public class ServerListener
         var client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING"));
         var database = client.GetDatabase(Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME"));
         potCollection = database.GetCollection<Pot>("Pots");
+        plantCollection = database.GetCollection<Plant>("Plants");
         sensorDataCollection = database.GetCollection<SensorData>("SensorData");
 
         int port = int.Parse(Environment.GetEnvironmentVariable("SOCKET_PORT") ?? "11000");
@@ -41,35 +44,30 @@ public class ServerListener
         }
     }
 
-  
-    
-    
-    
     private static void HandleClient(System.Net.Sockets.Socket handler)
     {
-        handler.ReceiveTimeout = 15000;  // Set timeout for receiving data to 15 seconds
+        handler.ReceiveTimeout = 15000;
         try
         {
-            while (true) // Continue processing until the connection is closed by client
+            StringBuilder data = new StringBuilder();
+            while (true)
             {
-                StringBuilder data = new StringBuilder();
                 byte[] bytes = new byte[1024];
                 int bytesRec = handler.Receive(bytes);
                 if (bytesRec > 0)
                 {
                     string part = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     data.Append(part);
-                    if (part.EndsWith("\n") || part.EndsWith("}"))  // Assumed end of one complete message
+                    if (part.EndsWith("\n") || part.EndsWith("}"))
                     {
                         ProcessData(data.ToString(), handler);
-                        data.Clear();  // Clear the data buffer after processing
-                        Thread.Sleep(5000);  // Wait for 5 seconds before closing the connection
+                        data.Clear();
                         break;
                     }
                 }
                 else
                 {
-                    break;  // If no data is received, break the loop and close the socket
+                    break;
                 }
             }
         }
@@ -84,16 +82,12 @@ public class ServerListener
             Console.WriteLine("Connection closed.");
         }
     }
-    
-    
-    
+
     private static void ProcessData(string data, System.Net.Sockets.Socket handler)
     {
         string filteredData = new string(data.Where(c => !char.IsControl(c) || char.IsWhiteSpace(c)).ToArray());
-
         if (string.IsNullOrWhiteSpace(filteredData))
         {
-            Console.WriteLine("No valid data received to process.");
             byte[] msg = Encoding.ASCII.GetBytes("No data received\n");
             handler.Send(msg);
             return;
@@ -102,43 +96,48 @@ public class ServerListener
         try
         {
             var sensorData = JsonSerializer.Deserialize<SensorData>(filteredData);
-
-            // Set the current DateTime as the timestamp
-            if (sensorData != null)
-            {
-                sensorData.Timestamp = DateTime.UtcNow; // Automatically set the timestamp here
-                Console.WriteLine("Sensor data saved to MongoDB with current Timestamp.");
-
-                // Find the pot with the given MachineID
-                var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
-                if (pot != null)
-                {
-                    // Add the PotId and PlantId to the sensor data
-                    sensorData.PotId = pot.Id;
-                    if (pot.PlantId != null)
-                    {
-                        sensorData.PlantId = pot.PlantId; 
-                    }
-
-                    sensorDataCollection.InsertOne(sensorData);
-                    Console.WriteLine("Sensor data saved to MongoDB with current Timestamp, PotId, and PlantId.");
-
-                    var potJson = JsonSerializer.Serialize(pot);
-                    byte[] msg = Encoding.ASCII.GetBytes(potJson);
-                    handler.Send(msg);
-                }
-                else
-                {
-                    Console.WriteLine($"No pot found for MachineID {sensorData.MachineID}");
-                    byte[] msg = Encoding.ASCII.GetBytes($"No pot found for MachineID {sensorData.MachineID}\n");
-                    handler.Send(msg);
-                }
-            }
-            else
+            if (sensorData == null)
             {
                 byte[] msg = Encoding.ASCII.GetBytes("Invalid data format\n");
                 handler.Send(msg);
+                return;
             }
+
+            sensorData.Timestamp = DateTime.UtcNow;
+            var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
+
+            if (pot == null)
+            {
+                byte[] msg = Encoding.ASCII.GetBytes($"No pot found for MachineID {sensorData.MachineID}\n");
+                handler.Send(msg);
+                return;
+            }
+
+            sensorData.PotId = pot.Id;
+            sensorData.PlantId = pot.PlantId; // Ensure PlantId is stored in sensorData
+
+            var plant = plantCollection.Find(p => p.Id == pot.PlantId).FirstOrDefault();
+            if (plant == null)
+            {
+                byte[] msg = Encoding.ASCII.GetBytes("No plant data available\n");
+                handler.Send(msg);
+                return;
+            }
+
+            bool watering = pot.Enable && sensorData.MeasuredSoilMoisture > plant.SoilMinimumMoisture;
+            sensorData.AmountOfWateringGiven = watering ? plant.AmountOfWateringToBeGiven : 0; // Update amount based on watering requirement
+
+            // Save sensor data with updated AmountOfWateringGiven value
+            sensorDataCollection.InsertOne(sensorData);
+
+            var iotDataResponse = new
+            {
+                MachineId = pot.MachineID,
+                Watering = watering
+            };
+
+            byte[] response = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(iotDataResponse) + "\n");
+            handler.Send(response);
         }
         catch (JsonException ex)
         {
@@ -147,9 +146,4 @@ public class ServerListener
             handler.Send(msg);
         }
     }
-
-
-    
-    
-    
 }
