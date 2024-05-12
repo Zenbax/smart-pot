@@ -7,4 +7,6 @@ public class SensorData
     public double WaterTankLevel { get; set; }
     public double MeasuredSoilMoisture { get; set; }
     public double AmountOfWatering { get; set; }
+    public string PotId { get; set; }
+    public string PlantId { get; set; }
 }

@@ -16,5 +16,4 @@ public class PotCreationDto
 
     [Required]
     public bool Enable { get; set; }
-    public Plant? Plant { get; set; }
 }

@@ -44,13 +44,18 @@ namespace Application_.Logic;
     {
         try
         {
+            var potFound = await GetPotByMachineId(potDto.MachineID);
+            if (potFound != null)
+            {
+                return "Pot with Machine ID already exists";
+            }
             var newPot = new Pot
             {
                 NameOfPot = potDto.PotName,
                 Email = potDto.Email,
                 Enable = potDto.Enable,
                 MachineID = potDto.MachineID,
-                Plant = potDto.Plant
+                PlantId = null
                 
             };
 
@@ -80,7 +85,7 @@ namespace Application_.Logic;
             existingPot.NameOfPot = potUpdatedDto.PotName;
             existingPot.Email = potUpdatedDto.Email;
             existingPot.Enable = potUpdatedDto.Enable;
-            existingPot.Plant = potUpdatedDto.Plant;
+            existingPot.PlantId = potUpdatedDto.PlantId;
             await _pots.ReplaceOneAsync(p => p.Id == id, existingPot);
 
             return "Success";
@@ -122,6 +127,8 @@ namespace Application_.Logic;
             throw new Exception("Failed to fetch pot by MachineID: " + ex.Message);
         }
     }
+    
+    
     
     
     

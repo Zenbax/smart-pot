@@ -107,12 +107,22 @@ public class ServerListener
             if (sensorData != null)
             {
                 sensorData.Timestamp = DateTime.UtcNow; // Automatically set the timestamp here
-                sensorDataCollection.InsertOne(sensorData);
                 Console.WriteLine("Sensor data saved to MongoDB with current Timestamp.");
 
+                // Find the pot with the given MachineID
                 var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
                 if (pot != null)
                 {
+                    // Add the PotId and PlantId to the sensor data
+                    sensorData.PotId = pot.Id;
+                    if (pot.PlantId != null)
+                    {
+                        sensorData.PlantId = pot.PlantId; 
+                    }
+
+                    sensorDataCollection.InsertOne(sensorData);
+                    Console.WriteLine("Sensor data saved to MongoDB with current Timestamp, PotId, and PlantId.");
+
                     var potJson = JsonSerializer.Serialize(pot);
                     byte[] msg = Encoding.ASCII.GetBytes(potJson);
                     handler.Send(msg);

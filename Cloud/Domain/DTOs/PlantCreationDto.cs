@@ -4,6 +4,9 @@ namespace Domain.DTOs;
 
 public class PlantCreationDto
 {
+
+    public string? PotId { get; set; }
+    
     [Required(ErrorMessage = "Plant name is required")]
     public string NameOfPlant { get; set; }
 
@@ -12,10 +15,8 @@ public class PlantCreationDto
 
 
     [Required(ErrorMessage = "Image URL is required")]
-    public string ImageURL { get; set; }
+    public string? ImageURL { get; set; }
+    
     [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
     public int WaterTankLevel { get; set; }
-    
-    public string? ImageUrl { get; set; }
-
 }

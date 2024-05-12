@@ -11,7 +11,9 @@ public class Plant
     public string NameOfPlant { get; set; }
     public int SoilMinimumMoisture { get; set; }
     public int WaterTankLevel { get; set; }
-    public string ImageUrl { get; set; }
+    public string ImageURL { get; set; } = string.Empty;
+    public bool Active { get; set; }
+    public string PotId { get; set; }
 
     
     
@@ -19,11 +21,12 @@ public class Plant
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string ImageURL, string potId)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
-        ImageUrl = imageUrl;
+        ImageURL = ImageURL;
+        PotId = potId;
     }
 }

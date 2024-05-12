@@ -12,12 +12,14 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;
+    private readonly IPotLogic _potLogic;
 
-    public PlantController(IPlantLogic plantLogic)
+    public PlantController(IPlantLogic plantLogic, IPotLogic potLogic)
     {
         _plantLogic = plantLogic;
+        _potLogic = potLogic;
     }
-
+  
     [HttpGet("get/all")]
     public async Task<IEnumerable<Plant>> Get()
     {
@@ -51,11 +53,20 @@ public class PlantController : ControllerBase
         }
     }
 
-    [HttpPost("create")]
-    public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto)
+    [HttpPost("{potId}/create")]
+    public async Task<ActionResult<string>> Post(PlantCreationDto plantCreationDto, string potId)
     {
         try
         {
+            // checkk if pot exists
+            var pot = await _potLogic.GetPotById(potId);
+            if (pot == null)
+            {
+                return NotFound("Pot not found");
+            }
+            
+            // set plant potid
+            plantCreationDto.PotId = potId;
             var result = await _plantLogic.CreatePlant(plantCreationDto);
             return Ok(result);
         }

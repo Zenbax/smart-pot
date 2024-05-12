@@ -16,5 +16,5 @@ public class PotUpdatedDto
     public bool Enable { get; set; }
 
     [Required(ErrorMessage = "Plant details are required")]
-    public Plant Plant { get; set; }
+    public string PlantId { get; set; }
 }

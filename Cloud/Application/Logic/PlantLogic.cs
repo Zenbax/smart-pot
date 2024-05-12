@@ -2,17 +2,21 @@
 using Domain.DTOs;
 using Domain.Model;
 using MongoDB.Driver;
+using YourApiNamespace.Controllers;
 
 namespace Application_.Logic;
 
 public class PlantLogic : IPlantLogic
 {
     private readonly IMongoCollection<Plant> _plants;
+    private readonly IMongoCollection<Pot> _pots;
 
-    public PlantLogic(IMongoCollection<Plant> plantsCollection)
+    public PlantLogic(IMongoCollection<Plant> plantsCollection, IMongoCollection<Pot> potsCollection)
     {
         _plants = plantsCollection;
+        _pots = potsCollection;
     }
+   
 
     public async Task<IEnumerable<Plant>> GetAllPlants()
     {
@@ -42,15 +46,34 @@ public class PlantLogic : IPlantLogic
     {
         try
         {
-            var plant = new Plant
+            var newPlant = new Plant
             {
                 NameOfPlant = plantDto.NameOfPlant,
                 SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
                 WaterTankLevel = plantDto.WaterTankLevel,
-                ImageUrl = plantDto.ImageUrl,
+                ImageURL = plantDto.ImageURL,
+                Active = true,
+                PotId = plantDto.PotId
             };
 
-            await _plants.InsertOneAsync(plant);
+            // Find the pot by ID
+            var pot = await _pots.Find(p => p.Id == plantDto.PotId).FirstOrDefaultAsync();
+            if (pot == null)
+            {
+                return "Pot not found";
+            }
+
+            // Deactivate all other plants in this pot
+            var update = Builders<Plant>.Update.Set(p => p.Active, false);
+            await _plants.UpdateManyAsync(p => p.PotId == plantDto.PotId && p.Active, update);
+
+            // Insert the new plant into the collection
+            await _plants.InsertOneAsync(newPlant);
+
+            // Update the pot with the new PlantId
+            var updatePot = Builders<Pot>.Update.Set(p => p.PlantId, newPlant.Id);
+            await _pots.UpdateOneAsync(p => p.Id == pot.Id, updatePot);
+
             return "Success";
         }
         catch (Exception ex)
@@ -72,7 +95,7 @@ public class PlantLogic : IPlantLogic
             plant.NameOfPlant = updatedPlantDto.NameOfPlant;
             plant.SoilMinimumMoisture = updatedPlantDto.SoilMinimumMoisture;
             plant.WaterTankLevel = updatedPlantDto.WaterTankLevel;
-            plant.ImageUrl = updatedPlantDto.ImageURL;
+            plant.ImageURL = updatedPlantDto.ImageURL;
 
             await _plants.ReplaceOneAsync(p => p.NameOfPlant == name, plant);
             return "Success";

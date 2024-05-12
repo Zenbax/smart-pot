@@ -1,23 +1,27 @@
+using YourApiNamespace.Controllers;
+
 namespace UnitTests
 {
     [TestFixture]
     public class PlantLogicTests
     {
         private Mock<IMongoCollection<Plant>> _mockPlantsCollection;
+        private Mock<IMongoCollection<Pot>> _mockPotsCollection;
         private PlantLogic _plantLogic;
 
         [SetUp]
         public void SetUp()
         {
             _mockPlantsCollection = new Mock<IMongoCollection<Plant>>();
-            _plantLogic = new PlantLogic(_mockPlantsCollection.Object);
+            _mockPotsCollection = new Mock<IMongoCollection<Pot>>();
+            _plantLogic = new PlantLogic(_mockPlantsCollection.Object, _mockPotsCollection.Object);
         }
         
         [Test]
         public async Task CreatePlant_Creates_New_Plant_And_Returns_Success_Message()
         {
             // Arrange
-            var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
+            var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageURL = "image.jpg" };
 
             // Act
             var result = await _plantLogic.CreatePlant(plantDto);
@@ -50,7 +54,7 @@ namespace UnitTests
         {
             // Arrange
             var updatedPlantDto = new PlantUpdateDto { SoilMinimumMoisture = 50, ImageURL = "updated_image.jpg" };
-            var existingPlant = new Plant { NameOfPlant = "ExistingPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
+            var existingPlant = new Plant { NameOfPlant = "ExistingPlant", SoilMinimumMoisture = 50, ImageURL = "image.jpg" };
             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
                 It.IsAny<FilterDefinition<Plant>>(),
                 It.IsAny<FindOptions<Plant, Plant>>(),
@@ -86,7 +90,7 @@ namespace UnitTests
         public async Task CreatePlant_Returns_Error_Message_When_Exception_Occurs()
         {
             // Arrange
-            var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
+            var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageURL= "image.jpg" };
             _mockPlantsCollection.Setup(m => m.InsertOneAsync(It.IsAny<Plant>(), null, default)).ThrowsAsync(new Exception("Error"));
 
             // Act
