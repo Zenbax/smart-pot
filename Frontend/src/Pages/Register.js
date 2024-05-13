@@ -3,6 +3,9 @@ import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import { MD5 } from 'crypto-js';
 
+import { useNavigate } from 'react-router-dom';
+
+
 
 import '../Styling/Login.css';
 import { createUser, loginUser } from "../API/API_config";
@@ -17,8 +20,9 @@ const Register =()=> {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('')
-    const [redirect, setRedirect] = useState(false);
 
+
+    const navigate = useNavigate();
 
     const handleClick = async(event)=> {
         event.preventDefault();
@@ -44,11 +48,8 @@ const Register =()=> {
         const hashedPassword = MD5(password).toString();
         createUser(name, lastName, hashedPassword, email, phoneNumber);
 
-        /*const loginSuccess = await loginUser(email, password)
-
-        if (loginSuccess) {
-            setRedirect(true);
-        }*/
+     
+        navigate('/login');
 
     }
     
@@ -56,6 +57,12 @@ const Register =()=> {
         setShowError(false);
         setError('');
     }
+
+    const handleClickBack = ()  => {
+        navigate('/login');
+    }
+
+
 
 
     return (
@@ -81,14 +88,6 @@ const Register =()=> {
                     </div>
                     <div className="input-container">
                         <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <input
                             type="text"
                             placeholder="Email"
                             value={email}
@@ -103,19 +102,24 @@ const Register =()=> {
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
+                    <div className="input-container">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
                     {showError && (
                     <div className='error-popup'>
                     <p>{error}</p>
                     </div>
                 )}
-                    <button type='submit'> Submit</button>
+                    <button type='back' onClick={handleClickBack}>Back</button>
+                    <button type='submit' onClick={handleClick}> Submit</button>
                 </form>
                 
-                {redirect && (
-                <Route>
-                    <Redirect to="/" />
-                </Route>
-            )}
             </div>
         </div>
     );

@@ -13,7 +13,6 @@ const PlantOverview = () => {
   const [plantImage, setPlantImage] = useState(No_Image); // base64 string
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite' or 'cancel'
-  const [selectedTemplate, setSelectedTemplate] = useState(null); // Holds the data of selected template
 
   // Function to set PopUp to true
   const handleSubmit = (event) => {
@@ -41,19 +40,15 @@ const PlantOverview = () => {
     setPopUpAction(action);
     // Handle the action (create, overwrite, or cancel)
     console.log(`User chose to ${action}`);
-    // Close the pop-up
     setShowPopUp(false);
   };
 
   // Function to handle selecting a template
   const handleTemplateSelect = (templateData) => {
-    setSelectedTemplate(templateData);
-    // Fill the input fields with data from the selected template
     setPlantName(templateData.name);
     setMinSoilMoisture(templateData.minSoilMoisture)
     setWateringAmount(templateData.wateringAmount)
     setPlantImage(templateData.image) //base64
-    // You can fill other fields similarly
   };
 
   const handleBack = () => {
