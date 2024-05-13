@@ -13,10 +13,12 @@ const Login =()=> {
     const [password, setPassword] = useState('');
 
     // Function to handle form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
-        const hashedPassword = bcrypt.hash(password,10)
-        loginUser(email, hashedPassword)
+        //console.log(password)
+        //const hashedPassword = await bcrypt.hash(password,10)
+        //console.log(hashedPassword)
+        loginUser(email, password)
     };
 
     return (
