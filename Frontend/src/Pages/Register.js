@@ -45,12 +45,8 @@ const Register =()=> {
 
         const hashedPassword = await bcrypt.hash(password,10)
         createUser(name, lastName, hashedPassword, email, phoneNumber);
-        
-        const loginSuccess = await loginUser(email, password)
-
-        if (loginSuccess) {
-           navigate('/');
-        }
+     
+        navigate('/login');
 
     }
     
