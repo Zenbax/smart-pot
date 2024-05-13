@@ -262,12 +262,13 @@ export async function loginUser(email, password) {
 
     try{
         const response = await instance.post("/auth/login", jsonUserInfoDTO);
-
+        
         console.log(response);  
        
        //Cookies.set('token', response.token, { expires: 7, secure: true });
        localStorage.setItem('token', response.data.token);
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
+       return true
     }
     catch{
        //Errorhandle

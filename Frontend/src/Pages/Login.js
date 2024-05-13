@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link, Outlet, Route  } from 'react-router-dom';
+import {Link, Outlet, Route  , useNavigate} from 'react-router-dom';
 import { MD5 } from 'crypto-js';
 
 import '../Styling/Login.css';
@@ -12,12 +12,16 @@ const Login =()=> {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+
     // Function to handle form submission
     const handleSubmit = async(event) => {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();
         console.log(hashedPassword)
-        loginUser(email, hashedPassword)
+        if (loginUser(email, hashedPassword)){
+            navigate('/');
+        }
     };
 
     return (
