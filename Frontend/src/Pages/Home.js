@@ -33,7 +33,7 @@ const Home = () =>
                         <div>Profile</div>
                     </Row>
                     <Row>
-                         <Link to="/connect">
+                         <Link to="/connect_pot">
                             <button type="button" class="btn btn-outline-dark">Forbind potte</button>
                         </Link>
                         <Link to="/plant_overview">

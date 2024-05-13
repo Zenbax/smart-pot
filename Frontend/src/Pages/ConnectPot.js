@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
 
-const Connect = () => {
+const ConnectPot = () => {
     const [idOfPot, setPotID] = useState('');
     const [nameOfPot, setPotName] = useState('');
     const [plantData, setPlantData] = useState(null); // State for selected plant data
@@ -78,4 +78,4 @@ const Connect = () => {
     );
 }
 
-export default Connect;
+export default ConnectPot;

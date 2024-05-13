@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import Connect from './Pages/Connect';
+import ConnectPot from './Pages/ConnectPot';
 import Overview from './Pages/PotDetails';
 import PlantOverview from './Pages/PlantOverview.js';
 import Navbar from './Components/NavBar';
@@ -24,7 +24,7 @@ function App (){
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/plant_overview" element={<PlantOverview />} />
-            <Route exact path="/connect" element={<Connect />} />
+            <Route exact path="/connect_pot" element={<ConnectPot />} />
             <Route path="/:potID" element={<PotDetails/>} />
         </Routes>
       </BrowserRouter>
