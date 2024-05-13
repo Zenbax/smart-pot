@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PlantTemp from '../Components/PlantTemplate';
 import '../Styling/PlantAddPopUp.css';
 
@@ -15,7 +16,7 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
         <div className="plantAdd-pop-up-container">
             <div className="plantAdd-pop-up">
                 <div className="container-fluid">
-                    <button onClick={() => handlePopUpAction('create')} className="create-button">Create New</button>
+                    <Link to="/plant_overview"><button className="create-button">Create New </button></Link>
                     <h1 className="text-center mb-4">Plants</h1>
                     <button onClick={() => handlePopUpAction('cancel')} className="cancel-button">Cancel</button>
                     <div className="row">
