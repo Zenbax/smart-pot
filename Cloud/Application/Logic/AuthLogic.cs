@@ -11,6 +11,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using LoggerExtensions = DnsClient.Internal.LoggerExtensions;
 
+
 namespace Application_.Logic;
 
 public class AuthLogic : IAuthLogic

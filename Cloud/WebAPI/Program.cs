@@ -46,6 +46,7 @@ builder.Services.AddControllers();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IAuthLogic, AuthLogic>();
 
 
 var app = builder.Build();
