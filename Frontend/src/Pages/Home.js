@@ -47,7 +47,7 @@ const Home = () =>
                         <h1>Potter</h1>
                     </Row>
                     <Row className=" flex-grow-1 problemRow" >
-                        {pots.length ?
+                        {pots && pots.length ?
                         <PotsList pots={pots}/>
                         :<h1>No pots yet</h1>}
                     </Row>
