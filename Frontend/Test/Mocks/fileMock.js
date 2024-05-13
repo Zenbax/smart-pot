@@ -1,1 +1,1 @@
-module.exports = 'path/to/mock/image';
+module.exports = '../../images/no-image.jpeg';
