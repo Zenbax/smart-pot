@@ -12,29 +12,12 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
-// Add services to the container.
-builder.Services.AddScoped<IAuthLogic, AuthLogic>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserLogic, UserLogic>();
-builder.Services.AddScoped<IPotLogic, PotLogic>();
-builder.Services.AddScoped<IPlantLogic, PlantLogic>();
 
 // Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
@@ -45,26 +28,80 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
-// Set up MVC, Swagger
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<User>("Users");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Plant>("Plants");
+});
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<Pot>("Pots");
+});
+
+// Add services to the container.
+builder.Services.AddScoped<IAuthLogic, AuthLogic>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<IPotLogic, PotLogic>();
+builder.Services.AddScoped<IPlantLogic, PlantLogic>();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Secret"])),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+var client = new MongoClient(mongoDbSettings["ConnectionString"]);
+var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+var userCollection = database.GetCollection<User>("Users");
+builder.Services.AddSingleton(userCollection);
+builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
+
+// Set up MVC, Swagger and CORS
 builder.Services.AddControllers();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 
 
 var app = builder.Build();
 
-app.UseRouting();
-app.UseCors(); // Place UseCors after UseRouting and before UseAuthorization
 
-// Configure the HTTP request pipeline.
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<CustomAuthenticationMiddleware>();
 
-app.UseAuthentication(); // UseAuthentication must be called before UseAuthorization
+
+app.UseRouting();
+app.UseCors("Open");
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();
