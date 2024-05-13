@@ -12,7 +12,7 @@ test("Navbar is rendered on page", () =>{
         </MemoryRouter>
     );
     expect(screen.getByText('Smart-Pot')).toBeInTheDocument();
-    expect(screen.getByText('Login')).toBeInTheDocument();
+    expect(screen.getByText('Logout')).toBeInTheDocument();
 });
 
 
@@ -26,7 +26,7 @@ test("Click on button on the Navbar and navigate to Login-page",() => {
         </Router>
     )
 
-    fireEvent.click(getByText('Login'));
+    fireEvent.click(getByText('Logout'));
 
     expect(window.location.pathname).toBe('/login');
 });
