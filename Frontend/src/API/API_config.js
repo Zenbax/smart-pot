@@ -214,9 +214,6 @@ export async function createUser (paramName, paramLastName, paramPassword, param
     try{
         const response = await instance.post("/auth/register", jsonUserInfoDTO,);
         console.log(response)
-        if(response.status != 200){
-            throw new Error(response.data.message)
-        }
         
     }
     catch(Error){
@@ -273,7 +270,7 @@ export async function loginUser(email, password) {
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
     }
     catch{
-        console.error
+       //Errorhandle
     }
     
   }
