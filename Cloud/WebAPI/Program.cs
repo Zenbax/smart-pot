@@ -49,13 +49,13 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors(); // Place UseCors after UseRouting and before UseAuthorization
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 app.UseRouting();
-app.UseCors(); // Place UseCors after UseRouting and before UseAuthorization
 app.UseAuthentication(); // UseAuthentication must be called before UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
