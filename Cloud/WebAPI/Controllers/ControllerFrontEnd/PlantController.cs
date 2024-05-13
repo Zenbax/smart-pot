@@ -10,7 +10,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
 [Authorize]
 [ApiController]
 [Route("plant")]
-[EnableCors("AllowSpecificOrigin")]
+[EnableCors("Open")]
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;

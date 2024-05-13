@@ -28,55 +28,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<User>("Users");
-});
-
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Plant>("Plants");
-});
-
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var client = serviceProvider.GetService<IMongoClient>();
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Pot>("Pots");
-});
-
-builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
-builder.Services.AddScoped<IAuthLogic, AuthLogic>(); // Dependency injection for AuthLogic
-builder.Services.AddScoped<IAuthService, AuthService>(); // Dependency injection for AuthService
-builder.Services.AddScoped<IPlantLogic, PlantLogic>(); // Dependency injection for PlantLogic
-builder.Services.AddScoped<IPotLogic, PotLogic>(); // Dependency injection for PotLogic
-// builder.Services.AddScoped<IAuthService, AuthService>(); // Dependency injection for AuthService
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Secret"])),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
-
-var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-var userCollection = database.GetCollection<User>("Users");
-builder.Services.AddSingleton(userCollection);
-builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
+// ... (rest of your code)
 
 // Set up MVC, Swagger and CORS
 builder.Services.AddControllers();
@@ -85,29 +37,27 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
+    options.AddPolicy("Open",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000") // Add localhost to the list of allowed origins
+            builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
 });
 
-
 var app = builder.Build();
 
-
+// Configure the HTTP request pipeline.
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<CustomAuthenticationMiddleware>();
 
-
 app.UseRouting();
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("Open"); // Place UseCors after UseRouting and before UseAuthorization
+app.UseAuthentication(); // UseAuthentication must be called before UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

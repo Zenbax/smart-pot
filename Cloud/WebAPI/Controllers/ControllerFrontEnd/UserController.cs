@@ -12,7 +12,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     [Authorize]
     [ApiController]
     [Route("user")]
-    [EnableCors("AllowSpecificOrigin")]
+    [EnableCors("Open")]
     public class UserController : ControllerBase
     {
         private readonly ILogger _logger;

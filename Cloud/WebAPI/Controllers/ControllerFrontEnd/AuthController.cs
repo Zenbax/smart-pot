@@ -18,7 +18,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
     [Route("auth")]
-    [EnableCors("AllowSpecificOrigin")]
+    [EnableCors("Open")]
     public class AuthController : ControllerBase
     {
     private readonly IAuthService _authService;
