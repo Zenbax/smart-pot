@@ -189,13 +189,24 @@ var potArray=[
 ]
 
 
+axios.interceptors.request.use(request => {
+    console.log('Starting Request', JSON.stringify(request, null, 2))
+    return request
+})
+
+axios.interceptors.response.use(response => {
+    console.log('Response:', JSON.stringify(response, null, 2))
+    return response
+})
+
+
 const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       //Bearer: Cookies.get('token')
-      Bearer: localStorage.getItem('token')
+      Authorization: 'Bearer '+ localStorage.getItem('token')
     },
   });
 
@@ -240,6 +251,7 @@ export async function getPotFromId(id){
 
 export async function getAllPots(){
     try{
+        console.log(instance.get)
         const response = await instance.get("/pot/get/all")
         console.log(response)
         return response.data
@@ -268,6 +280,7 @@ export async function loginUser(email, password) {
        
        //Cookies.set('token', response.token, { expires: 7, secure: true });
        localStorage.setItem('token', response.data.token);
+       instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
     }
     catch{
         console.error

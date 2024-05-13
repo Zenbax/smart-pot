@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import bcrypt from "bcryptjs";
+import { MD5 } from 'crypto-js';
 
 
 import '../Styling/Login.css';
@@ -41,8 +41,8 @@ const Register =()=> {
             return;
         }
         
-        //const hashedPassword = await bcrypt.hash(password,10)
-        createUser(name, lastName, password, email, phoneNumber);
+        const hashedPassword = MD5(password).toString();
+        createUser(name, lastName, hashedPassword, email, phoneNumber);
 
         /*const loginSuccess = await loginUser(email, password)
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Link, Outlet, Route  } from 'react-router-dom';
-import bcrypt from "bcryptjs";
+import { MD5 } from 'crypto-js';
 
 import '../Styling/Login.css';
 import { loginUser } from "../API/API_config";
@@ -15,10 +15,9 @@ const Login =()=> {
     // Function to handle form submission
     const handleSubmit = async(event) => {
         event.preventDefault();
-        //console.log(password)
-        //const hashedPassword = await bcrypt.hash(password,10)
-        //console.log(hashedPassword)
-        loginUser(email, password)
+        const hashedPassword = MD5(password).toString();
+        console.log(hashedPassword)
+        loginUser(email, hashedPassword)
     };
 
     return (
