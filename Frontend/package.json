@@ -16,7 +16,7 @@
     "react": "^18.0.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.23.0",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1"
   },
   "browserslist": {
@@ -48,7 +48,8 @@
       "\\.(css|less|scss|sass)$": "<rootDir>/Test/Mocks/styleMock.js",
       "^API/(.*)$": "<rootDir>/src/API/$1",
       "^bcryptjs$": "<rootDir>/Test/Mocks/bcryptjs.js",
-      "^@/(.*)$": "<rootDir>/src/$1"
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/Test/Mocks/fileMock.js"
     },
     "type": "module"
   }
