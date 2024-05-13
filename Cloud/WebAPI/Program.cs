@@ -30,6 +30,12 @@ builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 // Add services to the container.
+builder.Services.AddScoped<IAuthLogic, AuthLogic>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<IPotLogic, PotLogic>();
+builder.Services.AddScoped<IPlantLogic, PlantLogic>();
+
 // Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
@@ -39,15 +45,11 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings["ConnectionString"]);
 });
 
-// ... (rest of your code)
-
-// Set up MVC, Swagger and CORS
+// Set up MVC, Swagger
 builder.Services.AddControllers();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IAuthLogic, AuthLogic>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
