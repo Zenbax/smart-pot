@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PlantTemp from '../Components/PlantTemplate';
 import '../Styling/PlantAddPopUp.css';
 
-const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage }) => {
-
-    const [selectedTemplate, setSelectedTemplate] = useState(null); // Holds the data of selected template
+const PlantAddPopUp = ({ handlePopUpAction }) => {
 
     const handleTemplateSelect = (templateData) => {
-        setSelectedTemplate(templateData);
-        // Fill the input fields with data from the selected template
+        handlePopUpAction('add', templateData); // Pass the selected template data to the callback function
     };
 
     return (
@@ -35,12 +32,6 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
                         <div className="col-lg-3">
                             <PlantTemp onSelectTemplate={handleTemplateSelect} />
                         </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -49,4 +40,4 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
     );
 };
 
-export default PlantCreatePopUp;
+export default PlantAddPopUp;

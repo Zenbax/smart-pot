@@ -2,27 +2,26 @@ import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
 
 const Connect = () => {
-    // State variables for username and password
     const [idOfPot, setPotID] = useState('');
     const [nameOfPot, setPotName] = useState('');
+    const [plantData, setPlantData] = useState(null); // State for selected plant data
     const [showPopUp, setShowPopUp] = useState(false);
 
-    // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you can perform login logic using username and password
-        // For example, sending a request to your server
+        // Handle form submission logic
     };
 
-    const handlePopUpAction = (action) => {
-        // Close the pop-up
+    const handlePopUpAction = (action, plantData) => {
         setShowPopUp(false);
-        // Handle the action (create, overwrite, or cancel)
-        console.log(`User chose to ${action}`);
+
+        if (action === 'add' && plantData) {
+            setPlantData(plantData);
+        }
     };
 
-      const handleAddPlantClick = () => {
-        setShowPopUp(true); // Show the popup when "Add a plant" is clicked
+    const handleAddPlantClick = () => {
+        setShowPopUp(true);
     };
 
     return (
@@ -46,10 +45,25 @@ const Connect = () => {
                     />
                 </div>
 
-                <div className="image-edit-container">
+                <div>
                     <label className="file-upload-button" onClick={handleAddPlantClick}>
                         Add a plant
                     </label>
+                </div>
+
+                <div className="added-plant-container">
+                    {plantData && (
+                        <div className="col-lg-8">
+                            <p>Plant Name: {plantData.name}</p>
+                            <p>Minimum Soil Moisture: {plantData.minSoilMoisture}</p>
+                            <p>Watering Amount (ml): {plantData.wateringAmount}</p>
+                        </div>
+                    )}
+                    {plantData && (
+                        <div className="col-lg-4">
+                            <img src={plantData.image} alt="Plant Preview" className="image-preview" />
+                        </div>
+                    )}
                 </div>
 
                 <button type="submit">Connect Smart-pot</button>
@@ -60,13 +74,8 @@ const Connect = () => {
                     handlePopUpAction={handlePopUpAction}
                 />
             )}
-
         </div>
     );
 }
 
 export default Connect;
-
-
-
-
