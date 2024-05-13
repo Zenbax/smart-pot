@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Domain.Model;
+using YourApiNamespace.Controllers;
 
 namespace Domain.DTOs;
 
 public class PotCreationDto
 {
-    [Required(ErrorMessage = "Pot name is required")]
-    public string PotName { get; set; }
+    public PotCreationDto(Pot pot)
+    {
+        Pot = pot;
+    }
 
-    [Required(ErrorMessage = "Email is required")]
-    [EmailAddress(ErrorMessage = "Invalid Email Address")]
-    public string Email { get; set; }
-    
-    public string MachineID { get; set; }
+    [Required] public Pot Pot { get; set; }
+    public string Message { get; set; }
+    public bool Success { get; set; }
 }

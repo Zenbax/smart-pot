@@ -6,7 +6,6 @@ namespace Domain.DTOs;
 
 public class UpdateUserRequestDto
 {
-    /*
     public string Name { get; set; }
 
     public string LastName { get; set; }
@@ -34,5 +33,4 @@ public class UpdateUserRequestDto
     {
         return ", Name: " + Name + ", LastName: " + LastName + ", Email: " + Email + ", Password: " + Password + ", PhoneNumber: " + PhoneNumber;
     }
-    */
 }

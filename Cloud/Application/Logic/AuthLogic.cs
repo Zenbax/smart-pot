@@ -1,4 +1,7 @@
-﻿
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
@@ -23,19 +26,27 @@ public class AuthLogic : IAuthLogic
         
         public async Task<UserLoginDto> Login(UserLoginDto userLoginDto)
         {   
-            var foundUser = await _usersCollection.Find(u => u.Email == userLoginDto.User.Email && u.Password == userLoginDto.User.Password).FirstOrDefaultAsync();
-            if (foundUser == null)
+            try{
+                var user = await _usersCollection.Find(u => u.Email == userLoginDto.User.Email && u.Password == userLoginDto.User.Password).FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    userLoginDto.Message = "Invalid email or password.";
+                    userLoginDto.Success = false;
+                    userLoginDto.User = null;
+                }
+                else
+                {
+                    userLoginDto.Message = "User logged in successfully.";
+                    userLoginDto.Success = true;
+                    userLoginDto.User = user;
+                }
+            }
+            catch (Exception ex)
             {
-                userLoginDto.Message = "Invalid email or password.";
+                userLoginDto.Message = "Error: " + ex.Message;
                 userLoginDto.Success = false;
+                userLoginDto.User = null;
             }
-            else
-            {
-                userLoginDto.Message = "User logged in successfully.";
-                userLoginDto.Success = true;
-                userLoginDto.User = foundUser;
-            }
-
             return userLoginDto;
         }
 
@@ -48,15 +59,17 @@ public class AuthLogic : IAuthLogic
                 var emailExists = await _usersCollection.Find(u => u.Email == userRegisterDto.User.Email).AnyAsync();
                 if (emailExists)
                 {
-                    throw new ArgumentException("Email already exists.");
+                    userRegisterDto.Message = "Email already exists.";
+                    userRegisterDto.Success = false;
                 }
-
+                else
+                {
                 userRegisterDto.User.Id = ObjectId.GenerateNewId().ToString();
 
                 await _usersCollection.InsertOneAsync(userRegisterDto.User);
-                Console.WriteLine("User registered successfully with id: " + userRegisterDto.User.Id);
                 userRegisterDto.Message = "User registered successfully with id: " + userRegisterDto.User.Id;
-                userRegisterDto.Success = false;
+                userRegisterDto.Success = true;
+                }
 
                 return userRegisterDto;
             }

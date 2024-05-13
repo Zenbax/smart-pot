@@ -14,16 +14,16 @@ public class Pot
     public string Email { get; set; }
     public bool Enable { get; set; }
     public string MachineID { get; set; }
-    public string PlantId { get; set; }
+    public Plant Plant { get; set; }
 
     public Pot() {}
 
-    public Pot(string nameOfPot, string email, bool enable, string machineId, string plantId)
+    public Pot(string nameOfPot, string email, bool enable, string machineId, Plant plant)
     {
         NameOfPot = nameOfPot;
         Email = email;
         Enable = enable;
         MachineID = machineId;
-        PlantId = plantId;
+        Plant = plant;
     }
 }

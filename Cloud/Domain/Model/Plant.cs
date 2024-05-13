@@ -7,14 +7,11 @@ public class Plant
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-    public string NameOfPlant { get; set; }
-    public int SoilMinimumMoisture { get; set; }
-    public int WaterTankLevel { get; set; }
-    public double AmountOfWateringToBeGiven { get; set; }
-    public string ImageURL { get; set; } = string.Empty;
-    public bool Active { get; set; }
-    public string PotId { get; set; }
+    public string? Id { get; set; }
+    public string? NameOfPlant { get; set; }
+    public int? SoilMinimumMoisture { get; set; }
+    public int? WaterTankLevel { get; set; }
+    public string? ImageUrl { get; set; }
 
     
     
@@ -22,13 +19,17 @@ public class Plant
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string ImageURL, string potId, double amountOfWateringToBeGiven)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, int waterTankLevel, string imageUrl)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
-        AmountOfWateringToBeGiven = amountOfWateringToBeGiven;
-        ImageURL = ImageURL;
-        PotId = potId;
+        WaterTankLevel = waterTankLevel;
+        ImageUrl = imageUrl;
+    }
+    
+    public string ToString()
+    {
+        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterTankLevel: {WaterTankLevel}, ImageUrl: {ImageUrl}";
     }
 }

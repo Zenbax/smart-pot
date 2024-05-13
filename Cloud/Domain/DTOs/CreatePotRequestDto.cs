@@ -7,7 +7,6 @@ namespace Domain.DTOs;
 
 public class CreatePotRequestDto
 {
-    /*
     [Required(ErrorMessage = "Pot name is required")]
     public string PotName { get; set; }
 
@@ -25,7 +24,4 @@ public class CreatePotRequestDto
     public CreatePotRequestDto()
     {
     }
-    [Required]
-    public bool Enable { get; set; }
-*/
 }

@@ -1,22 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Domain.Model;
 
 namespace Domain.DTOs;
 
 public class PlantCreationDto
 {
-    [Required(ErrorMessage = "Plant name is required")]
-    public string NameOfPlant { get; set; }
+    public PlantCreationDto(Plant plant)
+    {
+        Plant = plant;
+    }
 
-    [Range(0, 100, ErrorMessage = "Soil minimum moisture must be between 0 and 100")]
-    public int SoilMinimumMoisture { get; set; }
-
-    [Range(1, double.MaxValue, ErrorMessage = "Amount of watering to be given is required")]
-
-    public double AmountOfWateringToBeGiven { get; set; }
-
-    [Required(ErrorMessage = "Image URL is required")]
-    public string? ImageURL { get; set; }
-    
-    [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
-    public int WaterTankLevel { get; set; }
+    [Required] public Plant Plant { get; set; }
+    public string Message { get; set; }
+    public bool Success { get; set; }
 }

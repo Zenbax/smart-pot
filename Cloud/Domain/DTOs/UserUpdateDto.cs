@@ -5,7 +5,6 @@ namespace Domain.DTOs;
 
 public class UserUpdateDto
 {
-    /*
     public UserUpdateDto(string id, User user)
     {
         IdToUpdate = id;
@@ -15,5 +14,4 @@ public class UserUpdateDto
     [Required] public string IdToUpdate { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
-*/
 }

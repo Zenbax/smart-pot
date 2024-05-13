@@ -1,107 +1,139 @@
-﻿﻿using Application_.LogicInterfaces;
+﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
 using MongoDB.Driver;
-using YourApiNamespace.Controllers;
 
 namespace Application_.Logic;
 
 public class PlantLogic : IPlantLogic
 {
     private readonly IMongoCollection<Plant> _plants;
-    private readonly IMongoCollection<Pot> _pots;
 
-    public PlantLogic(IMongoCollection<Plant> plantsCollection, IMongoCollection<Pot> potsCollection)
+    public PlantLogic(IMongoCollection<Plant> plantsCollection)
     {
         _plants = plantsCollection;
-        _pots = potsCollection;
-    }
-   
-
-    public async Task<IEnumerable<Plant>> GetAllPlants()
-    {
-        try
-        {
-            return await _plants.Find(p => true).ToListAsync();
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
     }
 
-    public async Task<Plant> GetPlantByName(string name)
+    public async Task<PlantGetAllDto> GetAllPlants()
     {
+        PlantGetAllDto plantGetAllDto = new PlantGetAllDto();
         try
         {
-            return await _plants.Find(p => p.NameOfPlant == name).FirstOrDefaultAsync();
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
-    }
-
-    public async Task<string> CreatePlant(PlantCreationDto plantDto)
-    {
-        try
-        {
-            var newPlant = new Plant
+            plantGetAllDto.Plants = await _plants.Find(p => true).ToListAsync();
+            if (plantGetAllDto.Plants.Count == 0)
             {
-                NameOfPlant = plantDto.NameOfPlant,
-                SoilMinimumMoisture = plantDto.SoilMinimumMoisture,
-                WaterTankLevel = plantDto.WaterTankLevel,
-                AmountOfWateringToBeGiven = plantDto.AmountOfWateringToBeGiven,
-                ImageURL = plantDto.ImageURL,
-                Active = false,
-                PotId = null
-            };
-            
-            // Insert the new plant into the collection
-            await _plants.InsertOneAsync(newPlant);
-            
-            return "Success";
+                plantGetAllDto.Message = "No plants in database.";
+            }
+            else
+            {
+                plantGetAllDto.Message = "All plants found.";
+            }
+            plantGetAllDto.Success = true;
         }
         catch (Exception ex)
         {
-            return $"Error: {ex.Message}";
+            plantGetAllDto.Message = $"Error in PlantLogic: {ex.Message}";
+            plantGetAllDto.Success = false;
         }
+        return plantGetAllDto;
     }
 
-    public async Task<string> UpdatePlant(string name, PlantUpdateDto updatedPlantDto)
+    public async Task<PlantGetByNameDto> GetPlantByName(PlantGetByNameDto plantGetByNameDto)
     {
         try
         {
-            var plant = await _plants.Find(p => p.NameOfPlant == name).FirstOrDefaultAsync();
+            Plant plant = await _plants.Find(p => p.NameOfPlant == plantGetByNameDto.NameToGet).FirstOrDefaultAsync();
             if (plant == null)
             {
-                return "Plant not found";
+                plantGetByNameDto.Message = "Plant with name " + plantGetByNameDto.NameToGet + " not found.";
+                plantGetByNameDto.Success = false;
+                plantGetByNameDto.Plant = null;
             }
-
-            plant.NameOfPlant = updatedPlantDto.NameOfPlant;
-            plant.SoilMinimumMoisture = updatedPlantDto.SoilMinimumMoisture;
-            plant.WaterTankLevel = updatedPlantDto.WaterTankLevel;
-            plant.ImageURL = updatedPlantDto.ImageURL;
-
-            await _plants.ReplaceOneAsync(p => p.NameOfPlant == name, plant);
-            return "Success";
+            else
+            {
+                plantGetByNameDto.Message = "Plant with name " + plantGetByNameDto.NameToGet + " found.";
+                plantGetByNameDto.Success = true;
+                plantGetByNameDto.Plant = plant;
+            }
         }
         catch (Exception ex)
         {
-            return $"Error: {ex.Message}";
+            plantGetByNameDto.Message = $"Error in PlantLogic: {ex.Message}";
+            plantGetByNameDto.Success = false;
+            plantGetByNameDto.Plant = null;
         }
+        return plantGetByNameDto;
     }
 
-    public async Task<string> DeletePlant(string name)
+    public async Task<PlantCreationDto> CreatePlant(PlantCreationDto plantCreationDto)
     {
         try
         {
-            await _plants.DeleteOneAsync(p => p.NameOfPlant == name);
-            return "Success";
+            await _plants.InsertOneAsync(plantCreationDto.Plant);
+            plantCreationDto.Message = "Plant created successfully.";
+            plantCreationDto.Success = true;
         }
         catch (Exception ex)
         {
-            return $"Error: {ex.Message}";
+            plantCreationDto.Message = $"Error: {ex.Message}";
+            plantCreationDto.Success = false;
         }
+        return plantCreationDto;
+    }
+
+    public async Task<PlantUpdateDto> UpdatePlant(PlantUpdateDto updatePlantDto)
+    {
+        try
+        {
+            var plant = await _plants.Find(p => p.NameOfPlant == updatePlantDto.NameToUpdate).FirstOrDefaultAsync();
+            if (plant?.Id == null)
+            {
+                updatePlantDto.Message = "Plant with name " + updatePlantDto.NameToUpdate + " not found.";
+                updatePlantDto.Success = false;
+                updatePlantDto.Plant = null;
+            }
+            else
+            {
+                updatePlantDto.Plant.Id = plant.Id;
+                plant.NameOfPlant = updatePlantDto.Plant.NameOfPlant;
+                plant.SoilMinimumMoisture = updatePlantDto.Plant.SoilMinimumMoisture;
+                plant.WaterTankLevel = updatePlantDto.Plant.WaterTankLevel;
+                plant.ImageUrl = updatePlantDto.Plant.ImageUrl;
+
+                await _plants.ReplaceOneAsync(p => p.NameOfPlant == updatePlantDto.NameToUpdate, plant);
+                updatePlantDto.Message = "Plant updated successfully.";
+                updatePlantDto.Success = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            updatePlantDto.Message = $"Error in PlantLogic: {ex.Message}";
+            updatePlantDto.Success = false;
+        }
+            return updatePlantDto;
+    }
+
+    public async Task<PlantDeleteDto> DeletePlant(PlantDeleteDto plantDeleteDto)
+    {
+        try
+        {
+            Plant plant = await _plants.Find(p => p.NameOfPlant == plantDeleteDto.NameToDelete).FirstOrDefaultAsync();
+            if (plant == null)
+            {
+                plantDeleteDto.Message = "Plant with name " + plantDeleteDto.NameToDelete + " not found.";
+                plantDeleteDto.Success = false;
+                return plantDeleteDto;
+            }
+            
+            await _plants.DeleteOneAsync(p => p.NameOfPlant == plantDeleteDto.NameToDelete);
+            plantDeleteDto.Message = "Plant deleted with name "+plantDeleteDto.NameToDelete+" successfully.";
+            plantDeleteDto.Success = true;
+        }
+        catch (Exception ex)
+        {
+            plantDeleteDto.Message = $"Error deleting plant with name "+plantDeleteDto.NameToDelete+": {ex.Message}";
+            plantDeleteDto.Success = false;
+        }
+        return plantDeleteDto;
     }
 }

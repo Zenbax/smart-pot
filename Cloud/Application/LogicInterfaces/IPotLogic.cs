@@ -6,11 +6,10 @@ namespace Application_.LogicInterfaces;
 
 public interface IPotLogic
 {
-    Task<IEnumerable<Pot>> GetAllPots();
-    Task<Pot> GetPotById(string id);
-    Task<Pot> GetPotByMachineId(string machineId);  // Newly added method
-    Task<string> CreatePot(PotCreationDto potDto);
-    Task<string> UpdatePot(string id, PotUpdatedDto potUpdatedDto);
-    Task<string> DeletePot(string id);
-    Task<string> UpdatePotPlant(string potId, string plantId);
+    Task<PotGetAllDto> GetAllPots();
+    Task<PotGetByIdDto> GetPotById(PotGetByIdDto potGetByIdDto);
+    Task<Pot> GetPotByMachineId(string machineId);
+    Task<PotCreationDto> CreatePot(PotCreationDto potCreationDto);
+    Task<PotUpdateDto> UpdatePot(PotUpdateDto potUpdateDto);
+    Task<PotDeleteDto> DeletePot(PotDeleteDto potDeleteDto);
 }

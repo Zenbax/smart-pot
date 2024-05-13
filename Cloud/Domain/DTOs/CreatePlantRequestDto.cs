@@ -6,7 +6,6 @@ namespace Domain.DTOs;
 
 public class CreatePlantRequestDto
 {
-    /*
     [Required(ErrorMessage = "Plant name is required")]
     public string NameOfPlant { get; set; }
 
@@ -23,5 +22,4 @@ public class CreatePlantRequestDto
     public CreatePlantRequestDto()
     {
     }
-    */
 }
