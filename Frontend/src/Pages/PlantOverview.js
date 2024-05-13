@@ -21,10 +21,10 @@ const PlantOverview = () => {
     if (plantName != '' && minSoilMoisture != '' && plantImage != No_Image && wateringAmount > 19 && wateringAmount < 251) {
       setShowPopUp(true);
     }
-    else if (wateringAmount <= 19){
+    else if (wateringAmount <= 19) {
 
     }
-      
+
   };
 
   const handleImageChange = (e) => {
@@ -56,10 +56,15 @@ const PlantOverview = () => {
     // You can fill other fields similarly
   };
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-7">
+          <button onClick={handleBack}>Back</button>
           <h1 className="text-center mb-4">Plants</h1>
           <div className="row">
             <div className="col-lg-4">
