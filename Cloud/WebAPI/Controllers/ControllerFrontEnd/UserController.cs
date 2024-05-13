@@ -5,12 +5,14 @@ using Domain;
 using Domain.DTOs;
 using Domain.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [Authorize]
     [ApiController]
     [Route("user")]
+    [EnableCors("AllowSpecificOrigin")]
     public class UserController : ControllerBase
     {
         private readonly ILogger _logger;

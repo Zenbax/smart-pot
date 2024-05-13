@@ -9,6 +9,7 @@ using Cloud.Services;
 using Domain.DTOs;
 using Domain;
 using Domain.Model;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +18,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
     [Route("auth")]
+    [EnableCors("AllowSpecificOrigin")]
     public class AuthController : ControllerBase
     {
     private readonly IAuthService _authService;

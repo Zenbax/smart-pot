@@ -99,7 +99,7 @@ app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 
 app.UseRouting();
-app.UseCors("Open");
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 app.MapControllers();
 

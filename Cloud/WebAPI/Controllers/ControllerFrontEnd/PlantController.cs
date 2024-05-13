@@ -2,6 +2,7 @@
 using Domain.DTOs;
 using Domain.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers.ControllerFrontEnd;
@@ -9,6 +10,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
 [Authorize]
 [ApiController]
 [Route("plant")]
+[EnableCors("AllowSpecificOrigin")]
 public class PlantController : ControllerBase
 {
     private readonly IPlantLogic _plantLogic;
