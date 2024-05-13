@@ -12,6 +12,17 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -35,27 +46,19 @@ builder.Services.AddControllers();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseRouting();
 app.UseCors(); // Place UseCors after UseRouting and before UseAuthorization
+
+// Configure the HTTP request pipeline.
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<CustomAuthenticationMiddleware>();
 
-app.UseRouting();
 app.UseAuthentication(); // UseAuthentication must be called before UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
