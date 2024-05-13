@@ -37,7 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Open",
+    options.AddDefaultPolicy(
         builder =>
         {
             builder.AllowAnyOrigin()
