@@ -1,8 +1,8 @@
-.bitchContainer{
+.homeContainer{
     height: calc(100% - 60px);
 }
 
 /*burde være i % så det variere af skærmstørrelse*/
-.problemRow{
+.homeRow{
     height: 579px;
 }
