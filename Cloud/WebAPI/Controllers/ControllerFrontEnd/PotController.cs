@@ -1,6 +1,7 @@
 using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using YourApiNamespace.Controllers;
 
@@ -9,6 +10,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
     [Authorize]
     [ApiController]
     [Route("pot")]
+    [EnableCors]
     public class PotController : ControllerBase
     {
         private readonly IPotLogic _potLogic;

@@ -18,7 +18,7 @@ builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
-// Add services to the container.
+
 // Configure MongoDB
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
@@ -49,12 +49,12 @@ builder.Services.AddSingleton(serviceProvider =>
     return database.GetCollection<Pot>("Pots");
 });
 
-builder.Services.AddScoped<IUserLogic, UserLogic>(); // Dependency injection for UserLogic
-builder.Services.AddScoped<IAuthLogic, AuthLogic>(); // Dependency injection for AuthLogic
-builder.Services.AddScoped<IAuthService, AuthService>(); // Dependency injection for AuthService
-builder.Services.AddScoped<IPlantLogic, PlantLogic>(); // Dependency injection for PlantLogic
-builder.Services.AddScoped<IPotLogic, PotLogic>(); // Dependency injection for PotLogic
-// builder.Services.AddScoped<IAuthService, AuthService>(); // Dependency injection for AuthService
+// Add services to the container.
+builder.Services.AddScoped<IAuthLogic, AuthLogic>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<IPotLogic, PotLogic>();
+builder.Services.AddScoped<IPlantLogic, PlantLogic>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -85,7 +85,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
 
@@ -99,7 +99,7 @@ app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 
 app.UseRouting();
-app.UseCors("Open");
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 
