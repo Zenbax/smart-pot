@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
+
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using MongoDB.Driver;
 using System.Text.Json;
-using Socket.Models;
 using YourApiNamespace.Controllers;
 
 public class ServerListener
@@ -87,56 +84,67 @@ public class ServerListener
     
     
     
-    private static void ProcessData(string data, System.Net.Sockets.Socket handler)
+private static void ProcessData(string data, System.Net.Sockets.Socket handler)
+{
+    string filteredData = new string(data.Where(c => !char.IsControl(c) || char.IsWhiteSpace(c)).ToArray());
+
+    if (string.IsNullOrWhiteSpace(filteredData))
     {
-        string filteredData = new string(data.Where(c => !char.IsControl(c) || char.IsWhiteSpace(c)).ToArray());
+        Console.WriteLine("No valid data received to process.");
+        byte[] msg = Encoding.ASCII.GetBytes("No data received\n");
+        handler.Send(msg);
+        return;
+    }
 
-        if (string.IsNullOrWhiteSpace(filteredData))
+    try
+    {
+        var sensorData = JsonSerializer.Deserialize<SensorData>(filteredData);
+
+        if (sensorData != null)
         {
-            Console.WriteLine("No valid data received to process.");
-            byte[] msg = Encoding.ASCII.GetBytes("No data received\n");
-            handler.Send(msg);
-            return;
-        }
-
-        try
-        {
-            var sensorData = JsonSerializer.Deserialize<SensorData>(filteredData);
-
-            // Set the current DateTime as the timestamp
-            if (sensorData != null)
+            // Søg efter tilsvarende pot med MachineID
+            var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
+            if (pot != null && pot.Plant != null)
             {
-                sensorData.Timestamp = DateTime.UtcNow; // Automatically set the timestamp here
-                sensorDataCollection.InsertOne(sensorData);
-                Console.WriteLine("Sensor data saved to MongoDB with current Timestamp.");
+                sensorData.PotId = pot.Id;
+                sensorData.PlantId = pot.Plant.Id;
 
-                var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
-                if (pot != null)
-                {
-                    var potJson = JsonSerializer.Serialize(pot);
-                    byte[] msg = Encoding.ASCII.GetBytes(potJson);
-                    handler.Send(msg);
-                }
-                else
-                {
-                    Console.WriteLine($"No pot found for MachineID {sensorData.MachineID}");
-                    byte[] msg = Encoding.ASCII.GetBytes($"No pot found for MachineID {sensorData.MachineID}\n");
-                    handler.Send(msg);
-                }
+                // Gem sensor data med pot og plant id
+                sensorDataCollection.InsertOne(sensorData);
+                Console.WriteLine("Sensor data saved to MongoDB with additional details.");
+
+                // Opret og send respons tilbage til IoT enhed
+                var response = new {
+                    MachineID = pot.MachineID,
+                    SoilMinimumMoisture = pot.Plant.SoilMinimumMoisture,
+                    AmountOfWaterToBeGiven = pot.Plant.AmountOfWaterToBeGiven
+                };
+                string jsonResponse = JsonSerializer.Serialize(response);
+                byte[] msg = Encoding.ASCII.GetBytes(jsonResponse);
+                handler.Send(msg);
             }
             else
             {
-                byte[] msg = Encoding.ASCII.GetBytes("Invalid data format\n");
+                Console.WriteLine($"No pot found for MachineID {sensorData.MachineID}");
+                byte[] msg = Encoding.ASCII.GetBytes($"No pot found for MachineID {sensorData.MachineID}\n");
                 handler.Send(msg);
             }
         }
-        catch (JsonException ex)
+        else
         {
-            Console.WriteLine($"Failed to parse JSON data: {ex.Message}");
-            byte[] msg = Encoding.ASCII.GetBytes($"JSON parse error: {ex.Message}\n");
+            byte[] msg = Encoding.ASCII.GetBytes("Invalid data format\n");
             handler.Send(msg);
         }
     }
+    catch (JsonException ex)
+    {
+        Console.WriteLine($"Failed to parse JSON data: {ex.Message}");
+        byte[] msg = Encoding.ASCII.GetBytes($"JSON parse error: {ex.Message}\n");
+        handler.Send(msg);
+    }
+}
+
+
 
 
     

@@ -90,6 +90,9 @@ public class PlantController : ControllerBase
         }
     }
     
+    //den her nye metode sletter en plante
+  
+    
     // Create a new endpoint for updating a plant
     [HttpPut("update/{name}")]
     public async Task<ActionResult<PlantUpdateDto>> Put(string name, UpdatePlantRequestDto updatePlantRequestDto)

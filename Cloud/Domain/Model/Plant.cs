@@ -12,6 +12,8 @@ public class Plant
     public int? SoilMinimumMoisture { get; set; }
     public int? WaterTankLevel { get; set; }
     public string? ImageUrl { get; set; }
+    public double AmountOfWaterToBeGiven { get; set; }  // Ny tilføjelse til at håndtere vandingsmængde
+
 
     
     
@@ -19,17 +21,20 @@ public class Plant
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, int waterTankLevel, string imageUrl)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, int waterTankLevel, string imageUrl, double amountOfWaterToBeGiven)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
         WaterTankLevel = waterTankLevel;
         ImageUrl = imageUrl;
+        AmountOfWaterToBeGiven = amountOfWaterToBeGiven;
     }
     
-    public string ToString()
+    
+  //Det er en to string metode som er lavet for at kunne se hvad der er i plant objektet
+    public override string ToString()
     {
-        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterTankLevel: {WaterTankLevel}, ImageUrl: {ImageUrl}";
+        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, WaterTankLevel: {WaterTankLevel}, ImageUrl: {ImageUrl}, AmountOfWaterToBeGiven: {AmountOfWaterToBeGiven}";
     }
 }
