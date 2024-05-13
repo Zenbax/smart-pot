@@ -10,7 +10,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
     [Authorize]
     [ApiController]
     [Route("pot")]
-    [EnableCors("Open")]
+    [EnableCors]
     public class PotController : ControllerBase
     {
         private readonly IPotLogic _potLogic;

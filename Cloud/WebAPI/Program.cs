@@ -55,7 +55,7 @@ app.UseSwaggerUI();
 app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 app.UseRouting();
-app.UseCors("Open"); // Place UseCors after UseRouting and before UseAuthorization
+app.UseCors(); // Place UseCors after UseRouting and before UseAuthorization
 app.UseAuthentication(); // UseAuthentication must be called before UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
