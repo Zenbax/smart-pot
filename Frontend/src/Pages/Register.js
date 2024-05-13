@@ -43,7 +43,6 @@ const Register =()=> {
             return;
         }
 
-        
         const hashedPassword = await bcrypt.hash(password,10)
         createUser(name, lastName, hashedPassword, email, phoneNumber);
         
