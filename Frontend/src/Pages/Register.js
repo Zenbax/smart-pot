@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import bcrypt from "bcryptjs";
+import { useNavigate } from 'react-router-dom';
 
 
 import '../Styling/Login.css';
@@ -17,8 +18,9 @@ const Register =()=> {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('')
-    const [redirect, setRedirect] = useState(false);
 
+
+    const navigate = useNavigate();
 
     const handleClick = async(event)=> {
         event.preventDefault();
@@ -40,15 +42,15 @@ const Register =()=> {
             setShowError(true);
             return;
         }
-        
-        //const hashedPassword = await bcrypt.hash(password,10)
-        createUser(name, lastName, password, email, phoneNumber);
 
-        /*const loginSuccess = await loginUser(email, password)
+        const hashedPassword = await bcrypt.hash(password,10)
+        createUser(name, lastName, hashedPassword, email, phoneNumber);
+        
+        const loginSuccess = await loginUser(email, password)
 
         if (loginSuccess) {
-            setRedirect(true);
-        }*/
+           navigate('/');
+        }
 
     }
     
@@ -56,6 +58,12 @@ const Register =()=> {
         setShowError(false);
         setError('');
     }
+
+    const handleClickBack = ()  => {
+        navigate('/login');
+    }
+
+
 
 
     return (
@@ -81,14 +89,6 @@ const Register =()=> {
                     </div>
                     <div className="input-container">
                         <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <input
                             type="text"
                             placeholder="Email"
                             value={email}
@@ -103,19 +103,24 @@ const Register =()=> {
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
+                    <div className="input-container">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
                     {showError && (
                     <div className='error-popup'>
                     <p>{error}</p>
                     </div>
                 )}
-                    <button type='submit'> Submit</button>
+                    <button type='back' onClick={handleClickBack}>Back</button>
+                    <button type='submit' onClick={handleClick}> Submit</button>
                 </form>
                 
-                {redirect && (
-                <Route>
-                    <Redirect to="/" />
-                </Route>
-            )}
             </div>
         </div>
     );
