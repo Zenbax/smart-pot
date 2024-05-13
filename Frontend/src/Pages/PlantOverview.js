@@ -13,7 +13,6 @@ const PlantOverview = () => {
   const [plantImage, setPlantImage] = useState(No_Image); // base64 string
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState(''); // 'create' or 'overwrite' or 'cancel'
-  const [selectedTemplate, setSelectedTemplate] = useState(null); // Holds the data of selected template
 
   // Function to set PopUp to true
   const handleSubmit = (event) => {
@@ -21,10 +20,10 @@ const PlantOverview = () => {
     if (plantName != '' && minSoilMoisture != '' && plantImage != No_Image && wateringAmount > 19 && wateringAmount < 251) {
       setShowPopUp(true);
     }
-    else if (wateringAmount <= 19){
+    else if (wateringAmount <= 19) {
 
     }
-      
+
   };
 
   const handleImageChange = (e) => {
@@ -41,25 +40,26 @@ const PlantOverview = () => {
     setPopUpAction(action);
     // Handle the action (create, overwrite, or cancel)
     console.log(`User chose to ${action}`);
-    // Close the pop-up
     setShowPopUp(false);
   };
 
   // Function to handle selecting a template
   const handleTemplateSelect = (templateData) => {
-    setSelectedTemplate(templateData);
-    // Fill the input fields with data from the selected template
     setPlantName(templateData.name);
     setMinSoilMoisture(templateData.minSoilMoisture)
     setWateringAmount(templateData.wateringAmount)
     setPlantImage(templateData.image) //base64
-    // You can fill other fields similarly
+  };
+
+  const handleBack = () => {
+    window.history.back();
   };
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-7">
+          <button onClick={handleBack}>Back</button>
           <h1 className="text-center mb-4">Plants</h1>
           <div className="row">
             <div className="col-lg-4">

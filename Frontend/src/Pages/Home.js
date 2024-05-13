@@ -26,14 +26,14 @@ const Home = () =>
   //};
 
     return (
-        <Container className="bitchContainer">
+        <Container className="homeContainer">
             <Row className="flex-column h-100">
                 <Col md="4">
                     <Row>
                         <div>Profile</div>
                     </Row>
                     <Row>
-                         <Link to="/connect">
+                         <Link to="/connect_pot">
                             <button type="button" class="btn btn-outline-dark">Forbind potte</button>
                         </Link>
                         <Link to="/plant_overview">
@@ -46,8 +46,8 @@ const Home = () =>
                     <Row>
                         <h1>Potter</h1>
                     </Row>
-                    <Row className=" flex-grow-1 problemRow" >
-                        {pots.length ?
+                    <Row className=" flex-grow-1 homeRow" >
+                        {pots && pots.length ?
                         <PotsList pots={pots}/>
                         :<h1>No pots yet</h1>}
                     </Row>

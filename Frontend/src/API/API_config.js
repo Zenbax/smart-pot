@@ -189,13 +189,14 @@ var potArray=[
 ]
 
 
+
 const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       //Bearer: Cookies.get('token')
-      Bearer: localStorage.getItem('token')
+      Authorization: 'Bearer '+ localStorage.getItem('token')
     },
   });
 
@@ -212,11 +213,11 @@ export async function createUser (paramName, paramLastName, paramPassword, param
         console.log(jsonUserInfoDTO)
     try{
         const response = await instance.post("/auth/register", jsonUserInfoDTO,);
-        console.log(response);
+        console.log(response)
         
     }
-    catch{
-        //TODO: ErrorHandling 
+    catch(Error){
+        console.log(Error.message)
     }
     
 }
@@ -237,6 +238,7 @@ export async function getPotFromId(id){
 
 export async function getAllPots(){
     try{
+        console.log(instance.get)
         const response = await instance.get("/pot/get/all")
         console.log(response)
         return response.data
@@ -255,14 +257,20 @@ export async function loginUser(email, password) {
         Password: password
         }
     )
+    console.log(jsonUserInfoDTO)
+
+
     try{
-       response = instance.post("/auth/login", jsonUserInfoDTO)
-       console.log(response)
+        const response = await instance.post("/auth/login", jsonUserInfoDTO);
+
+        console.log(response);  
+       
        //Cookies.set('token', response.token, { expires: 7, secure: true });
-       localStorage.setItem('token', response.token);
+       localStorage.setItem('token', response.data.token);
+       instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
     }
     catch{
-        //TODO: ErrorHandling 
+       //Errorhandle
     }
     
   }
