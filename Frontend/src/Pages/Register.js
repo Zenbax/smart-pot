@@ -41,14 +41,14 @@ const Register =()=> {
             return;
         }
         
-        const hashedPassword = await bcrypt.hash(password,10)
-        createUser(name, lastName, hashedPassword, email, phoneNumber);
+        //const hashedPassword = await bcrypt.hash(password,10)
+        createUser(name, lastName, password, email, phoneNumber);
 
-        const loginSuccess = await loginUser(email, password)
+        /*const loginSuccess = await loginUser(email, password)
 
         if (loginSuccess) {
             setRedirect(true);
-        }
+        }*/
 
     }
     

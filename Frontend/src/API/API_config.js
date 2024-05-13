@@ -212,11 +212,14 @@ export async function createUser (paramName, paramLastName, paramPassword, param
         console.log(jsonUserInfoDTO)
     try{
         const response = await instance.post("/auth/register", jsonUserInfoDTO,);
-        console.log(response);
+        console.log(response)
+        if(response.status != 200){
+            throw new Error(response.data.message)
+        }
         
     }
-    catch{
-        //TODO: ErrorHandling 
+    catch(Error){
+        console.log(Error.message)
     }
     
 }
@@ -255,14 +258,19 @@ export async function loginUser(email, password) {
         Password: password
         }
     )
+    console.log(jsonUserInfoDTO)
+
+
     try{
-       response = instance.post("/auth/login", jsonUserInfoDTO)
-       console.log(response)
+        const response = await instance.post("/auth/login", jsonUserInfoDTO);
+
+        console.log(response);  
+       
        //Cookies.set('token', response.token, { expires: 7, secure: true });
-       localStorage.setItem('token', response.token);
+       localStorage.setItem('token', response.data.token);
     }
     catch{
-        //TODO: ErrorHandling 
+        console.error
     }
     
   }
