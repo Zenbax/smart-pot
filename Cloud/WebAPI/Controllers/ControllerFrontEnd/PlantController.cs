@@ -62,20 +62,28 @@ public class PlantController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<PlantCreationDto>> Post(CreatePlantRequestDto createPlantRequestDto)
+    public async Task<ActionResult<PlantCreationDto>> Post([FromBody] CreatePlantRequestDto createPlantRequestDto)
     {
+        if (createPlantRequestDto == null)
+        {
+            return BadRequest("Request data is null");
+        }
+
         Plant plant = new Plant()
         {
-            NameOfPlant = createPlantRequestDto?.NameOfPlant,
-            SoilMinimumMoisture = createPlantRequestDto?.SoilMinimumMoisture,
-            WaterTankLevel = createPlantRequestDto?.WaterTankLevel,
-            ImageUrl = createPlantRequestDto?.ImageUrl
+            NameOfPlant = createPlantRequestDto.NameOfPlant,
+            SoilMinimumMoisture = createPlantRequestDto.SoilMinimumMoisture,
+            AmountOfWaterToBeGiven = createPlantRequestDto.AmountOfWaterToBeGiven,
+            Enable = createPlantRequestDto.Enable,
+            ImageUrl = createPlantRequestDto.ImageUrl,
         };
+
         PlantCreationDto plantCreationDto = new PlantCreationDto(plant);
+
         try
         {
             var result = await _plantLogic.CreatePlant(plantCreationDto);
-            if (result.Success == false)
+            if (!result.Success)
             {
                 return BadRequest(result);
             }
@@ -88,6 +96,7 @@ public class PlantController : ControllerBase
             return StatusCode(500, plantCreationDto);
         }
     }
+
     
     //den her nye metode sletter en plante
   
@@ -101,7 +110,7 @@ public class PlantController : ControllerBase
             Id = updatePlantRequestDto?.Id,
             NameOfPlant = updatePlantRequestDto?.NameOfPlant,
             SoilMinimumMoisture = updatePlantRequestDto?.SoilMinimumMoisture,
-            WaterTankLevel = updatePlantRequestDto?.WaterTankLevel,
+            AmountOfWaterToBeGiven = updatePlantRequestDto?.AmountOfWaterToBeGiven,
             ImageUrl = updatePlantRequestDto?.ImageUrl
         };
         PlantUpdateDto plantUpdateDto = new PlantUpdateDto(name, plant);
