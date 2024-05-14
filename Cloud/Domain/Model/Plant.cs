@@ -15,13 +15,13 @@ public class Plant
     
     public string? UserId { get; set; }
 
-    public bool isDefault { get; set; } = false; 
+    public bool isDefault { get; set; } = false;
     
     public Plant()
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string image, double amountOfWaterToBeGiven, string userId)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string image, double amountOfWaterToBeGiven, string userId, bool isDefault = false)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
@@ -29,13 +29,16 @@ public class Plant
         Image = image;
         AmountOfWaterToBeGiven = amountOfWaterToBeGiven;
         UserId = userId;
+        this.isDefault = isDefault;
     }
+    
     
     
     
   //Det er en to string metode som er lavet for at kunne se hvad der er i plant objektet
-    public override string ToString()
-    {
-        return $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, Image: {Image}, AmountOfWaterToBeGiven: {AmountOfWaterToBeGiven}, UserId: {UserId}";
-    }
+  public override string ToString()
+  {
+      return
+          $"Id: {Id}, NameOfPlant: {NameOfPlant}, SoilMinimumMoisture: {SoilMinimumMoisture}, Image: {Image}, AmountOfWaterToBeGiven: {AmountOfWaterToBeGiven}, UserId: {UserId}";
+  }
 }
