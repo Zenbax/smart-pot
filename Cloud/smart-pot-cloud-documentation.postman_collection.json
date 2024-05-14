@@ -26,17 +26,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Booawdzyy123\",\n  \"lastName\": \"WLCwPuaaHRDUXpLaHSMX\",\n  \"email\": \"user@eaawawwdawdxample.com\",\n  \"password\": \"stringst\",\n  \"phoneNumber\": \"53082673\"\n}",
+							"raw": "{\n  \"name\": \"Hans\",\n  \"lastName\": \"Prins\",\n  \"email\": \"hans@prins.dk\",\n  \"password\": \"123\",\n  \"phoneNumber\": \"88888888\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,9 +73,27 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
+									"// Parse the JSON response body",
+									"var responseData = pm.response.json();",
+									"",
+									"// Check if the response contains a token and save it as an environment variable",
+									"if (responseData && responseData.token) {",
+									"    pm.environment.set(\"token\", responseData.token);",
+									"    pm.variables.set(\"token\", responseData.token);",
+									"    console.log(\"Token saved successfully:\", responseData.token);",
+									"} else {",
+									"    console.log(\"No token found in the response\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -74,22 +101,30 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"value": "application/json"
 							},
 							{
 								"key": "Accept",
-								"value": "*/*",
-								"type": "text"
+								"value": "*/*"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"kalle@da.ag\",\n  \"password\": \"string\"\n}",
+							"raw": "{\n  \"email\": \"hans@prins.dk\",\n  \"password\": \"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,12 +170,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -187,12 +231,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -205,14 +258,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/user/get/663b4497a950fc901f8823f0",
+							"raw": "{{base_url}}/user/get/663dec0bb15b07ef94418549",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"user",
 								"get",
-								"663b4497a950fc901f8823f0"
+								"663dec0bb15b07ef94418549"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -236,17 +289,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Booawdzyy123\",\n  \"lastName\": \"WLCwPuaaHRDUXpLaHSMX\",\n  \"email\": \"user@eaawawwdawdxample.com\",\n  \"password\": \"stringst\",\n  \"phoneNumber\": \"53082673\"\n}",
+							"raw": "{\n  \"name\": \"Booawdzyy123\",\n  \"lastName\": \"WLCwPuaaHRDUXpLaHSMX\",\n  \"email\": \"gg@eaawawwdawdxample.com\",\n  \"password\": \"stringst\",\n  \"phoneNumber\": \"53082673\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -254,14 +316,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/user/update/663b4497a950fc901f8823f0",
+							"raw": "{{base_url}}/user/update/663dec0bb15b07ef94418549",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"user",
 								"update",
-								"663b4497a950fc901f8823f0"
+								"663dec0bb15b07ef94418549"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -293,12 +355,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -345,12 +416,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -363,14 +443,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pot/get/663cbed37e7ea48a8b956760",
+							"raw": "{{base_url}}/pot/get/663cc05da0731811aa14318f",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pot",
 								"get",
-								"663cbed37e7ea48a8b956760"
+								"663cc05da0731811aa14318f"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -394,17 +474,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"potName\": \"pot_1\",\n    \"email\": \"kalle@da.ag\",\n    \"machineId\": \"123\",\n    \"enable\": true,\n    \"plant\": null\n}",
+							"raw": "{\n    \"potName\": \"pot_d33\",\n    \"email\": \"kalle@da.ag\",\n    \"machineId\": \"123\",\n    \"enable\": true,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -442,17 +531,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"potName\": \"pot_1\",\n    \"email\": \"kalle@da.ag\",\n    \"enable\": false,\n    \"plant\": null\n}",
+							"raw": "{\n    \"potName\": \"pot_121\",\n    \"email\": \"kalle@da.ag\",\n    \"enable\": false,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,14 +558,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pot/update/663cbed37e7ea48a8b956760",
+							"raw": "{{base_url}}/pot/update/663df42bf9007a0f2209daca",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pot",
 								"update",
-								"663cbed37e7ea48a8b956760"
+								"663df42bf9007a0f2209daca"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -491,12 +589,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -509,14 +616,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pot/delete/<pot_id>",
+							"raw": "{{base_url}}/pot/delete/663df42bf9007a0f2209daca",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pot",
 								"delete",
-								"<pot_id>"
+								"663df42bf9007a0f2209daca"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -548,12 +655,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -566,12 +682,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pot/get/all",
+							"raw": "{{base_url}}/plant/get/all",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"pot",
+								"plant",
 								"get",
 								"all"
 							]
@@ -600,12 +716,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -618,14 +743,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/plant/get/<plant_name>",
+							"raw": "{{base_url}}/plant/get/Fern",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"plant",
 								"get",
-								"<plant_name>"
+								"Fern"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -649,17 +774,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOfPlant\": \"plant_1\",\n    \"soilMinimumMoisture\": 5,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
+							"raw": "{\n    \"nameOfPlant\": \"plant_5\",\n    \"soilMinimumMoisture\": 5,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -697,12 +831,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -715,14 +858,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/plant/update/plant_1",
+							"raw": "{{base_url}}/plant/update/plant_5",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"plant",
 								"update",
-								"plant_1"
+								"plant_5"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -746,12 +889,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
+								"value": "Bearer {{token}}"
 							}
 						],
 						"body": {
@@ -764,14 +916,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/plant/delete/<plant_name>",
+							"raw": "{{base_url}}/plant/delete/plant_3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"plant",
 								"delete",
-								"<plant_name>"
+								"plant_3"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."

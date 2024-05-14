@@ -95,11 +95,11 @@ var app = builder.Build();
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 
 app.UseRouting();
 app.UseCors();
+app.UseMiddleware<CustomAuthenticationMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

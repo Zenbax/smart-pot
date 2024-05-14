@@ -12,7 +12,6 @@ namespace WebAPI.Controllers.ControllerFrontEnd
     [Authorize]
     [ApiController]
     [Route("user")]
-    [EnableCors]
     public class UserController : ControllerBase
     {
         private readonly ILogger _logger;
