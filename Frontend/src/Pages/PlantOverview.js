@@ -31,9 +31,11 @@ const PlantOverview = () => {
     const file = e.target.files[0];
     // Convert the image to base64
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPlantImage(reader.result); // Set the base64 string as the plantImage
+    if (file != null) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPlantImage(reader.result); // Set the base64 string as the plantImage
+      }
     };
   };
 
