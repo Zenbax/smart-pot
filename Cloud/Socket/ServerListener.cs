@@ -100,9 +100,8 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
     {
         var sensorData = JsonSerializer.Deserialize<SensorData>(filteredData);
 
-        if (sensorData != null)
+        if (sensorData != null && sensorData.MachineID != null && sensorData.AmountOfWatering > 0)
         {
-            // Søg efter tilsvarende pot med MachineID
             var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
             if (pot != null && pot.Plant != null)
             {
@@ -111,9 +110,8 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
 
                 // Gem sensor data med pot og plant id
                 sensorDataCollection.InsertOne(sensorData);
-                Console.WriteLine("Sensor data saved to MongoDB with additional details.");
+                Console.WriteLine("Sensor data saved to MongoDB with current Timestamp and all details.");
 
-                // Opret og send respons tilbage til IoT enhed
                 var response = new {
                     MachineID = pot.MachineID,
                     SoilMinimumMoisture = pot.Plant.SoilMinimumMoisture,
@@ -132,7 +130,7 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
         }
         else
         {
-            byte[] msg = Encoding.ASCII.GetBytes("Invalid data format\n");
+            byte[] msg = Encoding.ASCII.GetBytes("Invalid data format or missing data\n");
             handler.Send(msg);
         }
     }
@@ -143,6 +141,7 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
         handler.Send(msg);
     }
 }
+
 
 
 
