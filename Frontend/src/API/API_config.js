@@ -238,9 +238,10 @@ export async function getPotFromId(id){
 
 export async function getAllPots(){
     try{
+        console.log("here")
         const response = await instance.get("/pot/get/all")
         console.log(response)
-        return response.data
+        return response.data.pots
     }
     catch{
         //TODO: ErrorHandling 
