@@ -46,10 +46,10 @@
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "<rootDir>/Test/Mocks/styleMock.js",
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/Test/Mocks/fileMock.js",
       "^API/(.*)$": "<rootDir>/src/API/$1",
       "^bcryptjs$": "<rootDir>/Test/Mocks/bcryptjs.js",
-      "^@/(.*)$": "<rootDir>/src/$1",
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/Test/Mocks/fileMock.js"
+      "^@/(.*)$": "<rootDir>/src/$1"
     },
     "type": "module"
   }
