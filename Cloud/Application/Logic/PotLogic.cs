@@ -9,10 +9,12 @@ namespace Application_.Logic;
     public class PotLogic : IPotLogic
 {
     private readonly IMongoCollection<Pot> _pots;
+    private readonly IMongoCollection<SensorData> _sensorData;
 
-    public PotLogic(IMongoCollection<Pot> potsCollection)
+    public PotLogic(IMongoCollection<Pot> potsCollection, IMongoCollection<SensorData> sensorDataCollection)
     {
         _pots = potsCollection;
+        _sensorData = sensorDataCollection;
     }
 
     public async Task<PotGetAllDto> GetAllPots()
@@ -20,7 +22,12 @@ namespace Application_.Logic;
         PotGetAllDto potGetAllDto = new PotGetAllDto();
         try
         {
-            potGetAllDto.Pots = await _pots.Find(p => true).ToListAsync();
+            var pots = await _pots.Find(p => true).ToListAsync();
+            foreach (var pot in pots)
+            {
+                pot.SensorData = await _sensorData.Find(s => s.PotId == pot.Id).ToListAsync();
+            }
+            potGetAllDto.Pots = pots;
             if (potGetAllDto.Pots.Count == 0)
             {
                 potGetAllDto.Message = "No pots in database.";
@@ -43,14 +50,16 @@ namespace Application_.Logic;
     {
         try
         {
-            potGetByIdDto.Pot = await _pots.Find(p => p.Id == potGetByIdDto.IdToGet).FirstOrDefaultAsync();
-            if (potGetByIdDto.Pot == null)
+            var pot = await _pots.Find(p => p.Id == potGetByIdDto.IdToGet).FirstOrDefaultAsync();
+            if (pot == null)
             {
                 potGetByIdDto.Message = "Pot not found";
                 potGetByIdDto.Success = false;
             }
             else
             {
+                pot.SensorData = await _sensorData.Find(s => s.PotId == pot.Id).ToListAsync();
+                potGetByIdDto.Pot = pot;
                 potGetByIdDto.Message = "Pot found";
                 potGetByIdDto.Success = true;
             }
