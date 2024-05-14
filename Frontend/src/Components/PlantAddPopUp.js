@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PlantTemp from '../Components/PlantTemplate';
+import PlantTempContainer from '../Components/PlantTempContainer';
 import '../Styling/PlantAddPopUp.css';
 
 const PlantAddPopUp = ({ handlePopUpAction }) => {
@@ -16,23 +16,7 @@ const PlantAddPopUp = ({ handlePopUpAction }) => {
                     <Link to="/plant_overview"><button className="create-button">Create New </button></Link>
                     <h1 className="text-center mb-4">Plants</h1>
                     <button onClick={() => handlePopUpAction('cancel')} className="cancel-button">Cancel</button>
-                    <div className="row">
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                        <div className="col-lg-3">
-                            <PlantTemp onSelectTemplate={handleTemplateSelect} />
-                        </div>
-                    </div>
+                    <PlantTempContainer onSelectTemplate={handleTemplateSelect} />
                 </div>
             </div>
 

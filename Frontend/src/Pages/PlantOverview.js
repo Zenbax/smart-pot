@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import PlantTemp from '../Components/PlantTemplate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styling/PlantOverview.css';
 import PlantCreatePopUp from '../Components/PlantCreatePopUp';
-import No_Image from '../images/no-image.jpeg'
+import No_Image from '../images/no-image.jpeg';
+import PlantTempContainer from '../Components/PlantTempContainer';
 
 const PlantOverview = () => {
 
@@ -21,6 +21,7 @@ const PlantOverview = () => {
       setShowPopUp(true);
     }
     else if (wateringAmount <= 19) {
+      // Todo: handel invalid input
 
     }
 
@@ -30,9 +31,11 @@ const PlantOverview = () => {
     const file = e.target.files[0];
     // Convert the image to base64
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPlantImage(reader.result); // Set the base64 string as the plantImage
+    if (file != null) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPlantImage(reader.result); // Set the base64 string as the plantImage
+      }
     };
   };
 
@@ -61,29 +64,12 @@ const PlantOverview = () => {
         <div className="col-lg-7">
           <button onClick={handleBack}>Back</button>
           <h1 className="text-center mb-4">Plants</h1>
-          <div className="row">
-            <div className="col-lg-4">
-              <PlantTemp onSelectTemplate={handleTemplateSelect} />
-            </div>
-            <div className="col-lg-4">
-              <PlantTemp onSelectTemplate={handleTemplateSelect} />
-            </div>
-            <div className="col-lg-4">
-              <PlantTemp onSelectTemplate={handleTemplateSelect} />
-            </div>
-            <div className="col-lg-4">
-              <PlantTemp onSelectTemplate={handleTemplateSelect} />
-            </div>
-            <div className="col-lg-4">
-              <PlantTemp onSelectTemplate={handleTemplateSelect} />
-            </div>
-          </div>
+          <PlantTempContainer onSelectTemplate={handleTemplateSelect} />
         </div>
 
         <div className="col-lg-1 d-flex align-items-center justify-content-center">
           <div className="vertical-line"></div>
         </div>
-
 
         <div className="col-lg-4 d-flex align-items-center justify-content-center">
           <div className="plant-temp-container">

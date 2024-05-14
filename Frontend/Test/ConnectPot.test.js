@@ -1,7 +1,8 @@
-import ConnectPot from "../src/Pages/ConnectPot";
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import React from "react";
 import '@testing-library/jest-dom';
+import ConnectPot from '../src/Pages/ConnectPot';
+import { BrowserRouter } from 'react-router-dom';
 
 test('Render ConnectPot correctly', () => { 
     render(<ConnectPot/>);
@@ -22,4 +23,38 @@ test('Typing into input fields', () => {
 
     expect(idInput).toHaveValue('123456');
     expect(nameInput).toHaveValue('My Smart Pot');
+});
+
+test('Pop-up when clicking add plant and close when cancel', () => {
+    render(
+        <BrowserRouter>
+          <ConnectPot />
+        </BrowserRouter>
+      );
+
+    const addButton = screen.getByText('Add a plant');
+    fireEvent.click(addButton);
+
+    expect(screen.getByText('Plants')).toBeInTheDocument();
+    
+    const cancelButton = screen.getByText('Cancel');
+    fireEvent.click(cancelButton);
+
+    expect(screen.queryByText('Plants')).not.toBeInTheDocument();
+});
+
+test('Selecting a plant template in the pop-up', () => {
+    render(
+        <BrowserRouter>
+          <ConnectPot />
+        </BrowserRouter>
+      );
+
+    const addButton = screen.getByText('Add a plant');
+    fireEvent.click(addButton);
+
+    const plantTemplate = screen.getAllByTestId('plant-template')[0]; // added a TestId to PlantTemp
+    fireEvent.click(plantTemplate);
+
+    expect(screen.queryByText('Plants')).not.toBeInTheDocument();
 });
