@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using MongoDB.Driver;
 using System.Text.Json;
+using Domain.Model;
 using YourApiNamespace.Controllers;
 
 public class ServerListener
