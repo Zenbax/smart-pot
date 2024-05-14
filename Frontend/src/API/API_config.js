@@ -238,7 +238,6 @@ export async function getPotFromId(id){
 
 export async function getAllPots(){
     try{
-        console.log(instance.get)
         const response = await instance.get("/pot/get/all")
         console.log(response)
         return response.data
