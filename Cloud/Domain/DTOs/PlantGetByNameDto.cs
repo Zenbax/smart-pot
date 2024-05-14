@@ -8,6 +8,11 @@ public class PlantGetByNameDto
     {
         NameToGet = nameToGet;
     }
+    
+    public PlantGetByNameDto()// for testing purposes
+    {
+        
+    }
 
     public Plant Plant { get; set; }
     public string NameToGet { get; set; }

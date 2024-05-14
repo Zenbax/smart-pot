@@ -98,7 +98,7 @@ public class PlantLogic : IPlantLogic
                 plant.NameOfPlant = updatePlantDto.Plant.NameOfPlant;
                 plant.SoilMinimumMoisture = updatePlantDto.Plant.SoilMinimumMoisture;
                 plant.AmountOfWaterToBeGiven = updatePlantDto.Plant.AmountOfWaterToBeGiven;
-                plant.ImageUrl = updatePlantDto.Plant.ImageUrl;
+                plant.Image = updatePlantDto.Plant.Image;
 
                 await _plants.ReplaceOneAsync(p => p.NameOfPlant == updatePlantDto.NameToUpdate, plant);
                 updatePlantDto.Message = "Plant updated successfully.";

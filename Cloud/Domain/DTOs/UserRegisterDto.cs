@@ -9,6 +9,9 @@ public class UserRegisterDto
     {
         User = user;
     }
+    public UserRegisterDto()
+    {
+    }
 
     [Required] public User User { get; set; }
     public string Message { get; set; }

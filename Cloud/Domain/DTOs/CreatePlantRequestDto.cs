@@ -13,7 +13,7 @@ namespace Domain.DTOs
         public int SoilMinimumMoisture { get; set; }
 
         [Required(ErrorMessage = "Image URL is required")]
-        public string ImageUrl { get; set; }
+        public string Image { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
         public int AmountOfWaterToBeGiven { get; set; }

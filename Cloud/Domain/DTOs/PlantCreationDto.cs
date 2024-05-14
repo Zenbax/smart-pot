@@ -10,6 +10,10 @@ namespace Domain.DTOs
             Plant = plant;
         }
 
+        public PlantCreationDto()// for testing purposes
+        {
+       
+        }
         [Required]
         public Plant Plant { get; set; }
         public string Message { get; set; }
