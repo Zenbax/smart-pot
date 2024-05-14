@@ -5,11 +5,18 @@ import '@testing-library/jest-dom';
 import { useNavigate } from 'react-router-dom';
 import Register from '../src/Pages/Register';
 import { createUser } from '../src/API/API_config';
+import { MD5 } from 'crypto-js';
 
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: jest.fn(), 
+  }));
+
+jest.mock('crypto-js', () => ({
+    MD5: jest.fn().mockReturnValue({
+      toString: () => 'hashedPassword'
+    })
   }));
 
 
@@ -44,10 +51,12 @@ test('submits form correctly', async () => {
 
     fireEvent.click(getByText('Submit'));
 
+    expect(MD5).toHaveBeenCalledWith('password');
+
     expect(navigateMock).toHaveBeenCalledWith('/login');
 });
 
-test('submits form with empty fields', async () => {
+test('Submits form with empty fields', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
@@ -64,7 +73,7 @@ test('submits form with empty fields', async () => {
     expect(getByText("All fields are required")).toBeInTheDocument();
 });
 
-test('submits form email not valid', async () => {
+test('Submits form email not valid', async () => {
 
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
@@ -78,10 +87,10 @@ test('submits form email not valid', async () => {
 
     fireEvent.click(getByText('Submit'));
 
-    expect(getByText("Email is not valid")).toBeInTheDocument;
+    expect(getByText("Email is not valid")).toBeInTheDocument();
 });
 
-test('submits form Phone number not valid', async () => {
+test('Submits form Phone number not valid', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
@@ -95,12 +104,12 @@ test('submits form Phone number not valid', async () => {
 
     fireEvent.click(getByText('Submit'));
 
-    expect(getByText("Phone Number is not valid")).toBeInTheDocument;
+    expect(getByText("Phone Number is not valid")).toBeInTheDocument();
 });
 
 //Todo: 
 /*
-test('submits form User already exist', async () => {
+test('Submits form User already exist', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
