@@ -1,0 +1,22 @@
+.TopSpace{
+    text-align: center;
+    margin-top: 10px;
+}
+
+h3{
+    padding-left: 5%;
+}
+
+.Humidity{
+    font-size: 22px;
+    padding-left: 10%;
+}
+
+.WaterInfo{
+    padding-left: 20%;
+    margin-top: 15px;
+}
+
+.Buttons{
+    margin-top: 50px;
+}
