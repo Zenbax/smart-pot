@@ -103,22 +103,25 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
 
         if (sensorData != null)
         {
-            // Søg efter tilsvarende pot med MachineID
             var pot = potCollection.Find(p => p.MachineID == sensorData.MachineID).FirstOrDefault();
-            if (pot != null && pot.Plant != null)
+            if (pot != null) // Check if pot is found
             {
                 sensorData.PotId = pot.Id;
-                sensorData.PlantId = pot.Plant.Id;
+                if (pot.Plant != null)
+                {
+                    sensorData.PlantId = pot.Plant.Id;
+                }
 
-                // Gem sensor data med pot og plant id
+                // Store incoming sensor data
                 sensorDataCollection.InsertOne(sensorData);
                 Console.WriteLine("Sensor data saved to MongoDB with additional details.");
 
-                // Opret og send respons tilbage til IoT enhed
+                // Prepare and send response back to IoT device including the Enable status
                 var response = new {
                     MachineID = pot.MachineID,
-                    SoilMinimumMoisture = pot.Plant.SoilMinimumMoisture,
-                    AmountOfWaterToBeGiven = pot.Plant.AmountOfWaterToBeGiven
+                    SoilMinimumMoisture = pot.Plant?.SoilMinimumMoisture,
+                    AmountOfWaterToBeGiven = pot.Plant?.AmountOfWaterToBeGiven,
+                    Enable = pot.Enable // Include the Enable status of the pot
                 };
                 string jsonResponse = JsonSerializer.Serialize(response);
                 byte[] msg = Encoding.ASCII.GetBytes(jsonResponse);
@@ -126,8 +129,8 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
             }
             else
             {
-                Console.WriteLine($"No pot found for MachineID {sensorData.MachineID}");
-                byte[] msg = Encoding.ASCII.GetBytes($"No pot found for MachineID {sensorData.MachineID}\n");
+                Console.WriteLine($"Pot not found for MachineID {sensorData.MachineID}");
+                byte[] msg = Encoding.ASCII.GetBytes("Pot not found\n");
                 handler.Send(msg);
             }
         }
@@ -146,7 +149,6 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
 }
 
 
-//HEy
 
 
 

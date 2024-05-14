@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
 namespace Cloud.Services;
 
 public class CustomAuthenticationMiddleware
