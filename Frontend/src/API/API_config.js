@@ -228,8 +228,10 @@ export async function getPotFromId(id){
         console.log(response)
         return response.data
     }
-    catch{
-        //TODO: ErrorHandling 
+    catch(error){
+        if(error.response.status === 401){
+            notAuthorized()
+        }
     }
     
 
@@ -239,12 +241,18 @@ export async function getPotFromId(id){
 export async function getAllPots(){
     try{
         console.log("here")
-        const response = await instance.get("/pot/get/all")
+        const response = await instance.get("/pot/get/all").catch((error) => {
+            if(error.response.status ===401){
+
+            }
+          })
         console.log(response)
         return response.data.pots
     }
-    catch{
-        //TODO: ErrorHandling 
+    catch(error){
+        if(error.response.status === 401){
+            notAuthorized()
+        }
     }
     
 }
@@ -270,8 +278,14 @@ export async function loginUser(email, password) {
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
        return true
     }
-    catch{
-       //Errorhandle
+    catch(error){
+        if(error.response.message === 400){
+            return "Invalid Credentials"
+        }
     }
     
+  }
+
+  function notAuthorized(){
+    localStorage.setItem('token', "")
   }
