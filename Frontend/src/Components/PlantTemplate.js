@@ -12,7 +12,7 @@ const PlantTemp = ({ onSelectTemplate }) => {
   };
 
   return (
-    <div className="card mb-4" onClick={() => onSelectTemplate(templateData)}>
+    <div data-testid="plant-template" className="card mb-4" onClick={() => onSelectTemplate(templateData)}>
       <div className="card-body">
         <h5 className="card-title">{templateData.name}</h5>
         <img className="card-img-top" src={templateData.image} alt="Template" />
