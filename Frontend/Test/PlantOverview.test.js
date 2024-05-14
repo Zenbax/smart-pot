@@ -18,6 +18,7 @@ test('Render PlantOverView correctly', () => {
     expect(screen.getByPlaceholderText("Enter watering amount")).toBeInTheDocument();
     expect(screen.getByText('Upload a picture')).toBeInTheDocument();
     expect(screen.getByText('Save Changes')).toBeInTheDocument();    
+    expect(screen.getByAltText('Plant')).toBeInTheDocument();
 
  })
 
