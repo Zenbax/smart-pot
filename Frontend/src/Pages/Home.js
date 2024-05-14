@@ -33,14 +33,17 @@ const Home = () =>
                         <div>Profile</div>
                     </Row>
                     <Row>
-                         <Link to="/connect_pot">
-                            <button type="button" class="btn btn-outline-dark">Forbind potte</button>
-                        </Link>
-                        <Link to="/plant_overview">
-                            <button type="button" class="btn btn-outline-dark">Oversigt</button>
-                        </Link>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark">
+                                <Link to="/connect_pot">Forbind potte</Link>
+                            </button>        
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark">
+                                <Link to="/plant_overview">Oversigt</Link>
+                            </button>
+                        </div>
                     </Row>
-
                 </Col>
                 <Col md="8" className="flex-grow-1 h-100">
                     <Row>
