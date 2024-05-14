@@ -18,6 +18,5 @@ namespace Domain.DTOs
         [Range(0, int.MaxValue, ErrorMessage = "Water ML must be a non-negative number")]
         public int AmountOfWaterToBeGiven { get; set; }
         
-        public bool Enable { get; set; }
     }
 }

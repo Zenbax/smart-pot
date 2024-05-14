@@ -74,7 +74,6 @@ public class PlantController : ControllerBase
             NameOfPlant = createPlantRequestDto.NameOfPlant,
             SoilMinimumMoisture = createPlantRequestDto.SoilMinimumMoisture,
             AmountOfWaterToBeGiven = createPlantRequestDto.AmountOfWaterToBeGiven,
-            Enable = createPlantRequestDto.Enable,
             ImageUrl = createPlantRequestDto.ImageUrl,
         };
 

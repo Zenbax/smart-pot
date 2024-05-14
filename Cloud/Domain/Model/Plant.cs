@@ -11,7 +11,6 @@ public class Plant
     public string? NameOfPlant { get; set; }
     public int? SoilMinimumMoisture { get; set; }
     public string? ImageUrl { get; set; }
-    public bool Enable { get; set; }
     public double? AmountOfWaterToBeGiven { get; set; }  // Ny tilføjelse til at håndtere vandingsmængde
     
 
@@ -22,14 +21,13 @@ public class Plant
     {
     }
     
-    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl, double amountOfWaterToBeGiven, bool enabale)
+    public Plant(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl, double amountOfWaterToBeGiven)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
         ImageUrl = imageUrl;
         AmountOfWaterToBeGiven = amountOfWaterToBeGiven;
-        Enable = enabale;
     }
     
     
