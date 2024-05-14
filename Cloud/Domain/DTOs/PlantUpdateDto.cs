@@ -14,6 +14,10 @@ public class PlantUpdateDto
     [Required] public string NameToUpdate { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }
+
+    public PlantUpdateDto() // for testing purposes
+    {
+    }
     
     public string ToString()
     {

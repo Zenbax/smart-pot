@@ -793,7 +793,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOfPlant\": \"plant_5\",\n    \"soilMinimumMoisture\": 5,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
+							"raw": "{\n    \"nameOfPlant\": \"plant_5\",\n    \"soilMinimumMoisture\": 5,\n    \"image\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -850,7 +850,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nameOfPlant\": \"plant_3\",\n    \"soilMinimumMoisture\": 77,\n    \"imageUrl\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
+							"raw": "{\n    \"nameOfPlant\": \"plant_3\",\n    \"soilMinimumMoisture\": 77,\n    \"image\": \"https://image\",\n    \"waterMl\": 2,\n    \"plant\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"

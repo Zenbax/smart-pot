@@ -16,5 +16,17 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc.Controllers;
 global using Microsoft.AspNetCore.Mvc.ViewFeatures;
+global using System;
+global using System.Collections.Generic;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using Application_.Logic;
+global using Domain.DTOs;
+global using Domain.Model;
+global using Microsoft.Extensions.Logging;
+global using MongoDB.Driver;
+global using Moq;
+global using NUnit.Framework;
+global using NUnit.Framework;
 
 //global using UnitTests;

@@ -3,176 +3,238 @@
 //     [TestFixture]
 //     public class PlantLogicTests
 //     {
+//         
 //         private Mock<IMongoCollection<Plant>> _mockPlantsCollection;
 //         private PlantLogic _plantLogic;
-//
+//         
 //         [SetUp]
 //         public void SetUp()
 //         {
 //             _mockPlantsCollection = new Mock<IMongoCollection<Plant>>();
 //             _plantLogic = new PlantLogic(_mockPlantsCollection.Object);
 //         }
-//         
-//         [Test]
-//         public async Task CreatePlant_Creates_New_Plant_And_Returns_Success_Message()
-//         {
-//             // Arrange
-//             var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
-//
-//             // Act
-//             var result = await _plantLogic.CreatePlant(plantDto);
-//
-//             // Assert
-//             Assert.AreEqual("Success", result);
-//             _mockPlantsCollection.Verify(m => m.InsertOneAsync(It.IsAny<Plant>(), null, default), Times.Once);
-//         }
-//         
-//         [Test]
-//         public async Task GetPlantByName_Returns_Null_When_Name_Does_Not_Exist()
-//         {
-//             // Arrange
-//             var plantName = "Plant1";
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ReturnsAsync(Mock.Of<IAsyncCursor<Plant>>(x => x.Current == null));
-//
-//             // Act
-//             var result = await _plantLogic.GetPlantByName(plantName);
-//
-//             // Assert
-//             Assert.IsNull(result);
-//         }
-//         
-//         [Test]
-//         public async Task UpdatePlant_Returns_Plant_Not_Found_When_Name_Does_Not_Exist()
-//         {
-//             // Arrange
-//             var updatedPlantDto = new PlantUpdateDto { SoilMinimumMoisture = 50, ImageURL = "updated_image.jpg" };
-//             var existingPlant = new Plant { NameOfPlant = "ExistingPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ReturnsAsync(Mock.Of<IAsyncCursor<Plant>>(x => x.Current == null));
-//
-//             // Act
-//             var result = await _plantLogic.UpdatePlant(existingPlant.NameOfPlant, updatedPlantDto);
-//
-//             // Assert
-//             Assert.AreEqual("Plant not found", result);
-//         }
-//         
-//         [Test]
-//         public async Task DeletePlant_Returns_Plant_Not_Found_When_Name_Does_Not_Exist()
-//         {
-//             // Arrange
-//             var plantNameToDelete = "PlantToDelete";
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ReturnsAsync(Mock.Of<IAsyncCursor<Plant>>(x => x.Current == null));
-//
-//             // Act
-//             var result = await _plantLogic.DeletePlant(plantNameToDelete);
-//
-//             // Assert
-//             Assert.AreEqual("Plant not found", result);
-//         }
-//         
-//         [Test]
-//         public async Task CreatePlant_Returns_Error_Message_When_Exception_Occurs()
-//         {
-//             // Arrange
-//             var plantDto = new PlantCreationDto { NameOfPlant = "NewPlant", SoilMinimumMoisture = 50, ImageUrl = "image.jpg" };
-//             _mockPlantsCollection.Setup(m => m.InsertOneAsync(It.IsAny<Plant>(), null, default)).ThrowsAsync(new Exception("Error"));
-//
-//             // Act
-//             var result = await _plantLogic.CreatePlant(plantDto);
-//
-//             // Assert
-//             Assert.AreEqual("Error: Error", result);
-//         }
-//         
-//         [Test]
-//         public async Task GetPlantByName_Returns_Error_Message_When_Exception_Occurs()
-//         {
-//             // Arrange
-//             var plantName = "Plant1";
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ThrowsAsync(new Exception("Error"));
-//
-//             // Act
-//             var result = await _plantLogic.GetPlantByName(plantName);
-//
-//             // Assert
-//             Assert.AreEqual(null, result);
-//         }
-//         
-//         [Test]
-//         public async Task GetAllPlants_Returns_Error_Message_When_Exception_Occurs()
-//         {
-//             // Arrange
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ThrowsAsync(new Exception("Error"));
-//
-//             // Act
-//             var result = await _plantLogic.GetAllPlants();
-//
-//             // Assert
-//             Assert.AreEqual(result, null);
-//         }
-//         [Test]
-//         public async Task GetPlantByName_Returns_Single_Plant_When_Name_Exists()
-//         {
-//             // Arrange
-//             var plantName = "Plant1";
-//             var plant = new Plant { NameOfPlant = plantName };
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
-//                 It.IsAny<FilterDefinition<Plant>>(),
-//                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ReturnsAsync(Mock.Of<IAsyncCursor<Plant>>(x => x.Current == new List<Plant> { plant }));
-//
-//             // Act
-//             var result = await _plantLogic.GetPlantByName(plantName);
-//
-//             // Assert
-//             Assert.IsNotNull(result);
-//             Assert.IsInstanceOf<Plant>(result);
-//             Assert.AreEqual(plantName, result.NameOfPlant);
-//         }
 //
 //         [Test]
 //         public async Task GetAllPlants_Returns_All_Plants()
 //         {
 //             // Arrange
-//             var plants = new List<Plant> { new Plant { NameOfPlant = "Plant1" }, new Plant { NameOfPlant = "Plant2" } };
-//             var mockFindFluent = new Mock<IAsyncCursor<Plant>>();
-//             mockFindFluent.SetupSequence(m => m.Current)
-//                 .Returns(plants);
-//
-//             _mockPlantsCollection.Setup(m => m.FindAsync<Plant>( // Async Find
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.FindAsync(
 //                 It.IsAny<FilterDefinition<Plant>>(),
 //                 It.IsAny<FindOptions<Plant, Plant>>(),
-//                 It.IsAny<CancellationToken>()
-//             )).ReturnsAsync(mockFindFluent.Object);
+//                 It.IsAny<CancellationToken>()));
+//
+//             var plants = new List<Plant>
+//             {
+//                 new Plant
+//                 {
+//                     Id = "1",
+//                     NameOfPlant = "Plant1",
+//                     SoilMinimumMoisture = 12,
+//                     AmountOfWaterToBeGiven = 12,
+//                     Image = "https://www.google.com"
+//                 },
+//                 new Plant
+//                 {
+//                     Id = "2",
+//                     NameOfPlant = "Plant2",
+//                     SoilMinimumMoisture = 12,
+//                     AmountOfWaterToBeGiven = 12,
+//                     Image = "https://www.google.com"
+//                 }
+//             };
+//
+//             var mockCursor = new Mock<IAsyncCursor<Plant>>();
+//             mockCursor.Setup(_ => _.Current).Returns(plants);
+//             mockCursor.SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+//                 .Returns(Task.FromResult(true))
+//                 .Returns(Task.FromResult(false));
+//
+//             mockPlantCollectionSetup.Returns(Task.FromResult(mockCursor.Object));
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
 //
 //             // Act
-//             var result = await _plantLogic.GetAllPlants();
+//
+//             var result = await plantLogic.GetAllPlants();
 //
 //             // Assert
-//             Assert.IsNotNull(result);
-//             Assert.IsInstanceOf<IEnumerable<Plant>>(result);
-//             CollectionAssert.AreEqual(plants, result);
+//             Assert.AreEqual(plants.Count, result.Plants.Count);
+//             Assert.AreEqual(plants[0].NameOfPlant, result.Plants.First().NameOfPlant);
+//             Assert.AreEqual(plants[1].NameOfPlant, result.Plants.Last().NameOfPlant);
 //         }
+//         
+//         [Test]
+//         public async Task GetPlantByName_Returns_Plant_With_Name()
+//         {
+//             // Arrange
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.FindAsync(
+//                 It.IsAny<FilterDefinition<Plant>>(),
+//                 It.IsAny<FindOptions<Plant, Plant>>(),
+//                 It.IsAny<CancellationToken>()));
+//
+//             var plants = new List<Plant>
+//             {
+//                 new Plant
+//                 {
+//                     Id = "1",
+//                     NameOfPlant = "Plant1",
+//                     SoilMinimumMoisture = 12,
+//                     AmountOfWaterToBeGiven = 12,
+//                     Image = "https://www.google.com"
+//                 },
+//                 new Plant
+//                 {
+//                     Id = "2",
+//                     NameOfPlant = "Plant2",
+//                     SoilMinimumMoisture = 12,
+//                     AmountOfWaterToBeGiven = 12,
+//                     Image = "https://www.google.com"
+//                 }
+//             };
+//
+//             var mockCursor = new Mock<IAsyncCursor<Plant>>();
+//             mockCursor.Setup(_ => _.Current).Returns(plants);
+//             mockCursor.SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+//                 .Returns(Task.FromResult(true))
+//                 .Returns(Task.FromResult(false));
+//
+//             mockPlantCollectionSetup.Returns(Task.FromResult(mockCursor.Object));
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
+//
+//             var plantGetByNameDto = new PlantGetByNameDto
+//             {
+//                 NameToGet = "Plant1"
+//             };
+//
+//             // Act
+//             var result = await plantLogic.GetPlantByName(plantGetByNameDto);
+//
+//             // Assert
+//             Assert.AreEqual(plants[0].NameOfPlant, result.Plant.NameOfPlant);
+//         }
+//         
+//         [Test]
+//         public async Task CreatePlant_Returns_Success()
+//         {
+//             // Arrange
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.InsertOneAsync(
+//                 It.IsAny<Plant>(),
+//                 It.IsAny<InsertOneOptions>(),
+//                 It.IsAny<CancellationToken>()));
+//
+//             var plant = new Plant
+//             {
+//                 Id = "1",
+//                 NameOfPlant = "Plant1",
+//                 SoilMinimumMoisture = 12,
+//                 AmountOfWaterToBeGiven = 12,
+//                 Image = "https://www.google.com"
+//             };
+//
+//             mockPlantCollectionSetup.Returns(Task.CompletedTask);
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
+//
+//             var plantCreationDto = new PlantCreationDto
+//             {
+//                 Plant = plant
+//             };
+//
+//             // Act
+//             var result = await plantLogic.CreatePlant(plantCreationDto);
+//
+//             // Assert
+//             Assert.IsTrue(result.Success);
+//         }
+//         
+//         [Test]
+//         public async Task UpdatePlant_Returns_Failure()
+//         {
+//             // Arrange
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.FindOneAndUpdateAsync(
+//                 It.IsAny<FilterDefinition<Plant>>(),
+//                 It.IsAny<UpdateDefinition<Plant>>(),
+//                 It.IsAny<FindOneAndUpdateOptions<Plant, Plant>>(),
+//                 It.IsAny<CancellationToken>()));
+//
+//             mockPlantCollectionSetup.Returns(Task.FromResult((Plant)null));
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
+//
+//             var plantUpdateDto = new PlantUpdateDto
+//             {
+//                 NameToUpdate = "Plant1",
+//                 Plant = new Plant
+//                 {
+//                     Id = "1",
+//                     NameOfPlant = "Plant1",
+//                     SoilMinimumMoisture = 12,
+//                     AmountOfWaterToBeGiven = 12,
+//                     Image = "https://www.google.com"
+//                 }
+//             };
+//
+//             // Act
+//             var result = await plantLogic.UpdatePlant(plantUpdateDto);
+//
+//             // Assert
+//             Assert.IsFalse(result.Success);
+//         }
+//         
+//         [Test]
+//         public async Task DeletePlant_Returns_Failure()
+//         {
+//             // Arrange
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.DeleteOneAsync(
+//                 It.IsAny<FilterDefinition<Plant>>(),
+//                 It.IsAny<CancellationToken>()));
+//
+//             mockPlantCollectionSetup.Throws(new Exception());
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
+//
+//             var plantDeleteDto = new PlantDeleteDto
+//             {
+//                 NameToDelete = "Plant1"
+//             };
+//
+//             // Act
+//             var result = await plantLogic.DeletePlant(plantDeleteDto);
+//
+//             // Assert
+//             Assert.IsFalse(result.Success);
+//         }
+//         
+//         [Test]
+//         public async Task DeletePlant_Returns_Failure_When_Exception_Is_Thrown()
+//         {
+//             // Arrange
+//             var mockPlantCollection = new Mock<IMongoCollection<Plant>>();
+//             var mockPlantCollectionSetup = mockPlantCollection.Setup(c => c.DeleteOneAsync(
+//                 It.IsAny<FilterDefinition<Plant>>(),
+//                 It.IsAny<CancellationToken>()));
+//
+//             mockPlantCollectionSetup.Throws(new Exception());
+//
+//             var plantLogic = new PlantLogic(mockPlantCollection.Object);
+//
+//             var plantDeleteDto = new PlantDeleteDto
+//             {
+//                 NameToDelete = "Plant1"
+//             };
+//
+//             // Act
+//             var result = await plantLogic.DeletePlant(plantDeleteDto);
+//
+//             // Assert
+//             Assert.IsFalse(result.Success);
+//         }
+//
 //     }
-// }
+// }  

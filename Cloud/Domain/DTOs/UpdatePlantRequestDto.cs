@@ -12,7 +12,7 @@ public class UpdatePlantRequestDto
     public string? NameOfPlant { get; set; }
     public int? SoilMinimumMoisture { get; set; }
     public double AmountOfWaterToBeGiven { get; set; }
-    public string? ImageUrl { get; set; }
+    public string? Image { get; set; }
 
     
     
@@ -20,11 +20,11 @@ public class UpdatePlantRequestDto
     {
     }
     
-    public UpdatePlantRequestDto(string id,string nameOfPlant, int soilMinimumMoisture, string imageUrl)
+    public UpdatePlantRequestDto(string id,string nameOfPlant, int soilMinimumMoisture, string image)
     {
         Id = id;
         NameOfPlant = nameOfPlant;
         SoilMinimumMoisture = soilMinimumMoisture;
-        ImageUrl = imageUrl;
+        Image = image;
     }
 }

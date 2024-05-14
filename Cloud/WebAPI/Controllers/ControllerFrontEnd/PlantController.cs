@@ -74,7 +74,7 @@ public class PlantController : ControllerBase
             NameOfPlant = createPlantRequestDto.NameOfPlant,
             SoilMinimumMoisture = createPlantRequestDto.SoilMinimumMoisture,
             AmountOfWaterToBeGiven = createPlantRequestDto.AmountOfWaterToBeGiven,
-            ImageUrl = createPlantRequestDto.ImageUrl,
+            Image = createPlantRequestDto.Image,
         };
 
         PlantCreationDto plantCreationDto = new PlantCreationDto(plant);
@@ -110,7 +110,7 @@ public class PlantController : ControllerBase
             NameOfPlant = updatePlantRequestDto?.NameOfPlant,
             SoilMinimumMoisture = updatePlantRequestDto?.SoilMinimumMoisture,
             AmountOfWaterToBeGiven = updatePlantRequestDto?.AmountOfWaterToBeGiven,
-            ImageUrl = updatePlantRequestDto?.ImageUrl
+            Image = updatePlantRequestDto?.Image
         };
         PlantUpdateDto plantUpdateDto = new PlantUpdateDto(name, plant);
         plantUpdateDto.NameToUpdate = name;
