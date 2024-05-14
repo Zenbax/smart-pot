@@ -37,7 +37,7 @@ test("Register rendes correctly", () => {
 
 
 
-test('submits form correctly', async () => {
+test('Submits form correctly', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
@@ -132,14 +132,8 @@ test('Submits form User already exist', async () => {
 test('Click button Back to Login page', async () => {
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
-    const { getByText, getByPlaceholderText } = render(<Register />);
+    const { getByText} = render(<Register />);
     
-    fireEvent.change(getByPlaceholderText('First Name'), { target: { value: 'John' } });
-    fireEvent.change(getByPlaceholderText('Last Name'), { target: { value: 'Doe' } });
-    fireEvent.change(getByPlaceholderText('Email'), { target: { value: 'john.doe@example.com' } });
-    fireEvent.change(getByPlaceholderText('Phone Number'), { target: { value: '12345678' } });
-    fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'password' } });
-  
     fireEvent.click(getByText('Back'));
 
     expect(navigateMock).toHaveBeenCalledWith('/login');
