@@ -1,16 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Domain.Model;
 
-namespace Domain.DTOs;
-
-public class PlantCreationDto
+namespace Domain.DTOs
 {
-    public PlantCreationDto(Plant plant)
+    public class PlantCreationDto
     {
-        Plant = plant;
-    }
+        public PlantCreationDto(Plant plant)
+        {
+            Plant = plant;
+        }
 
-    [Required] public Plant Plant { get; set; }
-    public string Message { get; set; }
-    public bool Success { get; set; }
+        [Required]
+        public Plant Plant { get; set; }
+        public string Message { get; set; }
+        public bool Success { get; set; }
+    }
 }
