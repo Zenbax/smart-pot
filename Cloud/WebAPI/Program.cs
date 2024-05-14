@@ -83,10 +83,10 @@ builder.Services.AddControllers();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddCors(options =>
-// {
-//     options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 
 
 var app = builder.Build();
@@ -99,7 +99,7 @@ app.UseMiddleware<CustomAuthenticationMiddleware>();
 
 
 app.UseRouting();
-// app.UseCors();
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 
