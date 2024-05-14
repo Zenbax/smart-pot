@@ -15,6 +15,7 @@ public class Pot
     public bool Enable { get; set; }
     public string MachineID { get; set; }
     public Plant Plant { get; set; }
+    public List<SensorData> SensorData { get; set; }
 
     public Pot() {}
 

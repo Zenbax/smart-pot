@@ -49,6 +49,13 @@ builder.Services.AddSingleton(serviceProvider =>
     return database.GetCollection<Pot>("Pots");
 });
 
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var client = serviceProvider.GetService<IMongoClient>();
+    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
+    return database.GetCollection<SensorData>("SensorData");
+});
+
 // Add services to the container.
 builder.Services.AddScoped<IAuthLogic, AuthLogic>();
 builder.Services.AddScoped<IAuthService, AuthService>();
