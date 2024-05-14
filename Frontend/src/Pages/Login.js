@@ -19,7 +19,7 @@ const Login =()=> {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();
         console.log(hashedPassword)
-        if (loginUser(email, hashedPassword)){
+        if (await loginUser(email, hashedPassword)){
             navigate('/');
         }
     };

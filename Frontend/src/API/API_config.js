@@ -229,7 +229,7 @@ export async function getPotFromId(id){
         return response.data
     }
     catch(error){
-        if(error.response.status === 401){
+        if(error?.response.status === 401){
             notAuthorized()
         }
     }
@@ -250,7 +250,7 @@ export async function getAllPots(){
         return response.data.pots
     }
     catch(error){
-        if(error.response.status === 401){
+        if(error?.response.status === 401){
             notAuthorized()
         }
     }
@@ -279,7 +279,7 @@ export async function loginUser(email, password) {
        return true
     }
     catch(error){
-        if(error.response.message === 400){
+        if(error?.response.message === 400){
             return "Invalid Credentials"
         }
     }
