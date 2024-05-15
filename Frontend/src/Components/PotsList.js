@@ -1,5 +1,6 @@
 import Smartpot from '../Components/SmartPot';
 import '../Styling/PotsList.css'
+import '../Styling/Scrollbar.css'
 
 const PotsList = ({ pots }) => {
     return (
