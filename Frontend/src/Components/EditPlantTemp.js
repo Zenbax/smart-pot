@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 import No_Image from '../images/no-image.jpeg';
+import { createPlant } from "../API/API_config";
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [plantName, setPlantName] = useState('');
@@ -37,10 +38,17 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     };
   };
 
-  const handlePopUpActionLocal = (action) => {
+  const handlePopUpActionLocal = async (action) => {
     setPopUpAction(action);
     console.log(`User chose to ${action}`);
     setShowPopUp(false);
+    if (action === 'create') {
+        try {
+          await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
+        } catch (error) {
+          console.error('Error creating plant:', error.message);
+        }
+      }
     handlePopUpAction(action);
   };
 
