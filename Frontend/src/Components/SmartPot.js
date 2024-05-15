@@ -19,7 +19,7 @@ const SmartPot = ({pot}) => {
                     <img id='waterdrop' src={waterdropImage}/>
                 </Col>
                 <Col md="4">
-                    <img id='smartPotPlant' src={pot.plant?.imageUrl} onError={event => {
+                    <img id='smartPotPlant' src={pot.plant?.image} onError={event => {
                         event.target.src = "https://img.freepik.com/premium-vector/home-plant-potted-plant-isolated-white-flat-vector-illustration_186332-890.jpg"
                         event.onerror = null
                         }}/>

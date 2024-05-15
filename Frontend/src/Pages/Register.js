@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 import '../Styling/Login.css';
-import { createUser, loginUser } from "../API/API_config";
+import { createUser } from "../API/API_config";
 
 
 const Register =()=> {
