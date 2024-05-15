@@ -222,6 +222,60 @@ export async function createUser (paramName, paramLastName, paramPassword, param
     
 }
 
+
+export async function createPot (paramPotName, paramMachineId, paramPlant){
+    
+    console.log(localStorage.getItem("userEmail"))
+    console.log(localStorage.getItem("userId"))
+    var paramEnable = 0
+        if(paramPlant){
+            paramEnable = 1
+        }
+        var jsonUserInfoDTO = JSON.stringify(
+            {
+                potName: paramPotName,
+                email: localStorage.getItem('userEmail'),
+                machineId: paramMachineId,
+                enable: paramEnable,
+                plant: paramPlant
+            });
+            console.log(jsonUserInfoDTO)
+            try{
+                const response = await instance.post("/pot/create", jsonUserInfoDTO,);
+                console.log(response)
+                
+            }
+            catch(Error){
+                console.log(Error.message)
+            }
+
+    
+}
+
+
+export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){ //TODO: eventuelt parse til JSON et andet sted
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+            nameOfPlant: paramName,
+            soilMinimumMoisture: paramMinMoisture,
+            image: paramImage,
+            amountOfWaterToBeGiven: paramWateringAmount,
+            userid: localStorage.getItem("userId")
+        }
+    )
+    console.log(jsonUserInfoDTO)
+try{
+    const response = await instance.post("/plant/create", jsonUserInfoDTO,);
+    console.log(response)
+    
+}
+catch(Error){
+    console.log(Error.message)
+}
+
+}
+
+
 export async function getPotFromId(id){
     try{
         const response = await instance.get("/pot/get/"+id)
@@ -233,8 +287,6 @@ export async function getPotFromId(id){
             notAuthorized()
         }
     }
-    
-
     
 }
 
@@ -271,7 +323,6 @@ export async function getAllPlants(){
     
 }
 
-
 export async function loginUser(email, password) {
     var jsonUserInfoDTO = JSON.stringify(
         {
@@ -288,7 +339,10 @@ export async function loginUser(email, password) {
         console.log(response);  
        
        //Cookies.set('token', response.token, { expires: 7, secure: true });
+
        localStorage.setItem('token', response.data.token);
+       localStorage.setItem('userEmail', response.data.user.email)
+       localStorage.setItem('userId', response.data.user.id)
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
        return true
     }

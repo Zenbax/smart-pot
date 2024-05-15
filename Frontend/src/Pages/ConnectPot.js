@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
+import { createPot } from "../API/API_config";
 
 const ConnectPot = () => {
     const [idOfPot, setPotID] = useState('');
@@ -9,7 +10,8 @@ const ConnectPot = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Handle form submission logic
+        
+        createPot(nameOfPot, idOfPot, plantData)
     };
 
     const handlePopUpAction = (action, plantData) => {
