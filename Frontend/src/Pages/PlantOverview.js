@@ -6,10 +6,10 @@ import PlantTempContainer from '../Components/PlantTempContainer';
 import EditPlantTemp from '../Components/EditPlantTemp';
 
 const PlantOverview = () => {
-  const [selectedTemplate, setSelectedTemplate] = useState(''); // Define selectedTemplate state
+  const [selectedTemplate, setSelectedTemplate] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
-  
+
   // Function to handle popup actions
   const handlePopUpAction = (action) => {
     setPopUpAction(action);
@@ -41,15 +41,12 @@ const PlantOverview = () => {
         </div>
 
         <div className="col-lg-4 d-flex align-items-center justify-content-center">
-          {/* Pass selectedTemplate to EditPlantTemp */}
           <EditPlantTemp selectedTemplate={selectedTemplate} handlePopUpAction={handlePopUpAction} />
         </div>
       </div>
 
       {showPopUp && (
-        <PlantCreatePopUp
-          handlePopUpAction={handlePopUpAction}
-        />
+        <PlantCreatePopUp handlePopUpAction={handlePopUpAction} />
       )}
     </div>
   );

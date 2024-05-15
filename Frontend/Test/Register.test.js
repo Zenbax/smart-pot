@@ -53,7 +53,9 @@ test('Submits form correctly', async () => {
 
     expect(MD5).toHaveBeenCalledWith('password');
 
-    expect(navigateMock).toHaveBeenCalledWith('/login');
+    await waitFor (() => {
+        expect(navigateMock).toHaveBeenCalledWith('/login');
+    });
 });
 
 test('Submits form with empty fields', async () => {
@@ -136,7 +138,9 @@ test('Click button Back to Login page', async () => {
     
     fireEvent.click(getByText('Back'));
 
-    expect(navigateMock).toHaveBeenCalledWith('/login');
+    await waitFor (() => {
+        expect(navigateMock).toHaveBeenCalledWith('/login');
+    });
 });
   
     

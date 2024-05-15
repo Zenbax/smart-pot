@@ -21,7 +21,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (plantName && minSoilMoisture && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
+    if (plantName !='' && minSoilMoisture !='' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
       setShowPopUp(true);
     } else if (wateringAmount <= 19) {
       // Todo: handle invalid input
@@ -46,7 +46,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
   return (
     <div className="plant-temp-container">
-      <h2>Edit Plant</h2>
+      <h2>{selectedTemplate ? 'Edit Plant' : 'Create Plant'}</h2>
       <form className="plant-temp-form" onSubmit={handleSubmit}>
         <div className="plant-input-grid">
           <label>Plant Name:</label>
