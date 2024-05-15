@@ -6,6 +6,10 @@ public class PotDeleteDto
     {
         IdToDelete = idToDelete;
     }
+    
+    public PotDeleteDto()
+    {
+    }
 
     public string IdToDelete { get; set; }
     public string Message { get; set; }

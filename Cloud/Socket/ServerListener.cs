@@ -146,15 +146,5 @@ private static void ProcessData(string data, System.Net.Sockets.Socket handler)
         byte[] msg = Encoding.ASCII.GetBytes($"JSON parse error: {ex.Message}\n");
         handler.Send(msg);
     }
-}
-
-
-
-
-
-
-
-    
-    
-    
+    }
 }

@@ -11,6 +11,10 @@ public class PotCreationDto
         Pot = pot;
     }
 
+    public PotCreationDto()
+    {
+    }
+    
     [Required] public Pot Pot { get; set; }
     public string Message { get; set; }
     public bool Success { get; set; }

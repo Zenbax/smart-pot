@@ -12,6 +12,9 @@ public class PotUpdateDto
         Pot = pot;
     }
     
+    public PotUpdateDto()
+    {
+    }
     public string IdToUpdate { get; set; }
     public Pot Pot { get; set; }
     public string Message { get; set; }

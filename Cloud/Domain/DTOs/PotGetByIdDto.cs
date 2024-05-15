@@ -9,6 +9,10 @@ public class PotGetByIdDto
     {
         IdToGet = idToGet;
     }
+    
+    public PotGetByIdDto()// for 
+    {
+    }
 
     public Pot Pot { get; set; }
     public string IdToGet { get; set; }
