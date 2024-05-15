@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PlantTemp from './PlantTemplate';
 import { getAllPlants } from "../API/API_config";
+import '../Styling/PlantTempContainer.css'
+
 
 const PlantTempContainer = ({ onSelectTemplate }) => {
 
@@ -19,7 +21,7 @@ const PlantTempContainer = ({ onSelectTemplate }) => {
     }, []);
 
     return (
-        <div className="row">
+        <div className="Plant-Temp-Container row">
             {plants && plants.map((plant, index) => (
                 <div key={index} className="col-lg-4">
                     <PlantTemp templateData={plant} onSelectTemplate={onSelectTemplate} />
