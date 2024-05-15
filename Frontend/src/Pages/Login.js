@@ -18,7 +18,6 @@ const Login =()=> {
     const handleSubmit = async(event) => {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();
-        console.log(hashedPassword)
         if (await loginUser(email, hashedPassword)){
             navigate('/');
         }

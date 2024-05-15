@@ -34,12 +34,12 @@ const Home = () =>
                     </Row>
                     <Row>
                         <div>
-                            <button type="button" class="btn btn-outline-dark">
+                            <button type="button" className="btn btn-outline-dark">
                                 <Link to="/connect_pot">Forbind potte</Link>
                             </button>        
                         </div>
                         <div>
-                            <button type="button" class="btn btn-outline-dark">
+                            <button type="button" className="btn btn-outline-dark">
                                 <Link to="/plant_overview">Oversigt</Link>
                             </button>
                         </div>

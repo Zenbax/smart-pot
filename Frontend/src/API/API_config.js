@@ -229,7 +229,7 @@ export async function getPotFromId(id){
         return response.data
     }
     catch(error){
-        if(error?.response.status === 401){
+        if(error?.response?.status === 401){
             notAuthorized()
         }
     }
@@ -240,17 +240,14 @@ export async function getPotFromId(id){
 
 export async function getAllPots(){
     try{
-        console.log("here")
-        const response = await instance.get("/pot/get/all").catch((error) => {
-            if(error.response.status ===401){
-
-            }
-          })
+        
+        const response = await instance.get("/pot/get/all")
         console.log(response)
         return response.data.pots
     }
     catch(error){
-        if(error?.response.status === 401){
+        if(error?.response?.status === 401){
+            console.log("unauthorized error happened")
             notAuthorized()
         }
     }
@@ -276,10 +273,12 @@ export async function loginUser(email, password) {
        //Cookies.set('token', response.token, { expires: 7, secure: true });
        localStorage.setItem('token', response.data.token);
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
+       console.log("Auth header is: " + instance.defaults.headers.common.Authorization)
        return true
     }
     catch(error){
-        if(error?.response.message === 400){
+        if(error?.response?.status === 400){
+            console.log("Invalid Credentials error happened")
             return "Invalid Credentials"
         }
     }
@@ -287,5 +286,6 @@ export async function loginUser(email, password) {
   }
 
   function notAuthorized(){
-    localStorage.setItem('token', "")
+    console.log("Removing token from local storage")
+    //localStorage.setItem('token', "")
   }
