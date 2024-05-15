@@ -59,7 +59,10 @@ test("submits the form and calls navigate on successful login", async () => {
 
     expect(MD5).toHaveBeenCalledWith('password');
       
-    expect(navigateMock).toHaveBeenCalledWith('/');
+    await waitFor (() => {
+      expect(navigateMock).toHaveBeenCalledWith('/');
+    })
+   
 
 });
   
@@ -83,7 +86,9 @@ test("submits the form with an unsuccessful login", async () => {
 
     expect(MD5).toHaveBeenCalledWith('password');
       
-    expect(navigateMock).not.toHaveBeenCalled();
+    await waitFor (() => {
+      expect(navigateMock).not.toHaveBeenCalled();
+    });
 
 });
 
