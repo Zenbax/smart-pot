@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 
-const EditPlantTemp = ({ handlePopUpAction, plantName, plantImage }) => {
-  const [minSoilMoisture, setMinSoilMoisture] = useState('');
-  const [wateringAmount, setWateringAmount] = useState('');
+const EditPlantTemp = ({ handlePopUpAction, initialMinMoisture, initialWateringAmount, plantName, plantImage }) => {
+  const [minSoilMoisture, setMinSoilMoisture] = useState(initialMinMoisture);
+  const [wateringAmount, setWateringAmount] = useState(initialWateringAmount);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251) {
+    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251 && minSoilMoisture !==initialMinMoisture && wateringAmount !==initialWateringAmount) {
       setShowPopUp(true);
     } else if (wateringAmount <= 19) {
       // Todo: handle invalid input

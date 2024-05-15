@@ -46,7 +46,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
   return (
     <div className="plant-temp-container">
-      <h2>Edit Plant</h2>
+      <h2>{selectedTemplate ? 'Edit Plant' : 'Create Plant'}</h2>
       <form className="plant-temp-form" onSubmit={handleSubmit}>
         <div className="plant-input-grid">
           <label>Plant Name:</label>
