@@ -60,7 +60,11 @@ const PotDataChart = ({ potID }) => {
     const fetchData = async () => {
       try {
         const response = await getPotFromId(potID);
-        setPotData(response || {});
+        if (response.success) {
+          setPotData(response.pot.sensorData || []);
+        } else {
+          console.error('Error fetching data:', response.message);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -69,22 +73,22 @@ const PotDataChart = ({ potID }) => {
   }, [potID]);
 
   useEffect(() => {
-    if (potData && potData.VandingsLog && potData.Fugtighedslog) {
+    if (potData) {
       const ctx = chartRef.current.getContext('2d');
 
       const labelCount = viewBy === 'weeks' ? 6 : 5;
       const intervalLabels = generateDateLabels(viewBy, labelCount);
 
       const aggregatedWaterData = {};
-      const aggregatedHumidityData = {};
+      const aggregatedMoistureData = {};
       intervalLabels.forEach(label => {
         aggregatedWaterData[label] = 0;
-        aggregatedHumidityData[label] = { sum: 0, count: 0 };
+        aggregatedMoistureData[label] = { sum: 0, count: 0 };
       });
 
-      // Aggregate water data
-      potData.VandingsLog.forEach(entry => {
-        const date = new Date(entry.VandingsTidspunkt);
+      // Aggregate sensor data
+      potData.forEach(entry => {
+        const date = new Date(entry.timestamp);
         let label;
 
         switch (viewBy) {
@@ -103,41 +107,16 @@ const PotDataChart = ({ potID }) => {
         }
 
         if (aggregatedWaterData[label] !== undefined) {
-          aggregatedWaterData[label] += entry.mængdeML;
+          aggregatedWaterData[label] += entry.amountOfWatering;
+        }
+        if (aggregatedMoistureData[label] !== undefined) {
+          aggregatedMoistureData[label].sum += entry.measuredSoilMoisture;
+          aggregatedMoistureData[label].count++;
         }
       });
 
-      // Aggregate humidity data
-      potData.Fugtighedslog.forEach(entry => {
-        const date = new Date(entry.TimeStamp);
-        let label;
-
-        switch (viewBy) {
-          case 'years':
-            label = date.getFullYear().toString();
-            break;
-          case 'months':
-            label = `${date.getFullYear()}-${date.getMonth() + 1}`;
-            break;
-          case 'weeks':
-            label = `${date.getFullYear()}-W${getWeekNumber(date)}`;
-            break;
-          case 'days':
-            label = date.toISOString().split('T')[0];
-            break;
-        }
-
-        if (aggregatedHumidityData[label] !== undefined) {
-          aggregatedHumidityData[label].sum += entry.fugtighedProcent;
-          aggregatedHumidityData[label].count += 1;
-        }
-      });
-
-      const sumMængdeMLData = intervalLabels.map(label => aggregatedWaterData[label]);
-      const avgFugtighedProcentData = intervalLabels.map(label => {
-        const { sum, count } = aggregatedHumidityData[label];
-        return count > 0 ? sum / count : 0;
-      });
+      const sumAmountOfWateringData = intervalLabels.map(label => aggregatedWaterData[label]);
+      const averageMoistureData = intervalLabels.map(label => aggregatedMoistureData[label].sum / aggregatedMoistureData[label].count);
 
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
@@ -149,19 +128,19 @@ const PotDataChart = ({ potID }) => {
           labels: intervalLabels,
           datasets: [
             {
-              label: 'Average Humidity (%)',
-              data: avgFugtighedProcentData,
-              backgroundColor: 'blue',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1,
-              type: 'line'
-            },
-            {
-              label: 'Water (mL)',
-              data: sumMængdeMLData,
+              label: 'Amount of Watering (mL)',
+              data: sumAmountOfWateringData,
               backgroundColor: 'pink',
               borderColor: 'rgba(255, 99, 132, 1)',
               borderWidth: 1
+            },
+            {
+              label: 'Measured Soil Moisture',
+              data: averageMoistureData,
+              backgroundColor: 'lightblue',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1,
+              type: 'line'
             }
           ]
         },
@@ -172,7 +151,7 @@ const PotDataChart = ({ potID }) => {
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Measurement'
+                text: 'Value'
               }
             },
             x: {
