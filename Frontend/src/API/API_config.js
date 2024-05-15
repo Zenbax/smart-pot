@@ -239,8 +239,8 @@ export async function getPotFromId(id){
 }
 
 export async function getAllPots(){
+    console.log("Auth header is: " + instance.defaults.headers.common.Authorization)
     try{
-        
         const response = await instance.get("/pot/get/all")
         console.log(response)
         return response.data.pots
@@ -248,6 +248,7 @@ export async function getAllPots(){
     catch(error){
         if(error?.response?.status === 401){
             console.log("unauthorized error happened")
+            console.log(error.response.message)
             notAuthorized()
         }
     }
@@ -273,7 +274,6 @@ export async function loginUser(email, password) {
        //Cookies.set('token', response.token, { expires: 7, secure: true });
        localStorage.setItem('token', response.data.token);
        instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
-       console.log("Auth header is: " + instance.defaults.headers.common.Authorization)
        return true
     }
     catch(error){
