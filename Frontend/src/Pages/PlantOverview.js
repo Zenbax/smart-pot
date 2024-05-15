@@ -9,7 +9,7 @@ const PlantOverview = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(''); // Define selectedTemplate state
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
-  
+
   // Function to handle popup actions
   const handlePopUpAction = (action) => {
     setPopUpAction(action);
