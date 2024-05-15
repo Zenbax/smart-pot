@@ -12,6 +12,8 @@ public class UpdatePotRequestDto
 
     [ZeroOrOne(ErrorMessage = "The Enable field must be either 0 or 1.")]
     public int Enable { get; set; }
+    
+    public string MachineID { get; set; }
 
     public Plant? Plant { get; set; }
 }

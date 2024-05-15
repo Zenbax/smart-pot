@@ -100,6 +100,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 NameOfPot = updatePotRequestDto.PotName,
                 Email = updatePotRequestDto.Email,
                 Enable = updatePotRequestDto.Enable,
+                MachineID = updatePotRequestDto.MachineID,
                 Plant = updatePotRequestDto.Plant
             };
             PotUpdateDto potUpdatedDto = new PotUpdateDto(id, pot);

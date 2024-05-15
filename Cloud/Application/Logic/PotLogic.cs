@@ -102,24 +102,36 @@ namespace Application_.Logic;
     {
         try
         {
+            // Check if the MachineID is already in use by another pot
+            var potWithSameMachineId = await _pots.Find(p => p.MachineID == potUpdateDto.Pot.MachineID).FirstOrDefaultAsync();
+            if (potWithSameMachineId != null && potWithSameMachineId.Id != potUpdateDto.IdToUpdate)
+            {
+                potUpdateDto.Message = "MachineID is already in use by the pot with Name: " +
+                                       potWithSameMachineId.NameOfPot + " and the ID: " + potWithSameMachineId.Id;
+                potUpdateDto.Success = false;
+                potUpdateDto.Pot = null;
+                return potUpdateDto;
+            }
+
             var existingPot = await _pots.Find(p => p.Id == potUpdateDto.IdToUpdate).FirstOrDefaultAsync();
 
             if (existingPot == null)
             {
-                potUpdateDto.Message = "Pot not found";
+                potUpdateDto.Message = "Pot with ID" + potUpdateDto.IdToUpdate + " not found";
                 potUpdateDto.Success = false;
+                potUpdateDto.Pot = null;
             }
             else
             {
-            existingPot.NameOfPot = potUpdateDto.Pot.NameOfPot;
-            existingPot.Email = potUpdateDto.Pot.Email;
-            existingPot.Enable = potUpdateDto.Pot.Enable;
-            existingPot.Plant = potUpdateDto.Pot.Plant;
-            await _pots.ReplaceOneAsync(p => p.Id == potUpdateDto.IdToUpdate, existingPot);
-            potUpdateDto.Pot.MachineID = existingPot.MachineID;
-            potUpdateDto.Pot.Id = existingPot.Id;
-            potUpdateDto.Message = "Pot updated successfully";
-            potUpdateDto.Success = true;
+                existingPot.NameOfPot = potUpdateDto.Pot.NameOfPot;
+                existingPot.Email = potUpdateDto.Pot.Email;
+                existingPot.Enable = potUpdateDto.Pot.Enable;
+                existingPot.Plant = potUpdateDto.Pot.Plant;
+                existingPot.MachineID = potUpdateDto.Pot.MachineID; // Update the MachineID
+                await _pots.ReplaceOneAsync(p => p.Id == potUpdateDto.IdToUpdate, existingPot);
+                potUpdateDto.Pot.Id = existingPot.Id;
+                potUpdateDto.Message = "Pot updated successfully";
+                potUpdateDto.Success = true;
             }
         }
         catch (Exception ex)
