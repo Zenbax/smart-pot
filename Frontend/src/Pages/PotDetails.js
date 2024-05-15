@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getPotFromId } from "../API/API_config";
@@ -33,7 +34,7 @@ export default function PotDetails() {
         <div class='container'>
             <div class="row TopSpace">
                 <div class='col-md-12'>
-                    <h1>{pot?.NameOfpot}Pot name placeholder</h1>
+                    <h1>{pot?.NameOfpot}</h1>
                 </div>
             </div>
             <div class='row'>

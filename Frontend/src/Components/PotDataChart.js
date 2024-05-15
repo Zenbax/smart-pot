@@ -195,7 +195,7 @@ const PotDataChart = ({ potID }) => {
 
   return (
     <div>
-      <canvas ref={chartRef} />
+      <canvas ref={chartRef } data-testid="pot-data-chart"/>
       <div>
         <button onClick={() => toggleView('years')}>View by years</button>
         <button onClick={() => toggleView('months')}>View by months</button>
