@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Cloud.Services;
 using Domain.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -17,7 +18,8 @@ public class CreatePotRequestDto
     public string MachineID { get; set; }
 
     [Required]
-    public bool Enable { get; set; }
+    [ZeroOrOne(ErrorMessage = "The Enable field must be either 0 or 1.")]
+    public int Enable { get; set; }
     public Plant? Plant { get; set; }
     
     

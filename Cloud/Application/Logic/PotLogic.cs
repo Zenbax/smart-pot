@@ -77,6 +77,13 @@ namespace Application_.Logic;
     {
         try
         {
+            if (potCreationDto.Pot.Enable != 0 && potCreationDto.Pot.Enable != 1)
+            {
+                potCreationDto.Message = "Enable must be 0 or 1";
+                potCreationDto.Success = false;
+                return potCreationDto;
+            }
+            
             // Indsæt den nye Pot i databasen
             await _pots.InsertOneAsync(potCreationDto.Pot);
             potCreationDto.Message = "Create pot successfully";
