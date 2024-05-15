@@ -12,9 +12,9 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
   useEffect(() => {
     if (selectedTemplate) {
-      setPlantName(selectedTemplate.name || '');
-      setMinSoilMoisture(selectedTemplate.minSoilMoisture || '');
-      setWateringAmount(selectedTemplate.wateringAmount || '');
+      setPlantName(selectedTemplate.nameOfPlant || '');
+      setMinSoilMoisture(selectedTemplate.soilMinimumMoisture || '');
+      setWateringAmount(selectedTemplate.amountOfWaterToBeGiven || '');
       setPlantImage(selectedTemplate.image || No_Image);
     }
   }, [selectedTemplate]);
