@@ -1,50 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PlantTemp from './PlantTemplate';
+import { getAllPlants } from "../API/API_config";
 
 const PlantTempContainer = ({ onSelectTemplate }) => {
-  // Dummy template data for each instance
-  const templates = [
-    {
-      name: "Template Name 1",
-      minSoilMoisture: "25",
-      wateringAmount: "100",
-      image: "data:image/jpeg;base64,Placeholder"
-    },
-    {
-      name: "Template Name 2",
-      minSoilMoisture: "30",
-      wateringAmount: "120",
-      image: "data:image/jpeg;base64,Placeholder"
-    },
-    {
-      name: "Template Name 3",
-      minSoilMoisture: "20",
-      wateringAmount: "80",
-      image: "data:image/jpeg;base64,Placeholder"
-    },
-    {
-      name: "Template Name 4",
-      minSoilMoisture: "35",
-      wateringAmount: "150",
-      image: "data:image/jpeg;base64,Placeholder"
-    },
-    {
-      name: "Template Name 5",
-      minSoilMoisture: "28",
-      wateringAmount: "110",
-      image: "data:image/jpeg;base64,Placeholder"
-    }
-  ];
 
-  return (
-    <div className="row">
-      {templates.map((template, index) => (
-        <div key={index} className="col-lg-4">
-          <PlantTemp templateData={template} onSelectTemplate={onSelectTemplate} />
+    const [plants, setPlants] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const plantsData = await getAllPlants();
+                setPlants(plantsData);
+            } catch (error) {
+                console.error('Error fetching plants:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    return (
+        <div className="row">
+            {plants && plants.map((plant, index) => (
+                <div key={index} className="col-lg-4">
+                    <PlantTemp templateData={plant} onSelectTemplate={onSelectTemplate} />
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default PlantTempContainer;

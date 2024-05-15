@@ -255,6 +255,22 @@ export async function getAllPots(){
     
 }
 
+export async function getAllPlants(){
+    try{
+        
+        const response = await instance.get("/plant/get/all")
+        console.log(response)
+        return response.data.plants
+    }
+    catch(error){
+        if(error?.response?.status === 401){
+            console.log("unauthorized error happened")
+            notAuthorized()
+        }
+    }
+    
+}
+
 
 export async function loginUser(email, password) {
     var jsonUserInfoDTO = JSON.stringify(
