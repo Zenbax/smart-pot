@@ -222,6 +222,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
     
 }
 
+
 export async function createPot (paramPotName, paramMachineId, paramPlant){
     
     console.log(localStorage.getItem("userEmail"))
@@ -251,6 +252,30 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
     
 }
 
+
+export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){ //TODO: eventuelt parse til JSON et andet sted
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+            nameOfPlant: paramName,
+            soilMinimumMoisture: paramMinMoisture,
+            image: paramImage,
+            amountOfWaterToBeGiven: paramWateringAmount,
+            userid: localStorage.getItem("userId")
+        }
+    )
+    console.log(jsonUserInfoDTO)
+try{
+    const response = await instance.post("/plant/create", jsonUserInfoDTO,);
+    console.log(response)
+    
+}
+catch(Error){
+    console.log(Error.message)
+}
+
+}
+
+
 export async function getPotFromId(id){
     try{
         const response = await instance.get("/pot/get/"+id)
@@ -262,8 +287,6 @@ export async function getPotFromId(id){
             notAuthorized()
         }
     }
-    
-
     
 }
 
@@ -299,7 +322,6 @@ export async function getAllPlants(){
     }
     
 }
-
 
 export async function loginUser(email, password) {
     var jsonUserInfoDTO = JSON.stringify(
