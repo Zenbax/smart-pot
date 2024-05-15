@@ -87,7 +87,7 @@ export default function PotDetails() {
                         handlePopUpAction={handlePopUpAction}
                         //initialMinMoisture={}
                         //initialWateringAmount={}
-                        plantName={pot?.NameOfpot}
+                        //plantName={Plant name}
                         //plantImage={Plant Image}
                     />
                 </div>

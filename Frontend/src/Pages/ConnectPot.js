@@ -54,9 +54,9 @@ const ConnectPot = () => {
                 <div className="added-plant-container">
                     {plantData && (
                         <div className="col-lg-8">
-                            <p>Plant Name: {plantData.name}</p>
-                            <p>Minimum Soil Moisture: {plantData.minSoilMoisture}</p>
-                            <p>Watering Amount (ml): {plantData.wateringAmount}</p>
+                            <p>Plant Name: {plantData.nameOfPlant}</p>
+                            <p>Minimum Soil Moisture: {plantData.soilMinimumMoisture}</p>
+                            <p>Watering Amount (ml): {plantData.amountOfWaterToBeGiven}</p>
                         </div>
                     )}
                     {plantData && (
