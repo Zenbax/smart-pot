@@ -224,8 +224,6 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 
 export async function createPot (paramPotName, paramMachineId, paramPlant){
     
-    console.log(localStorage.getItem("userEmail"))
-    console.log(localStorage.getItem("userId"))
     var paramEnable = 0
         if(paramPlant){
             paramEnable = 1
@@ -238,7 +236,6 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
                 enable: paramEnable,
                 plant: paramPlant
             });
-            console.log(jsonUserInfoDTO)
             try{
                 const response = await instance.post("/pot/create", jsonUserInfoDTO,);
                 console.log(response)
