@@ -67,6 +67,7 @@ const PotDataChart = ({ potID }) => {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+        setPotData({});
       }
     };
     fetchData();
@@ -168,6 +169,7 @@ const PotDataChart = ({ potID }) => {
       chartInstanceRef.current = newChart;
     }
   }, [potData, viewBy]);
+  
 
   const toggleView = (view) => {
     setViewBy(view);
