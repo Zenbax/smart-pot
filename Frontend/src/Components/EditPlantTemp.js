@@ -24,12 +24,24 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     }
   }, [selectedTemplate]);
 
+  const handleWateringAmountChange = (e) => {
+    const value = e.target.value;
+    if (value > 250) {
+      setWateringAmount(250);
+    } else if (value < 0){
+      setWateringAmount(0);
+    } else {
+      setWateringAmount(value);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (plantName != '' && minSoilMoisture != '' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
-      setShowPopUp(true);
-    } else if (wateringAmount <= 19) {
-      // Todo: handle invalid input
+    if (wateringAmount < 20) {
+      setWateringAmount(20)
+      if (plantName != '' && minSoilMoisture != '' && plantImage !== No_Image && wateringAmount < 251) {
+        setShowPopUp(true);
+      }
     }
   };
 
@@ -96,7 +108,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
               type="number"
               placeholder="Enter watering amount"
               value={wateringAmount}
-              onChange={(e) => setWateringAmount(e.target.value)}
+              onChange={handleWateringAmountChange}
             />
           </div>
         </div>

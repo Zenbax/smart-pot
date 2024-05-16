@@ -17,12 +17,24 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
     setPlantImage(plant?.image || '')
   }, [plant]);
 
+  const handleWateringAmountChange = (e) => {
+    const value = e.target.value;
+    if (value > 250) {
+      setWateringAmount(250);
+    } else if (value < 0){
+      setWateringAmount(0);
+    } else {
+      setWateringAmount(value);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251 && (minSoilMoisture !=plant?.soilMinimumMoisture || wateringAmount !=plant?.amountOfWaterToBeGiven)) {
-      setShowPopUp(true);
-    } else if (wateringAmount <= 19) {
-      // Todo: handle invalid input
+    if (wateringAmount < 20) {
+      setWateringAmount(20)
+      if (minSoilMoisture !='' && wateringAmount < 251 && (minSoilMoisture !=plant?.soilMinimumMoisture || wateringAmount !=plant?.amountOfWaterToBeGiven)) {
+        setShowPopUp(true);
+      } 
     }
   };
 
@@ -70,7 +82,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
               type="number"
               placeholder="Enter watering amount"
               value={wateringAmount}
-              onChange={(e) => setWateringAmount(e.target.value)}
+              onChange={handleWateringAmountChange}
             />
           </div>
         </div>
