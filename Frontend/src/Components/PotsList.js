@@ -1,3 +1,4 @@
+import React from 'react';
 import Smartpot from '../Components/SmartPot';
 import '../Styling/PotsList.css'
 import '../Styling/Scrollbar.css'

@@ -9,7 +9,7 @@ import waterdropImage from '../images/waterdrop.jpg'
 const SmartPot = ({pot}) => {
     return(
         <Link to={"/"+pot.id}>
-        <Container id='smartPodContainer'>
+        <Container id='smartPodContainer' data-testid='smartPodContainer'>
             <Row>
                 <Col id='bottomCol' md="8">
                     <h1>{pot.nameOfPot}</h1>
