@@ -23,6 +23,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   max-width: 75%;
   max-height: 85%;
+  overflow: hidden;
 }
 
 .plantAdd-pop-up button {
