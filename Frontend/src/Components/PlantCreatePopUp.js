@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Styling/PlantCreatePopUp.css';
 
-const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage }) => {
+const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, wateringAmount, plantImage, isDefault }) => {
   return (
     <div className="plantCreate-pop-up-container">
       <div className="plantCreate-pop-up">
@@ -18,7 +18,9 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
           </div>
         </div>
         <button onClick={() => handlePopUpAction('create')} className="create-button">Create New</button>
+        {!isDefault && (
         <button onClick={() => handlePopUpAction('overwrite')} className="overwrite-button">Overwrite Existing</button>
+        )}
         <button onClick={() => handlePopUpAction('cancel')} className="cancel-button">Cancel</button>
       </div>
     </div>

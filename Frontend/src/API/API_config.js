@@ -250,7 +250,7 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
 }
 
 
-export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){ //TODO: eventuelt parse til JSON et andet sted
+export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){
     var jsonUserInfoDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
@@ -268,6 +268,28 @@ try{
 }
 catch(Error){
     console.log(Error.message)
+}
+
+}
+
+export async function updatePlant (paramName, paramMinMoisture, paramWateringAmount, paramImage, paramInitialName){
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+            nameOfPlant: paramName,
+            soilMinimumMoisture: paramMinMoisture,
+            amountOfWaterToBeGiven: paramWateringAmount,
+            image: paramImage
+        }
+    )
+    console.log(jsonUserInfoDTO)
+try{
+    const response = await instance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
+    console.log(response)
+    
+}
+catch(Error){
+    console.log(Error.message)
+
 }
 
 }
