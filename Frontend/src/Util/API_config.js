@@ -329,7 +329,7 @@ export async function getAllPots(){
 export async function getAllPlants(){
     try{
         
-        const response = await instance.get("/plant/get/all")
+        const response = await instance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
         console.log(response)
         return response.data.plants
     }
