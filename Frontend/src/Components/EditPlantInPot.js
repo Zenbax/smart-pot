@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 
 const EditPlantTemp = ({ handlePopUpAction, initialMinMoisture, initialWateringAmount, plantName, plantImage }) => {
@@ -6,6 +6,11 @@ const EditPlantTemp = ({ handlePopUpAction, initialMinMoisture, initialWateringA
   const [wateringAmount, setWateringAmount] = useState(initialWateringAmount);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
+
+  useEffect(() => {
+    setMinSoilMoisture(initialMinMoisture || '');
+    setWateringAmount(initialWateringAmount || '');
+  })
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -12,7 +12,6 @@ export default function PotDetails() {
     const [pot, setPot] = useState();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [showPopUp, setShowPopUp] = useState(false);
-    const [popUpAction, setPopUpAction] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,10 +35,7 @@ export default function PotDetails() {
         fetchData();
     }, [potID]);
 
-    const handlePopUpAction = (action) => {
-        setPopUpAction(action);
-        // Handle the action (create, overwrite, or cancel)
-        console.log(`User chose to ${action}`);
+    const handlePopUpAction = () => {
         setShowPopUp(false);
     };
 
@@ -98,10 +94,10 @@ export default function PotDetails() {
                 <div class='col-md-5'>
                     <EditPlantInPot
                         handlePopUpAction={handlePopUpAction}
-                        //initialMinMoisture={}
-                        //initialWateringAmount={}
-                        //plantName={Plant name}
-                        //plantImage={Plant Image}
+                        initialMinMoisture={pot?.plant?.soilMinimumMoisture}
+                        initialWateringAmount={pot?.plant?.amountOfWaterToBeGiven}
+                        plantName={pot?.plant?.nameOfPlant}
+                        plantImage={pot?.plant?.plantImage}
                     />
                 </div>
             </div>
