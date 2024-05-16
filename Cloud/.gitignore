@@ -40,7 +40,7 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-#NUnit
+# NUnit
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
@@ -88,5 +88,9 @@ ScaffoldingReadMe.txt
 
 # Ignorer specifikke Rider filer
 **/rider.project.restore.info
+
+# DLL and PDB files
+**/*.dll
+**/*.pdb
 
 # Eventuelt tilføj flere filer eller mapper efter behov
