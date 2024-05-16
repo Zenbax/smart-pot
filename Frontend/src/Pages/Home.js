@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, Route  } from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import PotsList from "../Components/PotsList";
-import { getAllPots } from "../API/API_config";
+import { getAllPots } from "../Util/API_config";
 import '../Styling/Home.css'
 //import HelpContent from '../Components/HelpPopUpContent.js';
 const Home = () =>
@@ -35,19 +35,19 @@ const Home = () =>
                     <Row>
                         <div>
                             <button type="button" className="btn btn-outline-dark">
-                                <Link to="/connect_pot">Forbind potte</Link>
+                                <Link to="/connect_pot">Connect pot</Link>
                             </button>        
                         </div>
                         <div>
                             <button type="button" className="btn btn-outline-dark">
-                                <Link to="/plant_overview">Oversigt</Link>
+                                <Link to="/plant_overview">Overview</Link>
                             </button>
                         </div>
                     </Row>
                 </Col>
                 <Col md="8" className="flex-grow-1 h-100">
                     <Row>
-                        <h1>Potter</h1>
+                        <h1>Pots</h1>
                     </Row>
                     <Row className=" flex-grow-1 homeRow" >
                         {pots && pots.length ?

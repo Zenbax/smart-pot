@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
-import { createPot } from "../API/API_config";
+import { createPot } from "../Util/API_config";
 
 const ConnectPot = () => {
     const [idOfPot, setPotID] = useState('');

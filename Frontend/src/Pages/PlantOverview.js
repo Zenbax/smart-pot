@@ -8,13 +8,9 @@ import EditPlantTemp from '../Components/EditPlantTemp';
 const PlantOverview = () => {
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
-  const [popUpAction, setPopUpAction] = useState('');
 
   // Function to handle popup actions
-  const handlePopUpAction = (action) => {
-    setPopUpAction(action);
-    // Handle the action (create, overwrite, or cancel)
-    console.log(`User chose to ${action}`);
+  const handlePopUpAction = () => {
     setShowPopUp(false);
   };
 

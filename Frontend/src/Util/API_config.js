@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { useAuth } from "./AuthProvider";
 
 const API_BASE_URL = "http://13.53.174.85/";
-
 var potArray=[
     {
         nameOfPot: "Soveværelses vindue",
@@ -250,7 +250,7 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
 }
 
 
-export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){ //TODO: eventuelt parse til JSON et andet sted
+export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){
     var jsonUserInfoDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
@@ -268,6 +268,28 @@ try{
 }
 catch(Error){
     console.log(Error.message)
+}
+
+}
+
+export async function updatePlant (paramName, paramMinMoisture, paramWateringAmount, paramImage, paramInitialName){
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+            nameOfPlant: paramName,
+            soilMinimumMoisture: paramMinMoisture,
+            amountOfWaterToBeGiven: paramWateringAmount,
+            image: paramImage
+        }
+    )
+    console.log(jsonUserInfoDTO)
+try{
+    const response = await instance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
+    console.log(response)
+    
+}
+catch(Error){
+    console.log(Error.message)
+
 }
 
 }
@@ -307,7 +329,7 @@ export async function getAllPots(){
 export async function getAllPlants(){
     try{
         
-        const response = await instance.get("/plant/get/all")
+        const response = await instance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
         console.log(response)
         return response.data.plants
     }
@@ -320,7 +342,8 @@ export async function getAllPlants(){
     
 }
 
-export async function loginUser(email, password) {
+export async function loginUser(email, password, setToken) {
+    
     var jsonUserInfoDTO = JSON.stringify(
         {
         email: email,
@@ -337,10 +360,9 @@ export async function loginUser(email, password) {
        
        //Cookies.set('token', response.token, { expires: 7, secure: true });
 
-       localStorage.setItem('token', response.data.token);
        localStorage.setItem('userEmail', response.data.user.email)
-       localStorage.setItem('userId', response.data.user.id)
-       instance.defaults.headers.common['Authorization'] ='Bearer '+ response.data.token;
+       localStorage.setItem('userId', response.data.user.id);
+       setToken(response.data.token)
        return true
     }
     catch(error){

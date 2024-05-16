@@ -2,11 +2,13 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, Route  } from 'react-router-dom';
 import '../Styling/Navbar.css';
+import { useAuth } from '../Util/AuthProvider';
 
 const Navbar=()=> {
+  const { setToken } = useAuth();
   const handleClick = () => {
     console.log('Button clicked!');
-    localStorage.setItem('token', "");
+    setToken("");
   };
   
    return (

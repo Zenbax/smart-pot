@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getPotFromId } from "../API/API_config";
+import { useParams } from "react-router-dom"
+import { getPotFromId } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
@@ -12,7 +12,6 @@ export default function PotDetails() {
     const [pot, setPot] = useState();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [showPopUp, setShowPopUp] = useState(false);
-    const [popUpAction, setPopUpAction] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,10 +35,7 @@ export default function PotDetails() {
         fetchData();
     }, [potID]);
 
-    const handlePopUpAction = (action) => {
-        setPopUpAction(action);
-        // Handle the action (create, overwrite, or cancel)
-        console.log(`User chose to ${action}`);
+    const handlePopUpAction = () => {
         setShowPopUp(false);
     };
 
@@ -102,6 +98,10 @@ export default function PotDetails() {
                 <div className='col-md-5'>
                     <EditPlantInPot
                         handlePopUpAction={handlePopUpAction}
+                        //initialMinMoisture={}
+                        //initialWateringAmount={}
+                        //plantName={Plant name}
+                        //plantImage={Plant Image}
                     />
                 </div>
             </div>

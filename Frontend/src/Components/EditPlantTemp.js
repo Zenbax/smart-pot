@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 import No_Image from '../images/no-image.jpeg';
-import { createPlant } from "../API/API_config";
+import { createPlant, updatePlant } from "../Util/API_config";
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [plantName, setPlantName] = useState('');
+  const [plantInitialName, setPlantInitialName] = useState('');
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
   const [plantImage, setPlantImage] = useState(No_Image);
+  const [isDefault, setIsDefault] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
 
   useEffect(() => {
     if (selectedTemplate) {
       setPlantName(selectedTemplate.nameOfPlant || '');
+      setPlantInitialName(selectedTemplate.nameOfPlant || '');
       setMinSoilMoisture(selectedTemplate.soilMinimumMoisture || '');
       setWateringAmount(selectedTemplate.amountOfWaterToBeGiven || '');
       setPlantImage(selectedTemplate.image || No_Image);
+      setIsDefault(selectedTemplate.isDefault || false);
     }
   }, [selectedTemplate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (plantName !='' && minSoilMoisture !='' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
+    if (plantName != '' && minSoilMoisture != '' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
       setShowPopUp(true);
     } else if (wateringAmount <= 19) {
       // Todo: handle invalid input
@@ -43,12 +47,20 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     console.log(`User chose to ${action}`);
     setShowPopUp(false);
     if (action === 'create') {
-        try {
-          await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
-        } catch (error) {
-          console.error('Error creating plant:', error.message);
-        }
+      try {
+        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
+      } catch (error) {
+        console.error('Error creating plant:', error.message);
       }
+    }
+
+    if (action === 'overwrite' && isDefault == false) {
+      try {
+        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName);
+      } catch (error) {
+        console.error('Error creating plant:', error.message);
+      }
+    }
     handlePopUpAction(action);
   };
 
@@ -112,6 +124,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
           minSoilMoisture={minSoilMoisture}
           wateringAmount={wateringAmount}
           plantImage={plantImage}
+          isDefault={isDefault}
         />
       )}
     </div>
