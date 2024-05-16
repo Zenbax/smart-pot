@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { getPotFromId } from "../API/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
-import placeholder from "../images/no-image.jpeg"
-import '../Styling/PotDetails.css'
+import placeholder from "../images/no-image.jpeg";
+import '../Styling/PotDetails.css';
 
 export default function PotDetails() {
     const { potID } = useParams();
@@ -44,64 +44,64 @@ export default function PotDetails() {
     };
 
     return (
-        <div class='container'>
-            <div class="row TopSpace">
-                <div class='col-md-12'>
+        <div className='container'>
+            <div className="row TopSpace">
+                <div className='col-md-12'>
                     <h1>{pot?.nameOfPot || 'Loading...'}</h1>
                 </div>
             </div>
-            <div class='row'>
-                <div class="col-md-8">
-                    <div class='Row'>
-                        <div class='col-md-12'>
-                            <p class="Humidity">Humidity percentage: {latestMeasuredSoilData?.measuredSoilMoisture}</p>
+            <div className='row'>
+                <div className="col-md-8">
+                    <div className='Row'>
+                        <div className='col-md-12'>
+                            <p className="Humidity">Humidity percentage: {latestMeasuredSoilData?.measuredSoilMoisture}</p>
                         </div>
-                        <div class='col-md-12'>
+                        <div className='col-md-12'>
                             {pot && <PotDataChart potID={potID} />}
                         </div>
                     </div>
                 </div>
-                <div class='col-md-4'>
-                    <div class='row'>
-                        <div class="col-md-9 ">
-                            <img src={placeholder} alt="placeholder" class="img-fluid" />
+                <div className='col-md-4'>
+                    <div className='row'>
+                        <div className="col-md-9 ">
+                            <img src={placeholder} alt="placeholder" className="img-fluid" />
                         </div>
-                        <div class="col-md-3 align-self-end">
-                            <WaterContainerChart currentWaterLevel={5} maxWaterLevel={20} />
-                            Water in container
+                        <div className="col-md-3 align-self-end">
+                            {latestMeasuredSoilData && (
+                                <WaterContainerChart
+                                    currentWaterLevel={latestMeasuredSoilData.waterTankLevel}
+                                    maxWaterLevel={100} // Assuming 100 is the max level
+                                />
+                            )}
                         </div>
-                        <div class='col-md-12'>
-                            <div class='row'>
-                                <div class='col-md-12 d-flex justify-content-between'>
-                                    <button class='Buttons'>Disconnect plant</button>
-                                    <button class='Buttons'>Change plant</button>
+                        <div className='col-md-12'>
+                            <div className='row'>
+                                <div className='col-md-12 d-flex justify-content-between'>
+                                    <button className='Buttons'>Disconnect plant</button>
+                                    <button className='Buttons'>Change plant</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class='row'>
-                <div class='col-md-7'>
-                    <div class='row'>
-                        <div class='col-md-12'>
+            <div className='row'>
+                <div className='col-md-7'>
+                    <div className='row'>
+                        <div className='col-md-12'>
                             <h3>Plant: {pot?.plant?.nameOfPlant ?? 'No plant assigned'}</h3>
                         </div>
-                        <div class='col-md-12'>
-                            <p class='WaterInfo'>Minimum Humidity: {pot?.plant?.soilMinimumMoisture ?? 'Not set'}</p>
+                        <div className='col-md-12'>
+                            <p className='WaterInfo'>Minimum Humidity: {pot?.plant?.soilMinimumMoisture ?? 'Not set'}</p>
                         </div>
-                        <div class='col-md-12'>
-                            <p class='WaterInfo'>mL per watering: {pot?.plant?.amountOfWaterToBeGiven ?? 'Not set'}</p>
+                        <div className='col-md-12'>
+                            <p className='WaterInfo'>mL per watering: {pot?.plant?.amountOfWaterToBeGiven ?? 'Not set'}</p>
                         </div>
                     </div>
                 </div>
-                <div class='col-md-5'>
+                <div className='col-md-5'>
                     <EditPlantInPot
                         handlePopUpAction={handlePopUpAction}
-                        //initialMinMoisture={}
-                        //initialWateringAmount={}
-                        //plantName={Plant name}
-                        //plantImage={Plant Image}
                     />
                 </div>
             </div>
