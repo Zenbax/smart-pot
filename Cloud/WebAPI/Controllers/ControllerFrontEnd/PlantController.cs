@@ -20,11 +20,11 @@ public class PlantController : ControllerBase
     }
 
     [HttpGet("get/all")]
-    public async Task<ActionResult<PlantGetAllDto>> Get()
+    public async Task<ActionResult<PlantGetAllDto>> GetAllPlants([FromQuery] string? userId)
     {
         try
         {
-            var result = await _plantLogic.GetAllPlants();
+            var result = await _plantLogic.GetAllPlants(userId);
             if (result.Success == false)
             {
                 return BadRequest(result);
@@ -33,15 +33,18 @@ public class PlantController : ControllerBase
         }
         catch (Exception ex)
         {
-            PlantGetAllDto plantGetAllDto = new PlantGetAllDto();
-            plantGetAllDto.Message = $"Error: {ex.Message}";
-            plantGetAllDto.Success = false;
+            PlantGetAllDto plantGetAllDto = new PlantGetAllDto
+            {
+                Message = $"Error: {ex.Message}",
+                Success = false
+            };
             return StatusCode(500, plantGetAllDto);
         }
     }
 
+
     [HttpGet("get/{name}")]
-    public async Task<ActionResult<PlantGetByNameDto>> Get(string name)
+    public async Task<ActionResult<PlantGetByNameDto>> GetPlantByName(string name)
     {
         PlantGetByNameDto plantGetByNameDto = new PlantGetByNameDto(name);
         try
@@ -62,7 +65,7 @@ public class PlantController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<PlantCreationDto>> Post([FromBody] CreatePlantRequestDto createPlantRequestDto)
+    public async Task<ActionResult<PlantCreationDto>> PostNewPlant([FromBody] CreatePlantRequestDto createPlantRequestDto)
     {
         if (createPlantRequestDto == null)
         {

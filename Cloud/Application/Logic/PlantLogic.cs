@@ -14,12 +14,22 @@ public class PlantLogic : IPlantLogic
         _plants = plantsCollection;
     }
 
-    public async Task<PlantGetAllDto> GetAllPlants()
+    public async Task<PlantGetAllDto> GetAllPlants(string? userId)
     {
         PlantGetAllDto plantGetAllDto = new PlantGetAllDto();
         try
         {
-            plantGetAllDto.Plants = await _plants.Find(p => true).ToListAsync();
+            if (string.IsNullOrEmpty(userId))
+            {
+                // Retrieve all plants, including those with isDefault = true
+                plantGetAllDto.Plants = await _plants.Find(p => p.isDefault == true).ToListAsync();
+            }
+            else
+            {
+                // Retrieve plants with matching userId, plants with null userId, and plants with isDefault = true
+                plantGetAllDto.Plants = await _plants.Find(p => p.UserId == userId || p.UserId == null || p.isDefault == true).ToListAsync();
+            }
+
             if (plantGetAllDto.Plants.Count == 0)
             {
                 plantGetAllDto.Message = "No plants in database.";
@@ -37,6 +47,7 @@ public class PlantLogic : IPlantLogic
         }
         return plantGetAllDto;
     }
+
 
     public async Task<PlantGetByNameDto> GetPlantByName(PlantGetByNameDto plantGetByNameDto)
     {
