@@ -17,6 +17,30 @@ public static class ServiceCollectionExtensions
             return new MongoDbContext(mongoDbSettings, logger);
         });
 
+        services.AddSingleton(serviceProvider =>
+        {
+            var context = serviceProvider.GetService<MongoDbContext>();
+            return context.Users;
+        });
+
+        services.AddSingleton(serviceProvider =>
+        {
+            var context = serviceProvider.GetService<MongoDbContext>();
+            return context.Pots;
+        });
+
+        services.AddSingleton(serviceProvider =>
+        {
+            var context = serviceProvider.GetService<MongoDbContext>();
+            return context.Plants;
+        });
+
+        services.AddSingleton(serviceProvider =>
+        {
+            var context = serviceProvider.GetService<MongoDbContext>();
+            return context.SensorData;
+        });
+
         return services;
     }
 }

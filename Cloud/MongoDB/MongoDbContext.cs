@@ -15,10 +15,12 @@ public class MongoDbContext
         var client = new MongoClient(settings.ConnectionString);
         _database = client.GetDatabase(settings.DatabaseName);
         _logger = logger;
+
+        _logger.LogInformation($"Connected to MongoDB: {settings.DatabaseName} at {settings.ConnectionString}");
     }
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
-    public IMongoCollection<Plant> Plants => _database.GetCollection<Plant>("Plants");
     public IMongoCollection<Pot> Pots => _database.GetCollection<Pot>("Pots");
+    public IMongoCollection<Plant> Plants => _database.GetCollection<Plant>("Plants");
     public IMongoCollection<SensorData> SensorData => _database.GetCollection<SensorData>("SensorData");
 }

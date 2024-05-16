@@ -23,39 +23,6 @@ builder.Logging.SetMinimumLevel(LogLevel.Information);
 // Add MongoDB context
 builder.Services.AddMongoDbContext(builder.Configuration);
 
-builder.Services.AddSingleton<IMongoCollection<User>>(serviceProvider =>
-{
-    var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
-    var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<User>("Users");
-});
-
-// Tilføj lignende registreringer for Pot og Plant
-builder.Services.AddSingleton<IMongoCollection<Pot>>(serviceProvider =>
-{
-    var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
-    var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Pot>("Pots");
-});
-
-builder.Services.AddSingleton<IMongoCollection<Plant>>(serviceProvider =>
-{
-    var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
-    var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<Plant>("Plants");
-});
-
-builder.Services.AddSingleton<IMongoCollection<SensorData>>(serviceProvider =>
-{
-    var mongoDbSettings = builder.Configuration.GetSection("MongoDB");
-    var client = new MongoClient(mongoDbSettings["ConnectionString"]);
-    var database = client.GetDatabase(mongoDbSettings["DatabaseName"]);
-    return database.GetCollection<SensorData>("SensorData");
-});
-
 // Add services to the container
 builder.Services.AddScoped<IAuthLogic, AuthLogic>();
 builder.Services.AddScoped<IAuthService, AuthService>();
