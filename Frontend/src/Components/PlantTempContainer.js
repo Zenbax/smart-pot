@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlantTemp from './PlantTemplate';
-import { getAllPlants } from "../API/API_config";
+import { getAllPlants } from "../Util/API_config";
 import '../Styling/PlantTempContainer.css'
 
 
