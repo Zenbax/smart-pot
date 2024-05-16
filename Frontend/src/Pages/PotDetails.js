@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getPotFromId } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
@@ -11,17 +10,31 @@ import '../Styling/PotDetails.css'
 export default function PotDetails() {
     const { potID } = useParams();
     const [pot, setPot] = useState();
+    const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [showPopUp, setShowPopUp] = useState(false);
     const [popUpAction, setPopUpAction] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
-            const potData = await getPotFromId(potID);
-            setPot(potData);
+            try {
+                const response = await getPotFromId(potID);
+                if (response.success) {
+                    setPot(response.pot);
+                    const sensorData = response.pot.sensorData;
+                    if (sensorData && sensorData.length > 0) {
+                        // Get the latest measured soil data
+                        const latestData = sensorData[sensorData.length - 1];
+                        setLatestMeasuredSoilData(latestData);
+                    }
+                } else {
+                    console.error('Error fetching pot data:', response.message);
+                }
+            } catch (error) {
+                console.error('Error fetching pot data:', error);
+            }
         };
         fetchData();
-        console.log(pot);
-    }, [])
+    }, [potID]);
 
     const handlePopUpAction = (action) => {
         setPopUpAction(action);
@@ -34,14 +47,14 @@ export default function PotDetails() {
         <div class='container'>
             <div class="row TopSpace">
                 <div class='col-md-12'>
-                    <h1>{pot?.NameOfpot}</h1>
+                    <h1>{pot?.nameOfPot || 'Loading...'}</h1>
                 </div>
             </div>
             <div class='row'>
                 <div class="col-md-8">
                     <div class='Row'>
                         <div class='col-md-12'>
-                            <p class="Humidity">Humidity percentage: </p>
+                            <p class="Humidity">Humidity percentage: {latestMeasuredSoilData?.measuredSoilMoisture}</p>
                         </div>
                         <div class='col-md-12'>
                             {pot && <PotDataChart potID={potID} />}
@@ -72,13 +85,13 @@ export default function PotDetails() {
                 <div class='col-md-7'>
                     <div class='row'>
                         <div class='col-md-12'>
-                            <h3>Plant:</h3>
+                            <h3>Plant: {pot?.plant?.nameOfPlant ?? 'No plant assigned'}</h3>
                         </div>
                         <div class='col-md-12'>
-                            <p class='WaterInfo'>Minimum Humidity:</p>
+                            <p class='WaterInfo'>Minimum Humidity: {pot?.plant?.soilMinimumMoisture ?? 'Not set'}</p>
                         </div>
                         <div class='col-md-12'>
-                            <p class='WaterInfo'>mL per watering:</p>
+                            <p class='WaterInfo'>mL per watering: {pot?.plant?.amountOfWaterToBeGiven ?? 'Not set'}</p>
                         </div>
                     </div>
                 </div>

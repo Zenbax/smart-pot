@@ -128,19 +128,20 @@ const PotDataChart = ({ potID }) => {
           labels: intervalLabels,
           datasets: [
             {
-              label: 'Amount of Watering (mL)',
-              data: sumAmountOfWateringData,
-              backgroundColor: 'pink',
-              borderColor: 'rgba(255, 99, 132, 1)',
-              borderWidth: 1
-            },
-            {
               label: 'Measured Soil Moisture',
               data: averageMoistureData,
               backgroundColor: 'lightblue',
               borderColor: 'rgba(54, 162, 235, 1)',
               borderWidth: 1,
               type: 'line'
+              
+            },
+            {
+              label: 'Amount of Watering (mL)',
+              data: sumAmountOfWateringData,
+              backgroundColor: 'pink',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
             }
           ]
         },
