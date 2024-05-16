@@ -1,30 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
+import { createPlant, updatePlant } from "../Util/API_config";
 
-const EditPlantTemp = ({ handlePopUpAction, initialMinMoisture, initialWateringAmount, plantName, plantImage }) => {
-  const [minSoilMoisture, setMinSoilMoisture] = useState(initialMinMoisture);
-  const [wateringAmount, setWateringAmount] = useState(initialWateringAmount);
+const EditPlantTemp = ({ handlePopUpAction, plant}) => {
+  const [plantName, setPlantName] = useState('');
+  const [minSoilMoisture, setMinSoilMoisture] = useState('');
+  const [wateringAmount, setWateringAmount] = useState('');
+  const [plantImage, setPlantImage] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
 
   useEffect(() => {
-    setMinSoilMoisture(initialMinMoisture || '');
-    setWateringAmount(initialWateringAmount || '');
-  })
+    setPlantName(plant?.nameOfPlant || '')
+    setMinSoilMoisture(plant?.soilMinimumMoisture || '');
+    setWateringAmount(plant?.amountOfWaterToBeGiven || '');
+    setPlantImage(plant?.image || '')
+  }, [plant]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251 && minSoilMoisture !==initialMinMoisture && wateringAmount !==initialWateringAmount) {
+    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251 && (minSoilMoisture !=plant?.soilMinimumMoisture || wateringAmount !=plant?.amountOfWaterToBeGiven)) {
       setShowPopUp(true);
     } else if (wateringAmount <= 19) {
       // Todo: handle invalid input
     }
   };
 
-  const handlePopUpActionLocal = (action) => {
+  const handlePopUpActionLocal = async (action) => {
     setPopUpAction(action);
     console.log(`User chose to ${action}`);
     setShowPopUp(false);
+    if (action === 'create') {
+      try {
+        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
+      } catch (error) {
+        console.error('Error creating plant:', error.message);
+      }
+    }
+
+    if (action === 'overwrite') {
+      try {
+        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName);
+      } catch (error) {
+        console.error('Error creating plant:', error.message);
+      }
+    }
     handlePopUpAction(action);
   };
 

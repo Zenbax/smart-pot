@@ -94,10 +94,7 @@ export default function PotDetails() {
                 <div class='col-md-5'>
                     <EditPlantInPot
                         handlePopUpAction={handlePopUpAction}
-                        initialMinMoisture={pot?.plant?.soilMinimumMoisture}
-                        initialWateringAmount={pot?.plant?.amountOfWaterToBeGiven}
-                        plantName={pot?.plant?.nameOfPlant}
-                        plantImage={pot?.plant?.plantImage}
+                        plant={pot?.plant}
                     />
                 </div>
             </div>

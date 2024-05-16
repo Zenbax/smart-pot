@@ -9,7 +9,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
   const [plantImage, setPlantImage] = useState(No_Image);
-  const [isDefault, setIsDefault] = useState('');
+  const [isDefault, setIsDefault] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
 
