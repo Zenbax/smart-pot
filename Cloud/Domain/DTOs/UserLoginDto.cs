@@ -10,6 +10,10 @@ public class UserLoginDto
         User = user;
     }
 
+    public UserLoginDto()
+    {
+    }
+
     [Required]
     public User User { get; set; }
     

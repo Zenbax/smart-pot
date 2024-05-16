@@ -1,5 +1,4 @@
-﻿
-using YourApiNamespace.Controllers;
+﻿using YourApiNamespace.Controllers;
 
 namespace UnitTests
 {
@@ -69,5 +68,70 @@ namespace UnitTests
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Pot not found", result.Message);
         }
+       
+        [Test]
+        public async Task GetPotById_PotDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotGetByIdDto { IdToGet = potId };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _potLogic.GetPotById(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Pot not found", result.Message);
+            Assert.IsNull(result.Pot);
+        }
+
+        [Test]
+        public async Task CreatePot_InvalidEnableValue_ReturnsError()
+        {
+            // Arrange
+            var pot = new Pot { Id = "1", Enable = 2 }; // Invalid value for Enable
+            var potDto = new PotCreationDto { Pot = pot };
+
+            // Act
+            var result = await _potLogic.CreatePot(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Enable must be 0 or 1", result.Message);
+        }
+
+        
+        [Test]
+        public async Task UpdatePot_PotDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotUpdateDto { IdToUpdate = potId, Pot = new Pot { NameOfPot = "UpdatedPot", MachineID = "456", Enable = 1 } };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _potLogic.UpdatePot(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Pot with ID1 not found", result.Message);
+            Assert.IsNull(result.Pot);
+        }
+
     }
 }
