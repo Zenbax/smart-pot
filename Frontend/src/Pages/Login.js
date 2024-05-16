@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import {Link, Outlet, Route  , useNavigate} from 'react-router-dom';
 import { MD5 } from 'crypto-js';
+import { useAuth } from '../Util/AuthProvider';
 
 import '../Styling/Login.css';
-import { loginUser } from "../API/API_config";
+import { loginUser } from "../Util/API_config";
 import Register from './Register';
 
 
@@ -11,6 +12,7 @@ const Login =()=> {
     // State variables for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { setToken } = useAuth();
 
     const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const Login =()=> {
     const handleSubmit = async(event) => {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();
-        if (await loginUser(email, hashedPassword)){
+        if (await loginUser(email, hashedPassword, setToken)){
             navigate('/');
         }
     };
@@ -52,7 +54,3 @@ const Login =()=> {
 }
 
 export default Login;
-
-
-
-

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getPotFromId } from "../API/API_config";
+import { getPotFromId } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 import No_Image from '../images/no-image.jpeg';
-import { createPlant, updatePlant } from "../API/API_config";
+import { createPlant, updatePlant } from "../Util/API_config";
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [plantName, setPlantName] = useState('');

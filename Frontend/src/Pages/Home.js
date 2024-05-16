@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, Route  } from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import PotsList from "../Components/PotsList";
-import { getAllPots } from "../API/API_config";
+import { getAllPots } from "../Util/API_config";
 import '../Styling/Home.css'
 //import HelpContent from '../Components/HelpPopUpContent.js';
 const Home = () =>
