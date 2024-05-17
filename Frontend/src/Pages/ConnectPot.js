@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
 import { createPot } from "../Util/API_config";
+import { useNavigate } from 'react-router-dom';
 
 const ConnectPot = () => {
     const [idOfPot, setPotID] = useState('');
     const [nameOfPot, setPotName] = useState('');
     const [plantData, setPlantData] = useState(null); // State for selected plant data
     const [showPopUp, setShowPopUp] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        handleCloseError();
+
+        if (!idOfPot || !nameOfPot) {
+            setError('Smart-pot ID and Pot name are required');
+            setShowError(true);
+            return;
+        }
+
         
         createPot(nameOfPot, idOfPot, plantData)
+
+        navigate("/");
+
     };
 
     const handlePopUpAction = (action, plantData) => {
@@ -24,6 +41,11 @@ const ConnectPot = () => {
 
     const handleAddPlantClick = () => {
         setShowPopUp(true);
+    };   
+    
+    const handleCloseError = () => {
+        setShowError(false);
+        setError('');
     };
 
     return (
@@ -46,6 +68,12 @@ const ConnectPot = () => {
                         onChange={(e) => setPotName(e.target.value)}
                     />
                 </div>
+
+                {showError && (
+                <div className='error-popup'>
+                    <p>{error}</p>
+                </div>
+                )}
 
                 <div>
                     <label className="file-upload-button" onClick={handleAddPlantClick}>
