@@ -5,19 +5,25 @@ import {Container, Row, Col} from 'react-bootstrap';
 import PotsList from "../Components/PotsList";
 import { getAllPots } from "../Util/API_config";
 import '../Styling/Home.css'
+import { useAuth } from "../Util/AuthProvider";
 //import HelpContent from '../Components/HelpPopUpContent.js';
 const Home = () =>
 {
 
+
+    const { token } = useAuth();
      const [pots, setPots] = useState([]);
 
     useEffect(() => {
+        if(token){
         const fetchData = async () => {
             const potsData = await getAllPots();
             setPots(potsData);
         };
         fetchData();
-    }, [])
+        }
+        
+    }, [token])
   
     //const [showPopup, setShowPopup] = useState(false);
 

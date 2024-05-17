@@ -189,8 +189,15 @@ var potArray=[
 ]
 
 
+const unauthorizedInstance = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
 
-const instance = axios.create({
+const authorizedInstance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       Accept: "application/json",
@@ -199,6 +206,13 @@ const instance = axios.create({
       Authorization: 'Bearer '+ localStorage.getItem('token')
     },
   });
+
+  authorizedInstance.interceptors.request.use((config) => {
+    if (localStorage.getItem('token')){ // or get it from localStorage
+      config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
+    }
+    return config
+  })
 
 export async function createUser (paramName, paramLastName, paramPassword, paramEmail,paramPhoneNumber){ //TODO: eventuelt parse til JSON et andet sted
         var jsonUserInfoDTO = JSON.stringify(
@@ -212,7 +226,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
         )
         console.log(jsonUserInfoDTO)
     try{
-        const response = await instance.post("/auth/register", jsonUserInfoDTO,);
+        const response = await unauthorizedInstance.post("/auth/register", jsonUserInfoDTO,);
         console.log(response)
         
     }
@@ -238,7 +252,7 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
                 plant: paramPlant
             });
             try{
-                const response = await instance.post("/pot/create", jsonUserInfoDTO,);
+                const response = await authorizedInstance.post("/pot/create", jsonUserInfoDTO,);
                 console.log(response)
                 
             }
@@ -262,7 +276,7 @@ export async function createPlant (paramName, paramMinMoisture, paramImage, para
     )
     console.log(jsonUserInfoDTO)
 try{
-    const response = await instance.post("/plant/create", jsonUserInfoDTO,);
+    const response = await authorizedInstance.post("/plant/create", jsonUserInfoDTO,);
     console.log(response)
     
 }
@@ -283,7 +297,7 @@ export async function updatePlant (paramName, paramMinMoisture, paramWateringAmo
     )
     console.log(jsonUserInfoDTO)
 try{
-    const response = await instance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
+    const response = await authorizedInstance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
     console.log(response)
     
 }
@@ -297,7 +311,7 @@ catch(Error){
 
 export async function getPotFromId(id){
     try{
-        const response = await instance.get("/pot/get/"+id)
+        const response = await authorizedInstance.get("/pot/get/"+id)
         console.log(response)
         return response.data
     }
@@ -310,16 +324,17 @@ export async function getPotFromId(id){
 }
 
 export async function getAllPots(){
-    console.log("Auth header is: " + instance.defaults.headers.common.Authorization)
+    axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('token')
+    console.log(axios.defaults.headers.common["Authorization"])
     try{
-        const response = await instance.get("/pot/get/all")
+        const response = await authorizedInstance.get("/pot/get/all");
         console.log(response)
         return response.data.pots
     }
     catch(error){
         if(error?.response?.status === 401){
             console.log("unauthorized error happened")
-            console.log(error.response.message)
+            console.log(error.response)
             notAuthorized()
         }
     }
@@ -328,8 +343,7 @@ export async function getAllPots(){
 
 export async function getAllPlants(){
     try{
-        
-        const response = await instance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
+        const response = await authorizedInstance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
         console.log(response)
         return response.data.plants
     }
@@ -343,7 +357,7 @@ export async function getAllPlants(){
 }
 
 export async function loginUser(email, password, setToken) {
-    
+    console.log("Header before login: " + authorizedInstance.defaults.headers.common["Authorization"])
     var jsonUserInfoDTO = JSON.stringify(
         {
         email: email,
@@ -354,14 +368,12 @@ export async function loginUser(email, password, setToken) {
 
 
     try{
-        const response = await instance.post("/auth/login", jsonUserInfoDTO);
-        
+        const response = await unauthorizedInstance.post("/auth/login", jsonUserInfoDTO);
         console.log(response);  
-       
-       //Cookies.set('token', response.token, { expires: 7, secure: true });
-
        localStorage.setItem('userEmail', response.data.user.email)
        localStorage.setItem('userId', response.data.user.id);
+       localStorage.setItem('token', response.data.token)
+       axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token; //Bliver sat i authProvider men fordi setState er asyncron bliver den nødt til også at blive sat her
        setToken(response.data.token)
        return true
     }
@@ -375,6 +387,7 @@ export async function loginUser(email, password, setToken) {
   }
 
   function notAuthorized(){
-    console.log("Removing token from local storage")
-    //localStorage.setItem('token', "")
+    const { setToken } = useAuth();
+    console.log("Removing token")
+    setToken("");
   }

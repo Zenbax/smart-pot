@@ -6,11 +6,11 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // State to hold the authentication token
   const [token, setToken_] = useState(localStorage.getItem("token"));
-  console.log(token)
 
   // Function to set the authentication token
   const setToken = (newToken) => {
     setToken_(newToken);
+
   };
 
   useEffect(() => {
