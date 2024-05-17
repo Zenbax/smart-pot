@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
+import DeletePopUp from './DeletePopUp';
 import No_Image from '../images/no-image.jpeg';
-import { createPlant, updatePlant } from "../Util/API_config";
+import { createPlant, updatePlant, deletePlant } from "../Util/API_config";
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [plantName, setPlantName] = useState('');
@@ -10,8 +11,10 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [wateringAmount, setWateringAmount] = useState('');
   const [plantImage, setPlantImage] = useState(No_Image);
   const [isDefault, setIsDefault] = useState(true);
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [popupType, setPopupType] = useState('');
   const [popUpAction, setPopUpAction] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (selectedTemplate) {
@@ -28,20 +31,40 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     const value = e.target.value;
     if (value > 250) {
       setWateringAmount(250);
-    } else if (value < 0){
+    } else if (value < 0) {
       setWateringAmount(0);
     } else {
       setWateringAmount(value);
     }
   };
 
+  const handleMinMoistureChange = (e) => {
+    const value = e.target.value;
+    if (value > 100) {
+      setMinSoilMoisture(100);
+    } else if (value < 0) {
+      setMinSoilMoisture(0);
+    } else {
+      setMinSoilMoisture(value);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (wateringAmount < 20) {
-      setWateringAmount(20)
-      if (plantName != '' && minSoilMoisture != '' && plantImage !== No_Image && wateringAmount < 251) {
-        setShowPopUp(true);
-      }
+
+    if (plantName === '' || minSoilMoisture === '' || wateringAmount === '') {
+      setError('All fields must be filled');
+      setShowError(true);
+    } else if (plantImage === No_Image) {
+      setError('Plant must have an Image');
+      setShowError(true);
+    } else if (wateringAmount < 20) {
+      setWateringAmount(20);
+      setError('Watering amount must be 20ml or higher');
+      setShowError(true);
+    } else if (plantName !== '' && minSoilMoisture !== '' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
+      handleCloseError();
+      setPopupType('create');
     }
   };
 
@@ -57,7 +80,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const handlePopUpActionLocal = async (action) => {
     setPopUpAction(action);
     console.log(`User chose to ${action}`);
-    setShowPopUp(false);
+    setPopupType(''); // Close the popup
     if (action === 'create') {
       try {
         await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
@@ -66,14 +89,32 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
       }
     }
 
-    if (action === 'overwrite' && isDefault == false) {
+    if (action === 'overwrite' && isDefault === false) {
       try {
         await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName);
       } catch (error) {
-        console.error('Error creating plant:', error.message);
+        console.error('Error updating plant:', error.message);
+      }
+    }
+
+    if (action === 'delete' && isDefault === false) {
+      try {
+        await deletePlant(plantInitialName);
+      } catch (error) {
+        console.error('Error deleting plant:', error.message);
       }
     }
     handlePopUpAction(action);
+  };
+
+  const handleDeletePopup = (e) => {
+    e.preventDefault();
+    setPopupType('delete');
+  };
+
+  const handleCloseError = () => {
+    setShowError(false);
+    setError('');
   };
 
   return (
@@ -95,10 +136,10 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
           <div className="plant-input-container">
             <input
               id="minSoilMoistureInput"
-              type="text"
+              type="number"
               placeholder="Enter minimum moisture"
               value={minSoilMoisture}
-              onChange={(e) => setMinSoilMoisture(e.target.value)}
+              onChange={handleMinMoistureChange}
             />
           </div>
           <label>Watering Amount (ml):</label>
@@ -127,9 +168,22 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
             </div>
           )}
         </div>
-        <button type="submit" className="submit-button">Save Changes</button>
+
+        {showError && (
+          <div className='error-popup'>
+            <p>{error}</p>
+          </div>
+        )}
+
+        <div className='Edit-Button-Container'>
+          <button type="submit" className="submit-button">Save Changes</button>
+          {!isDefault && (
+            <button onClick={handleDeletePopup} className="delete-button">Delete Plant</button>
+          )}
+        </div>
       </form>
-      {showPopUp && (
+
+      {popupType === 'create' && (
         <PlantCreatePopUp
           handlePopUpAction={handlePopUpActionLocal}
           plantName={plantName}
@@ -139,6 +193,17 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
           isDefault={isDefault}
         />
       )}
+
+      {popupType === 'delete' && (
+        <DeletePopUp
+          handlePopUpAction={handlePopUpActionLocal}
+          plantName={plantInitialName}
+          minSoilMoisture={minSoilMoisture}
+          wateringAmount={wateringAmount}
+          plantImage={plantImage}
+        />
+      )}
+
     </div>
   );
 };

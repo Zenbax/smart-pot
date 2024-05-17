@@ -308,6 +308,17 @@ catch(Error){
 
 }
 
+export async function deletePlant(paramPlantName){
+    try{
+        const response = await authorizedInstance.del("/plant/delete/"+paramPlantName)
+        console.log(response)
+    }
+    catch(Error){
+        console.log(Error.message)
+    }
+    
+}
+
 
 export async function getPotFromId(id){
     try{
