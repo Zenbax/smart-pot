@@ -64,4 +64,5 @@ public class AuthLogicTests
         Assert.IsNull(result.User);
     }
     
+
 }
