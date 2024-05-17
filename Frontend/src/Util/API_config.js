@@ -310,7 +310,7 @@ catch(Error){
 
 export async function deletePlant(paramPlantName){
     try{
-        const response = await authorizedInstance.del("/plant/delete/"+paramPlantName)
+        const response = await authorizedInstance.delete("/plant/delete/"+paramPlantName)
         console.log(response)
     }
     catch(Error){

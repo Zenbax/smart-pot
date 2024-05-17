@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
-import DeletePopUp from './DeletePopUp';
+import DeletePopUp from './DeletePlantPopUp';
 import No_Image from '../images/no-image.jpeg';
 import { createPlant, updatePlant, deletePlant } from "../Util/API_config";
 
