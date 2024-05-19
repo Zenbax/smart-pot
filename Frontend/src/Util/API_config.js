@@ -334,7 +334,7 @@ export async function getPotFromId(id){
     
 }
 
-export async function getAllPots(){
+export async function getAllPots(handleNotAuthorized){
     axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('token')
     console.log(axios.defaults.headers.common["Authorization"])
     try{
@@ -346,7 +346,7 @@ export async function getAllPots(){
         if(error?.response?.status === 401){
             console.log("unauthorized error happened")
             console.log(error.response)
-            notAuthorized()
+            handleNotAuthorized()
         }
     }
     

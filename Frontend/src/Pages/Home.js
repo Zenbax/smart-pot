@@ -9,15 +9,17 @@ import { useAuth } from "../Util/AuthProvider";
 //import HelpContent from '../Components/HelpPopUpContent.js';
 const Home = () =>
 {
-
-
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
      const [pots, setPots] = useState([]);
+     const handleNotAuthorized = () => {
+        console.log("Removing token")
+        setToken("");
+    }
 
     useEffect(() => {
         if(token){
         const fetchData = async () => {
-            const potsData = await getAllPots();
+            const potsData = await getAllPots(handleNotAuthorized);
             setPots(potsData);
         };
         fetchData();
