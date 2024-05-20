@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import PlantTemp from './PlantTemplate';
 import { getAllPlants } from "../Util/API_config";
 import '../Styling/PlantTempContainer.css'
+import { useAuth } from '../Util/AuthProvider';
 
 
 const PlantTempContainer = ({ onSelectTemplate }) => {
 
     const [plants, setPlants] = useState([]);
+    const { setToken } = useAuth();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const plantsData = await getAllPlants();
+                const plantsData = await getAllPlants(setToken);
                 setPlants(plantsData);
             } catch (error) {
                 console.error('Error fetching plants:', error);

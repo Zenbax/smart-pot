@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { getPotFromId } from '../Util/API_config';
+import { useAuth } from '../Util/AuthProvider';
 
 function getWeekNumber(date) {
   const adjustedDate = new Date(date.getTime());
@@ -12,6 +13,7 @@ function getWeekNumber(date) {
 
 // Helper function to generate ranges
 function generateDateLabels(type, count) {
+
   const labels = [];
   const now = new Date();
 
@@ -51,6 +53,7 @@ function generateDateLabels(type, count) {
 }
 
 const PotDataChart = ({ potID }) => {
+  const { setToken } = useAuth();
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null); // Ref to store the chart instance
   const [potData, setPotData] = useState(null);
@@ -59,7 +62,7 @@ const PotDataChart = ({ potID }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getPotFromId(potID);
+        const response = await getPotFromId(potID, setToken);
         if (response.success) {
           setPotData(response.pot.sensorData || []);
         } else {

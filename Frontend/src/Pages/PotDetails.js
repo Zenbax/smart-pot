@@ -9,11 +9,13 @@ import PlantAddPopUp from "../Components/PlantAddPopUp";
 import DeletePopUp from '../Components/DeletePotPopUp';
 import placeholder from "../images/no-image.jpeg";
 import '../Styling/PotDetails.css';
+import { useAuth } from "../Util/AuthProvider";
 
 
 export default function PotDetails() {
     const { potID } = useParams();
     const navigate = useNavigate();
+    const { setToken } = useAuth();
     const [pot, setPot] = useState();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [popupType, setPopupType] = useState(false);
@@ -30,7 +32,7 @@ export default function PotDetails() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getPotFromId(potID, handleNotAuthorized, handlePotNotFound);
+                const response = await getPotFromId(potID, setToken, handlePotNotFound);
                 if (response.success) {
                     setPot(response.pot);
                     const sensorData = response.pot.sensorData;
@@ -65,7 +67,7 @@ export default function PotDetails() {
         setPopupType('');
         if (action === 'add' && templateData) {
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID)
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken)
                 setPot((prevPot) => ({ ...prevPot, plant: templateData }));
             } catch (error) {
                 console.error('Error updating pot:', error.message);
@@ -75,7 +77,7 @@ export default function PotDetails() {
 
         if (action === 'remove') {
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID);
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
                 setPot((prevPot) => ({ ...prevPot, plant: null }))
             } catch (error) {
                 console.error('Error Removing plant from pot:', error.message);
@@ -84,7 +86,7 @@ export default function PotDetails() {
 
         if (action === 'delete') {
             try {
-                await deletePot(potID);
+                await deletePot(potID, setToken);
                 navigate("/")
             } catch (error) {
                 console.error('Error disconnecting pot:', error);

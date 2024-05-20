@@ -3,9 +3,11 @@ import PlantCreatePopUp from './PlantCreatePopUp';
 import DeletePopUp from './DeletePlantPopUp';
 import No_Image from '../images/no-image.jpeg';
 import { createPlant, updatePlant, deletePlant } from "../Util/API_config";
+import { useAuth } from '../Util/AuthProvider';
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
   const [plantName, setPlantName] = useState('');
+  const { setToken } = useAuth();
   const [plantInitialName, setPlantInitialName] = useState('');
   const [minSoilMoisture, setMinSoilMoisture] = useState('');
   const [wateringAmount, setWateringAmount] = useState('');
@@ -82,7 +84,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     setPopupType(''); // Close the popup
     if (action === 'create') {
       try {
-        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
+        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
       } catch (error) {
         console.error('Error creating plant:', error.message);
       }
@@ -90,7 +92,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
     if (action === 'overwrite' && isDefault === false) {
       try {
-        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName);
+        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName, setToken);
       } catch (error) {
         console.error('Error updating plant:', error.message);
       }
@@ -98,7 +100,7 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
 
     if (action === 'delete' && isDefault === false) {
       try {
-        await deletePlant(plantInitialName);
+        await deletePlant(plantInitialName, setToken);
       } catch (error) {
         console.error('Error deleting plant:', error.message);
       }

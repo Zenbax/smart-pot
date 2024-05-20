@@ -11,15 +11,11 @@ const Home = () =>
 {
     const { token, setToken } = useAuth();
      const [pots, setPots] = useState([]);
-     const handleNotAuthorized = () => {
-        console.log("Removing token")
-        setToken("");
-    }
 
     useEffect(() => {
         if(token){
         const fetchData = async () => {
-            const potsData = await getAllPots(handleNotAuthorized);
+            const potsData = await getAllPots(setToken);
             setPots(potsData);
         };
         fetchData();

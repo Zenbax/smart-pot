@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 import { createPlant, updatePlant } from "../Util/API_config";
+import { useAuth } from '../Util/AuthProvider';
 
 const EditPlantTemp = ({ handlePopUpAction, plant}) => {
   const [plantName, setPlantName] = useState('');
@@ -11,6 +12,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
   const [popUpAction, setPopUpAction] = useState('');
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState('');
+  const { setToken } = useAuth();
 
   useEffect(() => {
     setPlantName(plant?.nameOfPlant || '')
@@ -63,7 +65,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
     setShowPopUp(false);
     if (action === 'create') {
       try {
-        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount);
+        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
       } catch (error) {
         console.error('Error creating plant:', error.message);
       }
@@ -71,7 +73,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
 
     if (action === 'overwrite') {
       try {
-        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName);
+        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName, setToken);
       } catch (error) {
         console.error('Error creating plant:', error.message);
       }

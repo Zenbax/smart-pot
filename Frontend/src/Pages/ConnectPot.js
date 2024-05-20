@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
 import { createPot } from "../Util/API_config";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Util/AuthProvider';
 
 const ConnectPot = () => {
     const [idOfPot, setPotID] = useState('');
@@ -10,6 +11,7 @@ const ConnectPot = () => {
     const [showPopUp, setShowPopUp] = useState(false);
     const [showError, setShowError] = useState(false);
     const [error, setError] = useState('');
+    const { setToken } = useAuth();
 
     const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const ConnectPot = () => {
         }
 
         
-        await createPot(nameOfPot, idOfPot, plantData)
+        await createPot(nameOfPot, idOfPot, plantData, setToken)
 
         navigate("/");
 

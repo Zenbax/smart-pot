@@ -3,191 +3,6 @@ import Cookies from 'js-cookie';
 import { useAuth } from "./AuthProvider";
 
 const API_BASE_URL = "http://13.53.174.85/";
-var potArray=[
-    {
-        nameOfPot: "Soveværelses vindue",
-        id: 21938,
-        plant: {
-            nameOfPlant: "Monstera",
-            JordMinimumsFugtighed: 35,
-            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
-        }, 
-        JordFugtighedProcent: 55,
-        VandBeholderProcent: 50,
-        VandingsLog: [
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            }
-        ],
-        Fugtighedslog: [
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 45
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 33
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 70
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 50
-            },
-        ],
-    },
-    {
-        nameOfPot: "Stue vindue #1",
-        id: 87362,
-        plant: {
-            nameOfPlant: "Philodendron",
-            JordMinimumsFugtighed: 35,
-            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
-        }, 
-        JordFugtighedProcent: 55,
-        VandBeholderProcent: 50,
-        VandingsLog: [
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            }
-        ],
-        Fugtighedslog: [
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 45
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 33
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 70
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2006, 0, 2, 15, 4, 5),
-                fugtighedProcent: 50
-            },
-        ],
-        VandingsInstillinger: {
-            JordMinimumsFugtighed: 35,
-            vandingsMængdeML: 100
-        }
-    },
-    {
-        nameOfPot: "Stue vindue #2",
-        id: 73837,
-        plant: {
-            nameOfPlant: "Lilje",
-            JordMinimumsFugtighed: 35,
-            imageUrl: "https://static.vecteezy.com/system/resources/previews/003/193/486/original/cute-cartoon-home-plant-in-clay-pot-illustration-vector.jpg"
-
-        }, 
-        JordFugtighedProcent: 55,
-        VandBeholderProcent: 50,
-        VandingsLog: [
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            },
-            {
-                VandingsTidspunkt: new Date(2006, 0, 2, 15, 4, 5),
-                mændeML: 100,
-            }
-        ],
-        Fugtighedslog: [
-            {
-                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
-                fugtighedProcent: 45
-            },
-            {
-                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
-                fugtighedProcent: 33
-            },
-            {
-                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
-                fugtighedProcent: 70
-            },
-            {
-                TimeStamp: new Date(2024, 3, 2, 15, 4, 5),
-                fugtighedProcent: 55
-            },
-            {
-                TimeStamp: new Date(2006, 3, 2, 15, 4, 5),
-                fugtighedProcent: 50
-            },
-        ],
-    }
-]
-
 
 const unauthorizedInstance = axios.create({
     baseURL: API_BASE_URL,
@@ -237,7 +52,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 }
 
 
-export async function createPot (paramPotName, paramMachineId, paramPlant){
+export async function createPot (paramPotName, paramMachineId, paramPlant, handleNotAuthorized){
     
     var paramEnable = 0
         if(paramPlant){
@@ -256,15 +71,22 @@ export async function createPot (paramPotName, paramMachineId, paramPlant){
                 console.log(response)
                 
             }
-            catch(Error){
-                console.log(Error.message)
+            catch(error){
+                if(error?.response?.status === 401){
+                    console.log("unauthorized error happened")
+                    console.log(error.response)
+                    handleNotAuthorized("")
+                }
+                else{
+                    console.log(error.message)
+                }
             }
 
     
 }
 
 
-export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount){
+export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount, handleNotAuthorized){
     var jsonUserInfoDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
@@ -280,13 +102,20 @@ try{
     console.log(response)
     
 }
-catch(Error){
-    console.log(Error.message)
+catch(error){
+    if(error?.response?.status === 401){
+        console.log("unauthorized error happened")
+        console.log(error.response)
+        handleNotAuthorized("")
+    }
+    else{
+        console.log(error.message)
+    }
 }
 
 }
 
-export async function updatePlant (paramName, paramMinMoisture, paramWateringAmount, paramImage, paramInitialName){
+export async function updatePlant (paramName, paramMinMoisture, paramWateringAmount, paramImage, paramInitialName, handleNotAuthorized){
     var jsonUserInfoDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
@@ -301,20 +130,33 @@ try{
     console.log(response)
     
 }
-catch(Error){
-    console.log(Error.message)
-
+catch(error){
+    if(error?.response?.status === 401){
+        console.log("unauthorized error happened")
+        console.log(error.response)
+        handleNotAuthorized("")
+    }
+    else{
+        console.log(error.message)
+    }
 }
 
 }
 
-export async function deletePlant(paramPlantName){
+export async function deletePlant(paramPlantName, handleNotAuthorized){
     try{
         const response = await authorizedInstance.delete("/plant/delete/"+paramPlantName)
         console.log(response)
     }
-    catch(Error){
-        console.log(Error.message)
+    catch(error){
+        if(error?.response?.status === 401){
+            console.log("unauthorized error happened")
+            console.log(error.response)
+            handleNotAuthorized("")
+        }
+        else{
+            console.log(error.message)
+        }
     }
     
 }
@@ -328,7 +170,7 @@ export async function getPotFromId(id, handleNotAuthorized, handlePotNotFound){
     }
     catch(error){
         if(error?.response?.status === 401){
-            handleNotAuthorized()
+            handleNotAuthorized("")
         }
         else{
             handlePotNotFound()
@@ -349,13 +191,16 @@ export async function getAllPots(handleNotAuthorized){
         if(error?.response?.status === 401){
             console.log("unauthorized error happened")
             console.log(error.response)
-            handleNotAuthorized()
+            handleNotAuthorized("")
+        }
+        else{
+            console.log(error.message)
         }
     }
     
 }
 
-export async function getAllPlants(){
+export async function getAllPlants(handleNotAuthorized){
     try{
         const response = await authorizedInstance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
         console.log(response)
@@ -364,7 +209,11 @@ export async function getAllPlants(){
     catch(error){
         if(error?.response?.status === 401){
             console.log("unauthorized error happened")
-            notAuthorized()
+            console.log(error.response)
+            handleNotAuthorized("")
+        }
+        else{
+            console.log(error.message)
         }
     }
     
@@ -400,15 +249,8 @@ export async function loginUser(email, password, setToken) {
     
   }
 
-  function notAuthorized(){
-    const { setToken } = useAuth();
-    console.log("Removing token")
-    setToken("");
-  }
 
-
-
-  export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant, paramID){
+  export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant, paramID, handleNotAuthorized){
     var jsonUserInfoDTO = JSON.stringify(
         {
             potName: paramName,
@@ -425,19 +267,32 @@ try{
     console.log(response)
     
 }
-catch(Error){
-    console.log(Error.message)
-
+catch(error){
+    if(error?.response?.status === 401){
+        console.log("unauthorized error happened")
+        console.log(error.response)
+        handleNotAuthorized("")
+    }
+    else{
+        console.log(error.message)
+    }
 }}
 
 
-export async function deletePot(paramMachineId){
+export async function deletePot(paramMachineId, handleNotAuthorized){
     try{
         const response = await authorizedInstance.delete("/pot/delete/"+ paramMachineId)
         console.log(response)
     }
-    catch(Error){
-        console.log(Error.message)
+    catch(error){
+        if(error?.response?.status === 401){
+            console.log("unauthorized error happened")
+            console.log(error.response)
+            handleNotAuthorized("")
+        }
+        else{
+            console.log(error.message)
+        }
     }
     
 }
