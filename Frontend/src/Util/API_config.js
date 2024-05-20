@@ -402,3 +402,39 @@ export async function loginUser(email, password, setToken) {
     console.log("Removing token")
     setToken("");
   }
+
+
+
+  export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant,  paramInitialName){
+    var jsonUserInfoDTO = JSON.stringify(
+        {
+            potName: paramName,
+            email: paramEmail,
+            machineId: paramMachineId,
+            enable: paramEnable,
+            plant: paramPlant
+
+        }
+    )
+    console.log(jsonUserInfoDTO)
+try{
+    const response = await authorizedInstance.put("/pot/update/"+paramInitialName, jsonUserInfoDTO,);
+    console.log(response)
+    
+}
+catch(Error){
+    console.log(Error.message)
+
+}}
+
+
+export async function deletePot(){
+    try{
+        const response = await authorizedInstance.delete("/pot/delete/"+ paramMachineId)
+        console.log(response)
+    }
+    catch(Error){
+        console.log(Error.message)
+    }
+    
+}
