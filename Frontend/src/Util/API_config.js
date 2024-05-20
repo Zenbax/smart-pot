@@ -405,7 +405,7 @@ export async function loginUser(email, password, setToken) {
 
 
 
-  export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant,  paramInitialName){
+  export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant, paramID){
     var jsonUserInfoDTO = JSON.stringify(
         {
             potName: paramName,
@@ -418,7 +418,7 @@ export async function loginUser(email, password, setToken) {
     )
     console.log(jsonUserInfoDTO)
 try{
-    const response = await authorizedInstance.put("/pot/update/"+paramInitialName, jsonUserInfoDTO,);
+    const response = await authorizedInstance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
     console.log(response)
     
 }

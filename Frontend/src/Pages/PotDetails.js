@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { deletePot, getPotFromId } from "../Util/API_config";
+import { deletePot, getPotFromId, updatePlant, updatePot } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
@@ -42,7 +42,7 @@ export default function PotDetails() {
 
     const handleDisconnect = async () => {
         try {
-            await deletePot(potID); 
+            await deletePot(potID);
             navigate("/")
         } catch (error) {
             console.error('Error disconnecting pot:', error);
@@ -55,10 +55,25 @@ export default function PotDetails() {
         setShowPopUp(true);
     };
 
-    const handlePopUpAction = (action, templateData = null) => {
+    const handlePopUpAction = async (action, templateData = null) => {
         setShowPopUp(false);
         if (action === 'add' && templateData) {
-            setPot((prevPot) => ({ ...prevPot, plant: templateData }));
+            try {
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID)
+                setPot((prevPot) => ({ ...prevPot, plant: templateData }));
+            } catch (error) {
+                console.error('Error updating pot:', error.message);
+            }
+
+        }
+
+        if (action === 'remove') {
+            try {
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID);
+                setPot((prevPot) => ({ ...prevPot, plant: null }))
+            } catch (error) {
+                console.error('Error Removing plant from pot:', error.message);
+            }
         }
     };
 
@@ -129,6 +144,7 @@ export default function PotDetails() {
             {showPopUp && (
                 <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
+                    ShowRemove={true}
                 />
             )}
 
