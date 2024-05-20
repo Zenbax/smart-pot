@@ -39,3 +39,8 @@
   background-color: #007bff;
   color: white;
 }
+
+.remove-button {
+  background-color: red;
+  color: white;
+}
