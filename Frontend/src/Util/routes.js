@@ -7,12 +7,18 @@ import Register from '../Pages/Register';
 import ConnectPot from '../Pages/ConnectPot';
 import PlantOverview from '../Pages/PlantOverview.js';
 import PotDetails from "../Pages/PotDetails.js";
+import PageNotFound from "../Pages/PageNotFound.js"
 
 const Routes = () => {
   const { token } = useAuth();
 
   // Define public routes accessible to all users
-  const routesForPublic = [];
+  const routesForPublic = [
+    {
+      path: "*",
+      element: <PageNotFound />,
+    },
+  ];
 
   // Define routes accessible only to authenticated users
   const routesForAuthenticatedOnly = [
