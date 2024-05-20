@@ -428,7 +428,7 @@ catch(Error){
 }}
 
 
-export async function deletePot(){
+export async function deletePot(paramMachineId){
     try{
         const response = await authorizedInstance.delete("/pot/delete/"+ paramMachineId)
         console.log(response)
