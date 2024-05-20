@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link, Route  } from 'react-router-dom';
 import '../Styling/Navbar.css';
@@ -12,16 +12,23 @@ const Navbar=()=> {
     setToken("");
   };
   
-
+const navigate = useNavigate();
 
 const homeClick = () => {
+  navigate("/") 
   to = "/"
 }
 
+
+const isLoginPage = location.pathname === "/Login";
+
    return (
       <nav className="nav-container">
-        <Link onClick={homeClick}><div className="logo">Smart-Pot</div></Link>
-        <Link to="/login"><button type="button" className="login-button" onClick={handleClick}> Logout</button></Link>
+        <Link onClick={homeClick}><div className="logo">Smart-Pot</div></Link> 
+        {!isLoginPage && (
+        <Link to="/Login">
+          <button type="button" className="login-button" onClick={handleClick}>Logout</button>
+        </Link>)}
       </nav>
     );
 
