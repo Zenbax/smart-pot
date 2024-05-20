@@ -59,7 +59,6 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
       setError('Plant must have an Image');
       setShowError(true);
     } else if (wateringAmount < 20) {
-      setWateringAmount(20);
       setError('Watering amount must be 20ml or higher');
       setShowError(true);
     } else if (plantName !== '' && minSoilMoisture !== '' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
