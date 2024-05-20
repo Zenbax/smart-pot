@@ -15,7 +15,7 @@ public class Program
         // Initialize database connection
         InitializeDatabase(databaseService);
         
-        ServerListener.StartServer();
+        ServerListener.StartServer(databaseService);
     }
     
     private static void InitializeDatabase(IDatabaseService databaseService)
