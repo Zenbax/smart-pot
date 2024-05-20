@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { getPotFromId } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
@@ -9,14 +9,23 @@ import '../Styling/PotDetails.css';
 
 export default function PotDetails() {
     const { potID } = useParams();
+    const navigate = useNavigate();
     const [pot, setPot] = useState();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [showPopUp, setShowPopUp] = useState(false);
+    const handleNotAuthorized = () => {
+        console.log("Removing token")
+        setToken("");
+    }
+    const handlePotNotFound= () => {
+        console.log("not found error")
+        navigate('/pot-details/');
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getPotFromId(potID);
+                const response = await getPotFromId(potID, handleNotAuthorized, handlePotNotFound);
                 if (response.success) {
                     setPot(response.pot);
                     const sensorData = response.pot.sensorData;
@@ -29,7 +38,8 @@ export default function PotDetails() {
                     console.error('Error fetching pot data:', response.message);
                 }
             } catch (error) {
-                console.error('Error fetching pot data:', error);
+                //console.error('Error fetching pot data:', error);
+                handlePotNotFound
             }
         };
         fetchData();
