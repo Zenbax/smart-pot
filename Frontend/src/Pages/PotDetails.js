@@ -45,24 +45,19 @@ export default function PotDetails() {
             } catch (error) {
                 //console.error('Error fetching pot data:', error);
                 handlePotNotFound
-            }
+
+    const [popupType, setPopupType] = useState('');            }
         };
         fetchData();
     }, [potID]);
 
     const handleDisconnect = async () => {
-        try {
-            await deletePot(potID);
-            navigate("/")
-        } catch (error) {
-            console.error('Error disconnecting pot:', error);
-            return;
-        }
+        setPopupType(delete);
     };
 
 
     const handleChangePlant = () => {
-        setShowPopUp(true);
+        setPopupType(change);
     };
 
     const handlePopUpAction = async (action, templateData = null) => {
@@ -83,6 +78,16 @@ export default function PotDetails() {
                 setPot((prevPot) => ({ ...prevPot, plant: null }))
             } catch (error) {
                 console.error('Error Removing plant from pot:', error.message);
+            }
+        }
+
+        if (action === 'delete'){
+            try {
+                await deletePot(potID);
+                navigate("/")
+            } catch (error) {
+                console.error('Error disconnecting pot:', error);
+                return;
             }
         }
     };
@@ -151,7 +156,7 @@ export default function PotDetails() {
                 </div>
             </div>
 
-            {showPopUp && (
+            {popupType === 'change' && (
                 <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
                     ShowRemove={true}
