@@ -9,6 +9,8 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
   const [plantImage, setPlantImage] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
   const [popUpAction, setPopUpAction] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setPlantName(plant?.nameOfPlant || '')
@@ -21,20 +23,37 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
     const value = e.target.value;
     if (value > 250) {
       setWateringAmount(250);
-    } else if (value < 0){
+    } else if (value < 0) {
       setWateringAmount(0);
     } else {
       setWateringAmount(value);
     }
   };
 
+  const handleMinMoistureChange = (e) => {
+    const value = e.target.value;
+    if (value > 100) {
+      setMinSoilMoisture(100);
+    } else if (value < 0) {
+      setMinSoilMoisture(0);
+    } else {
+      setMinSoilMoisture(value);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (minSoilMoisture === '' || wateringAmount === '') {
+      setError('All fields must be filled');
+      setShowError(true);
+    }
     if (wateringAmount < 20) {
-      setWateringAmount(20)
-      if (minSoilMoisture !='' && wateringAmount < 251 && (minSoilMoisture !=plant?.soilMinimumMoisture || wateringAmount !=plant?.amountOfWaterToBeGiven)) {
-        setShowPopUp(true);
+      setError('Watering amount must be 20ml or higher');
+      setShowError(true);
       } 
+    if (minSoilMoisture !='' && wateringAmount > 19 && wateringAmount < 251 && (minSoilMoisture !=plant?.soilMinimumMoisture || wateringAmount !=plant?.amountOfWaterToBeGiven)) {
+      handleCloseError();
+      setShowPopUp(true);
     }
   };
 
@@ -60,6 +79,11 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
     handlePopUpAction(action);
   };
 
+  const handleCloseError = () => {
+    setShowError(false);
+    setError('');
+  };
+
   return (
     <div className="plant-temp-container">
       <h2>Edit Plant</h2>
@@ -69,10 +93,10 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
           <div className="plant-input-container">
             <input
               id="minSoilMoistureInput"
-              type="text"
+              type="number"
               placeholder="Enter minimum moisture"
               value={minSoilMoisture}
-              onChange={(e) => setMinSoilMoisture(e.target.value)}
+              onChange={handleMinMoistureChange}
             />
           </div>
           <label>Watering Amount (ml):</label>
@@ -86,6 +110,13 @@ const EditPlantTemp = ({ handlePopUpAction, plant}) => {
             />
           </div>
         </div>
+
+        {showError && (
+          <div className='error-popup'>
+            <p>{error}</p>
+          </div>
+        )}
+
         <button type="submit" className="submit-button">Save Changes</button>
       </form>
       {showPopUp && (
