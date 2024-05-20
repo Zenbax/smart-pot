@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"
-import { getPotFromId } from "../Util/API_config";
+
+import { useNavigate, useParams } from "react-router-dom"
+import { deletePot, getPotFromId } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
+import PlantAddPopUp from "../Components/PlantAddPopUp";
+import PlantCreatePopUp from "../Components/PlantCreatePopUp";
 import placeholder from "../images/no-image.jpeg";
 import '../Styling/PotDetails.css';
+
 
 export default function PotDetails() {
     const { potID } = useParams();
@@ -21,6 +25,7 @@ export default function PotDetails() {
         console.log("not found error")
         navigate('/pot-details/');
     }
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,8 +50,26 @@ export default function PotDetails() {
         fetchData();
     }, [potID]);
 
-    const handlePopUpAction = () => {
+    const handleDisconnect = async () => {
+        try {
+            await deletePot(potID); 
+            navigate("/")
+        } catch (error) {
+            console.error('Error disconnecting pot:', error);
+            return;
+        }
+    };
+
+
+    const handleChangePlant = () => {
+        setShowPopUp(true);
+    };
+
+    const handlePopUpAction = (action, templateData = null) => {
         setShowPopUp(false);
+        if (action === 'add' && templateData) {
+            setPot((prevPot) => ({ ...prevPot, plant: templateData }));
+        }
     };
 
     return (
@@ -70,7 +93,7 @@ export default function PotDetails() {
                 <div className='col-md-4'>
                     <div className='row'>
                         <div className="col-md-9 ">
-                            <img src={placeholder} alt="placeholder" className="img-fluid" />
+                            <img src={pot?.plant?.image ?? placeholder} alt="placeholder" className="img-fluid" />
                         </div>
                         <div className="col-md-3 align-self-end">
                             {latestMeasuredSoilData && (
@@ -83,8 +106,8 @@ export default function PotDetails() {
                         <div className='col-md-12'>
                             <div className='row'>
                                 <div className='col-md-12 d-flex justify-content-between'>
-                                    <button className='Buttons'>Disconnect plant</button>
-                                    <button className='Buttons'>Change plant</button>
+                                    <button className='Buttons' onClick={handleDisconnect}>Disconnect pot</button>
+                                    <button className='Buttons' onClick={handleChangePlant}>Change plant</button>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +137,7 @@ export default function PotDetails() {
             </div>
 
             {showPopUp && (
-                <PlantCreatePopUp
+                <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
                 />
             )}

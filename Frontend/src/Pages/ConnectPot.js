@@ -13,7 +13,7 @@ const ConnectPot = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         handleCloseError();
@@ -25,7 +25,7 @@ const ConnectPot = () => {
         }
 
         
-        createPot(nameOfPot, idOfPot, plantData)
+        await createPot(nameOfPot, idOfPot, plantData)
 
         navigate("/");
 
