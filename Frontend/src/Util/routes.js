@@ -33,7 +33,7 @@ const Routes = () => {
           element: <ConnectPot />,
         },
         {
-            path: "/:potID",
+            path: "/pot-details/:potID",
             element: <PotDetails/>,
           },
       ],
