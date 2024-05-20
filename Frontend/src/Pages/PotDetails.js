@@ -6,7 +6,7 @@ import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
 import PlantAddPopUp from "../Components/PlantAddPopUp";
-import PlantCreatePopUp from "../Components/PlantCreatePopUp";
+import DeletePopUp from '../Components/DeletePotPopUp';
 import placeholder from "../images/no-image.jpeg";
 import '../Styling/PotDetails.css';
 
@@ -16,12 +16,12 @@ export default function PotDetails() {
     const navigate = useNavigate();
     const [pot, setPot] = useState();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
-    const [showPopUp, setShowPopUp] = useState(false);
+    const [popupType, setPopupType] = useState(false);
     const handleNotAuthorized = () => {
         console.log("Removing token")
         setToken("");
     }
-    const handlePotNotFound= () => {
+    const handlePotNotFound = () => {
         console.log("not found error")
         navigate('/pot-details/');
     }
@@ -46,22 +46,23 @@ export default function PotDetails() {
                 //console.error('Error fetching pot data:', error);
                 handlePotNotFound
 
-    const [popupType, setPopupType] = useState('');            }
+                const [popupType, setPopupType] = useState('');
+            }
         };
         fetchData();
     }, [potID]);
 
     const handleDisconnect = async () => {
-        setPopupType(delete);
+        setPopupType("delete");
     };
 
 
     const handleChangePlant = () => {
-        setPopupType(change);
+        setPopupType("change");
     };
 
     const handlePopUpAction = async (action, templateData = null) => {
-        setShowPopUp(false);
+        setPopupType('');
         if (action === 'add' && templateData) {
             try {
                 await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID)
@@ -81,7 +82,7 @@ export default function PotDetails() {
             }
         }
 
-        if (action === 'delete'){
+        if (action === 'delete') {
             try {
                 await deletePot(potID);
                 navigate("/")
@@ -160,6 +161,14 @@ export default function PotDetails() {
                 <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
                     ShowRemove={true}
+                />
+            )}
+
+            {popupType === 'delete' && (
+                <DeletePopUp
+                    handlePopUpAction={handlePopUpAction}
+                    potName={pot.nameOfPot}
+                    plantImage={pot.plant.image}
                 />
             )}
 
