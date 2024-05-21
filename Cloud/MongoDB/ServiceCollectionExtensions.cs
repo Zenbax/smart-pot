@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MongoDB;
 
-public static class ServiceCollectionExtensions
+public static class ServiceCollectionExtensions //klasse for at tilføje MongoDB til dependency injection
 {
     public static IServiceCollection AddMongoDbContext(this IServiceCollection services, IConfiguration configuration)
     {

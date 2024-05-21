@@ -6,6 +6,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <UserSecretsId>948c5656-5716-4779-9d63-b6aca019a329</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,5 +30,7 @@
     <ItemGroup>
       <Content Include="smartPotte.csproj" />
     </ItemGroup>
+
+
 
 </Project>
