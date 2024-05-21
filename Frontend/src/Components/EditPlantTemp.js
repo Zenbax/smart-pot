@@ -84,23 +84,26 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     setPopupType(''); // Close the popup
     if (action === 'create') {
       try {
-        await createPlant(plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
+        await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
+        window.location.reload();
       } catch (error) {
         console.error('Error creating plant:', error.message);
       }
     }
 
-    if (action === 'overwrite' && isDefault === false) {
+    else if (action === 'overwrite' && isDefault === false) {
       try {
         await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName, setToken);
+        window.location.reload();
       } catch (error) {
         console.error('Error updating plant:', error.message);
       }
     }
 
-    if (action === 'delete' && isDefault === false) {
+    else if (action === 'delete' && isDefault === false) {
       try {
         await deletePlant(plantInitialName, setToken);
+        window.location.reload();
       } catch (error) {
         console.error('Error deleting plant:', error.message);
       }
