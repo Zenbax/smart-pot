@@ -13,6 +13,8 @@ const Login =()=> {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setToken } = useAuth();
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('')
 
     const navigate = useNavigate();
 
@@ -20,8 +22,13 @@ const Login =()=> {
     const handleSubmit = async(event) => {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();
-        if (await loginUser(email, hashedPassword, setToken)){
+        const response = await loginUser(email, hashedPassword, setToken)
+        if (response === true){
             navigate('/');
+        }
+        else{
+            setError(response);
+            setShowError(true);
         }
     };
 
@@ -45,6 +52,11 @@ const Login =()=> {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                {showError && (
+                    <div className='error-popup'>
+                    <p>{error}</p>
+                    </div>
+                )}
                 <button type="submit" class="btn btn-primary">Login</button>
                 <Link to="/Register"><button class="btn btn-secondary">Register </button></Link>
                 <Outlet />
