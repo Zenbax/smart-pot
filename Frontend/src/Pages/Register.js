@@ -29,7 +29,7 @@ const Register =()=> {
         handleCloseError();
 
         //Validering af bruger
-        if (!name || !lastName || !password || !email || !phoneNumber ) {
+        if (!name || !lastName || !password || !email || !phoneNumber) {
            setError('All fields are required') 
            setShowError(true);
            return
@@ -44,12 +44,22 @@ const Register =()=> {
             setShowError(true);
             return;
         }
+        if(phoneNumber.length<8){
+            setError('Password must be 8 characters long');
+            setShowError(true);
+            return;
+        }
         
         const hashedPassword = MD5(password).toString();
-        createUser(name, lastName, hashedPassword, email, phoneNumber);
-
-     
-        navigate('/login');
+        const response = await createUser(name, lastName, hashedPassword, email, phoneNumber);
+        if(response === true){
+            navigate('/login');
+        }
+        else{
+            setError(response);
+            setShowError(true);
+        }
+        
 
     }
     
