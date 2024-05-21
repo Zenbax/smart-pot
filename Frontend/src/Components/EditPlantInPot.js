@@ -9,6 +9,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant }) => {
   const [wateringAmount, setWateringAmount] = useState(plant?.amountOfWaterToBeGiven || '');
   const [plantImage, setPlantImage] = useState(plant?.image || '');
 
+  const isDefault = plant?.isDefault || '';
   const initialMinMoisture = plant?.soilMinimumMoisture || '';
   const initialWateringAmount = plant?.amountOfWaterToBeGiven || '';
 
@@ -154,6 +155,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant }) => {
           minSoilMoisture={minSoilMoisture}
           wateringAmount={wateringAmount}
           plantImage={plantImage}
+          isDefault={isDefault}
         />
       )}
     </div>
