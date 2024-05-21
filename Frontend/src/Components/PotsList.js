@@ -14,6 +14,9 @@ const PotsList = ({ pots }) => {
             }
         })
         }
+        else{
+            filteredPots = pots;
+        }
        
         setListOfPots(filteredPots);
     }
