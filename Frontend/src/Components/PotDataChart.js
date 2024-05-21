@@ -18,12 +18,6 @@ function generateDateLabels(type, count) {
   const now = new Date();
 
   switch (type) {
-    case 'years':
-      for (let i = 0; i < count; i++) {
-        labels.unshift((now.getFullYear() - i).toString());
-      }
-      break;
-
     case 'months':
       for (let i = 0; i < count; i++) {
         const month = now.getMonth() - i;
@@ -96,9 +90,6 @@ const PotDataChart = ({ potID }) => {
         let label;
 
         switch (viewBy) {
-          case 'years':
-            label = date.getFullYear().toString();
-            break;
           case 'months':
             label = `${date.getFullYear()}-${date.getMonth() + 1}`;
             break;
@@ -182,7 +173,6 @@ const PotDataChart = ({ potID }) => {
     <div>
       <canvas ref={chartRef } data-testid="pot-data-chart"/>
       <div>
-        <button onClick={() => toggleView('years')}>View by years</button>
         <button onClick={() => toggleView('months')}>View by months</button>
         <button onClick={() => toggleView('weeks')}>View by weeks</button>
         <button onClick={() => toggleView('days')}>View by days</button>
