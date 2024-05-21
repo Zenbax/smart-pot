@@ -35,5 +35,5 @@ p {
 }
 
 .warningContainer {
-    border: solid red; 
+    background-color: #ffcccc;
 }
