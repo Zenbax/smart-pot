@@ -17,7 +17,6 @@ const PotsList = ({ pots }) => {
         else{
             filteredPots = pots;
         }
-       
         setListOfPots(filteredPots);
     }
 
@@ -26,7 +25,7 @@ const PotsList = ({ pots }) => {
         
            <div id='search'>
             <form>
-                <input onChange={(e)=>handleChange(e.target.value)} type='text' placeholder='search for pot or plant name'/>
+                <input onChange={(e)=>handleChange(e.target.value)} type='text' placeholder='search for pot or plant'/>
             </form>
         </div> 
     

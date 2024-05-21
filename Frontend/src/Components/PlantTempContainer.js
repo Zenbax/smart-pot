@@ -9,12 +9,29 @@ const PlantTempContainer = ({ onSelectTemplate }) => {
 
     const [plants, setPlants] = useState([]);
     const { setToken } = useAuth();
+    const [FilteredListListOfPlants, setFilteredListOfplants] = useState([])
+    const handleChange = (e) =>{
+        var filteredPlants = []
+        console.log(filteredPlants)
+        if(e){
+             plants.map((plant) =>{
+            if(plant.nameOfPlant.toLowerCase().includes(e.toLowerCase())){
+                filteredPlants.push(plant)
+            }
+        })
+        }
+        else{
+            filteredPlants = plants;
+        }
+        setFilteredListOfplants(filteredPlants);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const plantsData = await getAllPlants(setToken);
                 setPlants(plantsData);
+                setFilteredListOfplants(plantsData);
             } catch (error) {
                 console.error('Error fetching plants:', error);
             }
@@ -23,13 +40,23 @@ const PlantTempContainer = ({ onSelectTemplate }) => {
     }, []);
 
     return (
+        <>
+         <div id='search'>
+                <form>
+                <input onChange={(e)=>handleChange(e.target.value)} type='text' placeholder='search for plant'/>
+            </form>
+            </div>
+            
         <div className="Plant-Temp-Container row">
-            {plants && plants.map((plant, index) => (
+           
+            {FilteredListListOfPlants && FilteredListListOfPlants.map((plant, index) => (
                 <div key={index} className="col-lg-4">
                     <PlantTemp templateData={plant} onSelectTemplate={onSelectTemplate} />
                 </div>
             ))}
         </div>
+        </>
+        
     );
 };
 
