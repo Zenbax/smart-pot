@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom"
-import { deletePot, getPotFromId, updatePlant, updatePot } from "../Util/API_config";
+import { deletePot, getPotFromId, updatePot } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
@@ -47,8 +47,6 @@ export default function PotDetails() {
             } catch (error) {
                 //console.error('Error fetching pot data:', error);
                 handlePotNotFound
-
-                const [popupType, setPopupType] = useState('');
             }
         };
         fetchData();
@@ -66,28 +64,29 @@ export default function PotDetails() {
     const handlePopUpAction = async (action, templateData = null) => {
         setPopupType('');
         if (action === 'add' && templateData) {
+            console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken)
-                setPot((prevPot) => ({ ...prevPot, plant: templateData }));
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken);
+                await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
+
             } catch (error) {
                 console.error('Error updating pot:', error.message);
             }
-
         }
 
-        if (action === 'remove') {
+        else if (action === 'remove') {
             try {
                 await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
-                setPot((prevPot) => ({ ...prevPot, plant: null }))
+                setPot((prevPot) => ({ ...prevPot, plant: null }));
             } catch (error) {
-                console.error('Error Removing plant from pot:', error.message);
+                console.error('Error removing plant from pot:', error.message);
             }
         }
 
-        if (action === 'delete') {
+        else if (action === 'delete') {
             try {
                 await deletePot(potID, setToken);
-                navigate("/")
+                navigate("/");
             } catch (error) {
                 console.error('Error disconnecting pot:', error);
                 return;

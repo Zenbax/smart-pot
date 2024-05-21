@@ -179,6 +179,20 @@ export async function getPotFromId(id, handleNotAuthorized, handlePotNotFound){
     
 }
 
+export async function getPlantByName(paramName, handleNotAuthorized){
+    try{
+        const response = await authorizedInstance.get("/plant/get/"+paramName)
+        console.log('getPlantByName response:', response.data);
+        return response.data
+    }
+    catch(error){
+        if(error?.response?.status === 401){
+            handleNotAuthorized()
+        }
+    }
+    
+}
+
 export async function getAllPots(handleNotAuthorized){
     axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('token')
     console.log(axios.defaults.headers.common["Authorization"])

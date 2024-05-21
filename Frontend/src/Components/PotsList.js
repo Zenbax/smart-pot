@@ -32,8 +32,10 @@ const PotsList = ({ pots }) => {
     
         
         <div id='list'>
+
             { listOfPots.map((e) => {
-                return <Smartpot key={e.nameOfPot} pot={e} />;
+                return <Smartpot potID={e.id} key={e.id} pot={e} />;
+
             })}
         </div>
         </>
