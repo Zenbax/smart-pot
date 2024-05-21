@@ -34,6 +34,6 @@ p {
     width: 100%;
 }
 
-#warningContainer {
-    background-color: red;
+.warningContainer {
+    border: solid red; 
 }

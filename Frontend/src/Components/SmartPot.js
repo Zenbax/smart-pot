@@ -10,6 +10,17 @@ import { useAuth } from "../Util/AuthProvider";
 import { useParams } from 'react-router-dom';
 import WaterContainerChart from './WaterContainerChart';
 
+const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    return date.toLocaleDateString('en-US', options);
+};
+
 const SmartPot = ({potID}) => {
     
     const [pot, setPot] = useState(null);
@@ -31,9 +42,6 @@ const SmartPot = ({potID}) => {
                     setWarning(false);
                     if (sensorData && sensorData.length > 0) {
                         setLatestMeasuredSoilData(sensorData[sensorData.length - 1]);
-                        if (sensorData[sensorData.length - 1].waterTankLevel.currentWaterLevel <= 25) {
-                            setWarning(true);
-                        }
                     } else {
                         setLatestMeasuredSoilData(null);
                     }
@@ -51,6 +59,15 @@ const SmartPot = ({potID}) => {
         }
     }, [potID, setToken]);
 
+    useEffect(() => {
+        if (latestMeasuredSoilData && latestMeasuredSoilData.waterTankLevel < 25) {
+            setWarning(true);
+        } else {
+            setWarning(false);
+        }
+    }, [latestMeasuredSoilData]);
+    
+
     if (!pot) {
         return <div>Loading...</div>;
     }
@@ -65,8 +82,8 @@ const SmartPot = ({potID}) => {
                     {latestMeasuredSoilData && <p>Soil Hydration:</p>}
                     <h1 id='percent'>{latestMeasuredSoilData ? latestMeasuredSoilData.measuredSoilMoisture + "%" : "No Data"}</h1>
                     {latestMeasuredSoilData && <img id='waterdrop' src={waterdropImage} />}
-                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel.currentWaterLevel + "%" : "No Data"}</p>
-                    <p>Last Watered: {latestMeasuredSoilData ? latestMeasuredSoilData.timestamp : "No Data"}</p>    
+                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel + "%" : "No Data"}</p>
+                    <p>Last Watered: {latestMeasuredSoilData ? formatDate(latestMeasuredSoilData.timestamp) : "No Data"}</p>    
                 </Col>
                 <Col md="4">
                     <img id='smartPotPlant' src={pot.plant?.image} onError={event => {
