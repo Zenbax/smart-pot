@@ -45,8 +45,8 @@ const Login =()=> {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">Login</button>
-                <Link to="/Register"><button>Register </button></Link>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <Link to="/Register"><button class="btn btn-secondary">Register </button></Link>
                 <Outlet />
             </form>
         </div>

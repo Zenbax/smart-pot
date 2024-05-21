@@ -116,8 +116,8 @@ const Register =()=> {
                     <p>{error}</p>
                     </div>
                 )}
-                    <button type='back' onClick={handleClickBack}>Back</button>
-                    <button type='submit' onClick={handleClick}> Submit</button>
+                    <button type='back' class="btn btn-secondary" onClick={handleClickBack}>Back</button>
+                    <button type='submit' class="btn btn-success" onClick={handleClick}> Submit</button>
                 </form>
                 
             </div>
