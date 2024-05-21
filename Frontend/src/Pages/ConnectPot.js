@@ -52,7 +52,7 @@ const ConnectPot = () => {
 
     return (
         <div className="container">
-            <h2 className="h2"> Connect your Smart-pot </h2>
+            <h2> Connect your Smart-pot </h2>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input
@@ -98,7 +98,7 @@ const ConnectPot = () => {
                     )}
                 </div>
 
-                <button type="submit">Connect Smart-pot</button>
+                <button type="submit" class="btn btn-primary">Connect Smart-pot</button>
             </form>
 
             {showPopUp && (
