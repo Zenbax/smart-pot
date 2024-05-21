@@ -66,7 +66,7 @@ export default function PotDetails() {
         if (action === 'add' && templateData) {
             console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken);
+                await updatePot(pot.nameOfPot, pot.email, pot.machineID, 1, templateData, potID, setToken);
                 await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
 
             } catch (error) {
@@ -76,7 +76,7 @@ export default function PotDetails() {
 
         else if (action === 'remove') {
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
+                await updatePot(pot.nameOfPot, pot.email, pot.machineID, 0, null, potID, setToken);
                 setPot((prevPot) => ({ ...prevPot, plant: null }));
             } catch (error) {
                 console.error('Error removing plant from pot:', error.message);
