@@ -1,5 +1,9 @@
 .Plant-Temp-Container{
-    height: 553px;
+    height: 514px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+#search{
+    margin-bottom: 10px;
 }
