@@ -13,6 +13,12 @@
     margin-top: 55px;
   }
 
+.horisontal-line {
+    border-top: 2px solid gray;
+    width: 75%;
+    margin-top: 55px;
+}
+
 .plant-temp-form-container {
     text-align: center;
     border: 1px solid lightgray;

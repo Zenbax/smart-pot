@@ -32,8 +32,9 @@ const PlantOverview = () => {
           <PlantTempContainer onSelectTemplate={handleTemplateSelect} />
         </div>
 
-        <div className="col-lg-1 d-flex align-items-center justify-content-center">
-          <div className="vertical-line"></div>
+        <div className="col-lg-1 d-flex align-items-center justify-content-center ">
+          <div className="vertical-line d-none d-lg-block"></div>
+          <div className="horisontal-line d-lg-none"></div>
         </div>
 
         <div className="col-lg-4 d-flex align-items-center justify-content-center">
