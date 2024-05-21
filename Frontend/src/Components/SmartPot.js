@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import waterdropImage from '../images/waterdrop.jpg'
 import { useAuth } from "../Util/AuthProvider";
 import { useParams } from 'react-router-dom';
+import WaterContainerChart from './WaterContainerChart';
 
 const SmartPot = ({potID}) => {
     
@@ -56,10 +57,11 @@ const SmartPot = ({potID}) => {
                 <Col id='bottomCol' md="8">
                     <h1>{pot.nameOfPot}</h1>
                     <h2>{"Plant: "+ (pot.plant?.nameOfPlant ?? "No Plant")}</h2>
-                    <p>Soil Hydration:</p>
+                    {latestMeasuredSoilData && <p>Soil Hydration:</p>}
                     <h1 id='percent'>{latestMeasuredSoilData ? latestMeasuredSoilData.measuredSoilMoisture + "%" : "No Data"}</h1>
                     {latestMeasuredSoilData && <img id='waterdrop' src={waterdropImage} />}
-                    
+                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel.currentWaterLevel + "ml" : "No Data"}</p>
+                    <p>Last Watered: {latestMeasuredSoilData ? latestMeasuredSoilData.timestamp : "No Data"}</p>    
                 </Col>
                 <Col md="4">
                     <img id='smartPotPlant' src={pot.plant?.image} onError={event => {
