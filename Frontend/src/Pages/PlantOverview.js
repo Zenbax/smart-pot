@@ -27,8 +27,14 @@ const PlantOverview = () => {
     <div className="container overviewContainer">
       <div className="row">
         <div className="col-lg-7 h-100">
-          <button class="btn btn-secondary" onClick={handleBack}>Back</button>
-          <h1 className="text-center mb-4">Plants</h1>
+          <div className='row'>
+            <div className='col-lg-2'>
+              <button class="btn btn-secondary" onClick={handleBack}>Back</button>
+            </div>
+            <div className='col-lg-8'>
+              <h1 className="text-center mb-4">Plants</h1>
+            </div>
+          </div>
           <PlantTempContainer onSelectTemplate={handleTemplateSelect} />
         </div>
 

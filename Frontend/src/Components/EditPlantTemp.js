@@ -188,9 +188,9 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
         )}
 
         <div className='Edit-Button-Container'>
-          <button type="submit" className="submit-button">Save Changes</button>
+          <button type="submit" className="btn btn-success">Save Changes</button>
           {!isDefault && (
-            <button onClick={handleDeletePopup} className="delete-button">Delete Plant</button>
+            <button onClick={handleDeletePopup} className="btn btn-danger">Delete Plant</button>
           )}
         </div>
       </form>

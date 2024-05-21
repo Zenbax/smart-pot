@@ -21,7 +21,7 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
         {!isDefault && (
         <button onClick={() => handlePopUpAction('overwrite')} className="overwrite-button">Overwrite Existing</button>
         )}
-        <button onClick={() => handlePopUpAction('cancel')} className="cancel-button">Cancel</button>
+        <button onClick={() => handlePopUpAction('cancel')} className="btn btn-secondary">Cancel</button>
       </div>
     </div>
   );

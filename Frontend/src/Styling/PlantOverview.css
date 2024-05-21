@@ -83,19 +83,10 @@
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
+    
 }
 
-.submit-button {
-    background-color: green;
-    color: white;
-}
-
-.delete-button{
-    background-color: red;
-    color: white;
-}
-
-.cancel-button{
-    background-color: lightgray;
+.overviewContainer h1{
+    margin-right: 18px;
 }
   
