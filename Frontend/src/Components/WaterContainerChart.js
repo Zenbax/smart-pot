@@ -3,16 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../Styling/WaterContainerChart.css';
 
-const WaterContainerChart = ({ currentWaterLevel, maxWaterLevel }) => {
-    const waterLevelPercentage = (currentWaterLevel / maxWaterLevel) * 100;
-
+const WaterContainerChart = ({ currentWaterLevel}) => {
     return (
         <div className="water-container-wrapper">
             <div>
-                {currentWaterLevel} mL
+                {currentWaterLevel} %
             </div>
             <div className="water-container">
-                <div className="water-bar" style={{ height: `${waterLevelPercentage}%` }}></div>
+                <div className="water-bar" style={{ height: `currentWaterLevel%` }}></div>
             </div>
             <p className="water-container-text">
                 Water
