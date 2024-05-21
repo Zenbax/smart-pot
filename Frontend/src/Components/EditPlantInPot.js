@@ -90,7 +90,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant }) => {
       try {
         await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
         const templateData = await getPlantByName("new " + plantName, setToken);
-        handlePopUpAction('add', templateData);
+        handlePopUpAction('add', templateData.plant);
       } catch (error) {
         console.error('Error creating plant:', error.message);
       }
@@ -100,7 +100,7 @@ const EditPlantTemp = ({ handlePopUpAction, plant }) => {
       try {
         await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName, setToken);
         const templateData = await getPlantByName(plantName, setToken);
-        handlePopUpAction('add', templateData);
+        handlePopUpAction('add', templateData.plant);
       } catch (error) {
         console.error('Error updating plant:', error.message);
       }
