@@ -47,8 +47,6 @@ export default function PotDetails() {
             } catch (error) {
                 //console.error('Error fetching pot data:', error);
                 handlePotNotFound
-
-                const [popupType, setPopupType] = useState('');
             }
         };
         fetchData();
@@ -65,35 +63,42 @@ export default function PotDetails() {
 
     const handlePopUpAction = async (action, templateData = null) => {
         setPopupType('');
+        console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
         if (action === 'add' && templateData) {
-            try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken)
-                setPot((prevPot) => ({ ...prevPot, plant: templateData }));
-            } catch (error) {
-                console.error('Error updating pot:', error.message);
+          try {
+            if (templateData.nameOfPlant != undefined){
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken);
+                await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
             }
-
-        }
-
-        if (action === 'remove') {
-            try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
-                setPot((prevPot) => ({ ...prevPot, plant: null }))
-            } catch (error) {
-                console.error('Error Removing plant from pot:', error.message);
+            else{
+                console.log(`User chose to ${action} ${templateData.plant.nameOfPlant}`);
+                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData.plant, potID, setToken);
+                await setPot((prevPot) => ({ ...prevPot, plant: templateData.plant }));
             }
+          } catch (error) {
+            console.error('Error updating pot:', error.message);
+          }
         }
-
-        if (action === 'delete') {
-            try {
-                await deletePot(potID, setToken);
-                navigate("/")
-            } catch (error) {
-                console.error('Error disconnecting pot:', error);
-                return;
-            }
+      
+        else if (action === 'remove') {
+          try {
+            await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
+            setPot((prevPot) => ({ ...prevPot, plant: null }));
+          } catch (error) {
+            console.error('Error removing plant from pot:', error.message);
+          }
         }
-    };
+      
+        else if (action === 'delete') {
+          try {
+            await deletePot(potID, setToken);
+            navigate("/");
+          } catch (error) {
+            console.error('Error disconnecting pot:', error);
+            return;
+          }
+        }
+      };
 
     return (
         <div className='container'>
