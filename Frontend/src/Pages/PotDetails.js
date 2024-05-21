@@ -114,10 +114,10 @@ export default function PotDetails() {
                 </div>
                 <div className='col-md-4'>
                     <div className='row'>
-                        <div className="col-md-9 ">
+                        <div className="col-9 ">
                             <img src={pot?.plant?.image ?? placeholder} alt="placeholder" className="img-fluid" />
                         </div>
-                        <div className="col-md-3 align-self-end">
+                        <div className="col-3 align-self-end">
                             {latestMeasuredSoilData && (
                                 <WaterContainerChart
                                     currentWaterLevel={latestMeasuredSoilData.waterTankLevel}
