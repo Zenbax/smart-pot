@@ -2,13 +2,20 @@ import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from '../src/Pages/Login';
-import { loginUser } from '../src/API/API_config';
+import { loginUser } from '../src/Util/API_config';
 import '@testing-library/jest-dom';
 import { useNavigate } from 'react-router-dom';
 import { MD5 } from 'crypto-js';
+import { useAuth } from '../src/Util/AuthProvider';
 
 
-jest.mock("../src/API/API_config", () => ({
+  jest.mock('../src/Util/AuthProvider', () => ({
+  useAuth: () => ({
+    setToken: jest.fn() 
+    })
+  }));
+
+  jest.mock("../src/Util/API_config", () => ({
     loginUser: jest.fn()
   }));
   
@@ -22,6 +29,7 @@ jest.mock("../src/API/API_config", () => ({
       toString: () => 'hashedPassword'
     })
   }));
+
 
 
 test("renders the login form with all fields and buttons", () => {
@@ -71,7 +79,7 @@ test("submits the form with an unsuccessful login", async () => {
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
   
-    loginUser.mockImplementation((email, password) => false);  // Mock loginUser to return true
+    loginUser.mockImplementation((email, password) => false); 
   
     render(
         <BrowserRouter>
