@@ -83,30 +83,38 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
     console.log(`User chose to ${action}`);
     setPopupType(''); // Close the popup
     if (action === 'create') {
-      try {
-        await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
-        window.location.reload();
-      } catch (error) {
-        console.error('Error creating plant:', error.message);
-      }
+        const response =await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
+        if (response === true){
+          window.location.reload();
+        }
+        else{
+          setError(response);
+          setShowError(true);
+        }
     }
 
     else if (action === 'overwrite' && isDefault === false) {
-      try {
-        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName, setToken);
-        window.location.reload();
-      } catch (error) {
-        console.error('Error updating plant:', error.message);
-      }
+        const response = await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantInitialName, setToken);
+        if (response === true){
+          window.location.reload();
+        }
+        else{
+          setError(response);
+          setShowError(true);
+        }
+        
     }
 
     else if (action === 'delete' && isDefault === false) {
-      try {
-        await deletePlant(plantInitialName, setToken);
+        const response = await deletePlant(plantInitialName, setToken);
         window.location.reload();
-      } catch (error) {
-        console.error('Error deleting plant:', error.message);
-      }
+        if (response === true){
+          window.location.reload();
+        }
+        else{
+          setError(response);
+          setShowError(true);
+        }
     }
     handlePopUpAction(action);
   };

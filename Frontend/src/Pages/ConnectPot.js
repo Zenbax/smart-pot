@@ -27,9 +27,16 @@ const ConnectPot = () => {
         }
 
 
-        await createPot(nameOfPot, idOfPot, plantData, setToken)
-
-        navigate("/");
+        const response =  await createPot(nameOfPot, idOfPot, plantData, setToken)
+        if(response===true){
+            navigate("/");
+        }
+        else{
+            setError(response);
+            setShowError(true);
+            return;
+        }
+        
 
     };
 
