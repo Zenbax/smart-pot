@@ -1,3 +1,6 @@
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +21,9 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         {
             _potLogic = potLogic;
         }
-
+        
+        //måske skal denne metode slettes
+/*
         [HttpGet("get/all")]
         public async Task<ActionResult<PotGetAllDto>> GetPot()
         {
@@ -39,6 +44,20 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 return StatusCode(500, potGetAllDto);
             }
         }
+        */
+        
+        
+        
+        [HttpGet("get/all")]
+        public async Task<IActionResult> GetAllPots()
+        {
+            // Assumption: The email is stored as a claim, adjust based on your actual implementation
+            
+            string userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            var result = await _potLogic.GetAllPots(userEmail);
+            return Ok(result);
+        }
+        
 
         [HttpGet("get/{id}")]
         public async Task<ActionResult<PotGetByIdDto>> GetPotById(string id)
@@ -62,9 +81,9 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<PotCreationDto>> Post(CreatePotRequestDto createPotRequestDto)
+        public async Task<ActionResult<PotCreationDto>> CreatePot(CreatePotRequestDto createPotRequestDto)
         {
-            Pot pot = new Pot()
+            var pot = new Pot
             {
                 NameOfPot = createPotRequestDto.PotName,
                 Email = createPotRequestDto.Email,
@@ -72,23 +91,15 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
                 MachineID = createPotRequestDto.MachineID,
                 Plant = createPotRequestDto.Plant
             };
-            PotCreationDto potCreationDto = new PotCreationDto(pot);
-            try
+
+            var result = await _potLogic.CreatePot(new PotCreationDto(pot));
+            if (!result.Success)
             {
-                var result = await _potLogic.CreatePot(potCreationDto);
-                if (result.Success == false)
-                {
-                    return BadRequest(result);
-                }
-                return Ok(result);
+                return BadRequest(result.Message);
             }
-            catch (Exception ex)
-            {
-                potCreationDto.Message = $"Error: {ex.Message}";
-                potCreationDto.Success = false;
-                return StatusCode(500, potCreationDto);
-            }
+            return Ok(result);
         }
+
 
 
         [HttpPut("update/{id}")] 
