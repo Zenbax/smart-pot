@@ -42,10 +42,4 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-# Ignorer bin og obj mapper for alle projekter
-**/bin/
-**/obj/
-
-# Ignorer specifikke Rider filer
-**/rider.project.restore.info
-**/rider.project.settings
+obj

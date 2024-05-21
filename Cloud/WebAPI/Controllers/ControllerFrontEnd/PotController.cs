@@ -52,6 +52,7 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         public async Task<IActionResult> GetAllPots()
         {
             // Assumption: The email is stored as a claim, adjust based on your actual implementation
+            
             string userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             var result = await _potLogic.GetAllPots(userEmail);
             return Ok(result);
