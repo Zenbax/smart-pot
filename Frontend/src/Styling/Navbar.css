@@ -6,10 +6,14 @@
     justify-content: space-between;
 }
 
-.logo{
-    font-size: 1.5em;
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: rgb(125, 230, 125);
+    font-family: 'Arial', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0.5, 0.5, 0.5, 0.5);
+    letter-spacing: 0.05em;
 }
-
 .login-button{
  background-color: red;
  color: white;

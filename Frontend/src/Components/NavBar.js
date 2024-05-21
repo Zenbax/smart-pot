@@ -27,7 +27,7 @@ const isLoginPage = location.pathname === "/Login";
         <Link onClick={homeClick}><div className="logo">Smart-Pot</div></Link> 
         {!isLoginPage && (
         <Link to="/Login">
-          <button type="button" className="login-button" onClick={handleClick}>Logout</button>
+          <button type="button" class="btn btn-danger" onClick={handleClick}>Logout</button>
         </Link>)}
       </nav>
     );
