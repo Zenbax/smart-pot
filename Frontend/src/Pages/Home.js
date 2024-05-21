@@ -44,7 +44,7 @@ const Home = () =>
                         </div>
                         <div>
                             <button type="button" className="btn btn-outline-dark">
-                                <Link to="/plant_overview">Overview</Link>
+                                <Link to="/plant_overview">Plant Overview</Link>
                             </button>
                         </div>
                     </Row>
