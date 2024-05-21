@@ -247,9 +247,12 @@ export async function loginUser(email, password, setToken) {
     try{
         const response = await unauthorizedInstance.post("/auth/login", jsonUserInfoDTO);
         console.log(response);  
-       localStorage.setItem('userEmail', response.data.user.email)
+       localStorage.setItem('userEmail', response.data.user.email);
        localStorage.setItem('userId', response.data.user.id);
-       localStorage.setItem('token', response.data.token)
+       localStorage.setItem('token', response.data.token);
+       localStorage.setItem('userName',response.data.user.name);
+       localStorage.setItem('userLastName',response.data.user.lastName);
+       localStorage.setItem('userPhoneNumber',response.data.user.phoneNumber);
        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token; //Bliver sat i authProvider men fordi setState er asyncron bliver den nødt til også at blive sat her
        setToken(response.data.token)
        return true
@@ -310,3 +313,4 @@ export async function deletePot(paramMachineId, handleNotAuthorized){
     }
     
 }
+

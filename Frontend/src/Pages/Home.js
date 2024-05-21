@@ -11,6 +11,7 @@ const Home = () =>
 {
     const { token, setToken } = useAuth();
      const [pots, setPots] = useState([]);
+     const [userData, setUserData] = useState();
 
     useEffect(() => {
         if(token){
@@ -35,6 +36,9 @@ const Home = () =>
                 <Col md="4">
                     <Row>
                         <div>Profile</div>
+                        <div>Name: {localStorage.getItem('userName')} {localStorage.getItem('userLastName')}</div>
+                        <div>Email: {localStorage.getItem('userEmail')}</div>
+                        <div>Phone: {localStorage.getItem('userPhoneNumber')}</div>
                     </Row>
                     <Row>
                         <div>
