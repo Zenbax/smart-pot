@@ -20,3 +20,10 @@ h3{
 .Buttons{
     margin-top: 50px;
 }
+
+#DisableWatering{
+    margin-top: 10px;
+}
+#DisableWatering label{
+    margin-right: 10px;
+}

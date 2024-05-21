@@ -275,7 +275,7 @@ export async function loginUser(email, password, setToken) {
 
         }
     )
-    console.log(jsonUserInfoDTO)
+   
 try{
     const response = await authorizedInstance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
     console.log(response)
