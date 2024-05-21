@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../Styling/SmartPot.css'
@@ -21,8 +21,8 @@ const formatDate = (timestamp) => {
     return date.toLocaleDateString('en-US', options);
 };
 
-const SmartPot = ({potID}) => {
-    
+const SmartPot = ({ potID }) => {
+
     const [pot, setPot] = useState(null);
     const { setToken } = useAuth();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
@@ -66,35 +66,37 @@ const SmartPot = ({potID}) => {
             setWarning(false);
         }
     }, [latestMeasuredSoilData]);
-    
+
 
     if (!pot) {
         return <div>Loading...</div>;
     }
 
-    return(
-        <Link to={"/pot-details/"+pot.id}>
-        <Container id='smartPodContainer' data-testid='smartPodContainer' className={warning ? 'warningContainer' : ''}>
-            <Row>
-                <Col id='bottomCol' md="8">
-                    <h1>{pot.nameOfPot}</h1>
-                    <h2>{"Plant: "+ (pot.plant?.nameOfPlant ?? "No Plant")}</h2>
-                    {latestMeasuredSoilData && <p>Soil Hydration:</p>}
-                    <h1 id='percent'>{latestMeasuredSoilData ? latestMeasuredSoilData.measuredSoilMoisture + "%" : "No Data"}</h1>
-                    {latestMeasuredSoilData && <img id='waterdrop' src={waterdropImage} />}
-                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel + "%" : "No Data"}</p>
-                    <p>Last Watered: {latestMeasuredSoilData ? formatDate(latestMeasuredSoilData.timestamp) : "No Data"}</p>    
-                </Col>
-                <Col md="4">
-                    <img id='smartPotPlant' src={pot.plant?.image} onError={event => {
-                        event.target.src = "https://img.freepik.com/premium-vector/home-plant-potted-plant-isolated-white-flat-vector-illustration_186332-890.jpg"
-                        event.onerror = null
-                        }}/>
-                </Col>
-            </Row>
-        </Container>
+    return (
+        <Link to={"/pot-details/" + pot.id}>
+            <Container id='smartPodContainer' data-testid='smartPodContainer' className={warning ? 'warningContainer' : ''}>
+                <Row>
+                    <Col id='bottomCol' md="8">
+                        <h1>{pot.nameOfPot}</h1>
+                        <h2>{"Plant: " + (pot.plant?.nameOfPlant ?? "No Plant")}</h2>
+                        {latestMeasuredSoilData && <p>Soil Hydration:</p>}
+                        <div className='waterDropContainer'>
+                            <h1 id='percent'>{latestMeasuredSoilData ? latestMeasuredSoilData.measuredSoilMoisture + "%" : "No Data"}</h1>
+                            {latestMeasuredSoilData && <img id='waterdrop' src={waterdropImage} />}
+                        </div>
+                        <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel + "%" : "No Data"}</p>
+                        <p>Last Watered: {latestMeasuredSoilData ? formatDate(latestMeasuredSoilData.timestamp) : "No Data"}</p>
+                    </Col>
+                    <Col md="4">
+                        <img id='smartPotPlant' src={pot.plant?.image} onError={event => {
+                            event.target.src = "https://img.freepik.com/premium-vector/home-plant-potted-plant-isolated-white-flat-vector-illustration_186332-890.jpg"
+                            event.onerror = null
+                        }} />
+                    </Col>
+                </Row>
+            </Container>
         </Link>
-        
+
     );
 }
 
