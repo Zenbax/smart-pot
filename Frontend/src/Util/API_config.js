@@ -1,6 +1,4 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
-import { useAuth } from "./AuthProvider";
 
 const API_BASE_URL = "http://13.53.174.85/";
 
@@ -17,13 +15,12 @@ const authorizedInstance = axios.create({
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      //Bearer: Cookies.get('token')
       Authorization: 'Bearer '+ localStorage.getItem('token')
     },
   });
 
   authorizedInstance.interceptors.request.use((config) => {
-    if (localStorage.getItem('token')){ // or get it from localStorage
+    if (localStorage.getItem('token')){
       config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
     }
     return config
@@ -39,14 +36,15 @@ export async function createUser (paramName, paramLastName, paramPassword, param
                 phoneNumber: paramPhoneNumber
             }
         )
-        console.log(jsonUserInfoDTO)
     try{
         const response = await unauthorizedInstance.post("/auth/register", jsonUserInfoDTO,);
         console.log(response)
+        return true
         
     }
-    catch(Error){
-        console.log(Error.message)
+    catch(error){
+        console.log(error.response.data.message)
+        return error.response.data.message
     }
     
 }
@@ -69,6 +67,7 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
             try{
                 const response = await authorizedInstance.post("/pot/create", jsonUserInfoDTO,);
                 console.log(response)
+                return true
                 
             }
             catch(error){
@@ -78,7 +77,8 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
                     handleNotAuthorized("")
                 }
                 else{
-                    console.log(error.message)
+                    console.log(error.response.data.message)
+                    return error.response.data.message
                 }
             }
 
@@ -100,6 +100,7 @@ export async function createPlant (paramName, paramMinMoisture, paramImage, para
 try{
     const response = await authorizedInstance.post("/plant/create", jsonUserInfoDTO,);
     console.log(response)
+    return true
     
 }
 catch(error){
@@ -109,7 +110,8 @@ catch(error){
         handleNotAuthorized("")
     }
     else{
-        console.log(error.message)
+        console.log(error.response.data.message)
+        return error.response.data.message
     }
 }
 
@@ -128,6 +130,7 @@ export async function updatePlant (paramName, paramMinMoisture, paramWateringAmo
 try{
     const response = await authorizedInstance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
     console.log(response)
+    return true
     
 }
 catch(error){
@@ -137,7 +140,8 @@ catch(error){
         handleNotAuthorized("")
     }
     else{
-        console.log(error.message)
+        console.log(error.response.data.message)
+        return error.response.data.message
     }
 }
 
@@ -147,6 +151,7 @@ export async function deletePlant(paramPlantName, handleNotAuthorized){
     try{
         const response = await authorizedInstance.delete("/plant/delete/"+paramPlantName)
         console.log(response)
+        return true
     }
     catch(error){
         if(error?.response?.status === 401){
@@ -155,7 +160,8 @@ export async function deletePlant(paramPlantName, handleNotAuthorized){
             handleNotAuthorized("")
         }
         else{
-            console.log(error.message)
+            console.log(error.response.data.message)
+            return error.response.data.message
         }
     }
     
@@ -173,7 +179,7 @@ export async function getPotFromId(id, handleNotAuthorized, handlePotNotFound){
             handleNotAuthorized("")
         }
         else{
-            handlePotNotFound()
+            console.log(error.response.data.message)
         }
     }
     
@@ -188,6 +194,9 @@ export async function getPlantByName(paramName, handleNotAuthorized){
     catch(error){
         if(error?.response?.status === 401){
             handleNotAuthorized()
+        }
+        else{
+            console.log(error.response.data.message)
         }
     }
     
@@ -208,7 +217,7 @@ export async function getAllPots(handleNotAuthorized){
             handleNotAuthorized("")
         }
         else{
-            console.log(error.message)
+            console.log(error.response.data.message)
         }
     }
     
@@ -227,7 +236,7 @@ export async function getAllPlants(handleNotAuthorized){
             handleNotAuthorized("")
         }
         else{
-            console.log(error.message)
+            console.log(error.response.data.message)
         }
     }
     
@@ -258,11 +267,9 @@ export async function loginUser(email, password, setToken) {
        return true
     }
     catch(error){
-        if(error?.response?.status === 400){
-            console.log("Invalid Credentials error happened")
-            return "Invalid Credentials"
+            console.log(error.response.data.message)
+            return error.response.data.message
         }
-    }
     
   }
 
@@ -282,6 +289,7 @@ export async function loginUser(email, password, setToken) {
 try{
     const response = await authorizedInstance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
     console.log(response)
+    return true
     
 }
 catch(error){
@@ -291,7 +299,8 @@ catch(error){
         handleNotAuthorized("")
     }
     else{
-        console.log(error.message)
+        console.log(error.response.data.message)
+        return error.response.data.message
     }
 }}
 
@@ -300,6 +309,7 @@ export async function deletePot(paramMachineId, handleNotAuthorized){
     try{
         const response = await authorizedInstance.delete("/pot/delete/"+ paramMachineId)
         console.log(response)
+        return true
     }
     catch(error){
         if(error?.response?.status === 401){
@@ -308,7 +318,8 @@ export async function deletePot(paramMachineId, handleNotAuthorized){
             handleNotAuthorized("")
         }
         else{
-            console.log(error.message)
+            console.log(error.response.data.message)
+            return error.response.data.message
         }
     }
     
