@@ -63,8 +63,8 @@ export default function PotDetails() {
 
     const handlePopUpAction = async (action, templateData = null) => {
         setPopupType('');
-        console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
         if (action === 'add' && templateData) {
+            console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
             try {
                 await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken);
                 await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
