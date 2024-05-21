@@ -15,7 +15,7 @@ const SmartPot = ({potID}) => {
     const [pot, setPot] = useState(null);
     const { setToken } = useAuth();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
-    const [warning, setWarning] = useState('');
+    const [warning, setWarning] = useState(false);
 
     const handlePotNotFound = () => {
         console.log("Pot not found error");
@@ -28,10 +28,10 @@ const SmartPot = ({potID}) => {
                 if (response && response.success) {
                     setPot(response.pot);
                     const sensorData = response.pot.sensorData;
-                    setError(false);
+                    setWarning(false);
                     if (sensorData && sensorData.length > 0) {
                         setLatestMeasuredSoilData(sensorData[sensorData.length - 1]);
-                        if (sensorData[sensorData.length - 1].waterTankLevel.currentWaterLevel < 75) {
+                        if (sensorData[sensorData.length - 1].waterTankLevel.currentWaterLevel <= 25) {
                             setWarning(true);
                         }
                     } else {
@@ -65,7 +65,7 @@ const SmartPot = ({potID}) => {
                     {latestMeasuredSoilData && <p>Soil Hydration:</p>}
                     <h1 id='percent'>{latestMeasuredSoilData ? latestMeasuredSoilData.measuredSoilMoisture + "%" : "No Data"}</h1>
                     {latestMeasuredSoilData && <img id='waterdrop' src={waterdropImage} />}
-                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel.currentWaterLevel + "ml" : "No Data"}</p>
+                    <p>WaterTank: {latestMeasuredSoilData ? latestMeasuredSoilData.waterTankLevel.currentWaterLevel + "%" : "No Data"}</p>
                     <p>Last Watered: {latestMeasuredSoilData ? latestMeasuredSoilData.timestamp : "No Data"}</p>    
                 </Col>
                 <Col md="4">

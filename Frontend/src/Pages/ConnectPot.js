@@ -26,7 +26,7 @@ const ConnectPot = () => {
             return;
         }
 
-        
+
         await createPot(nameOfPot, idOfPot, plantData, setToken)
 
         navigate("/");
@@ -39,16 +39,23 @@ const ConnectPot = () => {
         if (action === 'add' && plantData) {
             setPlantData(plantData);
         }
+        else if (action === 'remove') {
+            setPlantData(null);
+        }
     };
 
     const handleAddPlantClick = () => {
         setShowPopUp(true);
-    };   
-    
+    };
+
     const handleCloseError = () => {
         setShowError(false);
         setError('');
     };
+
+    const showRemove = plantData !== null;
+    const addOrChangePlantText = plantData ? "Change plant" : "Add a plant";
+
 
     return (
         <div className="container">
@@ -72,14 +79,14 @@ const ConnectPot = () => {
                 </div>
 
                 {showError && (
-                <div className='error-popup'>
-                    <p>{error}</p>
-                </div>
+                    <div className='error-popup'>
+                        <p>{error}</p>
+                    </div>
                 )}
 
                 <div>
                     <label className="file-upload-button" onClick={handleAddPlantClick}>
-                        Add a plant
+                        {addOrChangePlantText}
                     </label>
                 </div>
 
@@ -104,6 +111,7 @@ const ConnectPot = () => {
             {showPopUp && (
                 <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
+                    ShowRemove={showRemove}
                 />
             )}
         </div>
