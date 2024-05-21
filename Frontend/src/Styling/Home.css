@@ -8,5 +8,21 @@
 }
 
 .homeContainer button{
-    margin: 4px;
+    margin-top: 14px;
+}
+
+.homeContainer .card{
+    margin: 2px;
+    margin-bottom: 4px;
+}
+
+.homeContainer .card-header {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #456c42;
+    letter-spacing: 0.05em;
+}
+
+.homeContainer .card-text {
+    margin: 5px 0;
 }
