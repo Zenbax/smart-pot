@@ -17,12 +17,10 @@ export default function PotDetails() {
     const navigate = useNavigate();
     const { setToken } = useAuth();
     const [pot, setPot] = useState();
+    const [isChecked, setIsChecked] = useState(false);
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [popupType, setPopupType] = useState(false);
-    const handleNotAuthorized = () => {
-        console.log("Removing token")
-        setToken("");
-    }
+   
     const handlePotNotFound = () => {
         console.log("not found error")
         navigate('/pot-details/');
@@ -35,6 +33,7 @@ export default function PotDetails() {
                 const response = await getPotFromId(potID, setToken, handlePotNotFound);
                 if (response.success) {
                     setPot(response.pot);
+                    setIsChecked(!response.pot.enable)
                     const sensorData = response.pot.sensorData;
                     if (sensorData && sensorData.length > 0) {
                         // Get the latest measured soil data
@@ -59,6 +58,17 @@ export default function PotDetails() {
 
     const handleChangePlant = () => {
         setPopupType("change");
+    };
+
+    const toggleDisable = async (e) => {
+        const enable = e.target.checked ? 0 : 1;
+        setIsChecked(e.target.checked)
+        try {
+            await updatePot(pot.nameOfPot, pot.email, pot.machineID, enable, pot.plant, potID, setToken);
+            setPot((prevPot) => ({ ...prevPot, plant: pot.plant }));
+        } catch (error) {
+            console.error("");
+        }
     };
 
     const handlePopUpAction = async (action, templateData = null) => {
@@ -121,17 +131,24 @@ export default function PotDetails() {
                             {latestMeasuredSoilData && (
                                 <WaterContainerChart
                                     currentWaterLevel={latestMeasuredSoilData.waterTankLevel}
-                                    maxWaterLevel={100} // Assuming 100 is the max level
                                 />
                             )}
                         </div>
                         <div className='col-md-12'>
                             <div className='row'>
                                 <div className='col-md-12 d-flex justify-content-between'>
-                                    <button className='Buttons' onClick={handleDisconnect}>Disconnect pot</button>
+                                    <button className='Buttons btn btn-danger' onClick={handleDisconnect}>Disconnect pot</button>
                                     <button className='Buttons' onClick={handleChangePlant}>Change plant</button>
                                 </div>
                             </div>
+                            <div className='row'>
+                                <form id="DisableWatering">
+                                    <label for="toggleDisable">Disable watering</label>
+                                    <input checked={isChecked} type="checkbox" id="toggleDisable" onChange={toggleDisable}/>
+                                </form>
+                                
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
