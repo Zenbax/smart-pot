@@ -21,40 +21,27 @@ const formatDate = (timestamp) => {
     return date.toLocaleDateString('en-US', options);
 };
 
-const SmartPot = ({ potID }) => {
+const SmartPot = ({ pot }) => {
 
-    const [pot, setPot] = useState(null);
     const { setToken } = useAuth();
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [warning, setWarning] = useState(false);
 
 
     useEffect(() => {
-        const fetchData = async () => {
             try {
-                const response = await getPotFromId(potID, setToken);
-                if (response && response.success) {
-                    setPot(response.pot);
-                    const sensorData = response.pot.sensorData;
+                    const sensorData = pot.sensorData;
                     setWarning(false);
                     if (sensorData && sensorData.length > 0) {
                         setLatestMeasuredSoilData(sensorData[sensorData.length - 1]);
                     } else {
                         setLatestMeasuredSoilData(null);
                     }
-                } else {
-                    console.error('Error fetching pot data:', response ? response.message : "Unknown error");
-                }
+                
             } catch (error) {
                 console.error('Error fetching pot data:', error);
             }
-        };
-        if (potID) {
-            fetchData();
-        } else {
-            console.error("potID is undefined");
-        }
-    }, [potID, setToken]);
+    }, [pot, setToken]);
 
     useEffect(() => {
         if (latestMeasuredSoilData && latestMeasuredSoilData.waterTankLevel < 25) {
