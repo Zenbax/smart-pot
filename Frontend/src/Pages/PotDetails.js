@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom"
-import { deletePot, getPotFromId, updatePlant, updatePot } from "../Util/API_config";
+import { deletePot, getPotFromId, updatePot } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
 import EditPlantInPot from "../Components/EditPlantInPot";
@@ -63,10 +63,10 @@ export default function PotDetails() {
 
     const handlePopUpAction = async (action, templateData = null) => {
         setPopupType('');
-        console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
         if (action === 'add' && templateData) {
+            console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, templateData, potID, setToken);
+                await updatePot(pot.nameOfPot, pot.email, pot.machineID, 1, templateData, potID, setToken);
                 await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
 
             } catch (error) {
@@ -76,7 +76,7 @@ export default function PotDetails() {
 
         else if (action === 'remove') {
             try {
-                await updatePot(pot.nameOfPot, pot.email, potID, pot.enable, null, potID, setToken);
+                await updatePot(pot.nameOfPot, pot.email, pot.machineID, 0, null, potID, setToken);
                 setPot((prevPot) => ({ ...prevPot, plant: null }));
             } catch (error) {
                 console.error('Error removing plant from pot:', error.message);
@@ -114,10 +114,10 @@ export default function PotDetails() {
                 </div>
                 <div className='col-md-4'>
                     <div className='row'>
-                        <div className="col-md-9 ">
+                        <div className="col-9 ">
                             <img src={pot?.plant?.image ?? placeholder} alt="placeholder" className="img-fluid" />
                         </div>
-                        <div className="col-md-3 align-self-end">
+                        <div className="col-3 align-self-end">
                             {latestMeasuredSoilData && (
                                 <WaterContainerChart
                                     currentWaterLevel={latestMeasuredSoilData.waterTankLevel}
