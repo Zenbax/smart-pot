@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../Styling/SmartPot.css'
 import { getPotFromId } from '../Util/API_config';
 import { useState, useEffect } from 'react';
-import waterdropImage from '../images/waterdrop.jpg'
+import waterdropImage from '../images/waterdrop.png'
 import { useAuth } from "../Util/AuthProvider";
 import { useParams } from 'react-router-dom';
 import WaterContainerChart from './WaterContainerChart';
