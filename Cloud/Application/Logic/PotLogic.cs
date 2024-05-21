@@ -46,6 +46,13 @@ namespace Application_.Logic;
         return potGetAllDto;
     }
 
+    public async Task<PotGetAllDto> GetAllPots(string userEmail)
+    {
+        var pots = await _pots.Find(p => p.Email == userEmail).ToListAsync();
+        PotGetAllDto potGetAllDto = new PotGetAllDto { Pots = pots };
+        return potGetAllDto;
+    }
+
     public async Task<PotGetByIdDto> GetPotById(PotGetByIdDto potGetByIdDto)
     {
         try
@@ -77,25 +84,33 @@ namespace Application_.Logic;
     {
         try
         {
-            if (potCreationDto.Pot.Enable != 0 && potCreationDto.Pot.Enable != 1)
+            // Check if MachineID already exists
+            var existingPot = await _pots.Find(p => p.MachineID == potCreationDto.Pot.MachineID).FirstOrDefaultAsync();
+            if (existingPot != null)
             {
-                potCreationDto.Message = "Enable must be 0 or 1";
-                potCreationDto.Success = false;
-                return potCreationDto;
+                return new PotCreationDto
+                {
+                    Success = false,
+                    Message = "MachineID already exists. Cannot create pot."
+                };
             }
-            
-            // Indsæt den nye Pot i databasen
+
             await _pots.InsertOneAsync(potCreationDto.Pot);
-            potCreationDto.Message = "Create pot successfully";
-            potCreationDto.Success = true;
+            return new PotCreationDto
+            {
+                Pot = potCreationDto.Pot,
+                Success = true,
+                Message = "Pot created successfully."
+            };
         }
         catch (Exception ex)
         {
-            potCreationDto.Message = $"Error: {ex.Message}";
-            potCreationDto.Success = false;
+            return new PotCreationDto
+            {
+                Success = false,
+                Message = $"An error occurred while creating the pot: {ex.Message}"
+            };
         }
-
-        return potCreationDto;
     }
 
     public async Task<PotUpdateDto> UpdatePot(PotUpdateDto potUpdateDto)
@@ -185,8 +200,4 @@ namespace Application_.Logic;
             throw new Exception("Failed to fetch pot by MachineID: " + ex.Message);
         }
     }
-    
-    
-    
-    
 }
