@@ -6,7 +6,7 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
     <div className="plantCreate-pop-up-container">
       <div className="plantCreate-pop-up">
         <div className="container-fluid"> 
-        <h2>You are about to delete {plantName}</h2>
+        <h2>You are about to delete: {plantName}</h2>
           <div className="row">
             <div className="col-lg-8">
               <p>Plant Name: {plantName}</p>
@@ -18,8 +18,8 @@ const PlantCreatePopUp = ({ handlePopUpAction, plantName, minSoilMoisture, water
             </div>
           </div>
         </div>
-        <button onClick={() => handlePopUpAction('delete')} className="delete-button">Delete</button>
-        <button onClick={() => handlePopUpAction('cancel')} className="cancel-button">Cancel</button>
+        <button onClick={() => handlePopUpAction('delete')} className="btn btn-danger">Delete</button>
+        <button onClick={() => handlePopUpAction('cancel')} className="btn btn-secondary">Cancel</button>
       </div>
     </div>
   );

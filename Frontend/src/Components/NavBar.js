@@ -23,7 +23,7 @@ const Navbar = () => {
   const isLoginPage = location.pathname === "/Login";
 
   return (
-    <nav className="nav-container">
+    <nav className="nav-container fixed-top">
       <div className="logo" onClick={homeClick} style={{ cursor: 'pointer' }}>
         Smart-Pot
       </div>

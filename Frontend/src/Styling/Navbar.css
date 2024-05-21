@@ -15,5 +15,7 @@
     letter-spacing: 0.05em;
 }
 
-
+body {
+    padding-top: 70px;
+  }
 

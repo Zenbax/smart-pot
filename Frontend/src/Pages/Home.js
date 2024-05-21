@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import PotsList from "../Components/PotsList";
 import { getAllPots } from "../Util/API_config";
 import '../Styling/Home.css'
 import { useAuth } from "../Util/AuthProvider";
-//import HelpContent from '../Components/HelpPopUpContent.js';
+
+
 const Home = () => {
     const { token, setToken } = useAuth();
     const [pots, setPots] = useState([]);
@@ -22,12 +23,6 @@ const Home = () => {
         }
 
     }, [token])
-
-    //const [showPopup, setShowPopup] = useState(false);
-
-    //const togglePopup = () => {
-    //setShowPopup(!showPopup);
-    //};
 
     return (
         <Container className="homeContainer">
