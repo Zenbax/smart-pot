@@ -28,14 +28,11 @@ const SmartPot = ({ potID }) => {
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [warning, setWarning] = useState(false);
 
-    const handlePotNotFound = () => {
-        console.log("Pot not found error");
-    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getPotFromId(potID, setToken, handlePotNotFound);
+                const response = await getPotFromId(potID, setToken);
                 if (response && response.success) {
                     setPot(response.pot);
                     const sensorData = response.pot.sensorData;

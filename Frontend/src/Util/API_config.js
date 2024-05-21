@@ -168,7 +168,7 @@ export async function deletePlant(paramPlantName, handleNotAuthorized){
 }
 
 
-export async function getPotFromId(id, handleNotAuthorized, handlePotNotFound){
+export async function getPotFromId(id, handleNotAuthorized){
     try{
         const response = await authorizedInstance.get("/pot/get/"+id)
         console.log(response)
@@ -180,6 +180,7 @@ export async function getPotFromId(id, handleNotAuthorized, handlePotNotFound){
         }
         else{
             console.log(error.response.data.message)
+            return false
         }
     }
     
@@ -197,6 +198,7 @@ export async function getPlantByName(paramName, handleNotAuthorized){
         }
         else{
             console.log(error.response.data.message)
+            return false
         }
     }
     

@@ -21,17 +21,12 @@ export default function PotDetails() {
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [popupType, setPopupType] = useState(false);
    
-    const handlePotNotFound = () => {
-        console.log("not found error")
-        navigate('/pot-details/');
-    }
-
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getPotFromId(potID, setToken, handlePotNotFound);
-                if (response.success) {
+                const response = await getPotFromId(potID, setToken);
+                if (response) {
                     setPot(response.pot);
                     setIsChecked(!response.pot.enable)
                     const sensorData = response.pot.sensorData;
@@ -44,8 +39,8 @@ export default function PotDetails() {
                     console.error('Error fetching pot data:', response.message);
                 }
             } catch (error) {
-                //console.error('Error fetching pot data:', error);
-                handlePotNotFound
+                console.log("not found error")
+                navigate('/pot-details/');
             }
         };
         fetchData();

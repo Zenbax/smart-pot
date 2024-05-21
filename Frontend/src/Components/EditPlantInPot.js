@@ -88,24 +88,38 @@ const EditPlantTemp = ({ handlePopUpAction, plant }) => {
     console.log(`User chose to ${action}`);
     setShowPopUp(false);
     if (action === 'create') {
-      try {
-        await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
+      
+        const response = await createPlant("new " + plantName, minSoilMoisture, plantImage, wateringAmount, setToken);
+        if(response !== true){
+          setError(response);
+          setShowError(true);
+        }
+        try {
         const templateData = await getPlantByName("new " + plantName, setToken);
         handlePopUpAction('add', templateData.plant);
       } catch (error) {
-        console.error('Error creating plant:', error.message);
+        setError('Error creating plant');
+          setShowError(true);
       }
     }
 
     if (action === 'overwrite') {
-      try {
-        await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName, setToken);
-        const templateData = await getPlantByName(plantName, setToken);
+        const response = await updatePlant(plantName, minSoilMoisture, wateringAmount, plantImage, plantName, setToken);
+        if(response !== true){
+          setError(response);
+          setShowError(true);
+        }
+        try{
+          const templateData = await getPlantByName(plantName, setToken);
         handlePopUpAction('add', templateData.plant);
-      } catch (error) {
-        console.error('Error updating plant:', error.message);
-      }
-    }
+        }
+        catch{
+          setError('Error updating plant');
+          setShowError(true);
+        }
+        
+      } 
+  
   };
 
   const handleCloseError = () => {
