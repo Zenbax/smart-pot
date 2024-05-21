@@ -8,14 +8,11 @@ const PotsList = ({ pots }) => {
     const handleChange = (e) =>{
         var filteredPots = []
         if(e){
-             listOfPots.map((pot) =>{
+             pots.map((pot) =>{
             if(pot.plant.nameOfPlant.toLowerCase().includes(e.toLowerCase())||pot.nameOfPot.toLowerCase().includes(e.toLowerCase())){
                 filteredPots.push(pot)
             }
         })
-        }
-        else{
-            filteredPots = pots;
         }
        
         setListOfPots(filteredPots);
@@ -35,7 +32,6 @@ const PotsList = ({ pots }) => {
 
             { listOfPots.map((e) => {
                 return <Smartpot potID={e.id} key={e.id} pot={e} />;
-
             })}
         </div>
         </>
