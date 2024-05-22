@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const API_BASE_URL = "http://13.53.174.85/";
 
 const unauthorizedInstance = axios.create({
@@ -19,7 +18,9 @@ const authorizedInstance = axios.create({
     },
   });
 
-  authorizedInstance.interceptors.request.use((config) => {
+
+ 
+authorizedInstance.interceptors.request.use((config) => {
     if (localStorage.getItem('token')){
       config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
     }
@@ -77,8 +78,8 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
                     handleNotAuthorized("")
                 }
                 else{
-                    console.log(error.response.data.message)
-                    return error.response.data.message
+                    console.log(error.response.data)
+                    return error.response.data
                 }
             }
 
