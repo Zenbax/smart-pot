@@ -113,6 +113,8 @@ const ConnectPot = () => {
                 <button type="submit" className="btn btn-primary">Connect Smart-pot</button>
             </form>
 
+            <button class="btn btn-secondary" style={{ marginTop: '14px' }} onClick={handleBack}>Back</button>
+
             {showPopUp && (
                 <PlantAddPopUp
                     handlePopUpAction={handlePopUpAction}
