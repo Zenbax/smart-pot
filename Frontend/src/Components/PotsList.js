@@ -1,45 +1,35 @@
 import React, { useState } from 'react';
 import Smartpot from '../Components/SmartPot';
-import '../Styling/PotsList.css'
-import '../Styling/Scrollbar.css'
+import '../Styling/PotsList.css';
+import '../Styling/Scrollbar.css';
 
 const PotsList = ({ pots }) => {
-    const [listOfPots, setListOfPots] = useState(pots)
-    const handleChange = (e) =>{
-        var filteredPots = []
-        if(e){
-             pots.map((pot) =>{
-            if(pot.plant.nameOfPlant.toLowerCase().includes(e.toLowerCase())||pot.nameOfPot.toLowerCase().includes(e.toLowerCase())){
-                filteredPots.push(pot)
-            }
-        })
-        }
-        else{
-            filteredPots = pots;
-        }
+    const [listOfPots, setListOfPots] = useState(pots);
+
+    const handleChange = (e) => {
+        const searchTerm = e.toLowerCase();
+        const filteredPots = pots.filter(pot => 
+            pot.plant?.nameOfPlant?.toLowerCase().includes(searchTerm) || 
+            pot.nameOfPot.toLowerCase().includes(searchTerm)
+        );
         setListOfPots(filteredPots);
-    }
+    };
 
     return (
         <>
-        
-           <div id='search'>
-            <form>
-                <input onChange={(e)=>handleChange(e.target.value)} type='text' placeholder='search for pot or plant'/>
-            </form>
-        </div> 
-    
-        
-        <div id='list'>
+            <div id='search'>
+                <form>
+                    <input onChange={(e) => handleChange(e.target.value)} type='text' placeholder='search for pot or plant'/>
+                </form>
+            </div> 
 
-            { listOfPots.map((e) => {
-                return <Smartpot potID={e.id} key={e.id} pot={e} />;
-            })}
-        </div>
+            <div id='list'>
+                {listOfPots.map((e) => (
+                    <Smartpot data-testid="smartPodContainer" potID={e.id} key={e.id} pot={e} />
+                ))}
+            </div>
         </>
-        
     );
 };
 
-
-export default PotsList
+export default PotsList;
