@@ -254,7 +254,6 @@ export async function loginUser(email, password, setToken) {
        localStorage.setItem('userName',response.data.user.name);
        localStorage.setItem('userLastName',response.data.user.lastName);
        localStorage.setItem('userPhoneNumber',response.data.user.phoneNumber);
-       axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token; //Bliver sat i authProvider men fordi setState er asyncron bliver den nødt til også at blive sat her
        setToken(response.data.token)
        return true
     }
