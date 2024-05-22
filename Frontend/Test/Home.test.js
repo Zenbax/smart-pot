@@ -14,6 +14,23 @@ jest.mock('../src/Util/AuthProvider', () => ({
   })
 }));
 
+// Mock localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+};
+
+// Mock JSON.parse and localStorage.getItem
+jest.spyOn(JSON, 'parse').mockImplementation((string) => {
+  // Directly return an object with the expected structure
+  return {
+    name: 'Ditte',
+    lastName: 'Hej',
+    email: 'Hej@Test.com',
+    phoneNumber: '12345678'
+  };
+});
+
+
 
 jest.mock("../src/Util/API_config", () => ({
   getAllPots: jest.fn().mockResolvedValue([
@@ -23,18 +40,26 @@ jest.mock("../src/Util/API_config", () => ({
   ]),
 }));
 
+/*
 beforeEach(() => {
   Storage.prototype.getItem = jest.fn((key) => {
     return {
-      'userName': 'Ditte',
-      'userLastName': 'Hej',
-      'userEmail': 'Hej@Test.com',
-      'userPhoneNumber': '12345678'
+      'name': 'Ditte',
+      'lastName': 'Hej',
+      'email': 'Hej@Test.com',
+      'phoneNumber': '12345678'
     }[key];
+  });
+});*/
+beforeEach(() => {
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock,
   });
 });
 
 test('Home-page renders correctly', async () => {
+  localStorageMock.getItem.mockReturnValue('{"name": "Ditte", "lastName": "Hej", "email":"Hej@Test.com","phoneNumber":"12345678"}');
+
   render(
     <BrowserRouter>
       <Home />
