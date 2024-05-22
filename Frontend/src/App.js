@@ -22,10 +22,12 @@ const App = () => {
             <Navbar/>
             </BrowserRouter>
 
-        <Routes/>
+            <div id='content'>
+                  <Routes/>
+            </div>
+        
   </AuthProvider>
 
-      
    
         </div>
       )   
