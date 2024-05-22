@@ -45,13 +45,36 @@ namespace Application_.Logic;
         }
         return potGetAllDto;
     }
+    
 
     public async Task<PotGetAllDto> GetAllPots(string userEmail)
     {
-        var pots = await _pots.Find(p => p.Email == userEmail).ToListAsync();
-        PotGetAllDto potGetAllDto = new PotGetAllDto { Pots = pots };
+        PotGetAllDto potGetAllDto = new PotGetAllDto();
+        try
+        {
+            var pots = await _pots.Find(p => p.Email == userEmail).ToListAsync();
+            foreach (var pot in pots)
+            {
+                var sensorDataList = await _sensorData.Find(s => s.PotId == pot.Id).ToListAsync();
+                if (sensorDataList != null)
+                {
+                    pot.SensorData = sensorDataList;
+                }
+            }
+            potGetAllDto.Pots = pots;
+            potGetAllDto.Message = "Pots found.";
+            potGetAllDto.Success = true;
+        }
+        catch (Exception ex)
+        {
+            potGetAllDto.Message = $"Error retrieving pots: {ex.Message}";
+            potGetAllDto.Success = false;
+        }
         return potGetAllDto;
     }
+
+
+
 
     public async Task<PotGetByIdDto> GetPotById(PotGetByIdDto potGetByIdDto)
     {
