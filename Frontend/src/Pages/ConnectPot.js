@@ -26,27 +26,22 @@ const ConnectPot = () => {
             return;
         }
 
-
         const response =  await createPot(nameOfPot, idOfPot, plantData, setToken)
-        if(response===true){
+        if(response === true){
             navigate("/");
-        }
-        else{
+        } else {
             setError(response);
             setShowError(true);
             return;
         }
-        
-
     };
 
     const handlePopUpAction = (action, plantData) => {
-        setShowPopUp(false);
+        setShowPopUp(false); // Ensure pop-up closes
 
         if (action === 'add' && plantData) {
             setPlantData(plantData);
-        }
-        else if (action === 'remove') {
+        } else if (action === 'remove') {
             setPlantData(null);
         }
     };
@@ -60,9 +55,12 @@ const ConnectPot = () => {
         setError('');
     };
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     const showRemove = plantData !== null;
     const addOrChangePlantText = plantData ? "Change plant" : "Add a plant";
-
 
     return (
         <div className="container">
@@ -112,7 +110,7 @@ const ConnectPot = () => {
                     )}
                 </div>
 
-                <button type="submit" class="btn btn-primary">Connect Smart-pot</button>
+                <button type="submit" className="btn btn-primary">Connect Smart-pot</button>
             </form>
 
             {showPopUp && (

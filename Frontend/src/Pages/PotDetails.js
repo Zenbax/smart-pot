@@ -20,7 +20,7 @@ export default function PotDetails() {
     const [isChecked, setIsChecked] = useState(false);
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [popupType, setPopupType] = useState(false);
-   
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -99,10 +99,17 @@ export default function PotDetails() {
         }
     };
 
+    const handleBack = () => {
+        window.history.back();
+      };    
+
     return (
         <div className='container'>
             <div className="row TopSpace">
-                <div className='col-md-12'>
+                <div className='col-lg-1'>
+                    <button class="btn btn-secondary" onClick={handleBack}>Back</button>
+                </div>
+                <div className='col-md-10'>
                     <h1>{pot?.nameOfPot || 'Loading...'}</h1>
                 </div>
             </div>
@@ -139,11 +146,11 @@ export default function PotDetails() {
                             <div className='row'>
                                 <form id="DisableWatering">
                                     <label for="toggleDisable">Disable watering</label>
-                                    <input checked={isChecked} type="checkbox" id="toggleDisable" onChange={toggleDisable}/>
+                                    <input checked={isChecked} type="checkbox" id="toggleDisable" onChange={toggleDisable} />
                                 </form>
-                                
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
