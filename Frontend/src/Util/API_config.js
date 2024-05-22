@@ -16,8 +16,8 @@ instance.interceptors.request.use((config) => {
     return config
   });
 
-export async function createUser (paramName, paramLastName, paramPassword, paramEmail,paramPhoneNumber){ //TODO: eventuelt parse til JSON et andet sted
-        var jsonUserInfoDTO = JSON.stringify(
+export async function createUser (paramName, paramLastName, paramPassword, paramEmail,paramPhoneNumber){ 
+        var jsonDTO = JSON.stringify(
             {
                 name: paramName,
                 lastName: paramLastName,
@@ -27,7 +27,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
             }
         )
     try{
-        const response = await instance.post("/auth/register", jsonUserInfoDTO,);
+        const response = await instance.post("/auth/register", jsonDTO,);
         console.log(response)
         return true
         
@@ -41,21 +41,20 @@ export async function createUser (paramName, paramLastName, paramPassword, param
 
 
 export async function createPot (paramPotName, paramMachineId, paramPlant, handleNotAuthorized){
-    
     var paramEnable = 0
         if(paramPlant){
             paramEnable = 1
         }
-        var jsonUserInfoDTO = JSON.stringify(
+        var jsonDTO = JSON.stringify(
             {
                 potName: paramPotName,
-                email: localStorage.getItem('userEmail'),
+                email: JSON.parse(localStorage.getItem('user')).email,
                 machineId: paramMachineId,
                 enable: paramEnable,
                 plant: paramPlant
             });
             try{
-                const response = await instance.post("/pot/create", jsonUserInfoDTO,);
+                const response = await instance.post("/pot/create", jsonDTO,);
                 console.log(response)
                 return true
                 
@@ -77,18 +76,18 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
 
 
 export async function createPlant (paramName, paramMinMoisture, paramImage, paramWateringAmount, handleNotAuthorized){
-    var jsonUserInfoDTO = JSON.stringify(
+    var jsonDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
             soilMinimumMoisture: paramMinMoisture,
             image: paramImage,
             amountOfWaterToBeGiven: paramWateringAmount,
-            userid: localStorage.getItem("userId")
+            userid: JSON.parse(localStorage.getItem('user')).id,
         }
     )
-    console.log(jsonUserInfoDTO)
+    console.log(jsonDTO)
 try{
-    const response = await instance.post("/plant/create", jsonUserInfoDTO,);
+    const response = await instance.post("/plant/create", jsonDTO,);
     console.log(response)
     return true
     
@@ -108,7 +107,7 @@ catch(error){
 }
 
 export async function updatePlant (paramName, paramMinMoisture, paramWateringAmount, paramImage, paramInitialName, handleNotAuthorized){
-    var jsonUserInfoDTO = JSON.stringify(
+    var jsonDTO = JSON.stringify(
         {
             nameOfPlant: paramName,
             soilMinimumMoisture: paramMinMoisture,
@@ -116,9 +115,9 @@ export async function updatePlant (paramName, paramMinMoisture, paramWateringAmo
             image: paramImage
         }
     )
-    console.log(jsonUserInfoDTO)
+    console.log(jsonDTO)
 try{
-    const response = await instance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
+    const response = await instance.put("/plant/update/"+paramInitialName, jsonDTO,);
     console.log(response)
     return true
     
@@ -195,8 +194,6 @@ export async function getPlantByName(paramName, handleNotAuthorized){
 }
 
 export async function getAllPots(handleNotAuthorized){
-    axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('token')
-    console.log(axios.defaults.headers.common["Authorization"])
     try{
         const response = await instance.get("/pot/get/all");
         console.log(response)
@@ -217,7 +214,7 @@ export async function getAllPots(handleNotAuthorized){
 
 export async function getAllPlants(handleNotAuthorized){
     try{
-        const response = await instance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
+        const response = await instance.get("/plant/get/all?userId="+JSON.parse(localStorage.getItem('user')).id,)
         console.log(response)
         return response.data.plants
     }
@@ -235,38 +232,28 @@ export async function getAllPlants(handleNotAuthorized){
 }
 
 export async function loginUser(email, password, setToken) {
-    console.log("Header before login: " + instance.defaults.headers.common["Authorization"])
-    var jsonUserInfoDTO = JSON.stringify(
+    var jsonDTO = JSON.stringify(
         {
         email: email,
         Password: password
-        }
-    )
-    console.log(jsonUserInfoDTO)
-
-
+        })
     try{
-        const response = await instance.post("/auth/login", jsonUserInfoDTO);
+        const response = await instance.post("/auth/login", jsonDTO);
         console.log(response);  
-       localStorage.setItem('userEmail', response.data.user.email);
-       localStorage.setItem('userId', response.data.user.id);
-       localStorage.setItem('token', response.data.token);
-       localStorage.setItem('userName',response.data.user.name);
-       localStorage.setItem('userLastName',response.data.user.lastName);
-       localStorage.setItem('userPhoneNumber',response.data.user.phoneNumber);
-       setToken(response.data.token)
-       return true
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('token', response.data.token);
+        setToken(response.data.token)
+        return true
     }
     catch(error){
             console.log(error.response.data.message)
             return error.response.data.message
         }
-    
-  }
+    }
 
 
   export async function updatePot (paramName,paramEmail,paramMachineId,paramEnable,paramPlant, paramID, handleNotAuthorized){
-    var jsonUserInfoDTO = JSON.stringify(
+    var jsonDTO = JSON.stringify(
         {
             potName: paramName,
             email: paramEmail,
@@ -278,7 +265,7 @@ export async function loginUser(email, password, setToken) {
     )
    
 try{
-    const response = await instance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
+    const response = await instance.put("/pot/update/"+paramID, jsonDTO,);
     console.log(response)
     return true
     

@@ -11,7 +11,7 @@ import { useAuth } from "../Util/AuthProvider";
 const Home = () => {
     const { token, setToken } = useAuth();
     const [pots, setPots] = useState([]);
-    const [userData, setUserData] = useState();
+    const userData = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
         if (token) {
@@ -37,9 +37,9 @@ const Home = () => {
                                             Profile
                                         </div>
                                         <div className="card-body">
-                                            <p className="card-text"><strong>Name:</strong> {localStorage.getItem('userName')} {localStorage.getItem('userLastName')}</p>
-                                            <p className="card-text"><strong>Email:</strong> {localStorage.getItem('userEmail')}</p>
-                                            <p className="card-text"><strong>Phone:</strong> {localStorage.getItem('userPhoneNumber')}</p>
+                                            <p className="card-text"><strong>Name:</strong> {userData.name} {userData.lastName}</p>
+                                            <p className="card-text"><strong>Email:</strong> {userData.email}</p>
+                                            <p className="card-text"><strong>Phone:</strong> {userData.phoneNumber}</p>
                                         </div>
                                     </div>
                                 </div>
