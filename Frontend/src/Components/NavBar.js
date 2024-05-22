@@ -19,7 +19,6 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const isLoginPage = location.pathname === "/Login";
 
   return (
     <nav className="nav-container fixed-top">
