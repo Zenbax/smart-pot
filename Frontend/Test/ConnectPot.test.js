@@ -164,3 +164,97 @@ test('Selecting a plant template in the pop-up', async () => {
   });
 });
 
+test('Searching for a plant in plant template', async () => {
+  getAllPlants.mockResolvedValueOnce(mockPlants);
+
+  render(
+    <BrowserRouter>
+      <ConnectPot />
+    </BrowserRouter>
+  );
+
+  const addButton = screen.getByText('Add a plant');
+  fireEvent.click(addButton);
+
+  // Wait for the plant templates to be rendered
+  await waitFor(() => {
+    expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
+  });
+
+  const searchInput = screen.getByPlaceholderText('search for plant');
+  fireEvent.change(searchInput, { target: { value: 'rose' } });
+
+  // Wait for the search results to be filtered
+  await waitFor(() => {
+    expect(screen.getByText('Rose')).toBeInTheDocument();
+    expect(screen.queryByText('Tulip')).not.toBeInTheDocument();
+  });
+});
+
+test('Removing a plant template', async () => {
+  getAllPlants.mockResolvedValueOnce(mockPlants);
+
+  render(
+    <BrowserRouter>
+      <ConnectPot />
+    </BrowserRouter>
+  );
+
+  const addButton = screen.getByText('Add a plant');
+  fireEvent.click(addButton);
+
+  // Wait for the plant templates to be rendered
+  await waitFor(() => {
+    expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
+  });
+
+  const plantTemplate = screen.getAllByTestId('plant-template')[0];
+  fireEvent.click(plantTemplate);
+
+  // After clicking on a plant template, the plant should be selected and the popup should close
+  await waitFor(() => expect(screen.queryByText('plantAdd-pop-up')).not.toBeInTheDocument());
+  expect(screen.getByText('Rose')).toBeInTheDocument();
+
+  // Verify the button text has changed to "Change plant"
+  const changeButton = screen.getByText('Change plant');
+  expect(changeButton).toBeInTheDocument();
+
+  fireEvent.click(changeButton);
+
+  // Wait for the plant templates to be rendered again
+  await waitFor(() => {
+    expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
+  });
+
+  // Click the remove button to remove the selected plant
+  const removeButton = screen.getByText('Remove plant');
+  fireEvent.click(removeButton);
+
+  // After clicking remove, the plant should be removed and the popup should close
+  await waitFor(() => expect(screen.queryByText('plantAdd-pop-up')).not.toBeInTheDocument());
+  expect(screen.queryByText('Rose')).not.toBeInTheDocument();
+
+  // Verify the button text has reverted to "Add a plant"
+  expect(screen.getByText('Add a plant')).toBeInTheDocument();
+});
+
+
+test('Back button goes back', async () => {
+  const navigateMock = jest.fn();
+  useNavigate.mockReturnValue(navigateMock);
+  const historyBackMock = jest.fn();
+  global.window.history.back = historyBackMock;
+
+  render(
+    <BrowserRouter>
+      <ConnectPot />
+    </BrowserRouter>
+  );
+  
+  fireEvent.click(screen.getByText('Back'));
+
+  await waitFor(() => {
+    expect(historyBackMock).toHaveBeenCalled();
+  });
+});
+
