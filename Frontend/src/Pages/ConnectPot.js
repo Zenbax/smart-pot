@@ -60,6 +60,10 @@ const ConnectPot = () => {
         setError('');
     };
 
+    const handleBack = () => {
+        window.history.back();
+      };
+
     const showRemove = plantData !== null;
     const addOrChangePlantText = plantData ? "Change plant" : "Add a plant";
 
@@ -92,7 +96,7 @@ const ConnectPot = () => {
                 )}
 
                 <div>
-                    <label className="file-upload-button" onClick={handleAddPlantClick}>
+                    <label className="file-upload-button" style={{ marginLeft: '24px' }} onClick={handleAddPlantClick}>
                         {addOrChangePlantText}
                     </label>
                 </div>
@@ -114,6 +118,8 @@ const ConnectPot = () => {
 
                 <button type="submit" class="btn btn-primary">Connect Smart-pot</button>
             </form>
+
+            <button class="btn btn-secondary" style={{ marginTop: '14px' }} onClick={handleBack}>Back</button>
 
             {showPopUp && (
                 <PlantAddPopUp
