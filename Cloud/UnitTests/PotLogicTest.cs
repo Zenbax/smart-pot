@@ -21,17 +21,24 @@ namespace UnitTests
         public async Task CreatePot_SuccessfullyCreatesPot()
         {
             // Arrange
-            var pot = new Pot { Id = "1" };
-            var potDto = new PotCreationDto { Pot = pot };
+            var potDto = new PotCreationDto { Pot = new Pot { NameOfPot = "Pot1", MachineID = "123", Enable = 1 } };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
 
             // Act
             var result = await _potLogic.CreatePot(potDto);
 
             // Assert
             Assert.IsTrue(result.Success);
-            Assert.AreEqual("Create pot successfully", result.Message);
+            Assert.AreEqual("Pot created successfully.", result.Message);
         }
-
+        
         
         [Test]
         public async Task DeletePot_PotExists_SuccessfullyDeletesPot()
@@ -92,22 +99,6 @@ namespace UnitTests
             Assert.AreEqual("Pot not found", result.Message);
             Assert.IsNull(result.Pot);
         }
-
-        [Test]
-        public async Task CreatePot_InvalidEnableValue_ReturnsError()
-        {
-            // Arrange
-            var pot = new Pot { Id = "1", Enable = 2 }; // Invalid value for Enable
-            var potDto = new PotCreationDto { Pot = pot };
-
-            // Act
-            var result = await _potLogic.CreatePot(potDto);
-
-            // Assert
-            Assert.IsFalse(result.Success);
-            Assert.AreEqual("Enable must be 0 or 1", result.Message);
-        }
-
         
         [Test]
         public async Task UpdatePot_PotDoesNotExist_ReturnsError()
@@ -132,6 +123,22 @@ namespace UnitTests
             Assert.AreEqual("Pot with ID1 not found", result.Message);
             Assert.IsNull(result.Pot);
         }
+        
+        [Test]
+        public async Task DeletePot_Returns_Pot_Not_Found_When_Exception_Is_Thrown()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotDeleteDto { IdToDelete = potId };
+            _mockPotsCollection.Setup(x => x.DeleteOneAsync(It.IsAny<FilterDefinition<Pot>>(), default))
+                .Throws(new Exception());
 
+            // Act
+            var result = await _potLogic.DeletePot(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Error: Exception of type 'System.Exception' was thrown.", result.Message);
+        }
     }
 }

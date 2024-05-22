@@ -13,7 +13,7 @@ namespace UnitTests
             _mockPlantsCollection = new Mock<IMongoCollection<Plant>>();
             _plantLogic = new PlantLogic(_mockPlantsCollection.Object);
         }
-/*
+
         [Test]
         public async Task GetAllPlants_Returns_All_Plants()
         {
@@ -67,7 +67,7 @@ namespace UnitTests
             Assert.AreEqual(plants[0].NameOfPlant, result.Plants.First().NameOfPlant);
             Assert.AreEqual(plants[1].NameOfPlant, result.Plants.Last().NameOfPlant);
         }
-        */
+        
         
         [Test]
         public async Task GetPlantByName_Returns_Plant_With_Name()
