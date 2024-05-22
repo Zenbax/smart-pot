@@ -17,6 +17,7 @@ const Navbar = () => {
 
   const homeClick = () => {
     navigate("/");
+    window.location.reload();
   };
 
 
