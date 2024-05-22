@@ -5,7 +5,7 @@ import '../Styling/Navbar.css';
 import { useAuth } from '../Util/AuthProvider';
 
 const Navbar = () => {
-  const { setToken } = useAuth();
+  const {token, setToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const homeClick = () => {
     navigate("/");
-    window.location.reload();
   };
 
   const isLoginPage = location.pathname === "/Login";
@@ -27,7 +26,7 @@ const Navbar = () => {
       <div className="logo" onClick={homeClick} style={{ cursor: 'pointer' }}>
         Smart-Pot
       </div>
-      {!isLoginPage && (
+      {token && (
         <button type="button" className="btn btn-danger" onClick={handleLogoutClick}>
           Logout
         </button>
