@@ -1,24 +1,20 @@
 import axios from "axios";
-const API_BASE_URL = "http://13.53.174.85/";
-
 
 const instance = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: "http://13.53.174.85/",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: 'Bearer '+ localStorage.getItem('token')
+      "Content-Type": "application/json"
     },
   });
 
 
- 
 instance.interceptors.request.use((config) => {
     if (localStorage.getItem('token')){
       config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
     }
     return config
-  })
+  });
 
 export async function createUser (paramName, paramLastName, paramPassword, paramEmail,paramPhoneNumber){ //TODO: eventuelt parse til JSON et andet sted
         var jsonUserInfoDTO = JSON.stringify(
