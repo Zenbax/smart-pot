@@ -51,15 +51,12 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
         [HttpGet("get/all")]
         public async Task<IActionResult> GetAllPots()
         {
+            // Assumption: The email is stored as a claim, adjust based on your actual implementation
+            
             string userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (userEmail == null)
-            {
-                return BadRequest("User email not found.");
-            }
             var result = await _potLogic.GetAllPots(userEmail);
             return Ok(result);
         }
-
         
 
         [HttpGet("get/{id}")]
