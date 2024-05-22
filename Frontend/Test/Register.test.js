@@ -24,7 +24,7 @@ jest.mock('crypto-js', () => ({
 }));
 
 
-test("Register rendes correctly", () => {
+test("Register renders correctly", () => {
     const { getByText, getByPlaceholderText } = render(<Register />);
   
     expect(getByText('Register')).toBeInTheDocument();
