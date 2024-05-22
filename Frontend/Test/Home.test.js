@@ -40,17 +40,7 @@ jest.mock("../src/Util/API_config", () => ({
   ]),
 }));
 
-/*
-beforeEach(() => {
-  Storage.prototype.getItem = jest.fn((key) => {
-    return {
-      'name': 'Ditte',
-      'lastName': 'Hej',
-      'email': 'Hej@Test.com',
-      'phoneNumber': '12345678'
-    }[key];
-  });
-});*/
+
 beforeEach(() => {
   Object.defineProperty(window, 'localStorage', {
     value: localStorageMock,
