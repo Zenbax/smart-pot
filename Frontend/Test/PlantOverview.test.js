@@ -26,8 +26,8 @@ test('Render PlantOverView correctly', async () => {
     expect(screen.getByPlaceholderText('search for plant')).toBeInTheDocument();
 
     await waitFor(() => {
-        expect(screen.getByTestId('plant-template-0')).toBeInTheDocument();
-        expect(screen.getByTestId('plant-template-1')).toBeInTheDocument();
+        expect(screen.getByText('Fern')).toBeInTheDocument();
+        expect(screen.getByText('Jade Plant')).toBeInTheDocument();
     });
 
     expect(screen.getByText('Create Plant')).toBeInTheDocument();
