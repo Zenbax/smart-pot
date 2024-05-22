@@ -1,15 +1,8 @@
 import axios from "axios";
 const API_BASE_URL = "http://13.53.174.85/";
 
-const unauthorizedInstance = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
 
-const authorizedInstance = axios.create({
+const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       Accept: "application/json",
@@ -20,7 +13,7 @@ const authorizedInstance = axios.create({
 
 
  
-authorizedInstance.interceptors.request.use((config) => {
+instance.interceptors.request.use((config) => {
     if (localStorage.getItem('token')){
       config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
     }
@@ -38,7 +31,7 @@ export async function createUser (paramName, paramLastName, paramPassword, param
             }
         )
     try{
-        const response = await unauthorizedInstance.post("/auth/register", jsonUserInfoDTO,);
+        const response = await instance.post("/auth/register", jsonUserInfoDTO,);
         console.log(response)
         return true
         
@@ -66,7 +59,7 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
                 plant: paramPlant
             });
             try{
-                const response = await authorizedInstance.post("/pot/create", jsonUserInfoDTO,);
+                const response = await instance.post("/pot/create", jsonUserInfoDTO,);
                 console.log(response)
                 return true
                 
@@ -99,7 +92,7 @@ export async function createPlant (paramName, paramMinMoisture, paramImage, para
     )
     console.log(jsonUserInfoDTO)
 try{
-    const response = await authorizedInstance.post("/plant/create", jsonUserInfoDTO,);
+    const response = await instance.post("/plant/create", jsonUserInfoDTO,);
     console.log(response)
     return true
     
@@ -129,7 +122,7 @@ export async function updatePlant (paramName, paramMinMoisture, paramWateringAmo
     )
     console.log(jsonUserInfoDTO)
 try{
-    const response = await authorizedInstance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
+    const response = await instance.put("/plant/update/"+paramInitialName, jsonUserInfoDTO,);
     console.log(response)
     return true
     
@@ -150,7 +143,7 @@ catch(error){
 
 export async function deletePlant(paramPlantName, handleNotAuthorized){
     try{
-        const response = await authorizedInstance.delete("/plant/delete/"+paramPlantName)
+        const response = await instance.delete("/plant/delete/"+paramPlantName)
         console.log(response)
         return true
     }
@@ -171,7 +164,7 @@ export async function deletePlant(paramPlantName, handleNotAuthorized){
 
 export async function getPotFromId(id, handleNotAuthorized){
     try{
-        const response = await authorizedInstance.get("/pot/get/"+id)
+        const response = await instance.get("/pot/get/"+id)
         console.log(response)
         return response.data
     }
@@ -189,7 +182,7 @@ export async function getPotFromId(id, handleNotAuthorized){
 
 export async function getPlantByName(paramName, handleNotAuthorized){
     try{
-        const response = await authorizedInstance.get("/plant/get/"+paramName)
+        const response = await instance.get("/plant/get/"+paramName)
         console.log('getPlantByName response:', response.data);
         return response.data
     }
@@ -209,7 +202,7 @@ export async function getAllPots(handleNotAuthorized){
     axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('token')
     console.log(axios.defaults.headers.common["Authorization"])
     try{
-        const response = await authorizedInstance.get("/pot/get/all");
+        const response = await instance.get("/pot/get/all");
         console.log(response)
         return response.data.pots
     }
@@ -228,7 +221,7 @@ export async function getAllPots(handleNotAuthorized){
 
 export async function getAllPlants(handleNotAuthorized){
     try{
-        const response = await authorizedInstance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
+        const response = await instance.get("/plant/get/all?userId="+localStorage.getItem("userId"))
         console.log(response)
         return response.data.plants
     }
@@ -246,7 +239,7 @@ export async function getAllPlants(handleNotAuthorized){
 }
 
 export async function loginUser(email, password, setToken) {
-    console.log("Header before login: " + authorizedInstance.defaults.headers.common["Authorization"])
+    console.log("Header before login: " + instance.defaults.headers.common["Authorization"])
     var jsonUserInfoDTO = JSON.stringify(
         {
         email: email,
@@ -257,7 +250,7 @@ export async function loginUser(email, password, setToken) {
 
 
     try{
-        const response = await unauthorizedInstance.post("/auth/login", jsonUserInfoDTO);
+        const response = await instance.post("/auth/login", jsonUserInfoDTO);
         console.log(response);  
        localStorage.setItem('userEmail', response.data.user.email);
        localStorage.setItem('userId', response.data.user.id);
@@ -290,7 +283,7 @@ export async function loginUser(email, password, setToken) {
     )
    
 try{
-    const response = await authorizedInstance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
+    const response = await instance.put("/pot/update/"+paramID, jsonUserInfoDTO,);
     console.log(response)
     return true
     
@@ -310,7 +303,7 @@ catch(error){
 
 export async function deletePot(paramMachineId, handleNotAuthorized){
     try{
-        const response = await authorizedInstance.delete("/pot/delete/"+ paramMachineId)
+        const response = await instance.delete("/pot/delete/"+ paramMachineId)
         console.log(response)
         return true
     }
