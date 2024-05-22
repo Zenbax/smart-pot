@@ -25,6 +25,7 @@ const Login =()=> {
         const response = await loginUser(email, hashedPassword, setToken)
         if (response === true){
             navigate('/');
+            window.location.reload();
         }
         else{
             setError(response);
