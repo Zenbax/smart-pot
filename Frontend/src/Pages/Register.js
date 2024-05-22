@@ -51,16 +51,18 @@ const Register =()=> {
         }
         
         const hashedPassword = MD5(password).toString();
-        const response = await createUser(name, lastName, hashedPassword, email, phoneNumber);
-        if(response === true){
-            navigate('/login');
-        }
-        else{
-            setError(response);
+        try {
+            const response = await createUser(name, lastName, hashedPassword, email, phoneNumber);
+            if (response === true) {
+                navigate('/login');
+            } else {
+                setError(response);
+                setShowError(true);
+            }
+        } catch (e) {
+            setError(e.response.data.message);
             setShowError(true);
         }
-        
-
     }
     
     const handleCloseError = () => {

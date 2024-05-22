@@ -19,6 +19,10 @@ jest.mock('crypto-js', () => ({
     })
   }));
 
+  jest.mock('../src/Util/API_config', () => ({
+    createUser: jest.fn(),
+}));
+
 
 test("Register rendes correctly", () => {
     const { getByText, getByPlaceholderText } = render(<Register />);
@@ -41,6 +45,8 @@ test('Submits form correctly', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
+    createUser.mockResolvedValueOnce(true);
+
     const { getByText, getByPlaceholderText } = render(<Register />);
 
     fireEvent.change(getByPlaceholderText('First Name'), { target: { value: 'Ditte' } });
@@ -109,15 +115,15 @@ test('Submits form Phone number not valid', async () => {
     expect(getByText("Phone Number is not valid")).toBeInTheDocument();
 });
 
-//Todo: 
-/*
+
 test('Submits form User already exist', async () => {
 
     const navigateMock = jest.fn(); 
     useNavigate.mockReturnValue(navigateMock);
+    createUser.mockRejectedValueOnce({ response: { data: { message: "Email already exists." }}});
+
     const { getByText, getByPlaceholderText } = render(<Register />);
   
-    createUser("Jane", "Hej","password", "Ditte@example.com","12345678")
     fireEvent.change(getByPlaceholderText('First Name'), { target: { value: 'Ditte' } });
     fireEvent.change(getByPlaceholderText('Last Name'), { target: { value: 'Hej' } });
     fireEvent.change(getByPlaceholderText('Email'), { target: { value: 'Ditte@example.com' } });
@@ -125,11 +131,12 @@ test('Submits form User already exist', async () => {
     fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'password' } });
 
     fireEvent.click(getByText('Submit'));
-
-    //Skal skrive hvad der kommer til at ske her
-    expect(getByText(""));
+    
+    await waitFor(() => {
+        expect(getByText("Email already exists.")).toBeInTheDocument();
+    });
 });
-*/
+
 
 test('Click button Back to Login page', async () => {
     const navigateMock = jest.fn();
