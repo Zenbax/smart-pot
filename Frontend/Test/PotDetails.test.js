@@ -7,7 +7,7 @@ import PotDataChart from '../src/Components/PotDataChart'
 import PotDetails from '../src/Pages/PotDetails'
 import { getPotFromId } from '../src/API/API_config';
 
-jest.mock('../src/API/API_config', () => ({
+jest.mock('../src/Util/API_config', () => ({
     getPotFromId: jest.fn().mockResolvedValue({
       NameOfpot: 'Test Pot',
       VandingsLog: [],
