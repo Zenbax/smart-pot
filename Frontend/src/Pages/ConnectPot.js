@@ -26,27 +26,22 @@ const ConnectPot = () => {
             return;
         }
 
-
         const response =  await createPot(nameOfPot, idOfPot, plantData, setToken)
-        if(response===true){
+        if(response === true){
             navigate("/");
-        }
-        else{
+        } else {
             setError(response);
             setShowError(true);
             return;
         }
-        
-
     };
 
     const handlePopUpAction = (action, plantData) => {
-        setShowPopUp(false);
+        setShowPopUp(false); // Ensure pop-up closes
 
         if (action === 'add' && plantData) {
             setPlantData(plantData);
-        }
-        else if (action === 'remove') {
+        } else if (action === 'remove') {
             setPlantData(null);
         }
     };
@@ -62,11 +57,10 @@ const ConnectPot = () => {
 
     const handleBack = () => {
         window.history.back();
-      };
+    };
 
     const showRemove = plantData !== null;
     const addOrChangePlantText = plantData ? "Change plant" : "Add a plant";
-
 
     return (
         <div className="container">
@@ -96,7 +90,7 @@ const ConnectPot = () => {
                 )}
 
                 <div>
-                    <label className="file-upload-button" style={{ marginLeft: '24px' }} onClick={handleAddPlantClick}>
+                    <label className="file-upload-button" onClick={handleAddPlantClick}>
                         {addOrChangePlantText}
                     </label>
                 </div>
@@ -116,10 +110,8 @@ const ConnectPot = () => {
                     )}
                 </div>
 
-                <button type="submit" class="btn btn-primary">Connect Smart-pot</button>
+                <button type="submit" className="btn btn-primary">Connect Smart-pot</button>
             </form>
-
-            <button class="btn btn-secondary" style={{ marginTop: '14px' }} onClick={handleBack}>Back</button>
 
             {showPopUp && (
                 <PlantAddPopUp

@@ -29,7 +29,7 @@ const PlantOverview = () => {
         <div className="col-lg-7 h-100">
           <div className='row'>
             <div className='col-lg-2'>
-              <button class="btn btn-secondary" onClick={handleBack}>Back</button>
+              <button className="btn btn-secondary" onClick={handleBack}>Back</button>
             </div>
             <div className='col-lg-8'>
               <h1 className="text-center mb-4">Plants</h1>
