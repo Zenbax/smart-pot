@@ -1,24 +1,20 @@
 import axios from "axios";
-const API_BASE_URL = "http://13.53.174.85/";
-
 
 const instance = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: "http://13.53.174.85/",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: 'Bearer '+ localStorage.getItem('token')
+      "Content-Type": "application/json"
     },
   });
 
 
- 
 instance.interceptors.request.use((config) => {
     if (localStorage.getItem('token')){
       config.headers["Authorization"] = "Bearer " + localStorage.getItem("token")
     }
     return config
-  })
+  });
 
 export async function createUser (paramName, paramLastName, paramPassword, paramEmail,paramPhoneNumber){ //TODO: eventuelt parse til JSON et andet sted
         var jsonUserInfoDTO = JSON.stringify(
@@ -258,7 +254,6 @@ export async function loginUser(email, password, setToken) {
        localStorage.setItem('userName',response.data.user.name);
        localStorage.setItem('userLastName',response.data.user.lastName);
        localStorage.setItem('userPhoneNumber',response.data.user.phoneNumber);
-       axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token; //Bliver sat i authProvider men fordi setState er asyncron bliver den nødt til også at blive sat her
        setToken(response.data.token)
        return true
     }

@@ -17,6 +17,7 @@ const Navbar = () => {
 
   const homeClick = () => {
     navigate("/");
+    window.location.reload(); //Reload er nødvendig da navbaren ligger udenfor scope af routesne
   };
 
 
