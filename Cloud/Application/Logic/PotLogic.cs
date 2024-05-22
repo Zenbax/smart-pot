@@ -48,10 +48,36 @@ namespace Application_.Logic;
 
     public async Task<PotGetAllDto> GetAllPots(string userEmail)
     {
-        var pots = await _pots.Find(p => p.Email == userEmail).ToListAsync();
-        PotGetAllDto potGetAllDto = new PotGetAllDto { Pots = pots };
+        PotGetAllDto potGetAllDto = new PotGetAllDto();
+        try
+        {
+            var pots = await _pots.Find(p => p.Email == userEmail).ToListAsync();
+            foreach (var pot in pots)
+            {
+                var sensorDataList = await _sensorData.Find(s => s.PotId == pot.Id).ToListAsync();
+                if (sensorDataList.Any())  // Adding debug-like check
+                {
+                    pot.SensorData = sensorDataList;
+                }
+                else
+                {
+                    Console.WriteLine($"No SensorData found for Pot ID: {pot.Id}");  // Debug output
+                }
+            }
+            potGetAllDto.Pots = pots;
+            potGetAllDto.Message = "Pots found.";
+            potGetAllDto.Success = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception caught: {ex.Message}");  // Debug output
+            potGetAllDto.Message = $"Error retrieving pots: {ex.Message}";
+            potGetAllDto.Success = false;
+        }
         return potGetAllDto;
     }
+
+
 
     public async Task<PotGetByIdDto> GetPotById(PotGetByIdDto potGetByIdDto)
     {
