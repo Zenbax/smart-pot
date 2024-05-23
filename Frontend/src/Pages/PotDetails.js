@@ -156,10 +156,10 @@ export default function PotDetails() {
                     </div>
                 </div>
                 <div className='col-md-5'>
-                    <EditPlantInPot
+                    {pot?.plant && <EditPlantInPot
                         handlePopUpAction={handlePopUpAction}
                         plant={pot?.plant}
-                    />
+                    />}
                 </div>
             </div>
 

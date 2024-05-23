@@ -7,19 +7,21 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 jest.mock('../src/Util/AuthProvider', () => ({
     useAuth: () => ({
-      setToken: jest.fn()
+        token: 'dummy-token', // Simulate a logged-in state
+        setToken: jest.fn()
     })
-  }));
+}));
+const mockNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useLocation: jest.fn()
-  }));
+    useLocation: jest.fn(),
+    useNavigate: () => mockNavigate
+}));
 
-  beforeEach(() => {
+beforeEach(() => {
     jest.clearAllMocks();
-  });
-
+});
 
 
 test("Navbar is rendered on Login-page", () =>{
@@ -45,18 +47,15 @@ test("Navbar is rendered on Home-page", () =>{
 });
 
 test("Click on button on the Navbar and navigate to Login-page",() => {
-
-
     useLocation.mockReturnValue({ pathname: '/' });
-    const {getByText} =render(
+    render(
         <Router>
-            <Navbar/>
+            <Navbar />
         </Router>
-    )
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Logout' }));
-    expect(window.location.pathname).toBe('/Login');
-
+    expect(mockNavigate).toHaveBeenCalledWith('/Login');
 });
 
 
@@ -70,9 +69,7 @@ test("Navigate to Homepage from Navbar", () =>{
 
     fireEvent.click(getByText('Smart-Pot'));
 
-    expect(window.location.pathname).toBe('/');
-
-
+    expect(mockNavigate).toHaveBeenCalledWith('/');
 });
 
 
