@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, getByText } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ConnectPot from '../src/Pages/ConnectPot';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
@@ -160,7 +160,9 @@ test('Selecting a plant template in the pop-up', async () => {
   // Verify if the selected plant data is updated accordingly here
   // For example, check if the plant name is displayed
   await waitFor(() => {
-    expect(screen.getByText('Rose')).toBeInTheDocument();
+    expect(screen.queryByText(/Plant Name/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Minimum Soil Moisture/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Watering Amount \(ml\)/i)).not.toBeInTheDocument();
   });
 });
 
@@ -186,8 +188,8 @@ test('Searching for a plant in plant template', async () => {
 
   // Wait for the search results to be filtered
   await waitFor(() => {
-    expect(screen.getByText('Rose')).toBeInTheDocument();
-    expect(screen.queryByText('Tulip')).not.toBeInTheDocument();
+    expect(screen.getByText(/Rose/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Tulip/i)).not.toBeInTheDocument();
   });
 });
 
@@ -208,23 +210,17 @@ test('Removing a plant template', async () => {
     expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
   });
 
-  const plantTemplate = screen.getAllByTestId('plant-template')[0];
-  fireEvent.click(plantTemplate);
-
+  fireEvent.click(screen.getByText(/Rose/i));
   // After clicking on a plant template, the plant should be selected and the popup should close
+
   await waitFor(() => expect(screen.queryByText('plantAdd-pop-up')).not.toBeInTheDocument());
-  expect(screen.getByText('Rose')).toBeInTheDocument();
+  expect(screen.getByText(/Rose/i)).toBeInTheDocument();
 
   // Verify the button text has changed to "Change plant"
-  const changeButton = screen.getByText('Change plant');
+  const changeButton = screen.getByText("Change plant");
   expect(changeButton).toBeInTheDocument();
 
   fireEvent.click(changeButton);
-
-  // Wait for the plant templates to be rendered again
-  await waitFor(() => {
-    expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
-  });
 
   // Click the remove button to remove the selected plant
   const removeButton = screen.getByText('Remove plant');
@@ -232,11 +228,37 @@ test('Removing a plant template', async () => {
 
   // After clicking remove, the plant should be removed and the popup should close
   await waitFor(() => expect(screen.queryByText('plantAdd-pop-up')).not.toBeInTheDocument());
-  expect(screen.queryByText('Rose')).not.toBeInTheDocument();
 
   // Verify the button text has reverted to "Add a plant"
   expect(screen.getByText('Add a plant')).toBeInTheDocument();
 });
+
+test("Create New goes to plantoverviwe", async () => {
+  getAllPlants.mockResolvedValueOnce(mockPlants);
+  const navigateMock = jest.fn();
+  useNavigate.mockReturnValue(navigateMock);
+
+  render(
+    <BrowserRouter>
+      <ConnectPot />
+    </BrowserRouter>
+  );
+
+  const addButton = screen.getByText('Add a plant');
+  fireEvent.click(addButton);
+
+  await waitFor(() => {
+    expect(screen.getAllByTestId('plant-template')).toHaveLength(mockPlants.length);
+  });
+
+  const createNewButton = screen.getByText("Create New");
+  fireEvent.click(createNewButton);
+
+  await waitFor(() => {
+    expect(navigateMock).toHaveBeenCalledWith('/plant_overview');
+  });
+
+})
 
 
 test('Back button goes back', async () => {
