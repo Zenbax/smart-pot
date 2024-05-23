@@ -1,19 +1,25 @@
-.homeContainer{
-    height: calc(100% - 60px);
+.homeContainer {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
 }
 
-/*burde være i % så det variere af skærmstørrelse*/
-.homeRow{
-    height: 532px;
+@media (min-width: 768px) {
+    .homeContainer {
+        flex-direction: row;
+    }
 }
 
-.homeContainer button{
-    margin-top: 14px;
+.homeRow {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.homeContainer .card{
-    margin: 2px;
-    margin-bottom: 4px;
+.homeContainer .profileCard {
+    margin-bottom: 20px;
 }
 
 .homeContainer .card-header {
@@ -25,4 +31,14 @@
 
 .homeContainer .card-text {
     margin: 5px 0;
+}
+
+.homeContainer button {
+    margin-top: 14px;
+}
+
+@media (max-width: 767px) {
+    .homeContainer button {
+        width: 100%;
+    }
 }
