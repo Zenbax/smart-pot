@@ -37,7 +37,7 @@ const PlantTempContainer = ({ onSelectTemplate }) => {
       </div>
       <div className="Plant-Temp-Container row">
         {filteredPlants.map((plant, index) => (
-          <PlantTemp key={index} templateData={plant} onSelectTemplate={onSelectTemplate} testid={index} />
+          <PlantTemp key={index} templateData={plant} onSelectTemplate={onSelectTemplate} />
         ))}
       </div>
     </>
