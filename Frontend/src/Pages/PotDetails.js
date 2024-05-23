@@ -105,7 +105,7 @@ export default function PotDetails() {
                 <div className="col-md-8">
                     <div className='Row'>
                         <div className='col-md-12'>
-                            <p className="Humidity">Humidity percentage: {latestMeasuredSoilData?.measuredSoilMoisture}</p>
+                            <p className="Moisture">Moisture percentage: {latestMeasuredSoilData?.measuredSoilMoisture}</p>
                         </div>
                         <div className='col-md-12'>
                             {pot && <PotDataChart potID={potID} />}
@@ -148,7 +148,7 @@ export default function PotDetails() {
                             <h3>Plant: {pot?.plant?.nameOfPlant ?? 'No plant assigned'}</h3>
                         </div>
                         <div className='col-md-12'>
-                            <p className='WaterInfo'>Minimum Humidity: {pot?.plant?.soilMinimumMoisture ?? 'Not set'}</p>
+                            <p className='WaterInfo'>Minimum Moisture: {pot?.plant?.soilMinimumMoisture ?? 'Not set'}</p>
                         </div>
                         <div className='col-md-12'>
                             <p className='WaterInfo'>mL per watering: {pot?.plant?.amountOfWaterToBeGiven ?? 'Not set'}</p>
