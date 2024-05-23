@@ -73,3 +73,41 @@ test('Search field works correctly', async () => {
         expect(screen.getByText('Jade Plant')).toBeInTheDocument();
     });
 });
+
+test('Select plant template displays data in Edit Plant component', async () => {
+    render(
+        <BrowserRouter>
+            <PlantOverview />
+        </BrowserRouter>
+    );
+
+    // Wait for the plant templates to be loaded
+    await waitFor(() => {
+        expect(screen.getByText('Fern')).toBeInTheDocument();
+        expect(screen.getByText('Jade Plant')).toBeInTheDocument();
+        expect(screen.getByText('Create Plant')).toBeInTheDocument();
+    });
+
+    // Click on the first plant template to select it
+    fireEvent.click(screen.getByText('Fern'));
+
+    // Log the input values for debugging
+    await waitFor(() => {
+        const plantNameInput = screen.getByPlaceholderText('Enter plant name');
+        const minMoistureInput = screen.getByPlaceholderText('Enter minimum moisture');
+        const wateringAmountInput = screen.getByPlaceholderText('Enter watering amount');
+        
+        console.log("Plant name input value:", plantNameInput.value);
+        console.log("Minimum moisture input value:", minMoistureInput.value);
+        console.log("Watering amount input value:", wateringAmountInput.value);
+
+        expect(plantNameInput).toHaveValue('Fern');
+        expect(minMoistureInput).toHaveValue(10);
+        expect(wateringAmountInput).toHaveValue(25);
+    });
+
+    // Ensure that the Edit Plant component is fully rendered
+    await waitFor(() => {
+        expect(screen.getByText('Edit Plant')).toBeInTheDocument();
+    });
+});
