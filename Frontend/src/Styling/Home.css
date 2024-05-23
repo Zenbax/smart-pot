@@ -1,8 +1,10 @@
-.homeContainer{
-    height: calc(100% - 60px);
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden; /* hide the scrollbar */
 }
 
-/*burde være i % så det variere af skærmstørrelse*/
 .homeRow{
     height: 532px;
 }
@@ -27,8 +29,8 @@
     margin: 5px 0;
 }
 
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
+@media (max-width: 768px) {
     .profileColumn {
-        padding-bottom: 0; /* Reset padding for smaller screens */
+        padding-bottom: 0;
     }
 }
