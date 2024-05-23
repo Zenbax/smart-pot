@@ -4,7 +4,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useNavigate } from 'react-router-dom';
 import Register from '../src/Pages/Register';
-import { createUser } from '../src/Util/API_config';
+import { createUser } from '../src/Util/apiClient';
 import { MD5 } from 'crypto-js';
 
 
@@ -19,7 +19,7 @@ jest.mock('crypto-js', () => ({
     })
   }));
 
-  jest.mock('../src/Util/API_config', () => ({
+  jest.mock('../src/Util/apiClient', () => ({
     createUser: jest.fn(),
 }));
 

@@ -32,7 +32,7 @@ jest.spyOn(JSON, 'parse').mockImplementation((string) => {
 
 
 
-jest.mock("../src/Util/API_config", () => ({
+jest.mock("../src/Util/apiClient", () => ({
   getAllPots: jest.fn().mockResolvedValue([
     { nameOfPot: "Pot_1", email: "kalle@da.ag", machineId: "123", enable: true, nameOfPlant: 'Lilje' },
     { nameOfPot: "Pot_2", email: "kalle@da.ag", machineId: "456", enable: false, nameOfPlant: null },
@@ -77,7 +77,7 @@ test('Home-page renders correctly', async () => {
   expect(overviewButton.closest('a')).toHaveAttribute('href', '/plant_overview');
 
   // Pots Section
-  await waitFor(() => expect(require('../src/Util/API_config').getAllPots).toHaveBeenCalled());
+  await waitFor(() => expect(require('../src/Util/apiClient').getAllPots).toHaveBeenCalled());
 
   // SmartPot component
   const potContainers = await screen.findAllByTestId("smartPodContainer");
@@ -99,14 +99,14 @@ test('Home-page renders correctly', async () => {
 
 
 test("renders 'No pots yet' message when no pots are available", async () => {
-  require('../src/Util/API_config').getAllPots.mockResolvedValueOnce([]);
+  require('../src/Util/apiClient').getAllPots.mockResolvedValueOnce([]);
   render(
     <BrowserRouter>
       <Home />
     </BrowserRouter>
   );
 
-  await waitFor(() => expect(require('../src/Util/API_config').getAllPots).toHaveBeenCalled());
+  await waitFor(() => expect(require('../src/Util/apiClient').getAllPots).toHaveBeenCalled());
 
   expect(screen.queryByText("No pots yet")).toBeInTheDocument();
 });

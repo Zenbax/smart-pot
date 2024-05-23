@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../Styling/SmartPot.css'
-import { getPotFromId } from '../Util/API_config';
+import { getPotFromId } from '../Util/apiClient';
 import { useState, useEffect } from 'react';
 import waterdropImage from '../images/waterdrop.png'
 import { useAuth } from "../Util/AuthProvider";

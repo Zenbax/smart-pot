@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import PotsList from "../Components/PotsList";
-import { getAllPots } from "../Util/API_config";
+import { getAllPots } from "../Util/apiClient";
 import '../Styling/Home.css'
 import { useAuth } from "../Util/AuthProvider";
 

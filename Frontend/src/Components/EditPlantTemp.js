@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
 import DeletePopUp from './DeletePlantPopUp';
 import No_Image from '../images/no-image.jpeg';
-import { createPlant, updatePlant, deletePlant } from "../Util/API_config";
+import { createPlant, updatePlant, deletePlant } from "../Util/apiClient";
 import { useAuth } from '../Util/AuthProvider';
 
 const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {

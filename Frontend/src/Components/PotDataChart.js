@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import { getPotFromId } from '../Util/API_config';
+import { getPotFromId } from '../Util/apiClient';
 import { useAuth } from '../Util/AuthProvider';
 
 function getWeekNumber(date) {

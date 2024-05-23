@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from '../src/Pages/Login';
-import { loginUser } from '../src/Util/API_config';
+import { loginUser } from '../src/Util/apiClient';
 import '@testing-library/jest-dom';
 import { useNavigate } from 'react-router-dom';
 import { MD5 } from 'crypto-js';
@@ -15,7 +15,7 @@ import { useAuth } from '../src/Util/AuthProvider';
     })
   }));
 
-  jest.mock("../src/Util/API_config", () => ({
+  jest.mock("../src/Util/apiClient", () => ({
     loginUser: jest.fn()
   }));
   
