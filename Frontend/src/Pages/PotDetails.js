@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom";
 import { deletePot, getPotFromId, updatePot } from "../Util/API_config";
 import PotDataChart from "../Components/PotDataChart";
 import WaterContainerChart from "../Components/WaterContainerChart";
@@ -11,16 +10,14 @@ import placeholder from "../images/no-image.jpeg";
 import '../Styling/PotDetails.css';
 import { useAuth } from "../Util/AuthProvider";
 
-
 export default function PotDetails() {
     const { potID } = useParams();
     const navigate = useNavigate();
     const { setToken } = useAuth();
-    const [pot, setPot] = useState();
+    const [pot, setPot] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
     const [latestMeasuredSoilData, setLatestMeasuredSoilData] = useState(null);
     const [popupType, setPopupType] = useState(false);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,10 +25,9 @@ export default function PotDetails() {
                 const response = await getPotFromId(potID, setToken);
                 if (response) {
                     setPot(response.pot);
-                    setIsChecked(!response.pot.enable)
+                    setIsChecked(!response.pot.enable);
                     const sensorData = response.pot.sensorData;
                     if (sensorData && sensorData.length > 0) {
-                        // Get the latest measured soil data
                         const latestData = sensorData[sensorData.length - 1];
                         setLatestMeasuredSoilData(latestData);
                     }
@@ -39,17 +35,16 @@ export default function PotDetails() {
                     console.error('Error fetching pot data:', response.message);
                 }
             } catch (error) {
-                console.log("not found error")
+                console.log("not found error");
                 navigate('/pot-details/');
             }
         };
         fetchData();
-    }, [potID]);
+    }, [potID, navigate, setToken]);
 
     const handleDisconnect = async () => {
         setPopupType("delete");
     };
-
 
     const handleChangePlant = () => {
         setPopupType("change");
@@ -57,57 +52,50 @@ export default function PotDetails() {
 
     const toggleDisable = async (e) => {
         const enable = e.target.checked ? 0 : 1;
-        setIsChecked(e.target.checked)
+        setIsChecked(e.target.checked);
         try {
             await updatePot(pot.nameOfPot, pot.email, pot.machineID, enable, pot.plant, potID, setToken);
             setPot((prevPot) => ({ ...prevPot, plant: pot.plant }));
         } catch (error) {
-            console.error("");
+            console.error("Error updating pot:", error.message);
         }
     };
 
     const handlePopUpAction = async (action, templateData = null) => {
         setPopupType('');
         if (action === 'add' && templateData) {
-            console.log(`User chose to ${action} ${templateData.nameOfPlant}`);
             try {
                 await updatePot(pot.nameOfPot, pot.email, pot.machineID, 1, templateData, potID, setToken);
-                await setPot((prevPot) => ({ ...prevPot, plant: templateData }));
-
+                setPot((prevPot) => ({ ...prevPot, plant: templateData }));
             } catch (error) {
                 console.error('Error updating pot:', error.message);
             }
-        }
-
-        else if (action === 'remove') {
+        } else if (action === 'remove') {
             try {
                 await updatePot(pot.nameOfPot, pot.email, pot.machineID, 0, null, potID, setToken);
                 setPot((prevPot) => ({ ...prevPot, plant: null }));
             } catch (error) {
                 console.error('Error removing plant from pot:', error.message);
             }
-        }
-
-        else if (action === 'delete') {
+        } else if (action === 'delete') {
             try {
                 await deletePot(potID, setToken);
                 navigate("/");
             } catch (error) {
-                console.error('Error disconnecting pot:', error);
-                return;
+                console.error('Error disconnecting pot:', error.message);
             }
         }
     };
 
     const handleBack = () => {
         window.history.back();
-      };    
+    };
 
     return (
         <div className='container'>
             <div className="row TopSpace">
                 <div className='col-lg-1'>
-                    <button class="btn btn-secondary" onClick={handleBack}>Back</button>
+                    <button className="btn btn-secondary" onClick={handleBack}>Back</button>
                 </div>
                 <div className='col-md-10'>
                     <h1>{pot?.nameOfPot || 'Loading...'}</h1>
@@ -145,12 +133,10 @@ export default function PotDetails() {
                             </div>
                             <div className='row'>
                                 <form id="DisableWatering">
-                                    <label for="toggleDisable">Disable watering</label>
+                                    <label htmlFor="toggleDisable">Disable watering</label>
                                     <input checked={isChecked} type="checkbox" id="toggleDisable" onChange={toggleDisable} />
                                 </form>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -191,7 +177,6 @@ export default function PotDetails() {
                     plantImage={pot.plant.image}
                 />
             )}
-
         </div>
     );
 }

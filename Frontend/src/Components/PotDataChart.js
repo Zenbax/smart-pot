@@ -13,7 +13,6 @@ function getWeekNumber(date) {
 
 // Helper function to generate ranges
 function generateDateLabels(type, count) {
-
   const labels = [];
   const now = new Date();
 
@@ -25,7 +24,6 @@ function generateDateLabels(type, count) {
         labels.unshift(`${date.getFullYear()}-${date.getMonth() + 1}`);
       }
       break;
-
     case 'weeks':
       for (let i = 0; i < count; i++) {
         const weekDate = new Date(now);
@@ -33,7 +31,6 @@ function generateDateLabels(type, count) {
         labels.unshift(`${weekDate.getFullYear()}-W${getWeekNumber(weekDate)}`);
       }
       break;
-
     case 'days':
       for (let i = 0; i < count; i++) {
         const dayDate = new Date(now);
@@ -50,7 +47,7 @@ const PotDataChart = ({ potID }) => {
   const { setToken } = useAuth();
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null); // Ref to store the chart instance
-  const [potData, setPotData] = useState(null);
+  const [potData, setPotData] = useState([]);
   const [viewBy, setViewBy] = useState('days');
 
   useEffect(() => {
@@ -64,14 +61,14 @@ const PotDataChart = ({ potID }) => {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        setPotData({});
+        setPotData([]);
       }
     };
     fetchData();
   }, [potID]);
 
   useEffect(() => {
-    if (potData) {
+    if (potData.length > 0) {
       const ctx = chartRef.current.getContext('2d');
 
       const labelCount = viewBy === 'weeks' ? 6 : 5;

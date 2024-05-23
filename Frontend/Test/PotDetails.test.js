@@ -13,9 +13,26 @@ jest.mock('../src/Util/API_config', () => ({
 
 // Mock pot data
 const mockPotData = {
+  success: true,
   pot: {
     nameOfPot: 'Test Pot',
-    sensorData: [],
+    email: 'test@example.com',
+    machineId: 'machine123',
+    enable: 1,
+    sensorData: [
+      {
+        timestamp: '2023-05-01T12:00:00Z',
+        measuredSoilMoisture: 45,
+        amountOfWatering: 100,
+        waterTankLevel: 75,
+      },
+      {
+        timestamp: '2023-05-02T12:00:00Z',
+        measuredSoilMoisture: 50,
+        amountOfWatering: 120,
+        waterTankLevel: 70,
+      },
+    ],
     plant: {
       nameOfPlant: 'Rose',
       image: 'rose.jpg',
@@ -24,6 +41,7 @@ const mockPotData = {
     },
   },
 };
+
 
 // Mock useParams and useNavigate hooks
 jest.mock('react-router-dom', () => ({
@@ -51,8 +69,8 @@ describe('PotDetails component', () => {
 
     await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
 
-    expect(screen.getByText('Test Pot')).toBeInTheDocument();
-    expect(screen.getByText('Humidity percentage:')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('Test Pot')).toBeInTheDocument());
+    expect(screen.getByText('Humidity percentage: 50')).toBeInTheDocument();
     expect(screen.getByText('Plant: Rose')).toBeInTheDocument();
     expect(screen.getByText('Minimum Humidity: 50')).toBeInTheDocument();
     expect(screen.getByText('mL per watering: 200')).toBeInTheDocument();
@@ -71,7 +89,40 @@ describe('PotDetails component', () => {
   });
 
 
+  test('user interaction: toggle watering settings', async () => {
+    render(<PotDetails />);
+  
+    // Wait for the pot data to be fetched and rendered
+    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+  
+    // Check initial state of the pot
+    const toggleDisable = screen.getByRole('checkbox', { name: 'Disable watering' });
+    expect(toggleDisable).not.toBeChecked(); // Ensure it's not checked initially
+  
+    // Check initial pot state
+    const initialPotData = await getPotFromId.mock.results[0].value;
+    expect(initialPotData.pot.enable).toBeTruthy(); // Assuming the pot is enabled initially
+  
+    // Perform the action to disable the watering
+    fireEvent.click(toggleDisable);
+  
+    // Verify the checkbox is now checked
+    expect(toggleDisable).toBeChecked();
+  
+    // Verify the pot update API call with expected arguments
+    await waitFor(() => {
+      expect(updatePot).toHaveBeenCalledWith(
+        'Test Pot', undefined, undefined, 1, null, 'pot123', 'your_mocked_token_here'
+      );
+    });
+  
+    // Check the state after the action
+    const updatedPotData = await getPotFromId.mock.results[0].value;
+    expect(updatedPotData.pot.enable).toBeFalsy(); // Assuming the pot is disabled now
+  });
+  
 
+/*
   test('user interaction: toggle watering settings', async () => {
     render(<PotDetails />);
 
@@ -82,7 +133,7 @@ describe('PotDetails component', () => {
 
     expect(updatePot).toHaveBeenCalledWith('Test Pot', undefined, undefined, 1, null, 'pot123', 'your_mocked_token_here');
   });
-
+*/
 
 
   test('PotDetails: Edit plant', async () => {
