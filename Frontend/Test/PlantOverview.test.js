@@ -2,13 +2,18 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PlantOverview from "../src/Pages/PlantOverview"
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 
 jest.mock('../src/Util/AuthProvider', () => ({
     useAuth: () => ({
         token: 'fake-token',
         setToken: jest.fn(),
     })
+}));
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn(),
 }));
 
 jest.mock('../src/Util/API_config', () => ({
@@ -209,3 +214,23 @@ test('Upload picture', async () => {
         expect(img).toHaveAttribute('src', expect.stringContaining('data:image/png;base64,ZHVtbXkgY29udGVudA=='));
     });
 });
+
+test('Back button goes back', async () => {
+    const navigateMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
+    const historyBackMock = jest.fn();
+    global.window.history.back = historyBackMock;
+
+    render(
+        <BrowserRouter>
+            <PlantOverview />
+        </BrowserRouter>
+    );
+
+    fireEvent.click(screen.getByText('Back'));
+
+    await waitFor(() => {
+        expect(historyBackMock).toHaveBeenCalled();
+    });
+});
+
