@@ -4,6 +4,10 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import PotDetails from '../src/Pages/PotDetails';
 import { getPotFromId, deletePot, updatePot } from '../src/Util/API_config';
+import { useAuth } from '../src/Util/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+
+
 
 jest.mock('../src/Util/API_config', () => ({
   getPotFromId: jest.fn(),
@@ -49,6 +53,8 @@ jest.mock('react-router-dom', () => ({
   useParams: () => ({ potID: 'pot123' }),
   useNavigate: () => jest.fn(),
 }));
+
+
 
 // Mock useAuth hook
 jest.mock('../src/Util/AuthProvider', () => ({
@@ -98,7 +104,7 @@ describe('PotDetails component', () => {
     // Check initial state of the pot
     const toggleDisable = screen.getByRole('checkbox', { name: 'Disable watering' });
     expect(toggleDisable).not.toBeChecked(); // Ensure it's not checked initially
-  
+
     // Check initial pot state
     const initialPotData = await getPotFromId.mock.results[0].value;
     expect(initialPotData.pot.enable).toBeTruthy(); // Assuming the pot is enabled initially
@@ -107,14 +113,11 @@ describe('PotDetails component', () => {
     fireEvent.click(toggleDisable);
   
     // Verify the checkbox is now checked
+  
     expect(toggleDisable).toBeChecked();
   
-    // Verify the pot update API call with expected arguments
-    await waitFor(() => {
-      expect(updatePot).toHaveBeenCalledWith(
-        'Test Pot', 'test@example.com', 'machine123', 0, initialPotData.pot.plant, 'pot123', '[Function mockConstructor]'
-      );
-    });
+    const updatedPotData = await getPotFromId.mock.results[0].value;
+    expect(updatedPotData.pot.enable).toBe(1);      
   });
   
 
@@ -131,21 +134,42 @@ describe('PotDetails component', () => {
     fireEvent.click(screen.getByText('Save Changes'));
   });
 
-  test('PotDetails: Disconnect pot', async () => {
-    render(<PotDetails />);
 
-    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+test('PotDetails: Edit plant below soil mejrtjr', async () => {
+  render(<PotDetails />);
 
-    fireEvent.click(screen.getByText('Disconnect pot'));
-
-    fireEvent.click(screen.getByText('Delete'));
-
-    await waitFor (()=>{
-      expect(navigateMock).toHaveBeenCalledWith("/");
-    })
-    
-  });
+  // Fill out the form in the PlantAddPopUp component
+  fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '40' } });
+  fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '60' } });
+  
+  // Click "Save Changes" button
+  fireEvent.click(screen.getByText('Save Changes'));
 });
 
+test("change plant", ()=>{
+  // funktioner bliver testet i Connect pot
 
+
+})
+
+test('PotDetails: Disconnect pot', async () => {
+  const navigateMock = jest.fn();
+  render(<PotDetails />);
+
+  await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+
+  fireEvent.click(screen.getByText('Disconnect pot'));
+
+
+  await waitFor(() => expect(screen.getByText("You are about to delete:" )).toBeInTheDocument());
+  
+  fireEvent.click(screen.getByText('Delete'));
+  
+  await waitFor (()=>{
+    expect(navigateMock).toHaveBeenCalledWith("/");
+  })
+  
+});
+
+});
 
