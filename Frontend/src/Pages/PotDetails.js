@@ -174,7 +174,7 @@ export default function PotDetails() {
                 <DeletePopUp
                     handlePopUpAction={handlePopUpAction}
                     potName={pot.nameOfPot}
-                    plantImage={pot.plant.image}
+                    plantImage={pot?.plant?.image ?? placeholder}
                 />
             )}
         </div>

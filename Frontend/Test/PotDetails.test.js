@@ -3,7 +3,7 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import PotDetails from '../src/Pages/PotDetails';
-import { getPotFromId, deletePot, updatePot } from '../src/Util/API_config';
+import { getPotFromId, deletePot, updatePot, getAllPlants } from '../src/Util/API_config';
 import { useAuth } from '../src/Util/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ jest.mock('../src/Util/API_config', () => ({
   getPotFromId: jest.fn(),
   deletePot: jest.fn(),
   updatePot: jest.fn(),
+  getAllPlants: jest.fn(),
 }));
 
 // Mock pot data
@@ -44,6 +45,20 @@ const mockPotData = {
       amountOfWaterToBeGiven: 200,
     },
   },
+  plants: [
+    {
+      nameOfPlant: 'Rose',
+      image: 'rose.jpg',
+      soilMinimumMoisture: 50,
+      amountOfWaterToBeGiven: 200,
+    },
+    {
+      nameOfPlant: 'Tulip',
+      image: 'tulip.jpg',
+      soilMinimumMoisture: 60,
+      amountOfWaterToBeGiven: 150,
+    },
+  ],
 };
 
 
@@ -68,6 +83,7 @@ describe('PotDetails component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     getPotFromId.mockResolvedValueOnce(mockPotData);
+    getAllPlants.mockResolvedValueOnce(mockPotData.plants);
   });
 
   test('renders Pot Details with fetched data', async () => {
@@ -98,21 +114,15 @@ describe('PotDetails component', () => {
   test('user interaction: toggle watering settings', async () => {
     render(<PotDetails />);
   
-    // Wait for the pot data to be fetched and rendered
     await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
   
-    // Check initial state of the pot
     const toggleDisable = screen.getByRole('checkbox', { name: 'Disable watering' });
-    expect(toggleDisable).not.toBeChecked(); // Ensure it's not checked initially
+    expect(toggleDisable).not.toBeChecked();
 
-    // Check initial pot state
     const initialPotData = await getPotFromId.mock.results[0].value;
-    expect(initialPotData.pot.enable).toBeTruthy(); // Assuming the pot is enabled initially
+    expect(initialPotData.pot.enable).toBeTruthy();
   
-    // Perform the action to disable the watering
     fireEvent.click(toggleDisable);
-  
-    // Verify the checkbox is now checked
   
     expect(toggleDisable).toBeChecked();
   
@@ -125,51 +135,91 @@ describe('PotDetails component', () => {
 
   test('PotDetails: Edit plant', async () => {
     render(<PotDetails />);
+
+    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+
+    expect(screen.getByText('Minimum Moisture: 50')).toBeInTheDocument();
+    expect(screen.getByText('mL per watering: 200')).toBeInTheDocument();
   
-    // Fill out the form in the PlantAddPopUp component
     fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '40' } });
     fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '60' } });
     
-    // Click "Save Changes" button
     fireEvent.click(screen.getByText('Save Changes'));
+
+    expect(screen.getByText('Minimum Soil Moisture: 40')).toBeInTheDocument();
+    expect(screen.getByText('Watering Amount (ml): 60')).toBeInTheDocument();
   });
 
 
-test('PotDetails: Edit plant below soil mejrtjr', async () => {
-  render(<PotDetails />);
+  test('PotDetails: Edit plant with same value', async () => {
+    render(<PotDetails />);
 
-  // Fill out the form in the PlantAddPopUp component
-  fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '40' } });
-  fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '60' } });
+    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+
+    expect(screen.getByText('Minimum Moisture: 50')).toBeInTheDocument();
+    expect(screen.getByText('mL per watering: 200')).toBeInTheDocument();
   
-  // Click "Save Changes" button
-  fireEvent.click(screen.getByText('Save Changes'));
-});
+    fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '50' } });
+    fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '200' } });
+    
+    fireEvent.click(screen.getByText('Save Changes'));
 
-test("change plant", ()=>{
-  // funktioner bliver testet i Connect pot
+    expect(screen.getByText('Values have not changed')).toBeInTheDocument();
+  });
 
-
-})
-
-test('PotDetails: Disconnect pot', async () => {
-  const navigateMock = jest.fn();
+test('PotDetails: Edit plant below soil moisture minimum value', async () => {
   render(<PotDetails />);
 
   await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
 
-  fireEvent.click(screen.getByText('Disconnect pot'));
+  fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '10' } });
+  
+  fireEvent.click(screen.getByText('Save Changes'));
+
+  expect(screen.getByText('Watering amount must be 20ml or higher')).toBeInTheDocument();
+
+});
+
+test('change plant', async () => {
+ render(<PotDetails />);
+
+    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+
+    expect(screen.getByText('Plant: Rose')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Change plant'));
+    
+    await waitFor(() => expect(screen.getByTestId('plant-add-popup')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText('Tulip'));
+
+    fireEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Plant: Tulip')).toBeInTheDocument();
+      expect(screen.getByText('Minimum Moisture: 60')).toBeInTheDocument();
+      expect(screen.getByText('mL per watering: 150')).toBeInTheDocument();
+  });
+});
 
 
-  await waitFor(() => expect(screen.getByText("You are about to delete:" )).toBeInTheDocument());
-  
-  fireEvent.click(screen.getByText('Delete'));
-  
-  await waitFor (()=>{
-    expect(navigateMock).toHaveBeenCalledWith("/");
-  })
-  
+test('PotDetails: Disconnect pot', async () => {
+   render(<PotDetails />);
+
+    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
+
+    fireEvent.click(screen.getByText('Disconnect pot'));
+
+    await waitFor(() => expect(screen.getByText("You are about to delete: Test Pot")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText('Delete'));
+
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith("/");
+  });
 });
 
 });
+
+
 
