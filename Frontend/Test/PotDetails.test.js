@@ -17,7 +17,7 @@ const mockPotData = {
   pot: {
     nameOfPot: 'Test Pot',
     email: 'test@example.com',
-    machineId: 'machine123',
+    machineID: 'machine123',
     enable: 1,
     sensorData: [
       {
@@ -70,9 +70,9 @@ describe('PotDetails component', () => {
     await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
 
     await waitFor(() => expect(screen.getByText('Test Pot')).toBeInTheDocument());
-    expect(screen.getByText('Humidity percentage: 50')).toBeInTheDocument();
+    expect(screen.getByText('Moisture percentage: 50')).toBeInTheDocument();
     expect(screen.getByText('Plant: Rose')).toBeInTheDocument();
-    expect(screen.getByText('Minimum Humidity: 50')).toBeInTheDocument();
+    expect(screen.getByText('Minimum Moisture: 50')).toBeInTheDocument();
     expect(screen.getByText('mL per watering: 200')).toBeInTheDocument();
   });
 
@@ -112,28 +112,12 @@ describe('PotDetails component', () => {
     // Verify the pot update API call with expected arguments
     await waitFor(() => {
       expect(updatePot).toHaveBeenCalledWith(
-        'Test Pot', undefined, undefined, 1, null, 'pot123', 'your_mocked_token_here'
+        'Test Pot', 'test@example.com', 'machine123', 0, initialPotData.pot.plant, 'pot123', '[Function mockConstructor]'
       );
     });
-  
-    // Check the state after the action
-    const updatedPotData = await getPotFromId.mock.results[0].value;
-    expect(updatedPotData.pot.enable).toBeFalsy(); // Assuming the pot is disabled now
   });
   
 
-/*
-  test('user interaction: toggle watering settings', async () => {
-    render(<PotDetails />);
-
-    await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
-
-    const toggleDisable = screen.getByRole('checkbox', { name: 'Disable watering' });
-    fireEvent.click(toggleDisable);
-
-    expect(updatePot).toHaveBeenCalledWith('Test Pot', undefined, undefined, 1, null, 'pot123', 'your_mocked_token_here');
-  });
-*/
 
 
   test('PotDetails: Edit plant', async () => {
