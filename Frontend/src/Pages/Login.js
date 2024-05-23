@@ -4,7 +4,7 @@ import { MD5 } from 'crypto-js';
 import { useAuth } from '../Util/AuthProvider';
 
 import '../Styling/Login.css';
-import { loginUser } from "../Util/API_config";
+import { loginUser } from "../Util/apiClient";
 import Register from './Register';
 
 

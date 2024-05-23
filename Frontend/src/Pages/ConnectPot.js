@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PlantAddPopUp from '../Components/PlantAddPopUp';
-import { createPot } from "../Util/API_config";
+import { createPot } from "../Util/apiClient";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Util/AuthProvider';
 

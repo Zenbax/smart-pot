@@ -3,9 +3,9 @@ import { render, screen, fireEvent, waitFor, getByText } from '@testing-library/
 import '@testing-library/jest-dom';
 import ConnectPot from '../src/Pages/ConnectPot';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
-import { getAllPlants, createPot } from '../src/Util/API_config';
+import { getAllPlants, createPot } from '../src/Util/apiClient';
 
-jest.mock('../src/Util/API_config', () => ({
+jest.mock('../src/Util/apiClient', () => ({
   getAllPlants: jest.fn(),
   createPot: jest.fn(),
 }));

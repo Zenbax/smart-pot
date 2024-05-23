@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlantCreatePopUp from './PlantCreatePopUp';
-import { createPlant, updatePlant, getPlantByName } from "../Util/API_config";
+import { createPlant, updatePlant, getPlantByName } from "../Util/apiClient";
 import { useAuth } from '../Util/AuthProvider';
 
 const EditPlantTemp = ({ handlePopUpAction, plant }) => {

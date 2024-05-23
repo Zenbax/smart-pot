@@ -16,7 +16,7 @@ jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn(),
 }));
 
-jest.mock('../src/Util/API_config', () => ({
+jest.mock('../src/Util/apiClient', () => ({
     getAllPlants: jest.fn().mockResolvedValue([
         { nameOfPlant: 'Fern', soilMinimumMoisture: 10, amountOfWaterToBeGiven: 25, image: "dGVzdA==", isDefault: true },
         { nameOfPlant: 'Jade Plant', soilMinimumMoisture: 20, amountOfWaterToBeGiven: 47, image: "dGVzdA==", isDefault: false }

@@ -3,13 +3,13 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import PotDetails from '../src/Pages/PotDetails';
-import { getPotFromId, deletePot, updatePot, getAllPlants } from '../src/Util/API_config';
+import { getPotFromId, deletePot, updatePot, getAllPlants} from '../src/Util/apiClient';
 import { useAuth } from '../src/Util/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 
 
-jest.mock('../src/Util/API_config', () => ({
+jest.mock('../src/Util/apiClient', () => ({
   getPotFromId: jest.fn(),
   deletePot: jest.fn(),
   updatePot: jest.fn(),
