@@ -71,7 +71,15 @@ const PotDataChart = ({ potID }) => {
     if (potData.length > 0) {
       const ctx = chartRef.current.getContext('2d');
 
-      const labelCount = viewBy === 'weeks' ? 6 : 5;
+      let labelCount;
+      if (viewBy === 'weeks') {
+        labelCount = 6;
+      } else if (viewBy === 'days') {
+        labelCount = 7;
+      } else {
+        labelCount = 5;
+      }
+      
       const intervalLabels = generateDateLabels(viewBy, labelCount);
 
       const aggregatedWaterData = {};
