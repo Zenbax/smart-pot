@@ -189,7 +189,6 @@ test('Create + Delete plant popup test', async () => {
     });
 });
 
-
 test('Upload picture', async () => {
     render(
         <BrowserRouter>
@@ -214,6 +213,66 @@ test('Upload picture', async () => {
         expect(img).toHaveAttribute('src', expect.stringContaining('data:image/png;base64,ZHVtbXkgY29udGVudA=='));
     });
 });
+
+test('Error messages test', async () => {
+    render(
+        <BrowserRouter>
+            <PlantOverview />
+        </BrowserRouter>
+    );
+
+    expect(screen.getByText('Create Plant')).toBeInTheDocument();
+    expect(screen.getByText('Save Changes')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() => {
+        expect(screen.getByText('All fields must be filled')).toBeInTheDocument();
+    });
+
+    const plantNameInput = screen.getByPlaceholderText('Enter plant name');
+    const minMoistureInput = screen.getByPlaceholderText('Enter minimum moisture');
+    const wateringAmountInput = screen.getByPlaceholderText('Enter watering amount');
+
+    fireEvent.change(plantNameInput, { target: { value: 'TestName' } });
+    fireEvent.change(minMoistureInput, { target: { value: 20 } });
+    fireEvent.change(wateringAmountInput, { target: { value: 5 } });
+    fireEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() => {
+        expect(screen.getByText('Plant must have an Image')).toBeInTheDocument();
+    });
+
+    const fileInput = screen.getByLabelText(/Upload a picture/i);
+
+    // Create a mock file
+    const file = new File(['dummy content'], 'example.png', { type: 'image/png' });
+
+    // Simulate the file input change event
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    // Check if the image preview is updated
+    await waitFor(() => {
+        const img = screen.getByAltText('Plant');
+        expect(img).toHaveAttribute('src', expect.stringContaining('data:image/png;base64,ZHVtbXkgY29udGVudA=='));
+    });
+    
+    fireEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() => {
+        expect(screen.getByText('Watering amount must be 20ml or higher')).toBeInTheDocument();
+    });
+
+    fireEvent.change(wateringAmountInput, { target: { value: 25 } });
+    fireEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() => {
+        expect(screen.getByText('Create New')).toBeInTheDocument();
+        expect(screen.queryByText('Overwrite Existing')).not.toBeInTheDocument();
+        expect(screen.getByText('Cancel')).toBeInTheDocument();
+    });
+});
+
 
 test('Back button goes back', async () => {
     const navigateMock = jest.fn();
