@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import PotDetails from '../src/Pages/PotDetails';
 import { getPotFromId, deletePot, updatePot, getAllPlants} from '../src/Util/apiClient';
 import { useAuth } from '../src/Util/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 
 
@@ -66,7 +66,7 @@ const mockPotData = {
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({ potID: 'pot123' }),
-  useNavigate: () => jest.fn(),
+  useNavigate: jest.fn(),
 }));
 
 
@@ -172,7 +172,7 @@ test('PotDetails: Edit plant below soil moisture minimum value', async () => {
 
   await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
 
-  fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '10' } });
+  fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '10' } });
   
   fireEvent.click(screen.getByText('Save Changes'));
 
@@ -204,7 +204,14 @@ test('change plant', async () => {
 
 
 test('PotDetails: Disconnect pot', async () => {
-   render(<PotDetails />);
+  const navigateMock = jest.fn();
+  useNavigate.mockReturnValue(navigateMock);
+
+  render(
+    <BrowserRouter>
+      <PotDetails />
+    </BrowserRouter>
+  );
 
     await waitFor(() => expect(getPotFromId).toHaveBeenCalled());
 
@@ -218,6 +225,26 @@ test('PotDetails: Disconnect pot', async () => {
       expect(navigateMock).toHaveBeenCalledWith("/");
   });
 });
+
+test('Back button goes back', async () => {
+  const navigateMock = jest.fn();
+  useNavigate.mockReturnValue(navigateMock);
+  const historyBackMock = jest.fn();
+  global.window.history.back = historyBackMock;
+
+  render(
+    <BrowserRouter>
+      <PotDetails />
+    </BrowserRouter>
+  );
+  
+  fireEvent.click(screen.getByText('Back'));
+
+  await waitFor(() => {
+    expect(historyBackMock).toHaveBeenCalled();
+  });
+});
+
 
 });
 

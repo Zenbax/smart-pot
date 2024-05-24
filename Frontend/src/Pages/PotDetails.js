@@ -36,11 +36,10 @@ export default function PotDetails() {
                 }
             } catch (error) {
                 console.log("not found error");
-                navigate('/pot-details/');
             }
         };
         fetchData();
-    }, [potID, navigate, setToken]);
+    }, [potID, setToken]);
 
     const handleDisconnect = async () => {
         setPopupType("delete");
