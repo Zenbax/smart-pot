@@ -146,8 +146,10 @@ describe('PotDetails component', () => {
     
     fireEvent.click(screen.getByText('Save Changes'));
 
+  await waitFor(() => {
     expect(screen.getByText('Minimum Soil Moisture: 30')).toBeInTheDocument();
     expect(screen.getByText('Watering Amount (ml): 60')).toBeInTheDocument();
+   });
   });
 
 
@@ -175,8 +177,11 @@ test('PotDetails: Edit plant below soil moisture minimum value', async () => {
   fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '10' } });
   
   fireEvent.click(screen.getByText('Save Changes'));
-
+  
+  await waitFor(() => {
   expect(screen.getByText('Watering amount must be 20ml or higher')).toBeInTheDocument();
+});
+
 
 });
 
