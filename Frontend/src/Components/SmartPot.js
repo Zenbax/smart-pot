@@ -3,12 +3,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../Styling/SmartPot.css'
-import { getPotFromId } from '../Util/apiClient';
 import { useState, useEffect } from 'react';
 import waterdropImage from '../images/waterdrop.png'
 import { useAuth } from "../Util/AuthProvider";
-import { useParams } from 'react-router-dom';
-import WaterContainerChart from './WaterContainerChart';
 
 const formatDate = (timestamp) => {
     const date = new Date(timestamp);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import {Link, Outlet, Route  , useNavigate} from 'react-router-dom';
+import {Link, Outlet, useNavigate} from 'react-router-dom';
 import { MD5 } from 'crypto-js';
 import { useAuth } from '../Util/AuthProvider';
 
 import '../Styling/Login.css';
 import { loginUser } from "../Util/apiClient";
-import Register from './Register';
+
 
 
 const Login =()=> {

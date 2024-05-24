@@ -6,7 +6,6 @@ import { loginUser } from '../src/Util/apiClient';
 import '@testing-library/jest-dom';
 import { useNavigate } from 'react-router-dom';
 import { MD5 } from 'crypto-js';
-import { useAuth } from '../src/Util/AuthProvider';
 
 
   jest.mock('../src/Util/AuthProvider', () => ({

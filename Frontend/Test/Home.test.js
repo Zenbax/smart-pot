@@ -1,10 +1,8 @@
 import React from "react";
 import '@testing-library/jest-dom'
-import { render, fireEvent, screen, waitFor, getByText, getByLabelText, getByRole, getByTitle } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor} from '@testing-library/react';
 import Home from "../src/Pages/Home";
-import SmartPot from "../src/Components/SmartPot";
 import { BrowserRouter } from "react-router-dom";
-import { useAuth } from '../src/Util/AuthProvider';
 
 
 jest.mock('../src/Util/AuthProvider', () => ({

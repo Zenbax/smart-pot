@@ -3,7 +3,7 @@ import {render, screen, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter, BrowserRouter as Router } from 'react-router-dom';
 import Navbar from '../src/Components/NavBar'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 jest.mock('../src/Util/AuthProvider', () => ({
     useAuth: () => ({
