@@ -1,0 +1,29 @@
+.TopSpace{
+    text-align: center;
+    margin-top: 10px;
+}
+
+h3{
+    padding-left: 5%;
+}
+
+.Moisture{
+    font-size: 22px;
+    padding-left: 10%;
+}
+
+.WaterInfo{
+    padding-left: 20%;
+    margin-top: 15px;
+}
+
+.Buttons{
+    margin-top: 50px;
+}
+
+#DisableWatering{
+    margin-top: 10px;
+}
+#DisableWatering label{
+    margin-right: 10px;
+}

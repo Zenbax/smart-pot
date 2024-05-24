@@ -1,0 +1,46 @@
+#smartPotPlant{
+    max-height: 250px;
+    border-radius: 10px;
+}
+a:link {
+    text-decoration: none;
+    color: black;
+  }
+
+.waterDropContainer{
+    height: 60px;
+    overflow: hidden;
+}
+
+#waterdrop{
+    height: 60px;
+    margin-bottom: 36px;
+    
+}
+
+p {
+    color: black;
+    margin: 0;
+}
+
+#percent{
+    font-size: 3.5em;
+}
+
+
+#bottomCol img, h1{
+    display: inline-block;
+}
+#smartPodContainer{
+    border-color: rgb(75, 75, 75);
+    border-style: solid;
+    border-radius: 25px;
+    margin: 20px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.warningContainer {
+    background-color: #ffcccc;
+}
