@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styling/PlantOverview.css';
-import PlantCreatePopUp from '../Components/PlantCreatePopUp';
 import PlantTempContainer from '../Components/PlantTempContainer';
 import EditPlantTemp from '../Components/EditPlantTemp';
 
@@ -47,10 +46,6 @@ const PlantOverview = () => {
           <EditPlantTemp selectedTemplate={selectedTemplate} handlePopUpAction={handlePopUpAction} />
         </div>
       </div>
-
-      {showPopUp && (
-        <PlantCreatePopUp handlePopUpAction={handlePopUpAction} />
-      )}
     </div>
   );
 };
