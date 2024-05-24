@@ -141,12 +141,12 @@ describe('PotDetails component', () => {
     expect(screen.getByText('Minimum Moisture: 50')).toBeInTheDocument();
     expect(screen.getByText('mL per watering: 200')).toBeInTheDocument();
   
-    fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '40' } });
+    fireEvent.change(screen.getByPlaceholderText('Enter minimum moisture'), { target: { value: '30' } });
     fireEvent.change(screen.getByPlaceholderText('Enter watering amount'), { target: { value: '60' } });
     
     fireEvent.click(screen.getByText('Save Changes'));
 
-    expect(screen.getByText('Minimum Soil Moisture: 40')).toBeInTheDocument();
+    expect(screen.getByText('Minimum Soil Moisture: 30')).toBeInTheDocument();
     expect(screen.getByText('Watering Amount (ml): 60')).toBeInTheDocument();
   });
 
