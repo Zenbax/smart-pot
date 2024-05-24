@@ -65,7 +65,6 @@ const EditPlantTemp = ({ selectedTemplate, handlePopUpAction }) => {
       setShowError(true);
     } else if (plantName !== '' && minSoilMoisture !== '' && plantImage !== No_Image && wateringAmount > 19 && wateringAmount < 251) {
       handleCloseError();
-      console.log("Showing Create PopUp")
       setPopupType('create');
     }
   };

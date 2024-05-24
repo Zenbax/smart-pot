@@ -9,7 +9,7 @@ const PlantOverview = () => {
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [showPopUp, setShowPopUp] = useState(false);
 
-  // Function to handle popup actions
+  
   const handlePopUpAction = () => {
     setShowPopUp(false);
   };
@@ -18,7 +18,7 @@ const PlantOverview = () => {
     window.history.back();
   };
 
-  // Function to handle selecting a template
+ 
   const handleTemplateSelect = (templateData) => {
     setSelectedTemplate(templateData);
   };

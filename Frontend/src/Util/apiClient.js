@@ -61,7 +61,6 @@ export async function createPot (paramPotName, paramMachineId, paramPlant, handl
             }
             catch(error){
                 if(error?.response?.status === 401){
-                    console.log("unauthorized error happened")
                     console.log(error.response)
                     handleNotAuthorized("")
                 }
@@ -85,7 +84,6 @@ export async function createPlant (paramName, paramMinMoisture, paramImage, para
             userid: JSON.parse(localStorage.getItem('user')).id,
         }
     )
-    console.log(jsonDTO)
 try{
     const response = await instance.post("/plant/create", jsonDTO,);
     console.log(response)
@@ -94,7 +92,6 @@ try{
 }
 catch(error){
     if(error?.response?.status === 401){
-        console.log("unauthorized error happened")
         console.log(error.response)
         handleNotAuthorized("")
     }
@@ -115,7 +112,6 @@ export async function updatePlant (paramName, paramMinMoisture, paramWateringAmo
             image: paramImage
         }
     )
-    console.log(jsonDTO)
 try{
     const response = await instance.put("/plant/update/"+paramInitialName, jsonDTO,);
     console.log(response)
@@ -124,7 +120,6 @@ try{
 }
 catch(error){
     if(error?.response?.status === 401){
-        console.log("unauthorized error happened")
         console.log(error.response)
         handleNotAuthorized("")
     }
@@ -144,7 +139,6 @@ export async function deletePlant(paramPlantName, handleNotAuthorized){
     }
     catch(error){
         if(error?.response?.status === 401){
-            console.log("unauthorized error happened")
             console.log(error.response)
             handleNotAuthorized("")
         }
@@ -201,7 +195,6 @@ export async function getAllPots(handleNotAuthorized){
     }
     catch(error){
         if(error?.response?.status === 401){
-            console.log("unauthorized error happened")
             console.log(error.response)
             handleNotAuthorized("")
         }
@@ -220,7 +213,6 @@ export async function getAllPlants(handleNotAuthorized){
     }
     catch(error){
         if(error?.response?.status === 401){
-            console.log("unauthorized error happened")
             console.log(error.response)
             handleNotAuthorized("")
         }
@@ -272,7 +264,6 @@ try{
 }
 catch(error){
     if(error?.response?.status === 401){
-        console.log("unauthorized error happened")
         console.log(error.response)
         handleNotAuthorized("")
     }
@@ -291,7 +282,6 @@ export async function deletePot(paramMachineId, handleNotAuthorized){
     }
     catch(error){
         if(error?.response?.status === 401){
-            console.log("unauthorized error happened")
             console.log(error.response)
             handleNotAuthorized("")
         }

@@ -9,7 +9,6 @@ import Register from './Register';
 
 
 const Login =()=> {
-    // State variables for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setToken } = useAuth();
@@ -18,7 +17,6 @@ const Login =()=> {
 
     const navigate = useNavigate();
 
-    // Function to handle form submission
     const handleSubmit = async(event) => {
         event.preventDefault();
         const hashedPassword = MD5(password).toString();

@@ -9,30 +9,22 @@ import PlantOverview from './Pages/PlantOverview.js';
 import Navbar from './Components/NavBar';
 import './Styling/Navbar.css';
 import PotDetails from './Pages/PotDetails';
-import'./Styling/App.css'
+import './Styling/App.css'
 import AuthProvider from './Util/AuthProvider.js';
 const App = () => {
- 
-    return (
-        <div id='screen'>
-            
 
-<AuthProvider>
-      <BrowserRouter>
-            <Navbar/>
-            </BrowserRouter>
-
-            <div id='content'>
-                  <Routes/>
+      return (
+            <div id='screen'>
+                  <AuthProvider>
+                        <BrowserRouter>
+                              <Navbar />
+                        </BrowserRouter>
+                        <div id='content'>
+                              <Routes />
+                        </div>
+                  </AuthProvider>
             </div>
-        
-  </AuthProvider>
-
-   
-        </div>
-      )   
-        
+      )
 }
-
 export default App;
 

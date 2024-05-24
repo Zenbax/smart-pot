@@ -10,7 +10,6 @@ const Navbar = () => {
   const location = useLocation();
 
   const handleLogoutClick = () => {
-    console.log('Logout button clicked!');
     setToken("");
     navigate("/Login");
   };

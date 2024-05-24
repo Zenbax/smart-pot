@@ -89,7 +89,7 @@ const PotDataChart = ({ potID }) => {
         aggregatedMoistureData[label] = { sum: 0, count: 0 };
       });
 
-      // Aggregate sensor data
+      
       potData.forEach(entry => {
         const date = new Date(entry.timestamp);
         let label;
