@@ -23,7 +23,7 @@ const Home = () => {
     }, [token])
 
     return (
-        <Container fluid className="homeContainer">
+        <Container className="homeContainer">
             <Row>
                 <Col md={4} className="profileColumn">
                     <div className="card mt-4">
