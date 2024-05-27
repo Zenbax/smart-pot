@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/smart-pot/static/css/main.49c927bd.css",
+    "main.js": "/smart-pot/static/js/main.20fa4473.js",
+    "static/media/waterdrop.png": "/smart-pot/static/media/waterdrop.3876af3fdb1ef3c7d018.png",
+    "static/media/Plant404.jpg": "/smart-pot/static/media/Plant404.1437fd7f46cc6075e994.jpg",
+    "static/media/no-image.jpeg": "/smart-pot/static/media/no-image.3c8a503ee6a67e461a08.jpeg",
+    "index.html": "/smart-pot/index.html",
+    "main.49c927bd.css.map": "/smart-pot/static/css/main.49c927bd.css.map",
+    "main.20fa4473.js.map": "/smart-pot/static/js/main.20fa4473.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.49c927bd.css",
+    "static/js/main.20fa4473.js"
+  ]
+}
