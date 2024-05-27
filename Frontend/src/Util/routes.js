@@ -23,23 +23,23 @@ const Routes = () => {
 
   const routesForAuthenticatedOnly = [
     {
-      path: "/",
+      path: "/smart-pot",
       element: <ProtectedRoute />, 
       children: [
         {
-          path: "/",
+          path: "/smart-pot",
           element: <Home />,
         },
         {
-          path: "/plant_overview",
+          path: "/smart-pot/plant_overview",
           element: <PlantOverview />,
         },
         {
-          path: "/connect_pot",
+          path: "/smart-pot/connect_pot",
           element: <ConnectPot />,
         },
         {
-            path: "/pot-details/:potID",
+            path: "/smart-pot/pot-details/:potID",
             element: <PotDetails/>,
           },
       ],
@@ -49,11 +49,11 @@ const Routes = () => {
  
   const routesForNotAuthenticatedOnly = [
     {
-      path: "/register",
+      path: "/smart-pot/register",
       element: <Register />,
     },
     {
-      path: "/login",
+      path: "/smart-pot/login",
       element: <Login/>,
     },
   ];

@@ -52,7 +52,7 @@ const Register =()=> {
         try {
             const response = await createUser(name, lastName, hashedPassword, email, phoneNumber);
             if (response === true) {
-                navigate('/login');
+                navigate('/smart-pot/login');
             } else {
                 setError(response);
                 setShowError(true);
@@ -69,7 +69,7 @@ const Register =()=> {
     }
 
     const handleClickBack = ()  => {
-        navigate('/login');
+        navigate('/smart-pot/login');
     }
 
 

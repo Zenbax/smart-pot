@@ -7,7 +7,7 @@ import "../Styling/PageNotFound.css"
 const PageNotFound = () => {
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate("/")
+        navigate("/smart-pot")
       };
 return(
     <Container>
@@ -19,7 +19,7 @@ return(
         <div id='PageNotFoundText'>
             <h1>404</h1>
             <h2>Page Not Found</h2>
-            <Link to="/"><button type="button" onClick={handleClick}> Home</button></Link>
+            <Link to="/smart-pot"><button type="button" onClick={handleClick}> Home</button></Link>
         </div>
         
         </Col>

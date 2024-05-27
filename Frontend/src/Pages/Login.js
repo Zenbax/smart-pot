@@ -22,7 +22,7 @@ const Login =()=> {
         const hashedPassword = MD5(password).toString();
         const response = await loginUser(email, hashedPassword, setToken)
         if (response === true){
-            navigate('/');
+            navigate('/smart-pot');
         }
         else{
             setError(response);

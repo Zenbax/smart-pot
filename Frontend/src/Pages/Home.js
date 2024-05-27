@@ -37,8 +37,8 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="d-grid">
-                        <Link to="/connect_pot" className="btn btn-outline-dark mt-3">Connect pot</Link>
-                        <Link to="/plant_overview" className="btn btn-outline-dark mt-3">Plant Overview</Link>
+                        <Link to="/smart-pot/connect_pot" className="btn btn-outline-dark mt-3">Connect pot</Link>
+                        <Link to="/smart-pot/plant_overview" className="btn btn-outline-dark mt-3">Plant Overview</Link>
                     </div>
                 </Col>
                 <Col md={8}>
