@@ -16,7 +16,7 @@ const PlantAddPopUp = ({ handlePopUpAction, ShowRemove }) => {
     };
 
     const handleCreateNew = () => {
-        navigate('/plant_overview');
+        navigate('/smart-pot/plant_overview');
     };
 
     return (

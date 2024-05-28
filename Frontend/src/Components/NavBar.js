@@ -11,11 +11,11 @@ const Navbar = () => {
 
   const handleLogoutClick = () => {
     setToken("");
-    navigate("/Login");
+    navigate("/smart-pot/Login");
   };
 
   const homeClick = () => {
-    navigate("/");
+    navigate("/smart-pot");
     window.location.reload(); //Reload er nødvendig da navbaren ligger udenfor scope af routesne
   };
 

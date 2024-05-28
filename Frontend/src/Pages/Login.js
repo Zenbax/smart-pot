@@ -56,7 +56,7 @@ const Login =()=> {
                     </div>
                 )}
                 <button type="submit" class="btn btn-primary">Login</button>
-                <Link to="/Register"><button class="btn btn-secondary">Register </button></Link>
+                <Link to="/smart-pot/register"><button class="btn btn-secondary">Register </button></Link>
                 <Outlet />
             </form>
         </div>

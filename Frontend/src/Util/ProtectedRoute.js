@@ -4,7 +4,7 @@ import { useAuth } from "./AuthProvider";
 export const ProtectedRoute = () => {
   const { token } = useAuth();
   if (!token) {
-    return <Navigate to="/smart-pot/Login" />;
+    return <Navigate to="/smart-pot/login" />;
   }
   return <Outlet />;
 };
