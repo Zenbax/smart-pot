@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using YourApiNamespace.Controllers;
+using Microsoft.AspNetCore.HttpOverrides;  // Add this namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,6 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
-
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
@@ -70,7 +70,6 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.UseExceptionHandler(a => a.Run(async context =>
 {
@@ -85,5 +84,10 @@ app.UseExceptionHandler(a => a.Run(async context =>
     await context.Response.WriteAsync(result);
 }));
 
+// Add forwarded headers middleware to handle headers from Nginx
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.Run();
