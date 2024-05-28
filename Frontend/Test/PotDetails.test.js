@@ -227,7 +227,7 @@ test('PotDetails: Disconnect pot', async () => {
     fireEvent.click(screen.getByText('Delete'));
 
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("/");
+      expect(navigateMock).toHaveBeenCalledWith("/smart-pot");
   });
 });
 

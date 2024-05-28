@@ -67,7 +67,7 @@ test("submits the form and calls navigate on successful login", async () => {
     expect(MD5).toHaveBeenCalledWith('password');
       
     await waitFor (() => {
-      expect(navigateMock).toHaveBeenCalledWith('/');
+      expect(navigateMock).toHaveBeenCalledWith('/smart-pot');
     })
    
 

@@ -60,7 +60,7 @@ test('Submits form correctly', async () => {
     expect(MD5).toHaveBeenCalledWith('password');
 
     await waitFor (() => {
-        expect(navigateMock).toHaveBeenCalledWith('/login');
+        expect(navigateMock).toHaveBeenCalledWith('/smart-pot/login');
     });
 });
 
@@ -146,7 +146,7 @@ test('Click button Back to Login page', async () => {
     fireEvent.click(getByText('Back'));
 
     await waitFor (() => {
-        expect(navigateMock).toHaveBeenCalledWith('/login');
+        expect(navigateMock).toHaveBeenCalledWith('/smart-pot/login');
     });
 });
   

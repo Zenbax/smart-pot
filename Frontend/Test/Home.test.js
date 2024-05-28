@@ -71,8 +71,8 @@ test('Home-page renders correctly', async () => {
   const overviewButton = screen.getByText('Plant Overview');
   expect(connectPotButton).toBeInTheDocument();
   expect(overviewButton).toBeInTheDocument();
-  expect(connectPotButton.closest('a')).toHaveAttribute('href', '/connect_pot');
-  expect(overviewButton.closest('a')).toHaveAttribute('href', '/plant_overview');
+  expect(connectPotButton.closest('a')).toHaveAttribute('href', '/smart-pot/connect_pot');
+  expect(overviewButton.closest('a')).toHaveAttribute('href', '/smart-pot/plant_overview');
 
   // Pots Section
   await waitFor(() => expect(require('../src/Util/apiClient').getAllPots).toHaveBeenCalled());

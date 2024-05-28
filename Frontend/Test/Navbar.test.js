@@ -55,7 +55,7 @@ test("Click on button on the Navbar and navigate to Login-page",() => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Logout' }));
-    expect(mockNavigate).toHaveBeenCalledWith('/Login');
+    expect(mockNavigate).toHaveBeenCalledWith('/smart-pot/Login');
 });
 
 
@@ -69,7 +69,7 @@ test("Navigate to Homepage from Navbar", () =>{
 
     fireEvent.click(getByText('Smart-Pot'));
 
-    expect(mockNavigate).toHaveBeenCalledWith('/');
+    expect(mockNavigate).toHaveBeenCalledWith('/smart-pot');
 });
 
 

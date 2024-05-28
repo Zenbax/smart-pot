@@ -72,7 +72,7 @@ test('Connect a pot', async () => {
 
   await waitFor(() => {
     expect(createPot).toHaveBeenCalledWith('My Smart Pot', '123456', null, expect.any(Function));
-    expect(navigateMock).toHaveBeenCalledWith('/');
+    expect(navigateMock).toHaveBeenCalledWith('/smart-pot');
   });
 });
 
@@ -255,7 +255,7 @@ test("Create New goes to plantoverviwe", async () => {
   fireEvent.click(createNewButton);
 
   await waitFor(() => {
-    expect(navigateMock).toHaveBeenCalledWith('/plant_overview');
+    expect(navigateMock).toHaveBeenCalledWith('/smart-pot/plant_overview');
   });
 
 })
