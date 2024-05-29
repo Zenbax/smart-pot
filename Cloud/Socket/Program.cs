@@ -1,6 +1,7 @@
 ﻿using System;
 using MongoDB.Driver;
 using dotenv.net;
+using Socket;
 
 public class Program
 {
@@ -8,32 +9,24 @@ public class Program
     {
         Console.WriteLine("Starting socket !");
         
-        // Load environment variables from .env file
-        DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { ".env" }, ignoreExceptions: false));
+        // Use the generic database service
+        IDatabaseService databaseService = new MongoDBService();
+
+        // Initialize database connection
+        InitializeDatabase(databaseService);
         
-        // Initialize MongoDB
-        InitializeMongoDB();
-        
-        ServerListener.StartServer();
+        ServerListener.StartServer(databaseService);
     }
     
-    private static void InitializeMongoDB()
+    private static void InitializeDatabase(IDatabaseService databaseService)
     {
         try
         {
-            string connectionString = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING");
-            string databaseName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME");
-
-            
-            var client = new MongoClient(connectionString); 
-            client.GetDatabase(databaseName);
-            
-            Console.WriteLine("MongoDB connected.");
+            databaseService.Connect();
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to connect to MongoDB: " + ex.Message);
+            Console.WriteLine("Failed to initialize database: " + ex.Message);
         }
     }
-
 }

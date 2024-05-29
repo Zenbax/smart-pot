@@ -1,58 +1,106 @@
-﻿// UserLogic.cs
-using Application.LogicInterfaces;
+﻿using Application_.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
-using MongoDB.Driver;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
+using MongoDB.Driver;
+using LoggerExtensions = DnsClient.Internal.LoggerExtensions;
 
+namespace Application_.Logic;
 
-namespace Application.Logic
-{
-    public class UserLogic : IUserLogic
+public class UserLogic : IUserLogic
     {
         private readonly IMongoCollection<User> _usersCollection;
+        private readonly ILogger<UserLogic> _logger;
 
-        public UserLogic(IMongoCollection<User> usersCollection)
+        public UserLogic(IMongoCollection<User> usersCollection, ILogger<UserLogic> logger)
         {
             _usersCollection = usersCollection;
+            _logger = logger;
         }
 
-        public async Task<string> Login(LoginDto userLoginDto)
+        public async Task<UserGetByIdDto> GetUserById(UserGetByIdDto userGetByIdDto)
         {
-            var user = await _usersCollection.Find(u => u.Email == userLoginDto.Username && u.Password == userLoginDto.Password).FirstOrDefaultAsync();
-            if (user != null)
+            try
             {
-                // Implement your token generation logic here
-                // For now, we are just returning a simple GUID as token
-                return Guid.NewGuid().ToString();
+                var user = await _usersCollection.Find(user => user.Id == userGetByIdDto.IdToGet).FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    userGetByIdDto.Message = "User with id " + userGetByIdDto.IdToGet + " not found.";
+                    userGetByIdDto.Success = false;
+                    userGetByIdDto.User = null;
+                }
+                else
+                {
+                    userGetByIdDto.Message = "User retrieved successfully.";
+                    userGetByIdDto.Success = true;
+                    userGetByIdDto.User = user;
+                }
             }
-            return null;
-        }
-
-        public async Task<string> Register(UserCreationDto userCreationDto)
-        {
-            var newUser = new User
+            catch (Exception ex)
             {
-                Id = ObjectId.GenerateNewId().ToString(), // Genererer en ny ObjectId som id
-                Name = userCreationDto.Name,
-                LastName = userCreationDto.LastName,
-                Email = userCreationDto.Email,
-                Password = userCreationDto.Password,
-                PhoneNumber = userCreationDto.PhoneNumber
-            };
-            await _usersCollection.InsertOneAsync(newUser);
-            return newUser.Id;
-        }
-
-        public async Task<User> GetUserById(string id)
-        {
-            return await _usersCollection.Find(user => user.Id == id).FirstOrDefaultAsync();
+                userGetByIdDto.Message = "Error: " + ex.Message;
+                userGetByIdDto.Success = false;
+                userGetByIdDto.User = null;
+            }
+            return userGetByIdDto;
         }
         
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<UserGetAllDto> GetUsers()
         {
-            return await _usersCollection.Find(user => true).ToListAsync();
+            try 
+            {
+                var users = await _usersCollection.Find(user => true).ToListAsync();
+                if (users.Count == 0)
+                {
+                    return new UserGetAllDto
+                    {
+                        Users = null,
+                        Message = "No users in database.",
+                        Success = true
+                    };
+                }
+                return new UserGetAllDto
+                {
+                    Users = users,
+                    Message = "Users retrieved successfully.",
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new UserGetAllDto
+                {
+                    Users = null,
+                    Message = "Error: " + ex.Message,
+                    Success = false
+                };
+            }
+        }
+
+        public async Task<UserUpdateDto> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            var updatedUser = await _usersCollection.FindOneAndUpdateAsync(
+                user => user.Id == userUpdateDto.IdToUpdate,
+                Builders<User>.Update
+                    .Set(user => user.Name, userUpdateDto.User.Name)
+                    .Set(user => user.LastName, userUpdateDto.User.LastName)
+                    .Set(user => user.Email, userUpdateDto.User.Email)
+                    .Set(user => user.Password, userUpdateDto.User.Password)
+                    .Set(user => user.PhoneNumber, userUpdateDto.User.PhoneNumber)
+            );
+
+            if (updatedUser == null)
+            {
+                userUpdateDto.Message = "User with id " + userUpdateDto.IdToUpdate + " not found.";
+                userUpdateDto.Success = false;
+                userUpdateDto.User = null;
+            }
+            else
+            {
+                userUpdateDto.Message = "User updated successfully.";
+                userUpdateDto.Success = true;
+            }
+            return userUpdateDto;
         }
     }
-    
-}

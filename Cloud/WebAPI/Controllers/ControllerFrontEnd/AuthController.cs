@@ -1,62 +1,83 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Domain.DTOs;
+using System.Threading.Tasks;
+using Application_.LogicInterfaces;
 using Cloud.Services;
+using Domain.DTOs;
 using Domain;
 using Domain.Model;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers.ControllerFrontEnd
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly IAuthService _authService;
+    private readonly IAuthService _authService;
+    private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IConfiguration configuration, IAuthService authService)
+    public AuthController(IConfiguration configuration, IAuthService authService, ILogger<AuthController> logger)
+    {
+        _authService = authService;
+        _logger = logger;
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<UserLoginDto>> Login(LoginRequestDto loginRequestDto)
+    {
+        User user = new User()
         {
-            _configuration = configuration;
-            _authService = authService;
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+            Email = loginRequestDto.Email,
+            Password = loginRequestDto.Password
+        };
+        UserLoginDto userLoginDto = new UserLoginDto(user);
+        try
         {
-            var user = await _authService.ValidateUser(loginDto.Username, loginDto.Password);
-            if (user == null)
-                return Unauthorized();
+            var response = await _authService.LoginUser(userLoginDto);
+            if (response.Success == false)
+                return BadRequest(response);
 
-            var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            return Ok(response);
         }
+        catch (Exception ex)
+        {
+            userLoginDto.Message = "Error: " + ex.Message;
+            userLoginDto.Success = false;
+            return StatusCode(500, userLoginDto);
+        }
+    }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserCreationDto userDto)
+        public async Task<ActionResult<UserRegisterDto>> Register(RegisterRequestDto registerRequestDto)
         {
-            // Implement user registration logic here
-            return CreatedAtAction(nameof(Login), new { username = userDto.Email }, null);
-        }
-
-        private string GenerateJwtToken(User user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
+                UserRegisterDto userRegisterDto = new UserRegisterDto(new User()
                 {
-                    new Claim(ClaimTypes.Name, user.Email),
-                    // You can add more claims here if needed
-                }),
-                Expires = DateTime.UtcNow.AddHours(Convert.ToDouble(_configuration["Jwt:ExpireHours"])),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+                    Name = registerRequestDto.Name,
+                    LastName = registerRequestDto.LastName,
+                    Email = registerRequestDto.Email,
+                    Password = registerRequestDto.Password,
+                    PhoneNumber = registerRequestDto.PhoneNumber
+                });
+            try{
+                var response = await _authService.RegisterUser(userRegisterDto);
+                if (response.Success == false)
+                    return BadRequest(response);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                userRegisterDto.Message = "Error: " + ex.Message;
+                userRegisterDto.Success = false;
+                return StatusCode(500, userRegisterDto);
+            }
         }
     }
 }

@@ -9,9 +9,11 @@
 
     <ItemGroup>
         
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
+        
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
         <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
     </ItemGroup>
 
@@ -23,12 +25,15 @@
 
     <ItemGroup>
       <Folder Include="Controllers\ControllerIOT\" />
+      <Folder Include="obj\Debug\net7.0\" />
       <Folder Include="Services\ServiceFrontEnd\" />
       <Folder Include="Services\ServiceIOT\" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Application\Application.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\MongoDB\MongoDB.csproj" />
     </ItemGroup>
 
 </Project>
