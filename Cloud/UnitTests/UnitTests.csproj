@@ -38,4 +38,8 @@
 
 
 
+    <ItemGroup>
+      <Folder Include="WebAPITasting\" />
+    </ItemGroup>
+
 </Project>

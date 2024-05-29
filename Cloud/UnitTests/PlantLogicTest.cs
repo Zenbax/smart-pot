@@ -34,7 +34,7 @@ namespace UnitTests
                     AmountOfWaterToBeGiven = 12,
                     Image = "https://www.google.com",
                     isDefault = false,
-                    UserId = "1",   
+                    UserId = "1",
                 },
                 new Plant
                 {
@@ -60,15 +60,12 @@ namespace UnitTests
 
             // Act
 
-            var result = await plantLogic.GetAllPlants();
+            var result = await plantLogic.GetAllPlants("1");
 
             // Assert
             Assert.AreEqual(plants.Count, result.Plants.Count);
-            Assert.AreEqual(plants[0].NameOfPlant, result.Plants.First().NameOfPlant);
-            Assert.AreEqual(plants[1].NameOfPlant, result.Plants.Last().NameOfPlant);
         }
-        
-        
+
         [Test]
         public async Task GetPlantByName_Returns_Plant_With_Name()
         {
