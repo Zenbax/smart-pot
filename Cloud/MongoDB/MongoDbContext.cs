@@ -5,7 +5,7 @@ using YourApiNamespace.Controllers;
 
 namespace MongoDB;
 
-public class MongoDbContext
+public class MongoDbContext //selve konteksten til MongoDB databasen
 {
     private readonly IMongoDatabase _database;
     private readonly ILogger<MongoDbContext> _logger;

@@ -9,8 +9,12 @@ public class UserGetByIdDto
     {
         IdToGet = idToGet;
     }
-    
-    
+
+    public UserGetByIdDto()
+    {
+    }
+
+
     public User User { get; set; }
     public string IdToGet { get; set; }
     public string Message { get; set; }

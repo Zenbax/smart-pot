@@ -1,5 +1,4 @@
-﻿
-using YourApiNamespace.Controllers;
+﻿using YourApiNamespace.Controllers;
 
 namespace UnitTests
 {
@@ -22,17 +21,24 @@ namespace UnitTests
         public async Task CreatePot_SuccessfullyCreatesPot()
         {
             // Arrange
-            var pot = new Pot { Id = "1" };
-            var potDto = new PotCreationDto { Pot = pot };
+            var potDto = new PotCreationDto { Pot = new Pot { NameOfPot = "Pot1", MachineID = "123", Enable = 1 } };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
 
             // Act
             var result = await _potLogic.CreatePot(potDto);
 
             // Assert
             Assert.IsTrue(result.Success);
-            Assert.AreEqual("Create pot successfully", result.Message);
+            Assert.AreEqual("Pot created successfully.", result.Message);
         }
-
+        
         
         [Test]
         public async Task DeletePot_PotExists_SuccessfullyDeletesPot()
@@ -68,6 +74,71 @@ namespace UnitTests
             // Assert
             Assert.IsFalse(result.Success);
             Assert.AreEqual("Pot not found", result.Message);
+        }
+       
+        [Test]
+        public async Task GetPotById_PotDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotGetByIdDto { IdToGet = potId };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _potLogic.GetPotById(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Pot not found", result.Message);
+            Assert.IsNull(result.Pot);
+        }
+        
+        [Test]
+        public async Task UpdatePot_PotDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotUpdateDto { IdToUpdate = potId, Pot = new Pot { NameOfPot = "UpdatedPot", MachineID = "456", Enable = 1 } };
+            var mockAsyncCursor = new Mock<IAsyncCursor<Pot>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<Pot>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockPotsCollection.Setup(x => x.FindAsync(It.IsAny<FilterDefinition<Pot>>(), It.IsAny<FindOptions<Pot, Pot>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _potLogic.UpdatePot(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Pot with ID1 not found", result.Message);
+            Assert.IsNull(result.Pot);
+        }
+        
+        [Test]
+        public async Task DeletePot_Returns_Pot_Not_Found_When_Exception_Is_Thrown()
+        {
+            // Arrange
+            var potId = "1";
+            var potDto = new PotDeleteDto { IdToDelete = potId };
+            _mockPotsCollection.Setup(x => x.DeleteOneAsync(It.IsAny<FilterDefinition<Pot>>(), default))
+                .Throws(new Exception());
+
+            // Act
+            var result = await _potLogic.DeletePot(potDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("Error: Exception of type 'System.Exception' was thrown.", result.Message);
         }
     }
 }

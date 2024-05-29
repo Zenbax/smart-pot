@@ -22,44 +22,13 @@ namespace WebAPI.Controllers.ControllerFrontEnd;
             _potLogic = potLogic;
         }
         
-        //måske skal denne metode slettes
-/*
-        [HttpGet("get/all")]
-        public async Task<ActionResult<PotGetAllDto>> GetPot()
-        {
-            PotGetAllDto potGetAllDto = new PotGetAllDto();
-            try
-            {
-                var result = await _potLogic.GetAllPots();
-                if (result.Success == false)
-                {
-                    return BadRequest(result);
-                }
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                potGetAllDto.Message = $"Error: {ex.Message}";
-                potGetAllDto.Success = false;
-                return StatusCode(500, potGetAllDto);
-            }
-        }
-        */
-        
-        
-        
         [HttpGet("get/all")]
         public async Task<IActionResult> GetAllPots()
         {
             string userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (userEmail == null)
-            {
-                return BadRequest("User email not found.");
-            }
             var result = await _potLogic.GetAllPots(userEmail);
             return Ok(result);
         }
-
         
 
         [HttpGet("get/{id}")]

@@ -17,5 +17,4 @@ public interface IPotLogic
     Task<PotDeleteDto> DeletePot(PotDeleteDto potDeleteDto);
 }
 
-
 //Update 

@@ -1,4 +1,3 @@
-using System.Net;
 using MongoDB;
 using Application_.Logic;
 using Application_.LogicInterfaces;
@@ -10,9 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Domain.Model;
-using Microsoft.AspNetCore.Diagnostics;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using YourApiNamespace.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,7 +56,6 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
-
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
@@ -70,20 +66,5 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
-
-app.UseExceptionHandler(a => a.Run(async context =>
-{
-    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-    var exception = exceptionHandlerPathFeature.Error;
-
-    // Using Newtonsoft.Json to serialize the error response
-    var result = JsonConvert.SerializeObject(new { error = exception.Message });
-    context.Response.ContentType = "application/json";
-    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-    await context.Response.WriteAsync(result);
-}));
-
 
 app.Run();

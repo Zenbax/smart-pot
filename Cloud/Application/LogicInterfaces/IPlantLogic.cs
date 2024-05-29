@@ -5,7 +5,7 @@ namespace Application_.LogicInterfaces;
 
 public interface IPlantLogic
 {
-    Task<PlantGetAllDto> GetAllPlants(string? userId); 
+    Task<PlantGetAllDto> GetAllPlants();
     Task<PlantGetByNameDto> GetPlantByName(PlantGetByNameDto plantGetByNameDto);
     Task<PlantCreationDto> CreatePlant(PlantCreationDto plantCreationDto);
     Task<PlantUpdateDto> UpdatePlant(PlantUpdateDto updatedPlantDto);

@@ -1,52 +1,100 @@
-﻿    //
-    // namespace UnitTests
-    // {
-    //     [TestFixture]
-    //     public class UserLogicTests
-    //     {
-    //         private Mock<IMongoCollection<User>> _mockUsersCollection;
-    //         private UserLogic _userLogic;
-    //
-    //
-    //         [SetUp]
-    //         public void SetUp()
-    //         {
-    //             _mockUsersCollection = new Mock<IMongoCollection<User>>();
-    //             _userLogic = new UserLogic(_mockUsersCollection.Object, Mock.Of<ILogger<UserLogic>>());
-    //         }
-    //
-    //        
-    //         [Test]
-    //         public async Task GetUsers_Returns_All_Users()
-    //         {
-    //             // Arrange
-    //             var users = new List<User>
-    //             {
-    //                 new User { Id = "1", Email = "eq@da.dk", Password = "1234" },
-    //                 new User { Id = "2", Email = "eq2@da.dk", Password = "1234" }
-    //
-    //             };
-    //             var mockCursor = new Mock<IAsyncCursor<User>>();
-    //             mockCursor.Setup(_ => _.Current).Returns(users);
-    //             mockCursor.SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
-    //                 .Returns(Task.FromResult(true))
-    //                 .Returns(Task.FromResult(false));
-    //
-    //             _mockUsersCollection.Setup(m => m.FindAsync<User>( // Async Find
-    //                 It.IsAny<FilterDefinition<User>>(),
-    //                 It.IsAny<FindOptions<User, User>>(),
-    //                 It.IsAny<CancellationToken>()
-    //             )).ReturnsAsync(mockCursor.Object);
-    //
-    //             // Act
-    //             var result = await _userLogic.GetUsers();
-    //
-    //             // Assert
-    //
-    //             Assert.IsNotNull(result);
-    //             Assert.IsInstanceOf<IEnumerable<User>>(result);
-    //             CollectionAssert.AreEqual(users, result);
-    //
-    //         }
-    //     }
-    // }
+﻿
+namespace UnitTests
+{
+    [TestFixture]
+    public class UserLogicTests
+    {
+        private Mock<IMongoCollection<User>> _mockUsersCollection;
+        private UserLogic _userLogic;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mockUsersCollection = new Mock<IMongoCollection<User>>();
+            _userLogic = new UserLogic(_mockUsersCollection.Object, Mock.Of<ILogger<UserLogic>>());
+        }
+        
+        [Test]
+        public async Task GetUserById_UserDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var userId = "1";
+            var userDto = new UserGetByIdDto { IdToGet = userId };
+            var mockAsyncCursor = new Mock<IAsyncCursor<User>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<User>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockUsersCollection.Setup(x =>
+                    x.FindAsync(It.IsAny<FilterDefinition<User>>(), It.IsAny<FindOptions<User, User>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _userLogic.GetUserById(userDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("User with id 1 not found.", result.Message);
+            Assert.IsNull(result.User);
+        }
+
+        [Test]
+        public async Task GetUsers_NoUsersInDatabase_ReturnsNoUsersMessage()
+        {
+            // Arrange
+            var users = new List<User>();
+            var mockAsyncCursor = new Mock<IAsyncCursor<User>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(users);
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockUsersCollection.Setup(x =>
+                    x.FindAsync(It.IsAny<FilterDefinition<User>>(), It.IsAny<FindOptions<User, User>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _userLogic.GetUsers();
+
+            // Assert
+            Assert.IsTrue(result.Success);
+            Assert.IsNull(result.Users);
+            Assert.AreEqual("No users in database.", result.Message);
+        }
+
+
+        [Test]
+        public async Task UpdateUser_UserDoesNotExist_ReturnsError()
+        {
+            // Arrange
+            var userId = "1";
+            var userDto = new UserUpdateDto
+            {
+                IdToUpdate = userId,
+                User = new User
+                {
+                    Name = "Jane", LastName = "Smith", Email = "jane@example.com", Password = "password",
+                    PhoneNumber = "1234567890"
+                }
+            };
+            var mockAsyncCursor = new Mock<IAsyncCursor<User>>();
+            mockAsyncCursor.Setup(_ => _.Current).Returns(new List<User>());
+            mockAsyncCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            _mockUsersCollection.Setup(x =>
+                    x.FindAsync(It.IsAny<FilterDefinition<User>>(), It.IsAny<FindOptions<User, User>>(), default))
+                .ReturnsAsync(mockAsyncCursor.Object);
+
+            // Act
+            var result = await _userLogic.UpdateUser(userDto);
+
+            // Assert
+            Assert.IsFalse(result.Success);
+            Assert.AreEqual("User with id 1 not found.", result.Message);
+            Assert.IsNull(result.User);
+        }
+    }
+}
