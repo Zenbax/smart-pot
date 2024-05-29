@@ -28,7 +28,7 @@ jobs:
         run: dotnet build --no-restore ./Cloud
 
       - name: Run unit tests
-        run: dotnet test ./Cloud/UnitTests --no-build --verbosity normal
+        run: dotnet test ./Cloud/UnitTests/UnitTests.csproj --no-build --verbosity normal
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
