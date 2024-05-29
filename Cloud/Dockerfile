@@ -1,7 +1,7 @@
 ﻿# Use the base image with .NET runtime
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80 11000
+EXPOSE 443 11000
 
 # Install Supervisord
 RUN apt-get update && apt-get install -y supervisor
