@@ -10,11 +10,6 @@ public class UserUpdateDto
         IdToUpdate = id;
         User = user;
     }
-
-    public UserUpdateDto()
-    {
-    }
-
     [Required] public User User { get; set; }
     [Required] public string IdToUpdate { get; set; }
     public string Message { get; set; }

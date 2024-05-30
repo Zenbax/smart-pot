@@ -47,3 +47,5 @@ jobs:
           file: ./Cloud/Dockerfile
           push: true
           tags: 211125663204.dkr.ecr.eu-north-1.amazonaws.com/sep4:latest
+
+      

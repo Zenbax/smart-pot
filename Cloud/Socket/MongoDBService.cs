@@ -10,6 +10,7 @@ public class MongoDBService : IDatabaseService
 
     public MongoDBService()
     {
+        // Load environment variables from .env file
         DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { ".env" }, ignoreExceptions: false));
         _connectionString = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING");;
         _databaseName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME");;

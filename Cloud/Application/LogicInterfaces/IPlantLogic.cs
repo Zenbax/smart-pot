@@ -10,5 +10,5 @@ public interface IPlantLogic
     Task<PlantCreationDto> CreatePlant(PlantCreationDto plantCreationDto);
     Task<PlantUpdateDto> UpdatePlant(PlantUpdateDto updatedPlantDto);
     Task<PlantDeleteDto> DeletePlant(PlantDeleteDto plantDeleteDto);
-
+    
 }
