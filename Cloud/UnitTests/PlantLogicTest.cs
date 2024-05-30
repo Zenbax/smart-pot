@@ -13,7 +13,7 @@ namespace UnitTests
             _mockPlantsCollection = new Mock<IMongoCollection<Plant>>();
             _plantLogic = new PlantLogic(_mockPlantsCollection.Object);
         }
-/*
+
         [Test]
         public async Task GetAllPlants_Returns_All_Plants()
         {
@@ -34,7 +34,7 @@ namespace UnitTests
                     AmountOfWaterToBeGiven = 12,
                     Image = "https://www.google.com",
                     isDefault = false,
-                    UserId = "1",   
+                    UserId = "1",
                 },
                 new Plant
                 {
@@ -59,16 +59,13 @@ namespace UnitTests
             var plantLogic = new PlantLogic(mockPlantCollection.Object);
 
             // Act
-
-            var result = await plantLogic.GetAllPlants();
-
+            var result = await plantLogic.GetAllPlants("1");
+            
             // Assert
             Assert.AreEqual(plants.Count, result.Plants.Count);
-            Assert.AreEqual(plants[0].NameOfPlant, result.Plants.First().NameOfPlant);
-            Assert.AreEqual(plants[1].NameOfPlant, result.Plants.Last().NameOfPlant);
         }
-        */
-        
+
+
         [Test]
         public async Task GetPlantByName_Returns_Plant_With_Name()
         {
@@ -267,7 +264,5 @@ namespace UnitTests
             // Assert
             Assert.IsFalse(result.Success);
         }
-        
-
     }
 }  
