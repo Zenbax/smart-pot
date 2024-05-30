@@ -1,4 +1,4 @@
-namespace Socket;
+namespace MongoDB;
 
 public interface IDatabaseService
 {

@@ -1,6 +1,5 @@
 ﻿using System;
-using MongoDB.Driver;
-using dotenv.net;
+using MongoDB; // Ensure this is the correct namespace
 using Socket;
 
 public class Program
