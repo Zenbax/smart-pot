@@ -1,18 +1,19 @@
 using dotenv.net;
 using MongoDB.Driver;
 
-namespace Socket;
+namespace MongoDB;
 
-public class MongoDBService : IDatabaseService
+public class MongoDBServiceSocket : IDatabaseService
 {
     private string _connectionString;
     private string _databaseName;
 
-    public MongoDBService()
+    public MongoDBServiceSocket()
     {
+        // Load environment variables from .env file
         DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { ".env" }, ignoreExceptions: false));
-        _connectionString = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING");;
-        _databaseName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME");;
+        _connectionString = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING");
+        _databaseName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME");
     }
 
     public void Connect()

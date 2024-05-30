@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Domain.Model;
+using MongoDB;
 using MongoDB.Driver;
 using Socket;
 using YourApiNamespace.Controllers;

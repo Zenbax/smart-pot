@@ -59,12 +59,12 @@ namespace UnitTests
             var plantLogic = new PlantLogic(mockPlantCollection.Object);
 
             // Act
-
             var result = await plantLogic.GetAllPlants("1");
-
+            
             // Assert
             Assert.AreEqual(plants.Count, result.Plants.Count);
         }
+
 
         [Test]
         public async Task GetPlantByName_Returns_Plant_With_Name()

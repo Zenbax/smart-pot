@@ -58,6 +58,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();

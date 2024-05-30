@@ -1,6 +1,5 @@
 ﻿using System;
-using MongoDB.Driver;
-using dotenv.net;
+using MongoDB; // Ensure this is the correct namespace
 using Socket;
 
 public class Program
@@ -10,7 +9,7 @@ public class Program
         Console.WriteLine("Starting socket !");
         
         // Use the generic database service
-        IDatabaseService databaseService = new MongoDBService();
+        IDatabaseService databaseService = new MongoDBServiceSocket();
 
         // Initialize database connection
         InitializeDatabase(databaseService);
