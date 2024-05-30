@@ -9,7 +9,7 @@ public class Program
         Console.WriteLine("Starting socket !");
         
         // Use the generic database service
-        IDatabaseService databaseService = new MongoDBService();
+        IDatabaseService databaseService = new MongoDBServiceSocket();
 
         // Initialize database connection
         InitializeDatabase(databaseService);

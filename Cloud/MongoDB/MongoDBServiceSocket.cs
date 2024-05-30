@@ -3,12 +3,12 @@ using MongoDB.Driver;
 
 namespace MongoDB;
 
-public class MongoDBService : IDatabaseService
+public class MongoDBServiceSocket : IDatabaseService
 {
     private string _connectionString;
     private string _databaseName;
 
-    public MongoDBService()
+    public MongoDBServiceSocket()
     {
         // Load environment variables from .env file
         DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { ".env" }, ignoreExceptions: false));
