@@ -58,12 +58,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure Kestrel to listen on HTTP and HTTPS
-var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
-var httpsPort = Environment.GetEnvironmentVariable("HTTPS_PORT") ?? "443";
-
-app.Urls.Add($"http://*:{port}");
-app.Urls.Add($"https://*:{httpsPort}");
 
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
