@@ -19,7 +19,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0'
+          dotnet-version: '7.0.x'  # Opdateret til at bruge .NET 7.0
 
       - name: Restore dependencies
         run: dotnet restore ./Cloud
