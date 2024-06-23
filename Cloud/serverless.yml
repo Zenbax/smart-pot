@@ -2,10 +2,7 @@ service: auth-service
 
 provider:
   name: aws
-  runtime: dotnetcore3.1
-  # Fjern eller kommenter følgende linje, hvis du ikke vil bruge JWT_SECRET
-  # environment:
-  #   JWT_SECRET: ${env:JWT_SECRET}
+  runtime: dotnet6
 
 functions:
   registerUser:
