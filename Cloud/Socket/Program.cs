@@ -15,6 +15,7 @@ public class Program
         InitializeDatabase(databaseService);
         
         ServerListener.StartServer(databaseService);
+        //zz
     }
     
     private static void InitializeDatabase(IDatabaseService databaseService)
