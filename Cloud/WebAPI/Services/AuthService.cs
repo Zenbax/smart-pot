@@ -17,11 +17,11 @@ using Amazon.Lambda.APIGatewayEvents;
 using System.Text.Json;
 using MongoDB.Bson;
 
+// Assembly-attribut for at muliggøre, at Lambda-funktionens JSON-indgang kan konverteres til en .NET-klasse.
+[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
+
 namespace Cloud.Services
 {
-    // Assembly-attribut for at muliggøre, at Lambda-funktionens JSON-indgang kan konverteres til en .NET-klasse.
-    [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
-
     public class AuthService : IAuthService
     {
         private readonly IList<User> users = new List<User> { };
