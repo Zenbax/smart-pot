@@ -45,7 +45,7 @@ namespace Cloud.Services
             user.Id = ObjectId.GenerateNewId().ToString(); // Generer en ny ObjectId for MongoDB
 
             users.Add(user);
-
+//zzzzzzzzzzzzzzzzzz
             return new UserRegisterDto
             {
                 User = user,
