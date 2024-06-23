@@ -11,6 +11,15 @@
     <ItemGroup>
 
         
+        <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.7.0" />
+
+        
+        <PackageReference Include="Amazon.Lambda.Core" Version="2.2.0" />
+
+        
+        <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.3" />
+
+        
         <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
        
     </ItemGroup>

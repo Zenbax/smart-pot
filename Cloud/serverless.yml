@@ -1,0 +1,15 @@
+service: auth-service
+
+provider:
+  name: aws
+  runtime: dotnetcore3.1
+  environment:
+    JWT_SECRET: ${env:JWT_SECRET}
+
+functions:
+  registerUser:
+    handler: Cloud.Services.AuthService::Cloud.Services.AuthService.RegisterUserLambda
+    events:
+      - http:
+          path: register
+          method: post

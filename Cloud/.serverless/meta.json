@@ -1,0 +1,67 @@
+{
+  "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud": {
+    "versionSfCore": null,
+    "versionFramework": "4.1.5",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeServiceName": null,
+    "servicePath": "C:\\Users\\artes\\Documents\\GitHub\\smart-pot\\Cloud",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "auth-service",
+      "provider": {
+        "name": "aws",
+        "runtime": "dotnetcore3.1",
+        "environment": {
+          "JWT_SECRET": "<REDACTED>"
+        }
+      },
+      "functions": {
+        "registerUser": {
+          "handler": "Cloud.Services.AuthService::Cloud.Services.AuthService.RegisterUserLambda",
+          "events": [
+            {
+              "http": {
+                "path": "register",
+                "method": "post"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "serviceRawFile": "service: auth-service\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: dotnetcore3.1\r\n  environment:\r\n    JWT_SECRET: ${env:JWT_SECRET}\r\n\r\nfunctions:\r\n  registerUser:\r\n    handler: Cloud.Services.AuthService::Cloud.Services.AuthService.RegisterUserLambda\r\n    events:\r\n      - http:\r\n          path: register\r\n          method: post\r\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "AWS credentials missing or invalid. Run \"serverless\" to set up AWS credentials, or learn more in our docs: http://slss.io/aws-creds-setup. Original error from AWS: Could not load credentials from any providers",
+      "code": "AWS_CREDENTIALS_MISSING"
+    },
+    "machineId": "ef93139b168bfb5db70a728e0f5aaf65",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "e628bc3d-8443-4ec0-a958-4f57c2704022",
+    "orgName": "artesh",
+    "userId": "FFM7wzcQHp4HVQBr6P",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "artesh",
+    "subscription": null,
+    "userEmail": "nnonenane@gmail.com",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

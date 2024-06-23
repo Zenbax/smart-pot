@@ -5,7 +5,7 @@ on:
     paths:
       - 'Cloud/**'
     branches:
-      - Cloud  # Triggers on a push to the 'Cloud' branch
+      - Cloud-Copyy # Triggers on a push to the 'Cloud' branch
 
 jobs:
   build_and_deploy:
@@ -48,4 +48,16 @@ jobs:
           push: true
           tags: 211125663204.dkr.ecr.eu-north-1.amazonaws.com/sep4:latest
 
-      
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+      - name: Deploy Serverless Functions
+        run: serverless deploy --stage prod --region eu-north-1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
