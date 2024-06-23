@@ -3,6 +3,8 @@ service: auth-service
 provider:
   name: aws
   runtime: dotnet6
+  deploymentBucket:
+    name: auth-service-deployment-bucket-${self:provider.stage}
 
 functions:
   registerUser:
