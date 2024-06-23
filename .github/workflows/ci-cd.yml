@@ -57,7 +57,8 @@ jobs:
         run: npm install -g serverless
 
       - name: Change directory to Cloud
-        run: cd Cloud
+        working-directory: ./Cloud
+        run: pwd  # This will print the current directory to verify the changee
 
       - name: Deploy Serverless Functions
         run: serverless deploy --stage prod --region eu-north-1 --no-aws-s3-accelerate
