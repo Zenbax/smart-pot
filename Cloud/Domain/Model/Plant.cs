@@ -5,6 +5,7 @@ namespace Domain.Model;
 
 public class Plant
 {
+    //hh
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
