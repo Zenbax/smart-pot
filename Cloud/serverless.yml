@@ -3,6 +3,7 @@ service: auth-service
 provider:
   name: aws
   runtime: dotnet6
+  region: eu-north-1
   deploymentBucket:
     name: auth-service-deployment-bucket-manual
 
