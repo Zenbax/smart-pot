@@ -1,5 +1,5 @@
 ﻿# Use the base image with .NET runtime
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80 443 11000
 
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
 
 # Use the SDK image to build the application
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy and restore all projects
